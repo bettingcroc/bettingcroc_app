@@ -1163,6 +1163,7 @@ multiBetABI = [
 		"type": "function"
 	}
 ]
+const { func } = require('assert-plus');
 let Sqlite = require('better-sqlite3');
 let db = new Sqlite('db.sqlite');
 const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-2-s2.binance.org:8545/"; //url of bsc testnet node
@@ -1197,6 +1198,12 @@ function getPseudo(address){
     console.log("from users.js : "+result)
     if(result) return result.pseudo;
     return 0;
+}
+function setPseudo(newPseudo,address){
+	address=address.toLowerCase();
+	db.prepare(` update Players set pseudo='${newPseudo}' where address='${address}'`).run()
+
+	
 }
 function getNonce(address){
     address=address.toLowerCase();
@@ -1318,5 +1325,6 @@ module.exports={
     getNonce:getNonce,
     verifySignature:verifySignature,
 	update_WeekScores:update_WeekScores,
-	recover:recover
+	recover:recover,
+	setPseudo:setPseudo
 }

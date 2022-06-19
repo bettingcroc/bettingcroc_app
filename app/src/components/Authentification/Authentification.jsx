@@ -64,7 +64,7 @@ class Authentification extends React.Component {
 export default Authentification;
 
 /*async function changePseudo(newPseudo) {
-	let url = 'api/users/' + myaddress;
+	let url = 'api/nonce/' + myaddress;
 	options = { 'method': 'GET' }
 	fetch(url, options).then(
 	  (res) => {
@@ -96,7 +96,7 @@ async function getNonce(address) {
   console.log("trying request nonce");
   let toReturn="ewe"
   if (__mounted && address !== "") {
-    let url = "http://localhost:4000/api/users/" + address;
+    let url = "http://localhost:4000/api/nonce/" + address;
     //console.log(url);
     let options = { method: "GET" };
     await new Promise(next =>{ fetch(url, options).then((res) => {
@@ -150,7 +150,7 @@ async function requestLogin(nonce, web3, address) {
 }
 async function testLogin(){
   if (__mounted) {
-    let url = "http://localhost:4000/testlogin";
+    let url = "http://localhost:4000/api/testlogin";
     
     console.log(url);
     let options = {

@@ -134,7 +134,7 @@ class App extends Component {
         <Route path="/classement" element={<Classement address={this.state.defaultAccount}></Classement>}></Route>
         <Route path="/mybets" element={<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
         <Route path="/authentification" element={<Authentification web3={this.state.web3} address={this.state.defaultAccount}></Authentification>}></Route>
-        <Route path="/account" element={<Account></Account>}></Route>
+        <Route path="/account" element={<Account address={this.state.defaultAccount}></Account>}></Route>
       </Route>
 
     </Routes>

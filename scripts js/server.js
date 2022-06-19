@@ -38,7 +38,7 @@ app.get('/api/position/:address', (req,res)=>{ //TODO inclure rank dans react
   res.send(position);
 })*/
 
-app.get('/api/users/:address',(req,res)=>{
+app.get('/api/nonce/:address',(req,res)=>{
   console.log("requesting a nonce")
   let nonce=users.getNonce(req.params.address);
   if(nonce===0){
@@ -68,34 +68,33 @@ app.post('/logout',(req,res)=>{
   req.session.address=undefined
   res.send("ok")
 })
-app.get('/testLogin',(req,res)=>{
-  /*if(req.session.logged===true){
-    res.status(200).send("logged")
-  }
-  else{
-    res.status(401).send(req.session.logged)
-  }*/
-  console.log(req.session.logged)
+app.get('/api/testLogin',(req,res)=>{
   res.send({isLogged:req.session.logged})
 })
-
 app.post('/api/setUpPseudo/',(req,res)=>{
-  
+  if(req.session.logged===true){
+    console.log(req.body.newPseudo," ",req.session.address)
+    users.setPseudo(req.body.newPseudo,req.session.address)
+    res.status(200).send()
+  }
+  else{
+    console.log("not logged")
+    res.status(401).send()
+  }
 })
-
-app.get('/lastbets',(req,res)=>{
+app.get('/api/lastbets',(req,res)=>{
   res.send(apiServer.getTodayMatches())
 })
-app.get('/infoMatch/:id',(req,res)=>{
+app.get('/api/infoMatch/:id',(req,res)=>{
   res.send(apiServer.getMatchInfo(req.params.id))
 })
-app.get('/classementApi',(req,res)=>{
+app.get('/api/classement',(req,res)=>{
   res.send(apiServer.get10MaxScore())
 })
-app.get('/scoreApi/:address',(req,res)=>{
+app.get('/api/score/:address',(req,res)=>{
   res.send(apiServer.getMyScore(req.params.address))
 })
-app.get('/myBets/:address',async (req,res)=>{
+app.get('/api/myBets/:address',async (req,res)=>{
   res.send(await apiServer.getMyBets(req.params.address))
 })
 
