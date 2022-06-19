@@ -8,6 +8,9 @@ class Authentification extends React.Component {
     this.requestLoginReact = this.requestLoginReact.bind(this);
     this.testLoginReact = this.testLoginReact.bind(this);
     this.logoutReact=this.logoutReact.bind(this);
+    this.state={
+      logged:"not logged"
+    }
   }
   async getNonceReact(address) {
     console.log("trying request 1");
@@ -18,13 +21,21 @@ class Authentification extends React.Component {
     await signNonce("ewww", this.props.web3, this.props.address); //FINIR AUTHENTIFICATION VIA NONCE SIGNED
   }
   async requestLoginReact() {
-    await getNonce(this.props.address).then(async (nonce)=>{await requestLogin(nonce.nonce, this.props.web3, this.props.address);})
+    await getNonce(this.props.address)
+    .then(async (nonce)=>{await requestLogin(nonce.nonce, this.props.web3, this.props.address)
+      .then((ew)=>{console.log(ew);this.testLoginReact()})
+    })
+    
   }
   async testLoginReact(){
-    await testLogin()
+    await testLogin().then((res)=>{
+      console.log("res "+res)
+      if(res.isLogged===true){this.setState({logged:"logged"})}
+      else{this.setState({logged:"not logged"})}
+    })
   }
   async logoutReact(){
-    await logout()
+    await logout().then((lol)=>{this.testLoginReact()})
   }
   render() {
     return (
@@ -41,6 +52,7 @@ class Authentification extends React.Component {
         <button onClick={this.requestLoginReact}>Login</button>
         <button onClick={this.testLoginReact}>testLogin</button>
         <button onClick={this.logoutReact}>LogOut</button>
+        <h4>{this.state.logged}</h4>
       </div>
     );
   }
@@ -127,9 +139,13 @@ async function requestLogin(nonce, web3, address) {
         "Content-Type": "application/json",
       },
     };
+    await new Promise(next =>{
     fetch(url, options).then((res) => {
       console.log("done");
-    });
+      next()
+    });})
+    console.log("end function")
+    return("done2")
   }
 }
 async function testLogin(){
@@ -140,9 +156,18 @@ async function testLogin(){
     let options = {
       method: "GET",
     };
-    fetch(url, options).then((res) => {
-      console.log("done");
-    });
+    let result
+    await new Promise(next =>{fetch(url, options).then((res) => {
+      res.json().then((data) => {
+        console.log(data)
+        result=data
+        next()
+      })
+      
+      
+    });})
+    
+    return result
   }
 }
 async function logout(){

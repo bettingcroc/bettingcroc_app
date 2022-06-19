@@ -17,7 +17,7 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-app.get('/classement/api/position/:address', (req,res)=>{ //TODO inclure rank dans react
+app.get('/api/position/:address', (req,res)=>{ //TODO inclure rank dans react
   let position=users.get_Classement_address(req.params.address);
   //console.log(position===undefined)
   if(position===undefined){
@@ -69,20 +69,18 @@ app.post('/logout',(req,res)=>{
   res.send("ok")
 })
 app.get('/testLogin',(req,res)=>{
-  if(req.session.logged===true){
-    res.send("logged")
+  /*if(req.session.logged===true){
+    res.status(200).send("logged")
   }
   else{
-    res.send(req.session.logged,807)
-  }
+    res.status(401).send(req.session.logged)
+  }*/
+  console.log(req.session.logged)
+  res.send({isLogged:req.session.logged})
 })
 
-app.post('/classement/api/setUpPseudo/:address&:signedData&:pseudo',(req,res)=>{
-  console.log('new pseudo')
-  console.log("params address: ",req.params.address)
-  console.log("params signedData : ",req.params.signedData)
-  users.verifySignature(req.params.address,req.params.signedData,req.params.pseudo)
-  res.redirect('/classement')
+app.post('/api/setUpPseudo/',(req,res)=>{
+  
 })
 
 app.get('/lastbets',(req,res)=>{

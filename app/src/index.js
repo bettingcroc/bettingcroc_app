@@ -19,6 +19,7 @@ import DecentraBet from "./components/DecentraBet/DecentraBet";
 import Classement from "./components/Classement/Classement";
 import MyBets from "./components/MyBets/MyBets";
 import Authentification from "./components/Authentification/Authentification";
+import Account from "./components/Account/Account";
 
 class App extends Component {
   async loadBlockchainData() {
@@ -122,6 +123,7 @@ class App extends Component {
           <Link to="/classement"><h3>Classement</h3></Link>
           <Link to="/mybets"><h3>myBets</h3></Link>
           <Link to="/authentification"><h3>authentification</h3></Link>
+          <Link to="/account"><h3>account</h3></Link>
         </div>
         <Outlet></Outlet>
       </div>}
@@ -132,6 +134,7 @@ class App extends Component {
         <Route path="/classement" element={<Classement address={this.state.defaultAccount}></Classement>}></Route>
         <Route path="/mybets" element={<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
         <Route path="/authentification" element={<Authentification web3={this.state.web3} address={this.state.defaultAccount}></Authentification>}></Route>
+        <Route path="/account" element={<Account></Account>}></Route>
       </Route>
 
     </Routes>
