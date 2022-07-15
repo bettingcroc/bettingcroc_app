@@ -57,7 +57,7 @@ class MyBets extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class="mainContent">
         {this.state.myBets.map(function (item) {
           return (
             <div key={item.id}>

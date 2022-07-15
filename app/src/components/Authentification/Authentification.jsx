@@ -39,9 +39,9 @@ class Authentification extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div class="mainContent">
         <h3> Authentification Component</h3>
-        <button
+        {/*<button
           onClick={(event) => {
             this.getNonceReact(this.props.address);
           }}
@@ -49,8 +49,9 @@ class Authentification extends React.Component {
           Request my nonce
         </button>
         <button onClick={this.signNonceReact}>Sign Nonce</button>
-        <button onClick={this.requestLoginReact}>Login</button>
         <button onClick={this.testLoginReact}>testLogin</button>
+      */}
+        <button onClick={this.requestLoginReact}>Login</button>
         <button onClick={this.logoutReact}>LogOut</button>
         <h4>{this.state.logged}</h4>
       </div>

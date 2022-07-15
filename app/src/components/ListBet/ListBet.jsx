@@ -23,7 +23,7 @@ class ListBet extends React.Component {
   }
   render() {
     return (
-      <div className="listBet">
+      <div className="mainContent">
         <h2>MULTIBET</h2>
         {this.state.matches.map(function (item) {
           return <div key={item.betNumber}><Link to={"/bet/numBet?n="+item.betNumber} ><h5>{item.type+" Bet "+ item.betNumber+" : "+item.name}</h5></Link><br/></div>;

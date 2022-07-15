@@ -110,8 +110,9 @@ option,select{
   border: 0px solid #1C6EA4;
   background-color: #098EEE;
   width: 30%;
-  text-align: left;
+  text-align: center;
   border-collapse: collapse;
+  margin: auto;
 }
 .blueTable td, table.blueTable th {
   border: 1px solid #AAAAAA;
@@ -139,5 +140,8 @@ option,select{
 }
 .blueTable thead th:first-child {
   border-left: none;
+}
+.mainContent{
+  text-align: center;
 }
 
