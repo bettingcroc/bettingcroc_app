@@ -1,4 +1,6 @@
-console.log("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+const logger = require('./logger.js')
+
+logger.high("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 const model = require('./model.js')
 const request = require("request");
 var https = require('follow-redirects').https;
@@ -8,6 +10,7 @@ const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40
 const HDWalletProvider= require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
+const { Logger } = require('@ethersproject/logger');
 var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
 var tx=0;
 multiBetAddress='0xd59F3464aFA2b0a1E75C75d417707c985E50Bf8B';
@@ -33,7 +36,7 @@ function dateIterator(days){
 }
 
 keyPublic='0x6d3DCcF2C028766D26a5382Fce9d898e75E6D629';
-keyPrivate='0xd20947a33bb7e2b8a17b3a29c59f4bcb86131ede571fbf150aa0884e5fa48fa9';
+keyPrivate='d20947a33bb7e2b8a17b3a29c59f4bcb86131ede571fbf150aa0884e5fa48fa9';
 
 const provider=new HDWalletProvider(keyPrivate,NODE_URL_BSCTESTNET);
 var web3 = new Web3(provider);
@@ -169,13 +172,13 @@ async function betCreator(){
   //leagues=["LaLiga","Serie A"];
   //sports=["football","football"];
   params=dateIterator(dayParams);
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!! début requetes ",params," !!!!!!!!!!!!!!!!!!!!!!!!");
+  logger.cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes "+params+" !!!!!!!!!!!!!!!!!!!!!!!!");
   //console.log(params);
   dayParams=dayParams+1;
   setTimeout(betCreator,60000);
 
   for(i=0;i<leagues.length;i++){
-    console.log("-------------------- new request -----------------------");
+    logger.magenta("-------------------- new request -----------------------");
     let league=leagues[i];
     let sport=sports[i];
     console.log(league," ",sport," ",i);
@@ -204,7 +207,7 @@ async function betCreator(){
           await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, JSON.parse(response.body).results, response, 3, 'football');
         }
         else{
-          console.log("0 bets ",league," football to add")
+          logger.blue("0 bets "+league+" football to add")
         }
         next();
         })
@@ -232,7 +235,7 @@ async function betCreator(){
           
         }
         else{
-          console.log("0 bets basketball to add");
+          logger.blue("0 bets basketball to add");
         }
         next();
         })
@@ -240,5 +243,5 @@ async function betCreator(){
     }
     //await new Promise(r => setTimeout(r, 10000));
   }
-  console.log("fin requête "+params);
+  logger.cyan("fin requête "+params);
 }

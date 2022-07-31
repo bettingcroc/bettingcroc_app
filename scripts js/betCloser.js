@@ -1,3 +1,5 @@
+
+const logger = require('./logger.js')
 const model = require('./model.js');
 const Web3 = require('Web3');
 const { promisify } = require('util');
@@ -7,7 +9,7 @@ const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40
 const HDWalletProvider= require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
-var multiBetABI = fs.readFileSync('./public/MultiBetMultiOptionsUSDTABI.txt').toString();
+var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
 
 multiBetAddress='0xd59F3464aFA2b0a1E75C75d417707c985E50Bf8B';
 
@@ -39,7 +41,7 @@ function main(){
     }    
     else{
         let str="no bet to close on "+dateNow+" at "+timeNow.toLocaleTimeString()+" to "+new Date(timeNow.getTime()+300000).toLocaleTimeString();
-        console.log(str);     
+        logger.magenta(str);     
         fs.appendFile("../logs/logsBetCloser.txt",str+"\n" , function(err) {
             if(err) {
                 return console.log(err);

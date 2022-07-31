@@ -1,0 +1,166 @@
+
+#multiBetAddress{
+    position:absolute;
+    top: 0px; 
+    left: 950px;
+}
+#nameBet{
+    position:absolute;
+    top: 300px; 
+    left: 600px;
+}
+
+#winner{
+    position:absolute;
+    top: 200px; 
+    left: 700px;
+}
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Style the sidenav links and the dropdown button */
+  .sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  /* On mouse-over */
+  .sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Main content */
+  .header, .betpools {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    margin-right: 300px;
+    font-size: 18px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  .betpools {
+    margin-top: 280px; 
+    display: flex;
+    justify-content: center;
+  }
+  /* Add an active class to the active dropdown button */
+  .active {
+    background-color: green;
+    color: white;
+  }
+  
+  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+  .dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+  }
+  
+  /* Optional: Style the caret down icon */
+  .fa-caret-down {
+    float: right;
+    padding-right: 8px;
+  } 
+
+
+
+
+.p2p {
+  display: flex;
+  justify-content: center;
+  margin-left: 200px; /* Same as the width of the sidenav */
+  margin-top: 300px;
+  margin-right: 300px;
+  font-size: 18px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+.createP2Pbet{
+  display: inline-block;
+  border-width:2px;
+  border-style:solid;
+ border-color:black;
+ padding:8px;
+}
+#titleP2P{
+  position:absolute;
+  top: 750px; 
+  left: 900px;
+}
+.p2pOptions{
+  display: inline-block;
+  border-width:2px;
+  border-style:solid;
+ border-color:black;
+ padding:8px;
+}
+#testButton{
+  position:absolute;
+  top: 820px; 
+  left: 900px;
+}
+.sidenav2 {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.sidenav2 a, .dropdown-btn2 {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.sidenav2 p{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.sidenav2 input{
+  margin-left: 75px;
+}
+.divBets{
+  display: inline-block;
+  border-width:2px;
+  border-style:solid;
+ border-color:black;
+ padding:8px;
+}
+#nameBet{
+  margin-right: 300px;
+}
