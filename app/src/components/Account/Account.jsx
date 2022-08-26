@@ -14,7 +14,7 @@ class Account extends React.Component {
   }
   render() {
     return (
-      <div class="mainContent">
+      <div className="mainContent">
         <h4>Account Component</h4>
         <h3>
           my pseudo is {this.state.loaded ? this.state.dataPerso[0].pseudo : ""}

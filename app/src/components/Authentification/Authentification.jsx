@@ -39,7 +39,7 @@ class Authentification extends React.Component {
   }
   render() {
     return (
-      <div class="mainContent">
+      <div className="mainContent">
         <h3> Authentification Component</h3>
         {/*<button
           onClick={(event) => {

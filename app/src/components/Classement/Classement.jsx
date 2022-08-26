@@ -46,7 +46,7 @@ class Classement extends React.Component {
     }
   }
   render() {
-    return <div class="mainContent">
+    return <div className="mainContent">
       
         <table className="blueTable">
           <thead>
