@@ -4,7 +4,7 @@ var cors = require('cors')
 const users = require('./users')
 const apiServer = require('./apiServer')
 const app = express()
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 80;
 const session = require('express-session')
 app.use(session({
   "secret": "zgkijngzjigizg244515FGFG"
