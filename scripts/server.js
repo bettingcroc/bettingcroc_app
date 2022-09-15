@@ -1,4 +1,3 @@
-#!/usr/local/bin node
 const express = require('express')
 const model = require('./model')
 var cors = require('cors')
