@@ -38,14 +38,15 @@ contract decentraBet is Pures{
             fri=true;
         }
         address[] memory playerS;
-        decentraBets[decentraBetNumber+1]=decentraBetStruct(decentraBetNumber+1,msg.sender,oracle,playerS,amount,fri,authorized,false,playersNumber,address(0),privateBet);
+        decentraBets[decentraBetNumber+1]=decentraBetStruct(decentraBetNumber,msg.sender,oracle,playerS,amount,fri,authorized,false,playersNumber,address(0),privateBet);
         decentraBetNumber++;
         
     }
 
     function endBet(uint256 id,address winner)public{
-        require(decentraBets[id].oracle==msg.sender);
-        require(isInArrayAddress(winner,decentraBets[id].players));
+        require(decentraBets[id].oracle==msg.sender,"not oracle");
+        require(isInArrayAddress(winner,decentraBets[id].players),"winner didn't play");
+        require(!decentraBets[id].dead,"already dead");
         decentraBets[id].dead=true;
         decentraBets[id].winner=winner;
     }
@@ -82,5 +83,7 @@ contract decentraBet is Pures{
                 decentraBets[id].friend,decentraBets[id].authorized,decentraBets[id].dead,
                 decentraBets[id].playersNumber,decentraBets[id].winner);
     }
-
+    function infoSpecBet(uint256 id)public view returns(bool,bool,bool,bool){
+        return (decentraBets[id].dead,decentraBets[id].friend,isInArrayAddress(msg.sender,decentraBets[id].authorized),isInArrayAddress(msg.sender,decentraBets[id].players));
+    }
 }
