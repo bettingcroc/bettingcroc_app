@@ -10,7 +10,6 @@ const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40
 const HDWalletProvider= require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
-const { Logger } = require('@ethersproject/logger');
 var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
 var tx=0;
 multiBetAddress='0xd59F3464aFA2b0a1E75C75d417707c985E50Bf8B';
