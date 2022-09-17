@@ -719,3 +719,18 @@ Bet created n 76 Wisconsin Herd,Lakeland Magic 1642613400 basketball USA NBA - G
 26/05/2022 23:14:59 Bet created n 49 1653697800 basketball USA NBA Boston Celtics,Miami Heat
 26/05/2022 23:15:20 Bet created n 50 1653743700 basketball France LNB Pau-Orthez,Levallois
 26/05/2022 23:15:20 Bet created n 51 1653743700 basketball France LNB Strasbourg,Monaco
+17/09/2022 23:20:02 Bet created n 52 1663498800 football England Premier League Brentford,Draw,Arsenal
+17/09/2022 23:20:02 Bet created n 53 1663515000 football England Premier League Chelsea,Draw,Liverpool
+17/09/2022 23:20:02 Bet created n 54 1663506900 football England Premier League Everton,Draw,West Ham
+17/09/2022 23:20:02 Bet created n 55 1663506000 football England Premier League Manchester United,Draw,Leeds
+17/09/2022 23:20:15 Bet created n 56 1663527600 football Spain La Liga Atletico Madrid,Draw,Real Madrid
+17/09/2022 23:20:15 Bet created n 57 1663518600 football Spain La Liga Real Betis,Draw,Girona
+17/09/2022 23:20:15 Bet created n 58 1663502400 football Spain La Liga Osasuna,Draw,Getafe
+17/09/2022 23:20:15 Bet created n 59 1663518600 football Spain La Liga Real Sociedad,Draw,Espanyol
+17/09/2022 23:20:15 Bet created n 60 1663510500 football Spain La Liga Villarreal,Draw,Sevilla
+17/09/2022 23:20:23 Bet created n 61 1663506000 football Italy Serie A Cremonese,Draw,Lazio
+17/09/2022 23:20:23 Bet created n 62 1663506000 football Italy Serie A Fiorentina,Draw,Verona
+17/09/2022 23:20:23 Bet created n 64 1663506000 football Italy Serie A Monza,Draw,Juventus
+17/09/2022 23:20:23 Bet created n 65 1663516800 football Italy Serie A AS Roma,Draw,Atalanta
+17/09/2022 23:20:23 Bet created n 63 1663526700 football Italy Serie A AC Milan,Draw,Napoli
+17/09/2022 23:20:23 Bet created n 66 1663497000 football Italy Serie A Udinese,Draw,Inter

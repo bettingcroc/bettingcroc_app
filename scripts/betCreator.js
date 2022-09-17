@@ -4,8 +4,8 @@ logger.high("-------------------------------------------------------------------
 const model = require('./model.js')
 const request = require("request");
 var https = require('follow-redirects').https;
-const Web3 = require('Web3');
-const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s2.binance.org:8545/"; //url of bsc testnet node
+const Web3 = require('web3');
+const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
 const HDWalletProvider= require('@truffle/hdwallet-provider');
 const fs = require('fs');
@@ -70,7 +70,7 @@ function getOptions(paramsDate,sport,league){
     return {
       'method': 'GET',
       'url': 'https://v3.football.api-sports.io/fixtures',
-      qs: {date: paramsDate, league : idLeague,season :'2021'},
+      qs: {date: paramsDate, league : idLeague,season :'2022'},
       'headers': {
         'x-rapidapi-host': 'v3.football.api-sports.io',
         'x-rapidapi-key': '1b8bea4eb9795ae6f10a338ffe214f5d' //achille zgiw api
@@ -90,7 +90,7 @@ function getOptions(paramsDate,sport,league){
     return {
       'method': 'GET',
       'url': 'https://v1.basketball.api-sports.io/games',
-      qs: {date: paramsDate, league : idLeague,season :'2021-2022'},
+      qs: {date: paramsDate, league : idLeague,season :'2022-2023'},
       'headers': { 
         'x-rapidapi-host': 'v1.basketball.api-sports.io',
         'x-rapidapi-key': '1b8bea4eb9795ae6f10a338ffe214f5d' //achille zgiw api
@@ -164,10 +164,10 @@ betCreator();
 
 
 async function betCreator(){
-  //leagues=["Premier League","LaLiga","Serie A"];
-  //sports=["football","football","football"];
-  leagues=["NBA","LNB","GLeague"];
-  sports=["basketball","basketball","basketball"];
+  leagues=["Premier League","LaLiga","Serie A"];
+  sports=["football","football","football"];
+  //leagues=["NBA","LNB","GLeague"];
+  //sports=["basketball","basketball","basketball"];
   //leagues=["LaLiga","Serie A"];
   //sports=["football","football"];
   params=dateIterator(dayParams);
@@ -185,6 +185,7 @@ async function betCreator(){
     //console.log(options)
     if(sport==='football'){
       await new Promise(next =>{request(options, async function (error, response) {
+        console.log(JSON.parse(response.body))
         console.log("request ",i," : ",league,sport," received with ",JSON.parse(response.body).results," results");
         //console.log(JSON.parse(response.body));
         namesBetToWriteOnChain = [];
