@@ -1251,6 +1251,12 @@ function get_BetBetween2dates(date1,date2){
   if(result) return result;
 }
 
+function get_betClosed(){
+  let select = db.prepare(`select betNumber from bets where status=1`);
+  let result= select.all();
+  if(result) return result;
+}
+
 function get_Type(betNumber){
   let select = db.prepare(`SELECT type FROM Bets WHERE betNumber = '${betNumber}'`);
   let result = select.get();
@@ -1354,6 +1360,7 @@ module.exports = {
   get_idAPI:get_idAPI,
   get_League:get_League,
   get_CLosestDatesByTypeAndLeague:get_CLosestDatesByTypeAndLeague,
-  closeBets:closeBets
+  closeBets:closeBets,
+  get_betClosed:get_betClosed
 };
 //0xD90531a9234A38dfFC8493c0018ad17cB5F7A867

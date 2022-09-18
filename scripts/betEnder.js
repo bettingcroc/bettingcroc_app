@@ -20,18 +20,19 @@ keyPrivate='8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2835ce6714fb';
 
 
 async function main(){
-    setTimeout(main,300000);
-    date1=new Date().getTime()-163000000;
+    setTimeout(main,60000);
+    /*date1=new Date().getTime()-163000000;
     date2=new Date().getTime()-158000000;
     console.log(new Date(date1).toLocaleDateString()," ",new Date(date1).toLocaleTimeString()," ",new Date(date2).toLocaleDateString()," ",new Date(date2).toLocaleTimeString())
     date1=Math.floor(date1/1000);
-    date2=Math.floor(date2/1000);
-    resultDB=model.get_BetBetween2dates(date1,date2);
+    date2=Math.floor(date2/1000);*/
+    resultDB=model.get_betClosed();
     betsToEnd=[];
     winnerBetsToEnd=[];
     for(i=0;i<resultDB.length;i++){
         betsToEnd.push(resultDB[i]["betNumber"]);
     } 
+    console.log(betsToEnd)
     timeNow=new Date();
     dateNow=new Date().toLocaleDateString();
     if(betsToEnd.length>0){
@@ -43,7 +44,7 @@ async function main(){
         
     }    
     else{
-        console.log("no bet to end on "+dateNow+" at ",new Date(timeNow.getTime()-300000).toLocaleTimeString()," to ",timeNow.toLocaleTimeString());   
+        console.log("no bet to end on "+dateNow+" at ",new Date(timeNow.getTime()-60000).toLocaleTimeString()," to ",timeNow.toLocaleTimeString());   
         let str= dateNow+" "+new Date(timeNow.getTime()-300000).toLocaleTimeString()+" to "+timeNow.toLocaleTimeString()+" : no bet to End";
         fs.appendFile("../logs/logsBetCloser.txt",str+"\n" , function(err) {
             if(err) {
