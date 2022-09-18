@@ -1246,7 +1246,7 @@ function get_MaxBet(){
 }
 
 function get_BetBetween2dates(date1,date2){
-  let select = db.prepare(`SELECT betNumber from bets where date>'${date1}' and date<'${date2}'`);
+  let select = db.prepare(`SELECT betNumber from bets where date>='${date1}' and date<'${date2}'`);
   let result= select.all();
   if(result) return result;
 }
@@ -1323,13 +1323,19 @@ function get_CLosestDatesByTypeAndLeague(date,type,league){
 }
 
 function initTest(){
-  let select = db.prepare(`DELETE from bets`);
-  let result= select.run();
+  let del = db.prepare(`DELETE from bets`);
+  let result= del.run();
   
   if(result) return result;
 }
 
-
+function closeBets(betNumbers){
+	for (let bN in betNumbers){
+		bN=betNumbers[bN]
+		let update = db.prepare('update bets set status=1 where betNumber='+bN)
+		update.run()
+	}
+}
 
 module.exports = {
   add_bet:add_bet,
@@ -1347,6 +1353,7 @@ module.exports = {
   get_CLosestDatesByTypeAndCountry:get_CLosestDatesByTypeAndCountry,
   get_idAPI:get_idAPI,
   get_League:get_League,
-  get_CLosestDatesByTypeAndLeague:get_CLosestDatesByTypeAndLeague
+  get_CLosestDatesByTypeAndLeague:get_CLosestDatesByTypeAndLeague,
+  closeBets:closeBets
 };
 //0xD90531a9234A38dfFC8493c0018ad17cB5F7A867

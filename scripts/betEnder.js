@@ -1,3 +1,5 @@
+const logger = require('./logger.js')
+
 console.log("///////////////////////////////START////////////////////////////////");
 const model = require('./model.js');
 const Web3 = require('web3');
@@ -14,7 +16,7 @@ var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').t
 multiBetAddress='0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 
 keyPublic='0x1deecf77dD59A35c9f68cf507d79DDbd8524fa65';
-keyPrivate='0x8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2835ce6714fb';
+keyPrivate='8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2835ce6714fb';
 
 
 async function main(){

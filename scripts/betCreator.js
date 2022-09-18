@@ -15,7 +15,7 @@ var tx=0;
 multiBetAddress='0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 
 timestampTest= new Date();
-var FirstDay=Math.round((timestampTest.getTime()+90000000)/1000);
+var FirstDay=Math.round((timestampTest.getTime()+0000000)/1000);
 
 function decimalsConverter(numberToConvert){
 	return Math.pow(numberToConvert,18)

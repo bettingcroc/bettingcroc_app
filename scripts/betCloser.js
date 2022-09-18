@@ -3,7 +3,7 @@ const logger = require('./logger.js')
 const model = require('./model.js');
 const Web3 = require('web3');
 const { promisify } = require('util');
-const NODE_URL_BSCTESTNET = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/bsc/testnet"; //url of bsc testnet node
+const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
 //var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 const HDWalletProvider= require('@truffle/hdwallet-provider');
@@ -17,14 +17,14 @@ function decimalsConverter(numberToConvert){return Math.pow(numberToConvert,18)}
 function weiconvert(number){return BigInt(number*decimalsConverter(10));} // function to manage decimals of the token
 
 keyPublic='0x6d3DCcF2C028766D26a5382Fce9d898e75E6D629';
-keyPrivate='0xd20947a33bb7e2b8a17b3a29c59f4bcb86131ede571fbf150aa0884e5fa48fa9';
+keyPrivate='d20947a33bb7e2b8a17b3a29c59f4bcb86131ede571fbf150aa0884e5fa48fa9';
 
 
 function main(){
     
-    setTimeout(main,300000);
+    setTimeout(main,60000);
     date1=new Date().getTime(); //-6,6 min
-    date2=new Date().getTime()+300000;
+    date2=new Date().getTime()+60000;
     date1=Math.floor(date1/1000);
     date2=Math.floor(date2/1000);
     resultDB=model.get_BetBetween2dates(date1,date2);
@@ -40,7 +40,7 @@ function main(){
         closeBetOnChain(betsToClose);
     }    
     else{
-        let str="no bet to close on "+dateNow+" at "+timeNow.toLocaleTimeString()+" to "+new Date(timeNow.getTime()+300000).toLocaleTimeString();
+        let str="no bet to close on "+dateNow+" at "+timeNow.toLocaleTimeString()+" to "+new Date(timeNow.getTime()+60000).toLocaleTimeString();
         logger.magenta(str);     
         fs.appendFile("../logs/logsBetCloser.txt",str+"\n" , function(err) {
             if(err) {
@@ -64,7 +64,7 @@ async function closeBetOnChain(betsToClose){
         .closeBets(betsToClose)
         .send({from : keyPublic})
         .on('receipt', function(receipt){
-            
+            model.closeBets(betsToClose)
             console.log(receipt);
             let str=betsToClose+" closed on "+dateNow+" at "+timeNow;
             console.log(str);
