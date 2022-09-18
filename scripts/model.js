@@ -1171,7 +1171,7 @@ var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // ne
 
 
 //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-multiBetAddress= '0xd59F3464aFA2b0a1E75C75d417707c985E50Bf8B';
+multiBetAddress= '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 
@@ -1184,7 +1184,7 @@ const P2P_BOX=  './html/componsantes/p2pOptionsBox.html';
 let Sqlite = require('better-sqlite3');
 
 let db = new Sqlite('db.sqlite');
-db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, closed BOOLEAN, type TEXT, country TEXT, league TEXT, idAPI INTEGER)').run();
+db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, status INTEGER, type TEXT, country TEXT, league TEXT, idAPI INTEGER)').run();
 
 
 
@@ -1197,7 +1197,7 @@ db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, opti
 function add_bet(betNumber, option, list, date, type, country, league, idAPI) {
   if(!betNumber || !option || !list || !date || !type || !country || !league || !idAPI)  {console.log(!betNumber," ",!option," ",!list," ",!date," ",!type," ",!country," ",!league," ",idAPI, "error params"); return -1;}
   try {
-    let insert = db.prepare(`INSERT INTO Bets (betNumber,options,optionsArray,date,closed,type,country,league,idAPI) VALUES (?,?,?,?,?,?,?,?,?)`);
+    let insert = db.prepare(`INSERT INTO Bets (betNumber,options,optionsArray,date,status,type,country,league,idAPI) VALUES (?,?,?,?,?,?,?,?,?)`);
     let result = insert.run(betNumber,option,list,date,0,type,country,league,idAPI);
     console.log(betNumber," ",option," ",list," ",date," ",0," ",type," ",country," ",league," ",idAPI," added to DataBase");
     return db.prepare('SELECT betNumber FROM Bets where ROWID=(?)').get(result.lastInsertRowid)['betNumber'];
@@ -1349,3 +1349,4 @@ module.exports = {
   get_League:get_League,
   get_CLosestDatesByTypeAndLeague:get_CLosestDatesByTypeAndLeague
 };
+//0xD90531a9234A38dfFC8493c0018ad17cB5F7A867

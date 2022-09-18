@@ -12,7 +12,7 @@ const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
 var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
 var tx=0;
-multiBetAddress='0xd59F3464aFA2b0a1E75C75d417707c985E50Bf8B';
+multiBetAddress='0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 
 timestampTest= new Date();
 var FirstDay=Math.round((timestampTest.getTime()+90000000)/1000);

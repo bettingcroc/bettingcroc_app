@@ -1177,7 +1177,7 @@ var account= new accounts(NODE_URL_BSCTESTNET);
 
 
 //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-multiBetAddress= '0xd59F3464aFA2b0a1E75C75d417707c985E50Bf8B';
+multiBetAddress= '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER,nonce TEXT, pseudo TEXT)').run();

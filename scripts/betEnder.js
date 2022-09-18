@@ -1,6 +1,6 @@
 console.log("///////////////////////////////START////////////////////////////////");
 const model = require('./model.js');
-const Web3 = require('Web3');
+const Web3 = require('web3');
 const request = require("request");
 const { promisify } = require('util');
 const NODE_URL_BSCTESTNET = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/bsc/testnet"; //url of bsc testnet node
@@ -9,9 +9,9 @@ const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40
 const HDWalletProvider= require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
-var multiBetABI = fs.readFileSync('./public/MultiBetMultiOptionsUSDTABI.txt').toString();
+var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
 
-multiBetAddress='0xd59F3464aFA2b0a1E75C75d417707c985E50Bf8B';
+multiBetAddress='0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 
 keyPublic='0x1deecf77dD59A35c9f68cf507d79DDbd8524fa65';
 keyPrivate='0x8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2835ce6714fb';

@@ -1,0 +1,5 @@
+0 = open
+1 = closed
+2 = ended
+3 = canceled
+4 = error
