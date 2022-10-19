@@ -1353,4 +1353,3 @@ module.exports={
     getMyScore:getMyScore,
     getMyBets:getMyBets
 }
-getTodayMatches()

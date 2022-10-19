@@ -5,7 +5,7 @@ const model = require('./model.js');
 const Web3 = require('web3');
 const request = require("request");
 const { promisify } = require('util');
-const NODE_URL_BSCTESTNET = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/bsc/testnet"; //url of bsc testnet node
+const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
 //var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 const HDWalletProvider= require('@truffle/hdwallet-provider');
@@ -28,7 +28,7 @@ async function main(){
     date2=Math.floor(date2/1000);*/
     resultDB=model.get_betClosed();
     betsToEnd=[];
-    winnerBetsToEnd=[];
+    //winnerBetsToEnd=[];
     for(i=0;i<resultDB.length;i++){
         betsToEnd.push(resultDB[i]["betNumber"]);
     } 
@@ -66,6 +66,7 @@ async function endBetOnChain(betsToEnd,winnerBetsToEnd){
         .endBets(betsToEnd,winnerBetsToEnd)
         .send({from : keyPublic})
         .on('receipt', function(receipt){
+            model.endBets(betsToEnd)
             let timeNow=new Date().toLocaleTimeString();
             let dateNow=new Date().toLocaleDateString();
             console.log(betsToEnd+" ended with "+winnerBetsToEnd+" on "+dateNow+" at "+timeNow);

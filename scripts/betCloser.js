@@ -23,7 +23,7 @@ keyPrivate='d20947a33bb7e2b8a17b3a29c59f4bcb86131ede571fbf150aa0884e5fa48fa9';
 function main(){
     
     setTimeout(main,60000);
-    date1=new Date().getTime(); //-6,6 min
+    date1=new Date().getTime(); //1 min en avance chaque min
     date2=new Date().getTime()+60000;
     date1=Math.floor(date1/1000);
     date2=Math.floor(date2/1000);

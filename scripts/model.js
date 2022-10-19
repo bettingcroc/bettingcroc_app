@@ -1182,6 +1182,7 @@ const INDEX_URL = './html/componsantes/index.html';
 const P2P_BOX=  './html/componsantes/p2pOptionsBox.html';
 
 let Sqlite = require('better-sqlite3');
+const e = require('cors');
 
 let db = new Sqlite('db.sqlite');
 db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, status INTEGER, type TEXT, country TEXT, league TEXT, idAPI INTEGER)').run();
@@ -1343,6 +1344,14 @@ function closeBets(betNumbers){
 	}
 }
 
+function endBets(betNumbers){
+	for (let bN in betNumbers){
+		bN=betNumbers[bN]
+		let update = db.prepare('update bets set status=2 where betNumber='+bN)
+		update.run()
+	}
+}
+
 module.exports = {
   add_bet:add_bet,
   get_Name:get_Name,
@@ -1361,6 +1370,7 @@ module.exports = {
   get_League:get_League,
   get_CLosestDatesByTypeAndLeague:get_CLosestDatesByTypeAndLeague,
   closeBets:closeBets,
-  get_betClosed:get_betClosed
+  get_betClosed:get_betClosed,
+  endBets:endBets
 };
 //0xD90531a9234A38dfFC8493c0018ad17cB5F7A867
