@@ -38,6 +38,7 @@ async function main(){
     if(betsToEnd.length>0){
         createWinnersArray(betsToEnd)
         .then((result)=>{
+            logger.blue(result)
             console.log(result[0]+" sent for ending on with "+result[1]+" on "+dateNow+" at "+timeNow.toLocaleTimeString());
             //endBetOnChain(result[0],result[1]);
         })
@@ -102,6 +103,7 @@ async function createWinnersArray(arrayBetsToEnd){
                 if(JSON.parse(response.body).response[0].fixture.status.short==="FT" || JSON.parse(response.body).response[0].fixture.status.short==="AET" || JSON.parse(response.body).response[0].fixture.status.short==="PEN"){
                     if(JSON.parse(response.body).response[0].teams.home.winner==true){
                         winnerBetsToEnd.push(0);
+                        betsToEnd.push(arrayBetsToEnd[i]);
                     }
                     else{
                         if(JSON.parse(response.body).response[0].teams.away.winner==true){
