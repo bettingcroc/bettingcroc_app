@@ -32,11 +32,6 @@ app.get('/api/position/:address', (req,res)=>{ //TODO inclure rank dans react
   }
 })
 
-/*app.get('/api/position/:address', (req,res)=>{
-  let position=model.get_Classement_address(req.params.address);
-  console.log("position"+position);
-  res.send(position);
-})*/
 
 app.get('/api/nonce/:address',(req,res)=>{
   console.log("requesting a nonce")

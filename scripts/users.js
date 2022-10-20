@@ -1279,7 +1279,10 @@ async function addUser(address){
     try {
         let insert =  db.prepare(`INSERT INTO Players (address,score,nonce) VALUES (?,?,?)`);
         await multiBetContract.methods.getScore(address.toLowerCase()).call()
-        .then((result)=>{insert.run(address,result,randomString(16));})
+        .then((result)=>{
+			console.log(result)
+			insert.run(address,result,randomString(16));
+		})
         
         
         console.log(address," added to DataBase");
