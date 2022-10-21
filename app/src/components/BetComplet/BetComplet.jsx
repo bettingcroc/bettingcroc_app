@@ -19,7 +19,7 @@ class BetComplet extends React.Component {
        country:null,
        league:null
       };
-    fetch("http://localhost:4000/api/infoMatch/"+props.betNumber, { method: "GET" }).then((res) => {
+    fetch("https://app.bettingcroc.com/api/infoMatch/"+props.betNumber, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           this.setState({ 
             optionsArray: data.optionsArray,

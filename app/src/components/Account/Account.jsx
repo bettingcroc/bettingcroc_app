@@ -30,7 +30,7 @@ class Account extends React.Component {
   componentDidMount() {
     /*if (this.props.address !== "") {
       this.setState({ address: this.props.address.toLowerCase() });
-      let link = "http://localhost:4000/api/score/" + this.props.address;
+      let link = "https://app.bettingcroc.com/api/score/" + this.props.address;
       console.log(link);
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
@@ -47,7 +47,7 @@ class Account extends React.Component {
     if (prevProps !== this.props && this.state.loaded === false) {
       if (this.props.address !== "") {
         this.setState({ address: this.props.address.toLowerCase() });
-        let link = "http://localhost:4000/api/score/" + this.props.address;
+        let link = "https://app.bettingcroc.com/api/score/" + this.props.address;
         console.log(link);
         fetch(link, { method: "GET" }).then((res) => {
           res.json().then((data) => {
@@ -63,7 +63,7 @@ class Account extends React.Component {
 
 async function setPseudo(newPseudo) {
   if (__mounted) {
-    let url = "http://localhost:4000/api/setUpPseudo/";
+    let url = "https://app.bettingcroc.com/api/setUpPseudo/";
     let bodyToSend = JSON.stringify({
       "newPseudo": newPseudo,
     });
