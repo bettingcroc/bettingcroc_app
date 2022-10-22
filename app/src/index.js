@@ -6,8 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import ListBet from "./components/ListBet/ListBet"
 import Bet from "./components/Bet/Bet.jsx"
-//import * as serviceWorker from './serviceWorker';
-//window.location.replace('/home');
+
 import React, { Component } from "react";
 import Web3 from "web3";
 import "./App.css";
@@ -59,6 +58,16 @@ class App extends Component {
     this.accountChangedHandler = this.accountChangedHandler.bind(this);
     this.loadBlockchainData();
     this.allowancesSetter=this.allowancesSetter.bind(this)
+  }
+  componentDidUpdate(){
+    if(window.ethereum) {
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+      })    
+      window.ethereum.on('accountsChanged', () => {
+        window.location.reload();
+      })
+  }
   }
   accountChangedHandler = (newAccount) => {
     this.setState({ defaultAccount: newAccount });
@@ -148,20 +157,8 @@ ReactDOM.render(<App></App>
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-//serviceWorker.unregister();
-/*  createTask(content) {
-    this.setState({ loading: true });
-    this.state.todoList.methods
-      .createTask(content)
-      .send({ from: this.state.account })
-      .once("receipt", (receipt) => {
-        this.setState({ loading: false });
-      });
-  }*/
-  function decimalsConverter(numberToConvert){
-    return Math.pow(numberToConvert,18)
-  }
-  function weiconvert(number) { return BigInt(number * decimalsConverter(10)); }
+
+function decimalsConverter(numberToConvert){
+  return Math.pow(numberToConvert,18)
+}
+function weiconvert(number) { return BigInt(number * decimalsConverter(10)); }
