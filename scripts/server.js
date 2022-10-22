@@ -40,6 +40,10 @@ app.get('/api/nonce/:address',(req,res)=>{
     users.addUser(req.params.address);
     console.log("user not registered")
   }
+  else{
+    console.log(nonce)
+    res.send({'nonce':nonce})
+  }
   nonce=users.getNonce(req.params.address);
   console.log(nonce)
   res.send({'nonce':nonce})

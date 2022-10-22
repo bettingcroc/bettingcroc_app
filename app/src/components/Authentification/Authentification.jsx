@@ -59,7 +59,7 @@ class Authentification extends React.Component {
   }
   componentDidMount() {
     __mounted = true;
-    testLogin();
+    this.testLoginReact();
   }
 }
 

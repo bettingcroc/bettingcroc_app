@@ -1281,11 +1281,10 @@ async function addUser(address){
         await multiBetContract.methods.getScore(address.toLowerCase()).call()
         .then((result)=>{
 			console.log(result)
-			insert.run(address,result,randomString(16));
+			firstNonce=randomString(16)
+			insert.run(address,result,firstNonce);
 		})
-        
-        
-        console.log(address," added to DataBase");
+        console.log(address," added to DataBase with ",address," ",result," ",firstNonce);
       }
       catch(e) {
         console.log("error adding a player to database => ",e.code);
