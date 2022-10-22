@@ -100,9 +100,10 @@ class App extends Component {
           method: "POST",
         };
         fetch(url, options).then((res) => {
-          console.log("done");
+          console.log("request logout with res: "+res);
+          window.location.reload();
         });
-        window.location.reload();
+        
       })
     }
     console.log(window.ethereum.networkVersion)
