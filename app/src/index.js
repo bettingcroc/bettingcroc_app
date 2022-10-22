@@ -19,7 +19,7 @@ import Classement from "./components/Classement/Classement";
 import MyBets from "./components/MyBets/MyBets";
 import Authentification from "./components/Authentification/Authentification";
 import Account from "./components/Account/Account";
-
+const chainId = 97;
 class App extends Component {
   async loadBlockchainData() {
     const web3 = new Web3(Web3.givenProvider);
@@ -59,15 +59,47 @@ class App extends Component {
     this.loadBlockchainData();
     this.allowancesSetter=this.allowancesSetter.bind(this)
   }
+  async chainChanger(){
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: Web3.utils.toHex(chainId) }]
+      });
+    } catch (err) {
+        // This error code indicates that the chain has not been added to MetaMask
+      if (err.code === 4902) {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainName: 'BSC Testnet',
+              chainId: Web3.utils.toHex(chainId),
+              nativeCurrency: { name: 'BSC Testnet', decimals: 18, symbol: 'BNB' },
+              rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/']
+            }
+          ]
+        });
+      }
+    }
+  }
   componentDidUpdate(){
+    if (window.ethereum.networkVersion !== chainId) {
+      this.chainChanger()
+    }
     if(window.ethereum) {
       window.ethereum.on('chainChanged', () => {
         window.location.reload();
       })    
       window.ethereum.on('accountsChanged', () => {
+        fetch("https://app.bettingcroc.com/logout", { method: "GET" }).then((res) => {
+          res.json().then((data) => {
+            console.log("response logout "+data)
+          });
+        });
         window.location.reload();
       })
-  }
+    }
+    console.log(window.ethereum.networkVersion)
   }
   accountChangedHandler = (newAccount) => {
     this.setState({ defaultAccount: newAccount });
