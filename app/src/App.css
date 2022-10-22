@@ -145,3 +145,9 @@ option,select{
   text-align: center;
 }
 
+.popup_inner{
+  position: absolute;
+  top: 500px;
+  right: 700px;
+  background-color: green;
+}

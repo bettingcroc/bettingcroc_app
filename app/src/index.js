@@ -20,6 +20,19 @@ import MyBets from "./components/MyBets/MyBets";
 import Authentification from "./components/Authentification/Authentification";
 import Account from "./components/Account/Account";
 const chainId = 97;
+class Popup extends React.Component {
+  render() {
+    return (
+      <div className='popup'>
+        <div className='popup_inner'>
+          <h1>{this.props.text}</h1>
+        <button onClick={this.props.closePopup}>close me</button>
+        <img src="https://dynamic-assets.coinbase.com/36f266bc4826775268588346777c84c1ae035e7de268a6e124bcc22659f0aa2bf4f66dcad89b2ac978cfdb4d51c2d9f63cf7157769efb500b20ca16a6d5719c7/asset_icons/7deb6ff58870072405c0418d85501c4521c3296e33ef58452be98e4ca592ed19.png"></img>
+        </div>
+      </div>
+    );
+  }
+}
 class App extends Component {
   async loadBlockchainData() {
     const web3 = new Web3(Web3.givenProvider);
@@ -53,11 +66,17 @@ class App extends Component {
       defaultAccount: "",
       connButtonText: "Connect Wallet",
       usdtAllowed:null,
-      mbtAllowed:null
+      mbtAllowed:null,
+      showPopup: false
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this);
     this.loadBlockchainData();
     this.allowancesSetter=this.allowancesSetter.bind(this)
+  }
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
   }
   async chainChanger(){
     try {
@@ -86,6 +105,7 @@ class App extends Component {
   componentDidUpdate(){
     if (window.ethereum.networkVersion !== chainId) {
       console.log("bad chain")
+      this.togglePopup.bind(this)
       this.chainChanger()
     }
     if(window.ethereum) {
@@ -164,6 +184,14 @@ class App extends Component {
             <h4>usdt allowed: {this.state.usdtAllowed}</h4>
             <br></br>
             <h4> mbt allowed: {this.state.mbtAllowed}</h4>
+            {this.state.showPopup ? 
+              <Popup
+                text='Chance gain to BSC Testnet'
+                closePopup={this.togglePopup.bind(this)}
+                
+              />
+              : null
+            }
             </main>
           </div>
           <Link to="/basketball"><h3>ListBets</h3></Link>
@@ -191,6 +219,7 @@ class App extends Component {
     );
   }
 }
+
 ReactDOM.render(<App></App>
   ,
   document.getElementById("root")
