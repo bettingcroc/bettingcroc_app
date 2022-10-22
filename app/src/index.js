@@ -67,11 +67,13 @@ class App extends Component {
       connButtonText: "Connect Wallet",
       usdtAllowed:null,
       mbtAllowed:null,
-      showPopup: false
+      showPopup: false,
+      switchChainPending: false
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this);
     this.loadBlockchainData();
     this.allowancesSetter=this.allowancesSetter.bind(this)
+    this.togglePopup=this.togglePopup.bind(this)
   }
   togglePopup() {
     this.setState({
@@ -103,9 +105,10 @@ class App extends Component {
     }
   }
   componentDidUpdate(){
-    if (window.ethereum.networkVersion !== chainId) {
-      console.log("bad chain")
-      this.togglePopup.bind(this)
+    if (window.ethereum.networkVersion != 97) {
+      console.log("bad chain : "+window.ethereum.networkVersion )
+      if(this.state.showPopup==false && this.state.switchChainPending==false)
+      {this.togglePopup();this.setState({switchChainPending:true})}
       this.chainChanger()
     }
     if(window.ethereum) {
@@ -187,7 +190,7 @@ class App extends Component {
             {this.state.showPopup ? 
               <Popup
                 text='Chance gain to BSC Testnet'
-                closePopup={this.togglePopup.bind(this)}
+                closePopup={this.togglePopup}
                 
               />
               : null
