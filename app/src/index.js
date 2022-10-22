@@ -65,6 +65,7 @@ class App extends Component {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: Web3.utils.toHex(chainId) }]
       });
+      console.log("sending chain switch request")
     } catch (err) {
         // This error code indicates that the chain has not been added to MetaMask
       if (err.code === 4902) {
@@ -84,6 +85,7 @@ class App extends Component {
   }
   componentDidUpdate(){
     if (window.ethereum.networkVersion !== chainId) {
+      console.log("bad chain")
       this.chainChanger()
     }
     if(window.ethereum) {
@@ -91,10 +93,14 @@ class App extends Component {
         window.location.reload();
       })    
       window.ethereum.on('accountsChanged', () => {
-        fetch("https://app.bettingcroc.com/logout", { method: "GET" }).then((res) => {
-          res.json().then((data) => {
-            console.log("response logout "+data)
-          });
+        let url = "https://app.bettingcroc.com/logout";
+    
+        console.log(url);
+        let options = {
+          method: "POST",
+        };
+        fetch(url, options).then((res) => {
+          console.log("done");
         });
         window.location.reload();
       })
