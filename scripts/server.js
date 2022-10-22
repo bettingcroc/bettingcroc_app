@@ -33,7 +33,7 @@ app.get('/api/position/:address', (req,res)=>{ //TODO inclure rank dans react
 })
 
 
-app.get('/api/nonce/:address',(req,res)=>{
+app.get('/api/nonce/:address',async (req,res)=>{
   console.log("requesting a nonce")
   let nonce=users.getNonce(req.params.address);
   if(nonce===0){
