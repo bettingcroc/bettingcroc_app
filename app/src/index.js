@@ -107,8 +107,8 @@ class App extends Component {
   componentDidUpdate(){
     if (window.ethereum.networkVersion != 97) {
       console.log("bad chain : "+window.ethereum.networkVersion )
-      if(this.state.showPopup==false && this.state.switchChainPending==false){this.togglePopup();this.setState({switchChainPending:true})}
-      if(this.state.switchChainPending==false){this.chainChanger()}
+      if(this.state.showPopup==false && this.state.switchChainPending==false){this.togglePopup();this.setState({switchChainPending:true});}
+      if(this.state.switchChainPending==false){this.chainChanger();this.setState({switchChainPending:true});}
     }
     if(window.ethereum) {
       window.ethereum.on('chainChanged', () => {
