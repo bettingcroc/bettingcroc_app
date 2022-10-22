@@ -1283,8 +1283,9 @@ async function addUser(address){
 			console.log(result)
 			firstNonce=randomString(16)
 			insert.run(address,result,firstNonce);
+			console.log(address," added to DataBase with ",address," ",result," ",firstNonce);
 		})
-        console.log(address," added to DataBase with ",address," ",result," ",firstNonce);
+        
       }
       catch(e) {
         console.log("error adding a player to database => ",e.code);
