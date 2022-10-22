@@ -105,7 +105,7 @@ class App extends Component {
   componentDidUpdate(){
     if (window.ethereum.networkVersion !== chainId) {
       console.log("bad chain")
-      this.togglePopup.bind(this)
+      this.togglePopup()
       this.chainChanger()
     }
     if(window.ethereum) {
