@@ -37,14 +37,16 @@ app.get('/api/nonce/:address',async (req,res)=>{
   console.log("requesting a nonce")
   let nonce=users.getNonce(req.params.address);
   if(nonce===0){
-    users.addUser(req.params.address);
-    console.log("user not registered")
-    await new Promise(next =>{
+    users.addUser(req.params.address).then(()=>{
+      console.log("user not registered");
       nonce=users.getNonce(req.params.address);
-      next();
+      console.log(nonce);
+      res.send({'nonce':nonce});
     })
-    console.log(nonce)
-    res.send({'nonce':nonce})
+    //await new Promise(next =>{
+      //next();
+    //})
+    
   }
   else{
     console.log(nonce)
