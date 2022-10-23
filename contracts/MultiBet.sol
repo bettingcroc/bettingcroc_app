@@ -3,7 +3,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 
-import "./contracts/pures.sol";
+import "./pures.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 
@@ -15,7 +15,7 @@ contract Proxy {
         assembly { // solium-disable-line
             sstore(0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7, contractLogic)
         }
-        (bool success, bytes memory result ) = contractLogic.delegatecall(constructData); // solium-disable-line
+         (bool success, bytes memory result ) = contractLogic.delegatecall(constructData); // solium-disable-line
         require(success, "Construction failed");
     }
 
@@ -167,7 +167,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
             }
         }
         return unpaidBets;
-    }
+    }// dynamic array : max => nombre de paris d'un joueur
     function getMoneyLosedOnBet(uint256 betNumber)public view returns (uint256){
         if (!isDead(betNumber)){
             return 0;
@@ -237,7 +237,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         for(uint i=0;i<betsToClose.length;i++){
             closed[betsToClose[i]]=true;
         }
-    }
+    }// dynamic array : max => mathcs qui demarrent en simultané
     
     function endBet (uint256 betNumber,uint256 poolWin) onlyRole(ENDER_ROLE) public{
         require(closed[betNumber],"betopen");
@@ -280,7 +280,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                 emit betDead(betNumber,poolwinners[i]);
             }
         }
-    }
+    }// dynamic array : max => matchs à end en simultané
     
     function cancelBet(uint256 betNumber) onlyRole(ENDER_ROLE) public{
         canceled[betNumber]=true;
@@ -349,7 +349,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
             }
         }
         return rewardsTotal;
-    }
+    }// dynamic array : max => nombre total de paris d'un joueur => penser à vider la liste ou à l'archiver
 function recupAllP2PWin()public{
         uint256 rewardsTotal=0;
         for(uint i=0;i<myP2Pbets[msg.sender].length;i++){
@@ -365,6 +365,12 @@ function recupAllP2PWin()public{
                             rewardsTotal+=toPay;
                             userWon=true;
                         }
+                        if(msg.sender==p2pBets[betNum][p2pNum].creator && getWinner(betNum)!=p2pBets[betNum][p2pNum].optionCreator){ 
+                            payedP2P[betNum][p2pNum].push(msg.sender);
+                            uint256 toPay=(p2pBets[betNum][p2pNum].amountBet*p2pBets[betNum][p2pNum].amountToEnter)/p2pBets[betNum][p2pNum].cote;
+                            rewardsTotal+=toPay;
+                            userWon=false;
+                        }
                         if(amountBetted[betNum][p2pNum][msg.sender]>0 && getWinner(betNum)!=p2pBets[betNum][p2pNum].optionCreator){
                             payedP2P[betNum][p2pNum].push(msg.sender);
                             uint256 toPay=amountBetted[betNum][p2pNum][msg.sender]*p2pBets[betNum][p2pNum].amountBet;
@@ -372,7 +378,7 @@ function recupAllP2PWin()public{
                             userWon=true;
                         }
                     }
-                }
+                }// dynamic array : max => nombre de p2p bets sur un pari
             }
             if(canceled[betNum]){
                 for(uint o=0;o<myP2PbetsDetails[msg.sender][betNum].length;o++){
@@ -387,14 +393,14 @@ function recupAllP2PWin()public{
                             rewardsTotal+=amountBetted[betNum][p2pNum][msg.sender];
                         }
                     }
-                }
+                }// dynamic array : max => nombre de p2p bets sur un pari
             }
             if(userWon){score[msg.sender]+=1;}
         }
         if(rewardsTotal>0){
             payWinner(msg.sender,rewardsTotal);
         }
-    }
+    }// dynamic array : max => nombre max de p2p bets d'un joueur => penser à archiver les bets 
 
     function recupAllWin() public{
         uint256 rewardsTotal=0;
@@ -422,7 +428,7 @@ function recupAllP2PWin()public{
                 }
                 rewardsTotal=rewardsTotal+toBePaid;
                 }
-        }
+        }// dynamic array : max => nobmre max de bets d'un joueur => penser à archiver
         payWinner(msg.sender,rewardsTotal);
     }
 
@@ -459,7 +465,6 @@ function recupAllP2PWin()public{
     
 
 
-/////////////////////////////////////////////////// P2P BETS //////////////////////////////////////////////
     
 
 
@@ -505,6 +510,7 @@ function recupAllP2PWin()public{
             lastBet=lastBet+1;
         }
     }
+/////////////////////////////////////////////////// P2P BETS //////////////////////////////////////////////
 
     mapping(uint256 => p2pBet[])p2pBets;
     
@@ -585,7 +591,7 @@ function recupAllP2PWin()public{
                     }
                 }
             }
-        }
+        }// dynamic array : max =>  nombre max de p2Pbet d'un joueur
         return rewardsTotal;
     }
 
@@ -635,10 +641,10 @@ function recupAllP2PWin()public{
             {
                 maxBet=i;
             }
-        }
+        }// dynamic array : max => nombre max de p2p bets sur un bet
         return maxBet;
     }
-    function getorderBook(uint256 betNumber,uint256 optionAgainst,uint256 minToEnter)public view returns(uint256[] memory,uint256[] memory,uint256[] memory){
+    /*function getorderBook(uint256 betNumber,uint256 optionAgainst,uint256 minToEnter)public view returns(uint256[] memory,uint256[] memory,uint256[] memory){
         uint256[] memory maxCoteNums=new uint256[](5);
         uint256[] memory maxCotes=new uint256[](5);
         uint256[] memory volume=new uint256[](5);
@@ -702,7 +708,7 @@ function recupAllP2PWin()public{
             }
         }
         return (maxCoteNums,volume,maxCotes);
-    }
+    }*/
 
     function getScore(address msgsender) public view returns(uint256){
         return score[msgsender];

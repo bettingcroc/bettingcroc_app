@@ -14,12 +14,11 @@ app.use(cors())
 app.use(express.json())
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Bettingcroc application listening on port ${port}`)
 })
 
 app.get('/api/position/:address', (req,res)=>{ //TODO inclure rank dans react
   let position=users.get_Classement_address(req.params.address);
-  //console.log(position===undefined)
   if(position===undefined){
     users.addUser(req.params.address);
     position=users.get_Classement_address(req.params.address);
