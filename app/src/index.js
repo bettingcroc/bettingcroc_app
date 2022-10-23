@@ -26,7 +26,7 @@ class Popup extends React.Component {
       <div className='popup'>
         <div className='popup_inner'>
           <h1>{this.props.text}</h1>
-        <button onClick={this.props.closePopup}>close me</button>
+        <button onClick={this.props.closePopup}>GOT IT !</button>
         <img src="https://dynamic-assets.coinbase.com/36f266bc4826775268588346777c84c1ae035e7de268a6e124bcc22659f0aa2bf4f66dcad89b2ac978cfdb4d51c2d9f63cf7157769efb500b20ca16a6d5719c7/asset_icons/7deb6ff58870072405c0418d85501c4521c3296e33ef58452be98e4ca592ed19.png"></img>
         </div>
       </div>
@@ -188,7 +188,7 @@ class App extends Component {
             <h4> mbt allowed: {this.state.mbtAllowed}</h4>
             {this.state.showPopup ? 
               <Popup
-                text='Chance gain to BSC Testnet'
+                text='Change chain to BSC Testnet to use app !'
                 closePopup={this.togglePopup}
                 
               />
