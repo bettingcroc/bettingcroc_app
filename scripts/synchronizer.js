@@ -1210,7 +1210,7 @@ function getOptions(date, team) {
     return {
       method: "GET",
       url: "https://v3.football.api-sports.io/fixtures",
-      qs: { date: date, team:team , season: "2021" },
+      qs: { date: date, team:team , season: "2022" },
       headers: {
         "x-rapidapi-host": "v3.football.api-sports.io",
         "x-rapidapi-key": "1b8bea4eb9795ae6f10a338ffe214f5d", //achille zgiw api
