@@ -164,17 +164,19 @@ betCreator();
 
 
 async function betCreator(){
-  leagues=["Premier League","LaLiga","Serie A"];
-  sports=["football","football","football"];
+  //leagues=["Premier League","LaLiga","Serie A"];
+  //sports=["football","football","football"];
   //leagues=["NBA","LNB","GLeague"];
   //sports=["basketball","basketball","basketball"];
   //leagues=["LaLiga","Serie A"];
   //sports=["football","football"];
+  leagues=["NBA"]
+  sports=["basketball"]
   params=dateIterator(dayParams);
   logger.cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes "+params+" !!!!!!!!!!!!!!!!!!!!!!!!");
   //console.log(params);
   dayParams=dayParams+1;
-  setTimeout(betCreator,60000);
+  setTimeout(betCreator,86400000);
 
   for(i=0;i<leagues.length;i++){
     logger.magenta("-------------------- new request -----------------------");
@@ -183,7 +185,7 @@ async function betCreator(){
     console.log(league," ",sport," ",i);
     let options = getOptions(params,sport,league);
     //console.log(options)
-    if(sport==='football'){
+    /*if(sport==='football'){
       await new Promise(next =>{request(options, async function (error, response) {
         console.log(JSON.parse(response.body))
         console.log("request ",i," : ",league,sport," received with ",JSON.parse(response.body).results," results");
@@ -212,7 +214,7 @@ async function betCreator(){
         next();
         })
       })
-    }
+    }*/
     if(sport==='basketball'){
       await new Promise(next =>{request(options, async function (error, response) {
         console.log("request ",league,sport," received with ",JSON.parse(response.body).results," results");

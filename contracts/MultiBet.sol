@@ -83,6 +83,9 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
     mapping(address => uint256[])myBets; 
     //mapping(address => uint256[])myBetsUnpaid;
     mapping(uint256 => uint256)moneyLosedOnBet;
+    mapping(uint256 => uint256)moneyPoolWinner;
+    mapping(uint256 => uint256)moneyPoolLoser;
+
     address USDTaddress;
     address MBTaddress;
     mapping(address => uint256) score;
@@ -255,6 +258,8 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         }
         toClaimForOwner=toClaimForOwner+feesBet;
         moneyLosedOnBet[betNumber]=moneyLosed(betNumber);
+        moneyPoolWinner[betNumber]=moneyInPool[betNumber][poolWin];
+        moneyPoolLoser[betNumber]=moneyLosed(betNumber);
         emit betDead(betNumber,poolWin);
     }
 
@@ -277,6 +282,8 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                 }
                 toClaimForOwner=toClaimForOwner+feesBet;
                 moneyLosedOnBet[betNumber]=moneyLosed(betNumber);
+                moneyPoolWinner[betNumber]=moneyInPool[betNumber][Winner[betNumber]];
+                moneyPoolLoser[betNumber]=moneyLosed(betNumber);
                 emit betDead(betNumber,poolwinners[i]);
             }
         }
@@ -395,7 +402,6 @@ function recupAllP2PWin()public{
                     }
                 }// dynamic array : max => nombre de p2p bets sur un pari
             }
-            if(userWon){score[msg.sender]+=1;}
         }
         if(rewardsTotal>0){
             payWinner(msg.sender,rewardsTotal);
@@ -424,7 +430,7 @@ function recupAllP2PWin()public{
                     toBePaidWon=(moneyBetted*moneyLosedOnBet[betNumberIterator])/moneyInPoolBefore;  
                     toBePaid=toBePaidWon+moneyBetted;
                     moneyLosedOnBet[betNumberIterator]=moneyLosedOnBet[betNumberIterator]-toBePaidWon; 
-                    score[msg.sender]+=1;
+                    score[msg.sender]+=moneyPoolLoser[betNumberIterator]*1000000000/moneyPoolWinner[betNumberIterator]; // decimales score
                 }
                 rewardsTotal=rewardsTotal+toBePaid;
                 }
