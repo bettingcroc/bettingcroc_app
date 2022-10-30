@@ -40,7 +40,7 @@ async function main(){
         .then((result)=>{
             logger.blue(result)
             console.log(result[0]+" sent for ending on with "+result[1]+" on "+dateNow+" at "+timeNow.toLocaleTimeString());
-            //endBetOnChain(result[0],result[1]);
+            endBetOnChain(result[0],result[1]);
         })
         
     }    
