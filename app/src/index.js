@@ -115,7 +115,7 @@ class App extends Component {
         window.location.reload();
       })    
       window.ethereum.on('accountsChanged', () => {
-        let url = "https://app.bettingcroc.com/logout";
+        let url = "https://testnet.bettingcroc.com/logout";
     
         console.log(url);
         let options = {

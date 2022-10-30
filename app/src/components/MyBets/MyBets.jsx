@@ -15,7 +15,7 @@ class MyBets extends React.Component {
     if (this.props.address !== "") {
       try {
         console.log(this.props.address);
-        fetch("https://app.bettingcroc.com/api/mybets/"+this.props.address, { method: "GET" }).then(
+        fetch("https://testnet.bettingcroc.com/api/mybets/"+this.props.address, { method: "GET" }).then(
           (res) => {
             res.json().then((data) => {
               console.log("data "+data)
@@ -35,7 +35,7 @@ class MyBets extends React.Component {
     if (this.props.address !== "" && this.props !== prevProps && __mounted) {
       try {
         console.log(this.props.address);
-        fetch("https://app.bettingcroc.com/api/mybets/"+this.props.address, { method: "GET" }).then(
+        fetch("https://testnet.bettingcroc.com/api/mybets/"+this.props.address, { method: "GET" }).then(
           (res) => {
             res.json().then((data) => {
               console.log(data)

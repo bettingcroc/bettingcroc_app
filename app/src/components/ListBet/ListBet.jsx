@@ -10,7 +10,7 @@ class ListBet extends React.Component {
   }
   componentDidMount(){
     _mounted=true
-    fetch("https://app.bettingcroc.com/api/lastbets", { method: "GET" }).then((res) => {
+    fetch("https://testnet.bettingcroc.com/api/lastbets", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         if(_mounted){        this.setState({ matches: data.matches });
       }
