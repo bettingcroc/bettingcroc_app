@@ -132,7 +132,7 @@ async function createWinnersArray(arrayBetsToEnd){
                 }
                 };
             
-            await new Promise(next =>{èèrequest(optionsNBA, function (error, response) {
+            await new Promise(next =>{request(optionsNBA, function (error, response) {
                 console.log("request basket for bet "+arrayBetsToEnd[i]);
                 if(JSON.parse(response.body).response[0].status.short==="FT" || JSON.parse(response.body).response[0].status.short==="AOT" ){
                     if(JSON.parse(response.body).response[0].scores.home.total>JSON.parse(response.body).response[0].scores.away.total){
