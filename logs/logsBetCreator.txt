@@ -749,3 +749,9 @@ Bet created n 76 Wisconsin Herd,Lakeland Magic 1642613400 basketball USA NBA - G
 18/09/2022 16:24:48 Bet created n 13 1663506000 football Italy Serie A Monza,Draw,Juventus
 18/09/2022 16:24:48 Bet created n 14 1663516800 football Italy Serie A AS Roma,Draw,Atalanta
 18/09/2022 16:24:48 Bet created n 15 1663497000 football Italy Serie A Udinese,Draw,Inter
+02/11/2022 23:07:06 Bet created n 26 1667347200 basketball USA NBA Oklahoma City Thunder,Orlando Magic
+02/11/2022 23:07:06 Bet created n 27 1667354400 basketball USA NBA Phoenix Suns,Minnesota Timberwolves
+02/11/2022 23:07:06 Bet created n 28 1667426400 basketball USA NBA Philadelphia 76ers,Washington Wizards
+02/11/2022 23:07:06 Bet created n 29 1667431800 basketball USA NBA Cleveland Cavaliers,Boston Celtics
+02/11/2022 23:07:06 Bet created n 30 1667431800 basketball USA NBA Miami Heat,Sacramento Kings
+02/11/2022 23:07:06 Bet created n 31 1667431800 basketball USA NBA New York Knicks,Atlanta Hawks

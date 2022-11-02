@@ -4863,3 +4863,61 @@ no bet to close on 02/11/2022 at 22:31:23 to 22:32:23
 no bet to close on 02/11/2022 at 22:32:23 to 22:33:23
 no bet to close on 02/11/2022 at 22:33:23 to 22:34:23
 no bet to close on 02/11/2022 at 22:34:23 to 22:35:23
+no bet to close on 02/11/2022 at 22:35:23 to 22:36:23
+no bet to close on 02/11/2022 at 22:36:23 to 22:37:23
+no bet to close on 02/11/2022 at 22:37:23 to 22:38:23
+no bet to close on 02/11/2022 at 22:38:23 to 22:39:23
+no bet to close on 02/11/2022 at 22:39:23 to 22:40:23
+no bet to close on 02/11/2022 at 22:40:23 to 22:41:23
+no bet to close on 02/11/2022 at 22:41:23 to 22:42:23
+no bet to close on 02/11/2022 at 22:42:23 to 22:43:23
+no bet to close on 02/11/2022 at 22:43:23 to 22:44:23
+no bet to close on 02/11/2022 at 22:44:23 to 22:45:23
+no bet to close on 02/11/2022 at 22:45:24 to 22:46:24
+no bet to close on 02/11/2022 at 22:46:24 to 22:47:24
+no bet to close on 02/11/2022 at 22:47:24 to 22:48:24
+02/11/2022 22:42:38 to 22:47:38 : no bet to End
+no bet to close on 02/11/2022 at 22:48:24 to 22:49:24
+02/11/2022 22:43:38 to 22:48:38 : no bet to End
+no bet to close on 02/11/2022 at 22:49:24 to 22:50:24
+02/11/2022 22:44:38 to 22:49:38 : no bet to End
+no bet to close on 02/11/2022 at 22:50:24 to 22:51:24
+02/11/2022 22:45:38 to 22:50:38 : no bet to End
+no bet to close on 02/11/2022 at 22:51:24 to 22:52:24
+02/11/2022 22:46:38 to 22:51:38 : no bet to End
+no bet to close on 02/11/2022 at 22:52:24 to 22:53:24
+02/11/2022 22:47:38 to 22:52:38 : no bet to End
+no bet to close on 02/11/2022 at 22:53:24 to 22:54:24
+02/11/2022 22:48:38 to 22:53:38 : no bet to End
+no bet to close on 02/11/2022 at 22:54:24 to 22:55:24
+02/11/2022 22:49:38 to 22:54:38 : no bet to End
+no bet to close on 02/11/2022 at 22:55:24 to 22:56:24
+02/11/2022 22:50:38 to 22:55:38 : no bet to End
+no bet to close on 02/11/2022 at 22:56:24 to 22:57:24
+02/11/2022 22:51:38 to 22:56:38 : no bet to End
+no bet to close on 02/11/2022 at 22:57:24 to 22:58:24
+02/11/2022 22:52:38 to 22:57:38 : no bet to End
+no bet to close on 02/11/2022 at 22:58:24 to 22:59:24
+02/11/2022 22:53:38 to 22:58:38 : no bet to End
+no bet to close on 02/11/2022 at 22:59:24 to 23:00:24
+02/11/2022 22:54:38 to 22:59:38 : no bet to End
+no bet to close on 02/11/2022 at 23:00:24 to 23:01:24
+02/11/2022 22:55:38 to 23:00:38 : no bet to End
+no bet to close on 02/11/2022 at 23:01:24 to 23:02:24
+02/11/2022 22:56:38 to 23:01:38 : no bet to End
+no bet to close on 02/11/2022 at 23:02:24 to 23:03:24
+02/11/2022 22:57:38 to 23:02:38 : no bet to End
+no bet to close on 02/11/2022 at 23:03:24 to 23:04:24
+02/11/2022 22:58:38 to 23:03:38 : no bet to End
+no bet to close on 02/11/2022 at 23:04:24 to 23:05:24
+02/11/2022 22:59:38 to 23:04:38 : no bet to End
+no bet to close on 02/11/2022 at 23:05:24 to 23:06:24
+02/11/2022 23:00:38 to 23:05:38 : no bet to End
+no bet to close on 02/11/2022 at 23:06:24 to 23:07:24
+02/11/2022 23:01:38 to 23:06:38 : no bet to End
+no bet to close on 02/11/2022 at 23:07:24 to 23:08:24
+02/11/2022 23:02:38 to 23:07:38 : no bet to End
+no bet to close on 02/11/2022 at 23:08:24 to 23:09:24
+02/11/2022 23:03:38 to 23:08:38 : no bet to End
+no bet to close on 02/11/2022 at 23:09:24 to 23:10:24
+02/11/2022 23:04:38 to 23:09:38 : no bet to End
