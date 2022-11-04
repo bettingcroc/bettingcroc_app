@@ -1,3 +1,5 @@
+function run(){
+try{
 const logger = require('./logger.js')
 
 logger.high("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -42,7 +44,7 @@ var web3 = new Web3(provider);
 multiBetContract= new web3.eth.Contract(JSON.parse(multiBetABI),multiBetAddress);
 var day=0;
 
-var dayParams=0;
+var dayParams=1;
 
 leagueFootIDs ={
   "PremierLeague":39,
@@ -247,3 +249,10 @@ async function betCreator(){
   }
   logger.cyan("fin requête "+params);
 }
+}
+catch(e){
+  console.log(e)
+  run()
+}
+}
+run()

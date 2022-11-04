@@ -68,7 +68,7 @@ async function closeBetOnChain(betsToClose){
             console.log(receipt);
             let str=betsToClose+" closed on "+dateNow+" at "+timeNow;
             console.log(str);
-            fs.appendFile("logsBetCloser.txt",str , function(err) {
+            fs.appendFile("../logs/logsBetCloser.txt",str , function(err) {
                 if(err) {
                     return console.log(err);
                 }
