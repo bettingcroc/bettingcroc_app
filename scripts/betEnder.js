@@ -38,9 +38,20 @@ async function main(){
     if(betsToEnd.length>0){
         createWinnersArray(betsToEnd)
         .then((result)=>{
-            logger.blue(result)
-            console.log(result[0]+" sent for ending on with "+result[1]+" on "+dateNow+" at "+timeNow.toLocaleTimeString());
-            endBetOnChain(result[0],result[1]);
+            if(result.length>0){
+                logger.blue(result)
+                console.log(result[0]+" sent for ending on with "+result[1]+" on "+dateNow+" at "+timeNow.toLocaleTimeString());
+                endBetOnChain(result[0],result[1]);
+            }
+            else{
+                console.log("no bet to end on "+dateNow+" at ",new Date(timeNow.getTime()-60000).toLocaleTimeString()," to ",timeNow.toLocaleTimeString());   
+                let str= dateNow+" "+new Date(timeNow.getTime()-300000).toLocaleTimeString()+" to "+timeNow.toLocaleTimeString()+" : no bet to End";
+                fs.appendFile("../logs/logsBetCloser.txt",str+"\n" , function(err) {
+                    if(err) {
+                        return console.log(err);
+                    }
+                  });       
+            }
         })
         
     }    
