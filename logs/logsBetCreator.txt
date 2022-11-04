@@ -749,3 +749,23 @@ Bet created n 76 Wisconsin Herd,Lakeland Magic 1642613400 basketball USA NBA - G
 18/09/2022 16:24:48 Bet created n 13 1663506000 football Italy Serie A Monza,Draw,Juventus
 18/09/2022 16:24:48 Bet created n 14 1663516800 football Italy Serie A AS Roma,Draw,Atalanta
 18/09/2022 16:24:48 Bet created n 15 1663497000 football Italy Serie A Udinese,Draw,Inter
+02/11/2022 23:07:06 Bet created n 26 1667347200 basketball USA NBA Oklahoma City Thunder,Orlando Magic
+02/11/2022 23:07:06 Bet created n 27 1667354400 basketball USA NBA Phoenix Suns,Minnesota Timberwolves
+02/11/2022 23:07:06 Bet created n 28 1667426400 basketball USA NBA Philadelphia 76ers,Washington Wizards
+02/11/2022 23:07:06 Bet created n 29 1667431800 basketball USA NBA Cleveland Cavaliers,Boston Celtics
+02/11/2022 23:07:06 Bet created n 30 1667431800 basketball USA NBA Miami Heat,Sacramento Kings
+02/11/2022 23:07:06 Bet created n 31 1667431800 basketball USA NBA New York Knicks,Atlanta Hawks
+03/11/2022 01:48:55 Bet created n 32 1667433600 basketball USA NBA Chicago Bulls,Charlotte Hornets
+03/11/2022 01:48:55 Bet created n 33 1667433600 basketball USA NBA Houston Rockets,Los Angeles Clippers
+03/11/2022 01:48:55 Bet created n 34 1667433600 basketball USA NBA Milwaukee Bucks,Detroit Pistons
+03/11/2022 01:48:55 Bet created n 35 1667433600 basketball USA NBA San Antonio Spurs,Toronto Raptors
+03/11/2022 01:48:55 Bet created n 36 1667435400 basketball USA NBA Dallas Mavericks,Utah Jazz
+03/11/2022 01:48:55 Bet created n 37 1667440800 basketball USA NBA Portland Trail Blazers,Memphis Grizzlies
+03/11/2022 01:48:55 Bet created n 38 1667442600 basketball USA NBA Los Angeles Lakers,New Orleans Pelicans
+03/11/2022 01:48:55 Bet created n 39 1667516400 basketball USA NBA Orlando Magic,Golden State Warriors
+04/11/2022 05:31:15 Bet created n 40 1667520000 basketball USA NBA Oklahoma City Thunder,Denver Nuggets
+04/11/2022 05:31:15 Bet created n 41 1667602800 basketball USA NBA Detroit Pistons,Cleveland Cavaliers
+04/11/2022 05:31:15 Bet created n 42 1667602800 basketball USA NBA Indiana Pacers,Miami Heat
+04/11/2022 05:31:15 Bet created n 43 1667602800 basketball USA NBA Philadelphia 76ers,New York Knicks
+04/11/2022 05:31:15 Bet created n 44 1667602800 basketball USA NBA Washington Wizards,Brooklyn Nets
+04/11/2022 05:31:15 Bet created n 45 1667604600 basketball USA NBA Boston Celtics,Chicago Bulls
