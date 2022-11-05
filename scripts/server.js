@@ -63,7 +63,7 @@ app.post('/login',(req,res)=>{
   if(users.recover(nonce,req.body.signedNonce).toLowerCase()===req.body.address.toLowerCase()){
     console.log("logging in "+req.body.address)
     req.session.logged=true
-    req.session.address=users.recover(nonce,req.body.signedNonce)
+    req.session.address=users.recover(nonce,req.body.signedNonce).toLowerCase()
   }
   users.newNonce(req.session.address)
   res.send("login")
