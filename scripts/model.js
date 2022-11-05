@@ -1353,6 +1353,11 @@ function endBets(betNumbers){
 	}
 }
 
+function cancelBet(betNumber){
+	let update = db.prepare('update bets set status=3 where betNumber='+betNumber)
+	update.run()
+}
+
 module.exports = {
   add_bet:add_bet,
   get_Name:get_Name,
@@ -1372,6 +1377,7 @@ module.exports = {
   get_CLosestDatesByTypeAndLeague:get_CLosestDatesByTypeAndLeague,
   closeBets:closeBets,
   get_betClosed:get_betClosed,
-  endBets:endBets
+  endBets:endBets,
+  cancelBet:cancelBet
 };
 //0xD90531a9234A38dfFC8493c0018ad17cB5F7A867

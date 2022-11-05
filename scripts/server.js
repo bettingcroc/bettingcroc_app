@@ -53,7 +53,7 @@ app.get('/api/nonce/:address',async (req,res)=>{
   }
   
 })
-// A FAIRE PULLLLLL
+
 app.post('/login',(req,res)=>{
   console.log("nonce signed "+req.body.signedNonce)
   console.log("address "+req.body.address)
@@ -65,8 +65,10 @@ app.post('/login',(req,res)=>{
     req.session.logged=true
     req.session.address=users.recover(nonce,req.body.signedNonce)
   }
+  users.newNonce(req.session.address)
   res.send("login")
 })
+
 app.post('/logout',(req,res)=>{
   req.session.logged=false
   req.session.address=undefined

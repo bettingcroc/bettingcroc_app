@@ -32,14 +32,14 @@ async function main(){
     for(i=0;i<resultDB.length;i++){
         betsToEnd.push(resultDB[i]["betNumber"]);
     } 
-    console.log(betsToEnd)
+    //console.log(betsToEnd)
     timeNow=new Date();
     dateNow=new Date().toLocaleDateString();
     if(betsToEnd.length>0){
         createWinnersArray(betsToEnd)
         .then((result)=>{
             if(result[0].length>0){
-                logger.blue(result)
+                //logger.blue(result)
                 console.log(result[0]+" sent for ending on with "+result[1]+" on "+dateNow+" at "+timeNow.toLocaleTimeString());
                 endBetOnChain(result[0],result[1]);
             }
@@ -153,6 +153,15 @@ async function createWinnersArray(arrayBetsToEnd){
                         winnerBetsToEnd.push(1);
                     }
                     betsToEnd.push(arrayBetsToEnd[i]);
+                }
+                if(
+                    JSON.parse(response.body).response[0].status.short==="POST" 
+                    || JSON.parse(response.body).response[0].status.short==="CANC" 
+                    || JSON.parse(response.body).response[0].status.short==="SUSP"
+                    || JSON.parse(response.body).response[0].status.short==="AWD"
+                    || JSON.parse(response.body).response[0].status.short==="ABD"
+                ){
+                    model.cancelBet(arrayBetsToEnd[i])
                 }
                 next();
                 })

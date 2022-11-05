@@ -1182,6 +1182,7 @@ multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER,nonce TEXT, pseudo TEXT)').run();
 web3.eth.accounts.wallet.add('0x2d548a72a666dc56338fd0b886aaf31242dd4ce98c0efe0c38faea44af45ddd2');
+
 var randomString = function(length) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -1319,6 +1320,11 @@ function recover(nonsigned,signed){
 	return web3.eth.accounts.recover(web3.utils.sha3(nonsigned), signed);
 }
 
+function newNonce(address){
+	nonce=randomString(16)
+	db.prepare(`update players set nonce='${nonce}' where address='${address}'`).run();
+}
+
 module.exports={
     addUser:addUser,
     update_Scores:update_Scores,
@@ -1329,5 +1335,6 @@ module.exports={
     verifySignature:verifySignature,
 	update_WeekScores:update_WeekScores,
 	recover:recover,
-	setPseudo:setPseudo
+	setPseudo:setPseudo,
+	newNonce:newNonce
 }
