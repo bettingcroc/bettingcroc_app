@@ -170,6 +170,8 @@ async function createWinnersArray(arrayBetsToEnd){
         
         }
     }
-    console.log(betsToEnd,winnerBetsToEnd);
+    if(betsToEnd.length>0){
+        console.log(betsToEnd,winnerBetsToEnd);
+    }
     return [betsToEnd,winnerBetsToEnd];
 }
