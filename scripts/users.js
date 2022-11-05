@@ -1323,6 +1323,7 @@ function recover(nonsigned,signed){
 function newNonce(address){
 	nonce=randomString(16)
 	db.prepare(`update players set nonce='${nonce}' where address='${address}'`).run();
+	console.log(`update players set nonce='${nonce}' where address='${address}'`)
 }
 
 module.exports={
