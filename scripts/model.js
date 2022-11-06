@@ -1341,7 +1341,7 @@ function closeBets(betNumbers){
 		bN=betNumbers[bN]
 		let update = db.prepare('update bets set status=1 where betNumber='+bN)
 		update.run()
-		connsole.log('update bets set status=1 where betNumber='+bN)
+		//console.log('update bets set status=1 where betNumber='+bN)
 	}
 }
 
