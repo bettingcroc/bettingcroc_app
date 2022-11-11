@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Outlet } from "react-router-dom";
 var __mounted;
 
 class Account extends React.Component {
@@ -8,9 +9,9 @@ class Account extends React.Component {
       loaded: false,
       myPseudo: undefined,
       dataPerso: undefined,
-      newPseudo:""
+      newPseudo: ""
     };
-    this.setPseudoReact=this.setPseudoReact.bind(this)
+    this.setPseudoReact = this.setPseudoReact.bind(this)
   }
   render() {
     return (
@@ -20,11 +21,13 @@ class Account extends React.Component {
           my pseudo is {this.state.loaded ? this.state.dataPerso[0].pseudo : ""}
         </h3>
         <input type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
-        <button onClick={(event)=>{this.setPseudoReact(this.state.newPseudo)}}>change Pseudo</button>
+        <button onClick={(event) => { this.setPseudoReact(this.state.newPseudo) }}>change Pseudo</button>
+        <Link to="/mybets"><h3>myBets</h3></Link>
+        <Link to="/authentification"><h3>authentification</h3></Link>
       </div>
     );
   }
-  setPseudoReact(newPseudo){
+  setPseudoReact(newPseudo) {
     setPseudo(newPseudo)
   }
   componentDidMount() {
@@ -41,7 +44,7 @@ class Account extends React.Component {
     }*/
 
     __mounted = true;
-    
+
   }
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props && this.state.loaded === false) {
@@ -74,13 +77,14 @@ async function setPseudo(newPseudo) {
         "Content-Type": "application/json",
       },
     };
-    await new Promise(next =>{
-    fetch(url, options).then((res) => {
-      console.log("done "+res.status);
-      next()
-    });})
+    await new Promise(next => {
+      fetch(url, options).then((res) => {
+        console.log("done " + res.status);
+        next()
+      });
+    })
     console.log("end function")
-    return("done2")
+    return ("done2")
   }
 }
 

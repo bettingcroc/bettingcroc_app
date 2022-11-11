@@ -1165,7 +1165,8 @@ multiBetABI = [
   ];
   const request = require("request");
   
-  const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-2-s2.binance.org:8545/"; //url of bsc testnet node
+//const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
+const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
   const NODE_URL_POLYGON =
     "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet";
   var Web3 = require("web3");

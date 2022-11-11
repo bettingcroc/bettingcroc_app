@@ -1,153 +1,487 @@
-main {
-  margin-top: 60px;
+@font-face {
+  font-family: 'Roboto';
+  src: local('MyFont'), url(./Roboto-Regular.ttf)
 }
 
-form {
-  width: 350px;
-  margin-bottom: 10px;
+#bettingcroc {
+  position: relative;
+  width: 1920px;
+  height: 1646px;
+
+  /* Background */
+  background: #F4F7F9;
 }
 
-ul {
-  margin-bottom: 0px;
-}
+#topBar {
+  /* top bar */
 
-#completedTaskList .content {
-  color: grey;
-  text-decoration: line-through;
-}
-.optionPool{
-    display: inline-block;
-
-    border-width:1px;
-    border-style:dotted;
-    border-color:white;
-}
-.listBet{
-  justify-content: center;
-  display: grid;
-}
-.betComplet{
-  justify-content: center;
-  display: grid;
-}
-.p2pgames{
-  justify-content: center;
+  /* Auto layout */
   display: flex;
-  border-width:1px;
-    border-style:dotted;
-    border-color:white;
-}
-.optionsPool{
-  justify-content: center;
-  display: flex;
-  
-}
-.P2POption{
-  border-width:1px;
-    border-style:dotted;
-    border-color:white;
-}
-.hidden { display:none; }
-#root{
-  background-color: black;
-  height: 100%;
-}
-h3,h2,h4,h5,h1{
-  color : orange
-}
-html, body, #app, #root { min-height: 927px; }
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 28px;
+  gap: 137px;
+  isolation: isolate;
 
-.css-input {
-  padding: 5px;
-  font-size: 16px;
+  position: fixed;
+  z-index: 100;
+  width: 1920px;
+  height: 120px;
+  left: 0px;
+  top: 0px;
+
+  /* Blanc */
+  background: #FFFFFF;
+  border: solid;
   border-width: 1px;
-  border-color: #cccccc;
-  background-color: black;
-  color: orange;
-  border-style: solid;
-  border-radius: 8px;
-  box-shadow: 0px 0px 5px rgba(66,66,66,.75);
-  text-shadow: 0px 0px 5px rgba(66,66,66,.75);
-}
-.css-input:focus {
-  outline:none;
-}
-.button {
-	background:linear-gradient(to bottom, #000000 5%, #000000 100%);
-	background-color:#000000;
-	border-radius:10px;
-	border:1px solid #b0b0b0;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffc824;
-	font-family:Arial;
-	font-size:16px;
-	padding:6px 6px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #000000;
-}
-option,select{
-  background-color:#000000;
-	color:#ffc824;
-
-}
-.DecentraBetCreator{
-  display: inline-block;
-
-    border-width:1px;
-    border-style:dotted;
-    border-color:white;
-}
-.viewADecentraBet{
-  display: inline-block;
-
-    border-width:1px;
-    border-style:dotted;
-    border-color:white;
-}
-.blueTable {
-  font-family: Arial, Helvetica, sans-serif;
-  border: 0px solid #1C6EA4;
-  background-color: #098EEE;
-  width: 30%;
-  text-align: center;
-  border-collapse: collapse;
-  margin: auto;
-}
-.blueTable td, table.blueTable th {
-  border: 1px solid #AAAAAA;
-  padding: 3px 2px;
-}
-.blueTable tbody td {
-  font-size: 13px;
-  color: #FFFFFF;
-}
-.blueTable tr:nth-child(even) {
-  background: #823FF5;
-}
-.blueTable thead {
-  background: #1C6EA4;
-  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  border-bottom: 2px solid #444444;
-}
-.blueTable thead th {
-  font-size: 15px;
-  font-weight: bold;
-  color: #FFFFFF;
-  border-left: 2px solid #D0E4F5;
-}
-.blueTable thead th:first-child {
-  border-left: none;
-}
-.mainContent{
-  text-align: center;
+  border-color: #F4F7F9;
 }
 
-.popup_inner{
+#bettingCrocTitle {
+  width: 169px;
+  height: 46px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#crocoImage {
+  width: 56.79px;
+  height: 56px;
+
+}
+
+#logo {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 17px;
+
+  width: 242.79px;
+  height: 56px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#topLeft {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 140px;
+
+  width: 739.79px;
+  height: 56px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  z-index: 0;
+}
+
+#links {
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 73px;
+
+  width: 357px;
+  height: 25px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#listBetsTitle {
+  width: 70px;
+  height: 25px;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+
+  /* or 25px */
+
+  /* Texte noir */
+  color: #151D48;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#decentraBetTitle {
+  width: 74px;
+  height: 25px;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+
+  /* or 25px */
+
+  /* Texte gris */
+  color: #737791;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#classementTitle {
+
+  width: 67px;
+  height: 25px;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+
+  /* or 25px */
+
+  /* Texte gris */
+  color: #737791;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.accountLogo {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 16px;
+}
+
+#topRight {
+  display: flex;
+  flex-direction: row;
+}
+
+#leftBar {
+
+  position: fixed;
+  z-index: 100;
+  width: 345px;
+  height: 1526px;
+  left: 0px;
+  top: 120px;
+  background: #FFFFFF;
+  border: solid;
+  border-width: 1px;
+  border-color: #F4F7F9;
+}
+
+#rightBar {
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: fixed;
+  z-index: 100;
+  width: 420px;
+  height: 1406px;
+  right: 0px;
+  top: 120px;
+
+  /* Blanc */
+  background: #FFFFFF;
+  border: solid;
+  border-width: 1px;
+  border-color: #F4F7F9;
+}
+
+#mainVue {
+  /* Frame 1000002782 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
   position: absolute;
-  top: 500px;
-  right: 700px;
-  background-color: green;
+  width: 1084px;
+  height: 1296px;
+  left: 381px;
+  top: 296px;
+
+
+}
+
+#underLeftBar {
+  /* Frame 1000002777 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 50px;
+
+  position: absolute;
+  left: 12.26%;
+  right: 14.7%;
+  top: 3.24%;
+  bottom: 27.97%;
+
+
+}
+
+#connectButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#under2leftBar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 40px;
+
+  width: 252px;
+  height: 971.19px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#categories {
+  /* Frame 1000002780 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 240px;
+  height: 515.59px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+#popular {
+  /* Frame 1000002779 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+
+  width: 252px;
+  height: 311.6px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+
+
+#stakeJauge {
+  /* Today Sales */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 31px;
+  gap: 10px;
+
+  position: fixed;
+  z-index: 100;
+  width: 1155px;
+  height: 144px;
+  left: 345px;
+  top: 120px;
+
+  background: #FFFFFF;
+}
+
+#stakeTitle {
+  /* Frame 1000002744 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 1093px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#stakeBox {
+  /* Frame 1000002771 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 40px;
+
+  width: 1093px;
+  height: 56px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  /* Frame 1000002771 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 40px;
+
+  width: 1093px;
+  height: 56px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#jaugeDiv {
+  /* Frame 1000002770 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 917px;
+  height: 56px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}
+
+#enterStakeButton {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  width: 136px;
+  height: 40px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#graduation {
+  /* Frame 1000002769 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 162px;
+
+  width: 917px;
+  height: 24px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#range {
+
+  width: 917px;
+  height: 32px;
+
+
+}
+#rangeInput{
+  width: 100%;
 }

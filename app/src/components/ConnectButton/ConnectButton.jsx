@@ -7,13 +7,15 @@ class ConnectButton extends React.Component {
   // }
   render() {
     return (
-      <div>
-        <button className="button" onClick={this.props.connectWalletHandler}>
-          {this.props.connButtonText}
-        </button>
-        <div className="accountDisplay">
-          <h5>Address: {this.props.defaultAccount}</h5>
+      <div id="connectButton">
+        <div id="metamaskButton">
+          <button className="button" onClick={this.props.connectWalletHandler}>
+            {this.props.connButtonText}
+          </button>
         </div>
+
+        <p className="accountDisplay">Address: {this.props.defaultAccount}</p>
+
         {this.props.errorMessage}
       </div>
     );
