@@ -225,7 +225,7 @@
   border-color: #F4F7F9;
 }
 
-#mainVue {
+.betComplet {
   /* Frame 1000002782 */
 
   /* Auto layout */
@@ -235,11 +235,6 @@
   padding: 0px;
   gap: 20px;
 
-  position: absolute;
-  width: 1084px;
-  height: 1296px;
-  left: 381px;
-  top: 296px;
 
 
 }
@@ -482,6 +477,198 @@
 
 
 }
-#rangeInput{
+
+#rangeInput {
   width: 100%;
 }
+
+#mainVue {
+
+  /* Frame 1000002782 */
+
+  /* Auto layout */
+
+  position: absolute;
+  width: 1084px;
+  height: 1296px;
+  left: 381px;
+  top: 296px;
+
+
+
+}
+
+.optionsPool {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 23px 31px;
+  gap: 10px;
+
+
+  width: 1084px;
+  height: 162px;
+
+
+  background: #FFFFFF;
+  border: 1px solid #F8F9FA;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
+#underNameBet {
+  /* Today Sales */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 31px;
+  gap: 10px;
+
+  width: 1084px;
+  height: 190px;
+
+
+  background: #FFFFFF;
+  border: 1px solid #F8F9FA;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
+#p2p1 {
+  /* Frame 1000002764 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 1084px;
+  height: 386px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+}
+
+#p2p2 {
+  /* Todays Sales */
+
+  width: 1084px;
+  height: 222px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+}
+
+#underp2p2 {
+  /* Today Sales */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 31px;
+  gap: 10px;
+
+  width: 1084px;
+  height: 222px;
+
+
+  background: #FFFFFF;
+  border: 1px solid #F8F9FA;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
+#p2pcreator {
+  /* Todays Sales */
+
+  width: 532px;
+  height: 386px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#underp2pcreator {
+  /* Today Sales */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 30px;
+  gap: 10px;
+
+
+  width: 532px;
+  height: 386px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
+#p2pfinder {
+  /* Todays Sales */
+
+  width: 532px;
+  height: 386px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#underp2pfinder {
+  /* Today Sales */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 30px;
+  gap: 10px;
+
+
+  width: 532px;
+  height: 386px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
+#countryLeagueDate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#optionsSchedule {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+#inputStake{width: 146px;}

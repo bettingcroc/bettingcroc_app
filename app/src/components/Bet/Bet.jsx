@@ -6,7 +6,7 @@ const Bet = (props)=>{
   
   let [searchParams, setSearchParams] = useSearchParams();
 
-  return <div>{<BetComplet betNumber={searchParams.get("n")} betContract={props.betContract} usdtContract={props.usdtContract} mbtContract={props.mbtContract} address={props.address}></BetComplet>}</div>;
+  return <div>{<BetComplet betNumber={searchParams.get("n")} betContract={props.betContract} usdtContract={props.usdtContract} mbtContract={props.mbtContract} address={props.address} amountToBet={props.amountToBet}></BetComplet>}</div>;
 }
   
 

@@ -55,6 +55,8 @@ class App extends Component {
         this.accountChangedHandler(result[0]);
       });
     this.setState({ loading: false });
+    this.setState({ balanceUSDT: null })
+
 
   }
   constructor(props) {
@@ -70,12 +72,14 @@ class App extends Component {
       usdtAllowed: null,
       mbtAllowed: null,
       showPopup: false,
-      switchChainPending: false
+      switchChainPending: false,
+      amountToBet:0
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this);
     this.loadBlockchainData();
     this.allowancesSetter = this.allowancesSetter.bind(this)
     this.togglePopup = this.togglePopup.bind(this)
+
   }
   togglePopup() {
     this.setState({
@@ -101,7 +105,7 @@ class App extends Component {
               nativeCurrency: { name: 'BSC Testnet', decimals: 18, symbol: 'BNB' },
               //rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/']
               rpcUrls: ['https://rpc.ankr.com/bsc_testnet_chapel']
-              
+
             }
           ]
         });
@@ -133,6 +137,7 @@ class App extends Component {
       })
     }
     console.log(window.ethereum.networkVersion)
+
   }
   accountChangedHandler = (newAccount) => {
     this.setState({ defaultAccount: newAccount });
@@ -171,6 +176,13 @@ class App extends Component {
     try {
       console.log(this.state.defaultAccount)
       this.state.mbtContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => { this.setState({ mbtAllowed: parseFloat(result) / decimalsConverter(10) }); console.log("mbt allowed " + result) })
+    }
+    catch (error) {
+      console.log(error)
+    }
+    try {
+      console.log(this.state.defaultAccount)
+      this.state.USDTContract.methods.balanceOf(this.state.defaultAccount).call().then((result) => { this.setState({ balanceUSDT: parseFloat(result) / decimalsConverter(10) }); console.log("usdt balance " + result) })
     }
     catch (error) {
       console.log(error)
@@ -249,16 +261,21 @@ class App extends Component {
                   <div id="stakeBox">
                     <div id="jaugeDiv">
                       <div id="graduation">
-                        <p id="zeroRange">0%</p>
+                        <p id="zeroRange">1 USDT</p>
                         <p id="midRange">50%</p>
-                        <p id="maxRange">100%</p>
+                        <p id="maxRange">Max ({Math.round(this.state.balanceUSDT * 10) / 10})</p>
                       </div>
                       <div id="range">
-                        <input type="range" min="1" max="100" id="rangeInput"></input>
+                        <input type="range" min="1" step="1" max={this.state.balanceUSDT} id="rangeInput" value={this.state.amountToBet} onChange={e => this.setState({amountToBet: e.target.value})}></input>
                       </div>
                     </div>
-                    <div id="enterStakeButton">
-                      <button id="enterStakeButtonB">Enter stake</button>
+                    <div>
+                    <input type="number" id="inputStake" value={this.state.amountToBet} onChange={e => this.setState({amountToBet: e.target.value})}></input>
+                    <button id="enterStakeButtonB">
+                      <div id="enterStakeButton">
+                        Enter stake
+                      </div>
+                    </button>
                     </div>
                   </div>
                 </div>
@@ -282,7 +299,7 @@ class App extends Component {
             >
               <Route path="/basketball" element={<ListBet ></ListBet>} />
               <Route path="/football" element={<ListBet ></ListBet>} />
-              <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} ></Bet>} />
+              <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet}></Bet>} />
               <Route path="/decentrabet" element={<DecentraBet decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
               <Route path="/classement" element={<Classement address={this.state.defaultAccount}></Classement>}></Route>
               <Route path="/mybets" element={<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
@@ -291,8 +308,8 @@ class App extends Component {
             </Route>
 
           </Routes>
-        </BrowserRouter>
-      </div>
+        </BrowserRouter >
+      </div >
     );
   }
 }
