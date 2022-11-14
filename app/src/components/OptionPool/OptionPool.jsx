@@ -97,8 +97,8 @@ class OptionPool extends React.Component{
 
           <h3>{this.props.team}</h3> <br></br>
           <h4>{parseFloat(this.state.moneyInPool) / decimalsConverter(10)} USDT (got {parseFloat(this.state.moneyIgot) / decimalsConverter(10)} USDT)</h4>
-          <input className="css-input" id="amountToBetOnOptionPool" type="number" value={this.state.amountToBet} onChange={e => this.setState({amountToBet: e.target.value})}></input>
-          <button className="button" onClick={(event)=>{this.approveUSDT(this.state.amountToBet)}}>APPROVE USDT</button>
+{          /*<input className="css-input" id="amountToBetOnOptionPool" type="number" value={this.state.amountToBet} onChange={e => this.setState({amountToBet: e.target.value})}></input>
+*/}          <button className="button" onClick={(event)=>{this.approveUSDT(this.state.amountToBet)}}>APPROVE USDT</button>
           <button className="button" onClick={(event)=>{this.betOnThisOption(this.state.amountToBet)}}>BET</button>
       </div>
     );
