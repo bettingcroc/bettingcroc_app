@@ -21,6 +21,7 @@ import Classement from "./components/Classement/Classement";
 import MyBets from "./components/MyBets/MyBets";
 import Authentification from "./components/Authentification/Authentification";
 import Account from "./components/Account/Account";
+import BetMaker from "./components/betMaker/betMaker";
 const chainId = 97;
 class Popup extends React.Component {
   render() {
@@ -73,13 +74,22 @@ class App extends Component {
       mbtAllowed: null,
       showPopup: false,
       switchChainPending: false,
-      amountToBet:0
+      amountToBet: 1,
+      rightBar: "panier",
+      typeBet: 0,
+      betArgs: null
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this);
     this.loadBlockchainData();
     this.allowancesSetter = this.allowancesSetter.bind(this)
     this.togglePopup = this.togglePopup.bind(this)
-
+    this.goPanier = this.goPanier.bind(this)
+    this.goMyBets = this.goMyBets.bind(this)
+    this.setTypeBet = this.setTypeBet.bind(this)
+    this.setBetArgs = this.setBetArgs.bind(this)
+    this.approveUSDT = this.approveUSDT.bind(this)
+    this.betFunction = this.betFunction.bind(this)
+    this.betOnThisOption = this.betOnThisOption.bind(this)
   }
   togglePopup() {
     this.setState({
@@ -188,6 +198,39 @@ class App extends Component {
       console.log(error)
     }
   }
+  goMyBets() {
+    this.setState({ rightBar: "myBets" })
+  }
+  goPanier() {
+    this.setState({ rightBar: "panier" })
+  }
+  setTypeBet(newTypeBet) {
+    this.setState({ typeBet: newTypeBet })
+    console.log(this.state.typeBet)
+  }
+  setBetArgs(newBetArgs) {
+    this.setState({ betArgs: newBetArgs })
+  }
+  approveUSDT(amount) {
+    console.log("wtf")
+    this.state.USDTContract.methods.approve("0xD90531a9234A38dfFC8493c0018ad17cB5F7A867", amount).send({ from: this.state.defaultAccount })
+      .once('receipt', (receipt) => {
+        console.log("approve success")
+      })
+  }
+  betFunction(args) {
+    console.log("bet")
+    if (this.state.typeBet === 1) {
+      this.betOnThisOption(this.state.betArgs.amountToBet)
+    }
+  }
+  betOnThisOption(amount) {
+    console.log("bet Try")
+    this.state.multiBetContract.methods.betOn(this.state.betArgs.betNumber, this.state.betArgs.optionNumber, amount).send({ from: this.state.defaultAccount })
+      .once('receipt', (receipt) => {
+        console.log("bet success")
+      })
+  }
   render() {
     return (
       <div id="bettingcroc">
@@ -249,33 +292,35 @@ class App extends Component {
                   </div>
                 </div>
 
+                <div id="superStakeJauge">
+                  <div id="stakeJauge">
+                    <div id="stakeTitle">
+                      <p id="stakeTitleP">Stake</p>
 
-                <div id="stakeJauge">
-                  <div id="stakeTitle">
-                    <div id="underStakeTitle">
+                      {/*<div id="underStakeTitle">
                       <div id="under2StakeTitle">
-                        <p id="stakeTitleP">Stake</p>
                       </div>
+            </div>*/}
                     </div>
-                  </div>
-                  <div id="stakeBox">
-                    <div id="jaugeDiv">
-                      <div id="graduation">
-                        <p id="zeroRange">1 USDT</p>
-                        <p id="midRange">50%</p>
-                        <p id="maxRange">Max ({Math.round(this.state.balanceUSDT * 10) / 10})</p>
+                    <div id="stakeBox">
+                      <div id="jaugeDiv">
+                        <div id="graduation">
+                          <p id="zeroRange">1 USDT</p>
+                          <p id="midRange">50%</p>
+                          <p id="maxRange">Max ({Math.round(this.state.balanceUSDT * 10) / 10})</p>
+                        </div>
+                        <div id="range">
+                          <input type="range" min="1" step="1" max={this.state.balanceUSDT} id="rangeInput" value={this.state.amountToBet} onChange={e => this.setState({ amountToBet: e.target.value })}></input>
+                        </div>
                       </div>
-                      <div id="range">
-                        <input type="range" min="1" step="1" max={this.state.balanceUSDT} id="rangeInput" value={this.state.amountToBet} onChange={e => this.setState({amountToBet: e.target.value})}></input>
+                      <div>
+                        <input type="number" id="inputStake" min="1" value={this.state.amountToBet} onChange={e => this.setState({ amountToBet: e.target.value })}></input>
+                        {/*<button id="enterStakeButtonB">
+                        <div id="enterStakeButton">
+                          Enter stake
+                        </div>
+                      </button>*/}
                       </div>
-                    </div>
-                    <div>
-                    <input type="number" id="inputStake" value={this.state.amountToBet} onChange={e => this.setState({amountToBet: e.target.value})}></input>
-                    <button id="enterStakeButtonB">
-                      <div id="enterStakeButton">
-                        Enter stake
-                      </div>
-                    </button>
                     </div>
                   </div>
                 </div>
@@ -291,15 +336,39 @@ class App extends Component {
                   <Outlet></Outlet>
                 </div>
                 <div id="rightBar">
-                  <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
-                </div>
+                  <div id="topRightBar">
+                    <div id="underTopRightBar">
+                      <button onClick={this.goPanier} id="panierP">Panier</button>
+                      <button onClick={this.goMyBets} id="myBetsP">My Bets</button>
+                    </div>
+                  </div>
+                  <div id="midRightBar">
+                    {this.state.rightBar === "panier" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs}></BetMaker> : <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
+                    }
+                  </div>
 
+
+                </div>
+                <div id="bottomRightBar">
+                  <div id="underBottomRightBar">
+                    <div id="inputLine">
+                      <p id="inputP">Input</p>
+                      <p id="inputP2">{this.state.betArgs === null ? null : parseFloat(this.state.betArgs.amountToBet) / decimalsConverter(10) + " USDT"}</p>
+                    </div>
+                    <div id="gainsLine">
+                      <p id="gainsP">Gains</p>
+                      <p id="gainsP2">{this.state.betArgs === null ? null : this.state.betArgs === null ? null : this.state.betArgs.toWin + " USDT"} </p>
+                    </div>
+                  </div>
+                  <button id="buttonApprover" onClick={(event) => { this.approveUSDT(this.state.betArgs.amountToBet) }}><div id="approveButton"><p id="approveP">APPROVE</p></div></button>
+                  <button id="buttonBetter" onClick={(event) => { this.betFunction(this.state.betArgs) }}><div id="betButton"><p id="betP">BET</p></div></button>
+                </div>
 
               </div>}
             >
               <Route path="/basketball" element={<ListBet ></ListBet>} />
               <Route path="/football" element={<ListBet ></ListBet>} />
-              <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet}></Bet>} />
+              <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs}></Bet>} />
               <Route path="/decentrabet" element={<DecentraBet decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
               <Route path="/classement" element={<Classement address={this.state.defaultAccount}></Classement>}></Route>
               <Route path="/mybets" element={<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>

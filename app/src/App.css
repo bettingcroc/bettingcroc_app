@@ -3,6 +3,11 @@
   src: local('MyFont'), url(./Roboto-Regular.ttf)
 }
 
+@font-face {
+  font-family: 'Poppins';
+  src: local('MyFont'), url(./Poppins-Regular.ttf)
+}
+
 #bettingcroc {
   position: relative;
   width: 1920px;
@@ -26,8 +31,8 @@
 
   position: fixed;
   z-index: 100;
-  width: 1920px;
-  height: 120px;
+  width: 100%;
+  height: 70px;
   left: 0px;
   top: 0px;
 
@@ -196,7 +201,7 @@
   width: 345px;
   height: 1526px;
   left: 0px;
-  top: 120px;
+  top: 70px;
   background: #FFFFFF;
   border: solid;
   border-width: 1px;
@@ -216,7 +221,7 @@
   width: 420px;
   height: 1406px;
   right: 0px;
-  top: 120px;
+  top: 70px;
 
   /* Blanc */
   background: #FFFFFF;
@@ -332,39 +337,39 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 23px 31px;
+  gap: 10px;
+
+
+  z-index: 100;
+  width: 1093px;
+  height: 100px;
+
+
+  background: #FFFFFF;
+}
+
+#superStakeJauge {
+  /* Today Sales */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 10px;
 
   position: fixed;
   z-index: 100;
   width: 1155px;
-  height: 144px;
+  height: 100px;
   left: 345px;
-  top: 120px;
+  top: 70px;
 
   background: #FFFFFF;
+  justify-content: center;
 }
 
-#stakeTitle {
-  /* Frame 1000002744 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 20px;
-
-  width: 1093px;
-  height: 32px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
 
 #stakeBox {
   /* Frame 1000002771 */
@@ -492,7 +497,7 @@
   width: 1084px;
   height: 1296px;
   left: 381px;
-  top: 296px;
+  top: 190px;
 
 
 
@@ -625,6 +630,25 @@
   border-radius: 20px;
 }
 
+#underp2pfinder {
+  /* Today Sales */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 30px;
+  gap: 10px;
+
+
+  width: 532px;
+  height: 386px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
 #p2pfinder {
   /* Todays Sales */
 
@@ -671,4 +695,690 @@
   justify-content: space-between;
   width: 100%;
 }
-#inputStake{width: 146px;}
+
+#inputStake {
+  width: 146px;
+}
+
+.coteMainDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+#topRightBar {
+  /* Frame 1000002772 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 30px;
+
+  width: 419px;
+  height: 85px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  justify-content: center;
+}
+
+#underTopRightBar {
+  /* Frame 1000002755 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px 60px;
+  gap: 73px;
+
+  width: 419px;
+  height: 25px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#panierP {
+  /* Basket */
+
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+
+  /* or 25px */
+
+  /* Bleu */
+  color: #539B57;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#myBetsP {
+  /* Live */
+
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+
+  /* or 25px */
+
+  /* Texte gris */
+  color: #737791;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#bottomRightBar {
+  /* Frame 1000002774 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px 25px;
+  gap: 10px;
+  z-index: 101;
+  position: fixed;
+  width: 420px;
+  height: 220px;
+  right: 0px;
+  bottom: 0px;
+
+  /* Bloc noir */
+  background: #373F51;
+}
+
+#underBottomRightBar {
+  /* Frame 1000002773 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+
+  width: 370px;
+  height: 74px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#betButton {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 8px;
+  gap: 10px;
+
+  width: 370px;
+  height: 40px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  position: relative;
+  bottom: 3px
+}
+
+#buttonBetter {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: 370px;
+  height: 40px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+
+}
+
+#approveButton {
+
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 8px;
+  gap: 10px;
+
+  width: 370px;
+  height: 40px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  position: relative;
+  bottom: 3px;
+
+}
+
+#inputLine {
+  /* Frame 1000002785 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+
+  width: 370px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#gainsLine {
+  /* Frame 1000002786 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+
+  width: 370px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#inputP {
+  /* Input */
+
+  width: 37px;
+  height: 32px;
+
+  /* Titre */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+
+  /* identical to box height, or 200% */
+
+  /* Gris clair */
+  color: #F4F7F9;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#inputP2 {
+  /* 100$ */
+
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+
+  /* or 25px */
+
+  /* Gris clair */
+  color: #F4F7F9;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#gainsP {
+  /* Gains */
+
+  width: 41px;
+  height: 32px;
+
+  /* Titre */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+
+  /* identical to box height, or 200% */
+
+  /* Gris clair */
+  color: #F4F7F9;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#gainsP2 {
+  /* 110$ */
+
+
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+
+  /* or 25px */
+
+  /* Gris clair */
+  color: #F4F7F9;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#betMaker {
+  /* Today Sales */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 31px;
+  gap: 10px;
+
+  width: 420px;
+
+
+  /* Bleu */
+  background: #539B57;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#line1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#line2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+
+}
+
+#buttonApprover {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: 370px;
+  height: 40px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#approveP {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+
+  /* identical to box height, or 150% */
+
+  /* Blanc */
+  color: #FFFFFF;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#betP {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+
+  /* identical to box height, or 150% */
+
+  /* Blanc */
+  color: #FFFFFF;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#divSearchP2P {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+
+  padding: 7px;
+  gap: 10px;
+
+  width: 225px;
+  height: 40px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+#buttonSearchP2P {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  width: 225px;
+  height: 40px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+#inputLine2P2PFinder {
+  /* Frame 1000002783 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+
+  width: 472px;
+  height: 50px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#titleP2pFinder {
+  /* Frame 1000002744 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 472px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+
+
+#findp2pP {
+  /* Find P2P */
+
+  /*width: 81px;*/
+  height: 32px;
+
+  /* H1 */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+
+  /* identical to box height, or 160% */
+
+  /* Primary/Dark Shade */
+  color: #05004E;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+
+
+#inputLine1P2PFinder {
+  /* 4 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 24px;
+
+  width: 472px;
+  height: 50px;
+
+  /* Gris clair */
+  background: #F4F7F9;
+  border-radius: 10px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#inputP2pFinder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+
+  width: 472px;
+  height: 116px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#stakeTitleP {
+  width: 62px;
+  height: 32px;
+
+  /* H1 */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+
+  /* identical to box height, or 160% */
+
+  /* Primary/Dark Shade */
+  color: #05004E;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#stakeTitle {
+  /* Frame 1000002744 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 1093px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#buttonRefreshP2PFinder {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  width: 50px;
+  height: 50px;
+
+  /* Vert */
+  background: #539B57;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#refreshImage {
+  width: 19.81px;
+  height: 23.27px;
+}

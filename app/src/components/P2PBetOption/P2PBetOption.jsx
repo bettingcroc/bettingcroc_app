@@ -21,8 +21,8 @@ class P2PBetOption extends React.Component {
     __mounted = true;
     this.searchCote(0);
   }
-  componentWillUnmount(){
-    __mounted=false
+  componentWillUnmount() {
+    __mounted = false
   }
   searchCote(minToEnter) {
     try {
@@ -52,12 +52,11 @@ class P2PBetOption extends React.Component {
                 }
               });
           } else {
-            if (__mounted)
-            {this.setState({ bestCote: "indispo", bettable: "indispo" });}
+            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); }
           }
         });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
   orderBook(minToEnter) {
@@ -98,57 +97,43 @@ class P2PBetOption extends React.Component {
   }
   render() {
     return (
-      <div className="P2POption">
-        <h5>{this.props.team}</h5>
-        <input
-          className="css-input"
-          id="minBet"
-          type="number"
-          value={this.state.minBet}
-          onChange={(e) => this.setState({ minBet: e.target.value })}
-        ></input>
-        <button
-          className="button"
-          onClick={(event) => {
-            this.searchCote(weiconvert(this.state.minBet));
-          }}
-        >
-          Search Cote
-        </button>
-        <h5>best cote : {this.state.bestCote}</h5>
-        <h5>amount bettable : {this.state.bettable}</h5>
-        <input
-          className="css-input"
-          id="amountToBetOnP2POptionPool"
-          type="number"
-          value={this.state.amountToBet}
-          onChange={(e) => this.setState({ amountToBet: e.target.value })}
-        ></input>
-        <button
-          className="button"
-          onClick={(event) => {
-            this.approveUSDT(this.state.amountToBet);
-          }}
-        >
-          APPROVE USDT
-        </button>
-        <button
-          className="button"
-          onClick={(event) => {
-            this.betOnThisOption(this.state.amountToBet);
-          }}
-        >
-          BET
-        </button>
-        <button
-          className="button"
-          onClick={(event) => {
-            this.orderBook(weiconvert(this.state.minBet));
-          }}
-        >
-          orderBook
-        </button>
-      </div>
+      <div id="p2p2">
+        <div id="underp2p2">
+          <h5>{this.props.optionsArray === null ? null : this.props.args === null ? null : this.props.optionsArray.split(",")[this.props.args[0]['6']]}</h5>
+          <h5>best cote : {this.props.args === null ? null : this.props.args[1]}</h5>
+          <h5>amount bettable : {this.props.args === null ? null : this.props.args[2]}</h5>
+          <input
+            className="css-input"
+            id="amountToBetOnP2POptionPool"
+            type="number"
+            value={this.state.amountToBet}
+            onChange={(e) => this.setState({ amountToBet: e.target.value })}
+          ></input>
+          <button
+            className="button"
+            onClick={(event) => {
+              this.approveUSDT(this.state.amountToBet);
+            }}
+          >
+            APPROVE USDT
+          </button>
+          <button
+            className="button"
+            onClick={(event) => {
+              this.betOnThisOption(this.state.amountToBet);
+            }}
+          >
+            BET
+          </button>
+          <button
+            className="button"
+            onClick={(event) => {
+              this.orderBook(weiconvert(this.state.minBet));
+            }}
+          >
+            orderBook
+          </button>
+        </div></div>
     );
   }
 }

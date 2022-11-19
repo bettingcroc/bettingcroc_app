@@ -2,13 +2,10 @@ import React from "react";
 import OptionPool from "../OptionPool/OptionPool";
 import P2PBetOption from "../P2PBetOption/P2PBetOption";
 import P2PBetCreator from "../P2PBetCreator/P2PBetCreator";
+import P2PFinder from "../P2PFinder/P2PFinder";
+var __mounted;
+var __moneyCalculated = 0;
 class BetComplet extends React.Component {
-  componentDidMount() {
-
-  }
-  componentDidUpdate(prevProps) {
-    console.log("update betcomplet ")
-  }
   constructor(props) {
 
     super(props);
@@ -17,7 +14,9 @@ class BetComplet extends React.Component {
       date: null,
       type: null,
       country: null,
-      league: null
+      league: null,
+      moneyInPools: null,
+      p2pdisplayArgs: null
     };
     fetch("https://testnet.bettingcroc.com/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
       res.json().then((data) => {
@@ -30,9 +29,73 @@ class BetComplet extends React.Component {
         });
       });
     });
+    this.setP2PdisplayArgs = this.setP2PdisplayArgs.bind(this)
+
   }
+  componentDidMount() {
+    __mounted = true
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("update betComplet")
+    let sizeBet = 0
+    try { sizeBet = this.state.optionsArray.split(",").length }
+    catch (error) { }
+    let moneyInPoolsLet = []
+    for (let i = 0; i < sizeBet; i++) {
+      moneyInPoolsLet.push(-1)
+    }
+
+    if (prevProps !== this.props && __mounted && this.props.betContract !== undefined && __moneyCalculated === 0) {
+      __moneyCalculated = 1
+      for (let i = 0; i < sizeBet; i++) {
+        try {
+          this.props.betContract.methods
+            .getOptionMoney(this.props.betNumber, i)
+            .call()
+            .then((result) => {
+
+              moneyInPoolsLet[i] += 1
+
+              console.log("money in pool " + i + " " + result)
+              try {
+                if (__mounted) {
+                  for (let a = 0; a < sizeBet; a++) {
+                    if (a !== i) { moneyInPoolsLet[a] += parseFloat(result) / decimalsConverter(10); }
+
+                  }
+                }
+              } catch (error) { }
+            });
+        } catch (error) { }
+      }
+
+      try {
+        console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet[0])
+        if (moneyInPoolsLet[0] === -1) {
+
+        }
+        else {
+          console.log(moneyInPoolsLet)
+          this.setState({ moneyInPools: moneyInPoolsLet })
+          console.log("setting " + this.state.moneyInPools)
+        }
+        console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet)
+        this.setState({ moneyInPools: moneyInPoolsLet })
+        console.log("setting " + this.state.moneyInPools)
+      } catch (error) { }
+
+
+    }
+
+  }
+
   componentWillUnmount() {
-    console.log("unmount BetComplet")
+    __mounted = false
+    console.log("unmount betComplet")
+  }
+  setP2PdisplayArgs(newArgs) {
+    this.setState({ p2pdisplayArgs: newArgs })
   }
   render() {
     return (
@@ -52,29 +115,20 @@ class BetComplet extends React.Component {
         </div>
         <div className="optionsPool">
           {this.state.optionsArray == null ? null : this.state.optionsArray.split(",").map((item, index) => {
-            return <OptionPool key={item} team={item} betNumber={this.props.betNumber} optionNumber={index} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} amountToBet={this.props.amountToBet}></OptionPool>
+            return <OptionPool key={item} team={item} moneyInOtherPools={this.state.moneyInPools === null ? null : this.state.moneyInPools} betNumber={this.props.betNumber} optionNumber={index} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} betName={this.state.optionsArray}></OptionPool>
           })}
         </div>
         <div id="p2p1">
-          <div id="p2pfinder">
-            <div id="underp2pfinder">
+          <P2PFinder optionsArray={this.state.optionsArray} betContract={this.props.betContract} betNumber={this.props.betNumber} setP2PdisplayArgs={this.setP2PdisplayArgs}></P2PFinder>
 
-            </div>
-          </div>
-          <div id="p2pcreator">
-            <div id="underp2pcreator">
-              <P2PBetCreator betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} mbtContract={this.props.mbtContract} optionsArray={this.state.optionsArray} betNumber={this.props.betNumber}></P2PBetCreator>
+          <P2PBetCreator betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} mbtContract={this.props.mbtContract} optionsArray={this.state.optionsArray} betNumber={this.props.betNumber} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} ></P2PBetCreator>
 
-            </div>
-          </div>
+
         </div>
-        <div id="p2p2">
-          <div id="underp2p2">
-            {this.state.optionsArray == null ? null : this.state.optionsArray.split(",").map((item, index) => {
-              return <P2PBetOption key={item} team={item} betNumber={this.props.betNumber} optionNumber={index} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address}></P2PBetOption>
-            })}
-          </div>
-        </div>
+
+        <P2PBetOption args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray}></P2PBetOption>
+
+
       </div>
     );
   }
@@ -111,3 +165,6 @@ function timeConverterSchedule(UNIX_timestamp) {
   return time;
 }
 
+function decimalsConverter(numberToConvert) {
+  return Math.pow(numberToConvert, 18)
+}
