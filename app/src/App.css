@@ -1790,6 +1790,7 @@
 }
 
 #cote {
+  order: 0;
   width: 472px;
   height: 50px;
   background: #F4F7F9;
@@ -1799,6 +1800,7 @@
 }
 
 #selectCreateNewP2P {
+  order: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1812,7 +1814,6 @@
   border-radius: 10px;
   flex: none;
   flex-grow: 0;
-  order: 0;
   flex-grow: 0;
 }
 
@@ -1852,7 +1853,7 @@
   height: 50px;
   border-radius: 10px;
   /* Vert */
-  background: #539B57;
+  background: #ECE572;
 
 
   /* Inside auto layout */
@@ -1873,14 +1874,14 @@
 
 #superButtonCreateP2Pbutton {
   flex: none;
-  order: 2;
+  order: 3;
   flex-grow: 0;
   background-color: transparent;
   border: transparent;
 }
 
 #buttonCreateP2PP {
-  color: #FFFFFF;
+  color: #000000;
   font-size: 18px;
   position: relative;
   top: 5px;
@@ -1890,6 +1891,9 @@
   width: 100px;
   height: 50px;
   border-radius: 10px;
+  background-color: #539B57;
+  border: none;
+  color:white;
 }
 
 #adressAuthorizedInput {
@@ -1907,6 +1911,7 @@
 }
 
 #authorizedDiv {
+  order: 2;
   width: 472px;
   display: flex;
   flex-direction: row;
@@ -2179,4 +2184,22 @@ a:hover {
   order: 2;
   align-self: stretch;
   flex-grow: 0;
+}
+#errorCoteDiv{
+  order: 4;
+}
+
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+}
+.horizontal-shake {
+  animation: horizontal-shaking 0.35s infinite;
+  
+}
+#errorP{
+  color: red;
 }

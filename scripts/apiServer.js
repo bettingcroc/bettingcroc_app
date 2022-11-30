@@ -1172,7 +1172,7 @@ var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // ne
 
 
 //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-multiBetAddress= '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
+multiBetAddress = '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 
@@ -1194,163 +1194,169 @@ function timeConverter(UNIX_timestamp) {
 	return time;
 }
 function get_Name(betNumber) {
-    //console.log("betNumber to print",betNumber);
-    let select = db.prepare(`SELECT optionsArray FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    array=result.optionsArray.split(',');
-    if(result) return array[0]+" vs "+array[array.length-1];
-    return null;
-  }
-  
-  function get_Options(betNumber) {
-    let select = db.prepare(`SELECT options FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    if(result) return result.options;
-    return null;
-  }
-  
-  function get_List(betNumber) {
-    let select = db.prepare(`SELECT optionsArray FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    if(result) return result.optionsArray;
-    return null;
-  }
-  
-  function get_Date(betNumber) {
-    let select = db.prepare(`SELECT date FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    if(result) return result.date;
-    return null;
-  }
-  
-  function get_MaxBet(){
-    let select = db.prepare('SELECT MAX(betNumber) as "MaxBet" FROM Bets ');
-    let result= select.get();
-    //betNumber=0;
-    if(result) return result.MaxBet;
-  }
+	//console.log("betNumber to print",betNumber);
+	let select = db.prepare(`SELECT optionsArray FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	array = result.optionsArray.split(',');
+	if (result) return array[0] + " vs " + array[array.length - 1];
+	return null;
+}
 
-  function get_BetBetween2dates(date1,date2){
-    let select = db.prepare(`SELECT betNumber from bets where date>'${date1}' and date<'${date2}'`);
-    let result= select.all();
-    if(result) return result;
-  }
-  
-  function get_Type(betNumber){
-    let select = db.prepare(`SELECT type FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    if(result) return result.type;
-    return null;
-  }
-  
-  function get_CLosestDates(date){
-    let select = db.prepare(`select betNumber from bets where date>'${date}' limit 14`);
-    let result = select.all();
-    if(result) return result;
-    return null;
-  }
-  
-  function get_CLosestDatesByType(date,type){
-    let select = db.prepare(`select betNumber from bets where date>'${date}' and type='${type}' limit 14`);
-    let result = select.all();
-    if(result) return result;
-    return null;
-  }
-  
-  function get_Country(betNumber){
-    let select = db.prepare(`SELECT country FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    if(result) return result.country;
-    
-    return null;
-  }
-  
-  function get_League(betNumber){
-    let select = db.prepare(`SELECT league FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    if(result) return result.league;
-    
-    return null;
-  }
-  
-  function get_idAPI(betNumber){
-    let select = db.prepare(`SELECT idAPI FROM Bets WHERE betNumber = '${betNumber}'`);
-    let result = select.get();
-    if(result) return result.idAPI;
-    
-    return null;
-  }
-  function get_CLosestDates(date){
-    let select = db.prepare(`select betNumber from bets where date>'${date}' limit 14`);
-    let result = select.all();
-    if(result) return result;
-    return null;
-  }
-  function get10MaxScore(){
-    let select = db.prepare(`SELECT * FROM Players order by score desc limit 10;`);
-    let result = select.all();
-    //console.log(result)
-    if(result) return result;
-  }
-function getTodayMatches(){
-  timeNow = new Date().getTime() - 10800;
+function get_Options(betNumber) {
+	let select = db.prepare(`SELECT options FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.options;
+	return null;
+}
+
+function get_List(betNumber) {
+	let select = db.prepare(`SELECT optionsArray FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.optionsArray;
+	return null;
+}
+
+function get_Date(betNumber) {
+	let select = db.prepare(`SELECT date FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.date;
+	return null;
+}
+
+function get_MaxBet() {
+	let select = db.prepare('SELECT MAX(betNumber) as "MaxBet" FROM Bets ');
+	let result = select.get();
+	//betNumber=0;
+	if (result) return result.MaxBet;
+}
+
+function get_BetBetween2dates(date1, date2) {
+	let select = db.prepare(`SELECT betNumber from bets where date>'${date1}' and date<'${date2}'`);
+	let result = select.all();
+	if (result) return result;
+}
+
+function get_Type(betNumber) {
+	let select = db.prepare(`SELECT type FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.type;
+	return null;
+}
+
+function get_CLosestDates(date) {
+	let select = db.prepare(`select betNumber from bets where date>'${date}' limit 14`);
+	let result = select.all();
+	if (result) return result;
+	return null;
+}
+
+function get_CLosestDatesByType(date, type) {
+	let select = db.prepare(`select betNumber from bets where date>'${date}' and type='${type}' limit 14`);
+	let result = select.all();
+	if (result) return result;
+	return null;
+}
+
+function get_Country(betNumber) {
+	let select = db.prepare(`SELECT country FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.country;
+
+	return null;
+}
+
+function get_League(betNumber) {
+	let select = db.prepare(`SELECT league FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.league;
+
+	return null;
+}
+
+function get_idAPI(betNumber) {
+	let select = db.prepare(`SELECT idAPI FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.idAPI;
+
+	return null;
+}
+function get_CLosestDates(date) {
+	let select = db.prepare(`select betNumber from bets where date>'${date}' limit 14`);
+	let result = select.all();
+	if (result) return result;
+	return null;
+}
+function get10MaxScore() {
+	let select = db.prepare(`SELECT * FROM Players order by score desc limit 10;`);
+	let result = select.all();
+	//console.log(result)
+	if (result) return result;
+}
+function getTodayMatches() {
+	timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
-  arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
-  let matches={matches:[]}
-  list = ''
+	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
+	console.log(arrayIndex)
+	let matches = { matches: [] }
+	list = ''
 	opt = arrayIndex.length;
 	for (i = 0; i < opt; i++) {
-      let match={}
-      match["betNumber"]=arrayIndex[i]["betNumber"]
-      match["name"]=get_Name(arrayIndex[i]["betNumber"])
-      match["date"]=timeConverter(get_Date(arrayIndex[i]["betNumber"]))
-      match["type"]=get_Type(arrayIndex[i]["betNumber"]) == 'football'? '⚽':'🏀'
-      matches.matches.push(match)
+		let match = {}
+		match["betNumber"] = arrayIndex[i]["betNumber"]
+		match["name"] = get_Name(arrayIndex[i]["betNumber"])
+		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
+		match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
+		matches.matches.push(match)
 	}
-  return(matches)
+	console.log(matches)
+	return (matches)
 }
-function getMatchInfo(id){
-  let optionsArray=get_List(id)
-  let date=get_Date(id)
-  let type=get_Type(id)
-  let country=get_Country(id)
-  let league=get_League(id)
-  let matchInfos={
-    optionsArray:optionsArray,
-    date:date,
-    type:type,
-    country:country,
-    league:league
-  }
-  return matchInfos
+function getTopBets() {
+
 }
-function getMyScore(address){
-  let select = db.prepare(`select address,position,score,pseudo,nonce from(select row_number() over (order by score desc) as position,address,score,pseudo,nonce from players )  where address='${address}'`);
-    let result = select.all();
-    if(result) return result;
-    
-    return null;
+function getMatchInfo(id) {
+	let optionsArray = get_List(id)
+	let date = get_Date(id)
+	let type = get_Type(id)
+	let country = get_Country(id)
+	let league = get_League(id)
+	let matchInfos = {
+		optionsArray: optionsArray,
+		date: date,
+		type: type,
+		country: country,
+		league: league
+	}
+	return matchInfos
 }
-async function getMyBets(address){
-  let listMatches;
-  await multiBetContract.methods.seeMyBets(address).call()
-    .then(function (result) {
-        //console.log(result)
-        listMatches=result
-      }
-    )
-  toReturn=[]
-  for (m in listMatches){
-    //console.log(m)
-    toReturn.push(getMatchInfo(listMatches[m]))
-    toReturn[m].id=listMatches[m]
-  }
-  return toReturn
+function getMyScore(address) {
+	let select = db.prepare(`select address,position,score,pseudo,nonce from(select row_number() over (order by score desc) as position,address,score,pseudo,nonce from players )  where address='${address}'`);
+	let result = select.all();
+	if (result) return result;
+
+	return null;
 }
-module.exports={
-    getTodayMatches:getTodayMatches,
-    getMatchInfo:getMatchInfo,
-    get10MaxScore:get10MaxScore,
-    getMyScore:getMyScore,
-    getMyBets:getMyBets
+async function getMyBets(address) {
+	let listMatches;
+	await multiBetContract.methods.seeMyBets(address).call()
+		.then(function (result) {
+			//console.log(result)
+			listMatches = result
+		}
+		)
+	toReturn = []
+	for (m in listMatches) {
+		//console.log(m)
+		toReturn.push(getMatchInfo(listMatches[m]))
+		toReturn[m].id = listMatches[m]
+	}
+	return toReturn
 }
+module.exports = {
+	getTodayMatches: getTodayMatches,
+	getMatchInfo: getMatchInfo,
+	get10MaxScore: get10MaxScore,
+	getMyScore: getMyScore,
+	getMyBets: getMyBets
+}
+getTodayMatches()

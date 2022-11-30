@@ -12,12 +12,15 @@ class P2PBetCreator extends React.Component {
       P2PBetCreatorSwitcher: "Public",
       selectedOption: 0,
       authorized: undefined,
+      error: null,
+      class: null
     };
     this.switchButton = this.switchButton.bind(this);
     this.approveUSDT = this.approveUSDT.bind(this);
     this.approveMBT = this.approveMBT.bind(this);
     this.createP2PBet = this.createP2PBet.bind(this);
-    this.seeP2PBets = this.seeP2PBets.bind(this)
+    this.seeP2PBets = this.seeP2PBets.bind(this);
+    this.changeClass=this.changeClass.bind(this);
   }
   componentDidMount() {
     this.setState({ authorized: undefined });
@@ -53,6 +56,7 @@ class P2PBetCreator extends React.Component {
       });
   }
   createP2PBet(amount, cote, option, authorized) {
+
     if (authorized === undefined) {
       authorized = [];
     }
@@ -74,6 +78,8 @@ class P2PBetCreator extends React.Component {
       .once("receipt", (receipt) => {
         console.log("new bet Created");
       });
+
+
   }
   seeP2PBets() {
     try {
@@ -83,6 +89,9 @@ class P2PBetCreator extends React.Component {
     catch (error) {
       console.log(error)
     }
+  }
+  changeClass(){
+    this.setState({class:null})
   }
   render() {
     return (
@@ -145,24 +154,31 @@ class P2PBetCreator extends React.Component {
               <button className="button"
                 id="buttonCreateP2Pbutton"
                 onClick={(event) => {
-                  console.log(this.state.selectedOption);
-                  this.props.setTypeBet(2)
-                  this.props.setBetArgs({
-                    betNumber: this.props.betNumber,
-                    betName: this.props.optionsArray,
-                    amountToBet: weiconvert(this.state.amountToBet),
-                    cote: this.state.cote,
-                    selectedOption: this.state.selectedOption,
-                    authorized: this.state.authorized,
-                    optionName: this.props.optionsArray.split(",")[this.state.selectedOption],
-                    toWin: this.state.amountToBet * this.state.cote
-                  })
+                  if (this.state.cote <= 1 || this.state.cote === null || this.state.cote === undefined) { 
+                    this.setState({ error: "Cote must be > 1 !" });this.setState({class:"horizontal-shake"}); setTimeout(this.changeClass, 1000); 
+                  }
+                  else {
+                    this.setState({ error: null })
+                    console.log(this.state.selectedOption);
+                    this.props.setTypeBet(2)
+                    this.props.setBetArgs({
+                      betNumber: this.props.betNumber,
+                      betName: this.props.optionsArray,
+                      amountToBet: weiconvert(this.state.amountToBet),
+                      cote: this.state.cote,
+                      selectedOption: this.state.selectedOption,
+                      authorized: this.state.authorized,
+                      optionName: this.props.optionsArray.split(",")[this.state.selectedOption],
+                      toWin: this.state.amountToBet * this.state.cote
+                    })
 
+                  }
                 }}
               >
                 <div id="buttonCreateP2P"><p id="buttonCreateP2PP">Create bet</p></div>
               </button>
             </div>
+            <div id="errorCoteDiv"><p id="errorP" className={this.state.class}>{this.state.error}</p></div>
             {/*<h3>
               will cost you {this.state.amountToBet} USDT and{" "}
               {this.state.amountToBet} MBT

@@ -91,6 +91,9 @@ app.post('/api/setUpPseudo/',(req,res)=>{
 app.get('/api/lastbets',(req,res)=>{
   res.send(apiServer.getTodayMatches())
 })
+app.get('/api/topBets',(req,res)=>{
+  res.send(apiServer.getTopBets())
+})
 app.get('/api/infoMatch/:id',(req,res)=>{
   res.send(apiServer.getMatchInfo(req.params.id))
 })
