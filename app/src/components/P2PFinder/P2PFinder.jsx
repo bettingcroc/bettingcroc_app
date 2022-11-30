@@ -56,7 +56,7 @@ class P2PFinder extends React.Component {
                 }
               });
           } else {
-            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); }
+            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); this.props.setP2PdisplayArgs(["indispo","indispo","indispo"]) }
           }
         });
     } catch (error) {
@@ -98,15 +98,17 @@ class P2PFinder extends React.Component {
                 className="css-input"
                 id="minBet"
                 type="number"
+                min="0"
                 value={this.state.minBet}
                 onChange={(e) => this.setState({ minBet: e.target.value })}
               ></input></div>
-              <button><div id="buttonRefreshP2PFinder"><img id="refreshImage" src={refreshImage}></img></div></button>
+              <button id="buttonRefreshP2PFinderButton"><div id="buttonRefreshP2PFinder"><img id="refreshImage" src={refreshImage}></img></div></button>
+            </div>
+            <div id="superButtonSearchP2P">
+              <button id="buttonSearchP2P" onClick={(event) => { this.searchCote(weiconvert(this.state.minBet)); }}><div id="divSearchP2P"><p id="searchP">Search !</p></div></button>
             </div>
           </div>
-          <button id="buttonSearchP2P" onClick={(event) => {
-            this.searchCote(weiconvert(this.state.minBet));
-          }}><div id="divSearchP2P"><p id="searchP">Search !</p></div></button>
+
         </div>
       </div>
     );

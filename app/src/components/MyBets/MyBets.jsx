@@ -15,10 +15,10 @@ class MyBets extends React.Component {
     if (this.props.address !== "") {
       try {
         console.log(this.props.address);
-        fetch("https://testnet.bettingcroc.com/api/mybets/"+this.props.address, { method: "GET" }).then(
+        fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
           (res) => {
             res.json().then((data) => {
-              console.log("data "+data)
+              console.log(data)
               if (__mounted) {
                 this.setState({ myBets: data });
               }
@@ -35,7 +35,7 @@ class MyBets extends React.Component {
     if (this.props.address !== "" && this.props !== prevProps && __mounted) {
       try {
         console.log(this.props.address);
-        fetch("https://testnet.bettingcroc.com/api/mybets/"+this.props.address, { method: "GET" }).then(
+        fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
           (res) => {
             res.json().then((data) => {
               console.log(data)
@@ -57,14 +57,16 @@ class MyBets extends React.Component {
 
   render() {
     return (
-      <div className="mainContent">
+      <div className="myBetsDiv">
         {this.state.myBets.map(function (item) {
           return (
-            <div key={item.id}>
+            <div key={item.id} className="myBetDiv">
               <Link to={"/bet/numBet?n=" + item.id}>
-                <h5>{" Bet " + item.id+" : "+item.optionsArray.split(",")[0]+" - "+ item.optionsArray.split(",")[item.optionsArray.split(",").length-1]}</h5>
+                <span className="myBetUnderDiv">
+                  <p className="lineMyBetsPTitle">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
+                  <p className="lineMyBetsPDate">{timeConverterDate(item.date)}</p>
+                </span>
               </Link>
-              <br />
             </div>
           );
         })}
@@ -78,3 +80,13 @@ MyBets.propTypes = {};
 MyBets.defaultProps = {};
 
 export default MyBets;
+
+function timeConverterDate(UNIX_timestamp) {
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var year = a.getFullYear();
+  var month = a.getMonth();
+  var date = a.getDate();
+  var time = date + '/' + month + '/' + year;
+  return time;
+}

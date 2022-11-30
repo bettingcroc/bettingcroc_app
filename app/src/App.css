@@ -11,7 +11,7 @@
 #bettingcroc {
   position: relative;
   width: 1920px;
-  height: 1646px;
+  height: 1300px;
 
   /* Background */
   background: #F4F7F9;
@@ -116,7 +116,7 @@
 }
 
 #listBetsTitle {
-  width: 70px;
+  width: 73px;
   height: 25px;
 
   font-family: 'Roboto';
@@ -138,7 +138,7 @@
 }
 
 #decentraBetTitle {
-  width: 74px;
+  width: 100px;
   height: 25px;
 
   font-family: 'Roboto';
@@ -161,7 +161,7 @@
 
 #classementTitle {
 
-  width: 67px;
+  width: 77px;
   height: 25px;
 
   font-family: 'Roboto';
@@ -199,7 +199,7 @@
   position: fixed;
   z-index: 100;
   width: 345px;
-  height: 1526px;
+  height: 1230px;
   left: 0px;
   top: 70px;
   background: #FFFFFF;
@@ -219,7 +219,7 @@
   position: fixed;
   z-index: 100;
   width: 420px;
-  height: 1406px;
+  height: 1300px;
   right: 0px;
   top: 70px;
 
@@ -240,7 +240,8 @@
   padding: 0px;
   gap: 20px;
 
-
+  position: relative;
+  top: 90px;
 
 }
 
@@ -342,7 +343,7 @@
 
   z-index: 100;
   width: 1093px;
-  height: 100px;
+  height: 90px;
 
 
   background: #FFFFFF;
@@ -368,6 +369,9 @@
 
   background: #FFFFFF;
   justify-content: center;
+  border: solid;
+  border-width: 1px;
+  border-color: #F4F7F9;
 }
 
 
@@ -495,30 +499,166 @@
 
   position: absolute;
   width: 1084px;
-  height: 1296px;
   left: 381px;
-  top: 190px;
+  top: 100px;
 
 
 
 }
 
-.optionsPool {
+#optionsBox {
+
+  /* Auto layout */
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 50px;
+
+  width: 1022px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
   justify-content: space-between;
+
+}
+
+#superOptionPool {
+  /* Todays Sales */
+
+  width: 1084px;
+  height: 200px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+#optionsPool {
+  /* Today Sales */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 23px 31px;
   gap: 10px;
 
-
+  position: absolute;
   width: 1084px;
-  height: 162px;
-
+  height: 200px;
+  left: 0px;
+  top: 210px;
 
   background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
+}
+
+.optionPool p {
+  margin: 0
+}
+
+.optionPool {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 110px;
+}
+
+#gameResults {
+
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 574px;
+
+  width: 1022px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#underGameResults {
+  /* Frame 1000002737 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+
+  width: 120px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#superGamesResults {
+  /* Frame 1000002744 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 1022px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#gameResultsP {
+
+  width: 160px;
+  height: 32px;
+
+  /* H1 */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+
+  /* identical to box height, or 160% */
+
+  /* Primary/Dark Shade */
+  color: #05004E;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
 #underNameBet {
@@ -698,6 +838,10 @@
 
 #inputStake {
   width: 146px;
+  border-radius: 5px;
+  border: solid;
+  border-width: 1px;
+  border-color: #c0c4c7;
 }
 
 .coteMainDiv {
@@ -712,10 +856,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
-  gap: 30px;
 
-  width: 419px;
+
+  width: 420px;
   height: 85px;
 
 
@@ -723,7 +866,6 @@
   flex: none;
   order: 0;
   flex-grow: 0;
-  justify-content: center;
 }
 
 #underTopRightBar {
@@ -732,12 +874,10 @@
   /* Auto layout */
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: flex-start;
-  padding: 0px 60px;
-  gap: 73px;
 
-  width: 419px;
+
+  width: 420px;
   height: 25px;
 
 
@@ -1061,7 +1201,7 @@
   gap: 10px;
 
   width: 420px;
-
+  height: 220px;
 
   /* Bleu */
   background: #539B57;
@@ -1071,6 +1211,7 @@
   order: 0;
   align-self: stretch;
   flex-grow: 0;
+  justify-content: space-around;
 }
 
 #line1 {
@@ -1160,8 +1301,8 @@
   padding: 7px;
   gap: 10px;
 
-  width: 225px;
-  height: 40px;
+  width: 472px;
+  height: 50px;
 
   /* Vert */
   background: #539B57;
@@ -1184,8 +1325,8 @@
   padding: 8px;
   gap: 10px;
 
-  width: 225px;
-  height: 40px;
+  width: 472px;
+  height: 50px;
 
   /* Vert */
   background: #539B57;
@@ -1376,9 +1517,666 @@
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+  position: relative;
+  bottom: 3px;
+  right: 6px;
 }
 
 #refreshImage {
   width: 19.81px;
   height: 23.27px;
+}
+
+.hidden {
+  display: none;
+}
+
+#option1P {
+
+
+  /* Titre */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 32px;
+
+  /* identical to box height, or 200% */
+
+  /* Primary/Dark Shade */
+
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#option2P {
+
+
+
+  /* Titre */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 32px;
+
+  /* identical to box height, or 200% */
+
+  /* Primary/Dark Shade */
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.optionDiv {
+  width: 300px;
+  height: 52px;
+
+  text-align: center;
+  color: #05004E;
+}
+
+.headerTitle {
+  width: 136px;
+  height: 32px;
+
+  /* H1 */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+
+  /* identical to box height, or 160% */
+
+  /* Primary/Dark Shade */
+  color: #05004E;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#schedule {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+
+  width: 121px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+
+  /* Gris clair */
+  background: #F4F7F9;
+  border-radius: 14px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#scheduleP {
+
+
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 32px;
+
+  /* identical to box height, or 123% */
+
+  /* Texte gris */
+  color: #737791;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  text-align: center;
+  position: relative;
+  top: 9px;
+}
+
+.optionP {
+  position: relative;
+  top: 8px;
+}
+
+#buttonRefreshP2PFinderButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+
+}
+
+#minBet {
+  height: 50px;
+  width: 405px;
+  border-radius: 10px;
+  border: solid;
+  border-top-width: medium;
+  border-right-width: medium;
+  border-bottom-width: medium;
+  border-left-width: medium;
+  border-width: 0px;
+  background: #F4F7F9;
+  padding: 12px 20px;
+}
+
+#superButtonSearchP2P {
+  order: 2
+}
+
+#searchP {
+  color: #FFFFFF;
+  font-size: 18px;
+  position: relative;
+  top: 3px;
+}
+
+.teamTitle {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #ECE572;
+  position: relative;
+  bottom: 3px;
+  right: 6px;
+  ;
+}
+
+.buttonTeamTitle {
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#superNewP2P {
+  /* Frame 1000002744 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 472px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#newP2P {
+  /* Frame 1000002738 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 574px;
+
+  width: 472px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#underNewP2P {
+  /* Frame 1000002737 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+
+  width: 82px;
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#newP2PP {
+  /* New P2P */
+
+  width: 102px;
+  height: 32px;
+
+  /* H1 */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+
+  /* identical to box height, or 160% */
+
+  /* Primary/Dark Shade */
+  color: #05004E;
+}
+
+#cote {
+  width: 472px;
+  height: 50px;
+  background: #F4F7F9;
+  border-radius: 10px;
+  border: none;
+  padding: 12px 20px;
+}
+
+#selectCreateNewP2P {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  grid-gap: 24px;
+  gap: 24px;
+  width: 472px;
+  height: 50px;
+  background: #F4F7F9;
+  border-radius: 10px;
+  flex: none;
+  flex-grow: 0;
+  order: 0;
+  flex-grow: 0;
+}
+
+#inputsP2P {
+  /* Frame 1000002763 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+
+  width: 472px;
+  height: 248px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#buttonCreateP2P {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  width: 472px;
+  height: 50px;
+  border-radius: 10px;
+  /* Vert */
+  background: #539B57;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  position: relative;
+  bottom: 2.5px;
+  right: 5.5px;
+}
+
+#buttonCreateP2Pbutton {
+
+  width: 472px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+#superButtonCreateP2Pbutton {
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  background-color: transparent;
+  border: transparent;
+}
+
+#buttonCreateP2PP {
+  color: #FFFFFF;
+  font-size: 18px;
+  position: relative;
+  top: 5px;
+}
+
+#publicSwitchButton {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+#adressAuthorizedInput {
+  width: 360px;
+  height: 50px;
+  border-radius: 10px;
+  border: solid;
+  border-top-width: medium;
+  border-right-width: medium;
+  border-bottom-width: medium;
+  border-left-width: medium;
+  border-width: 0px;
+  background: #F4F7F9;
+  padding: 12px 20px;
+}
+
+#authorizedDiv {
+  width: 472px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.topRightDiv {
+  width: 210px;
+  height: 85px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.topRightButton {
+  width: 210px;
+  height: 85px;
+  border: none;
+  background-color: transparent;
+}
+
+.myBetDiv {}
+
+#superMidRightBar {
+  width: 420px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 15px;
+}
+
+.myBetDiv a {
+  border-radius: 5px;
+  width: 370px;
+  height: 50px;
+  color: white
+}
+
+.myBetUnderDiv {
+  background-color: #539B57;
+  border: solid;
+  border-width: 10px;
+  border-color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  height: 80px;
+  font-size: 14px;
+}
+
+.myBetUnderDiv:hover {
+  background-color: #77bd7b;
+
+}
+
+.myBetsDiv {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.lineMyBetsPTitle {
+  position: relative;
+  left: 10px;
+}
+
+.lineMyBetsPDate {
+  position: relative;
+  right: 10px;
+}
+
+a:hover {
+
+  text-decoration: none;
+
+}
+
+#betMakerLine1P {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+}
+
+#betMaker p {
+  margin: 0;
+  color: white;
+}
+
+#line2 p {
+
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+
+  padding: 3px;
+}
+
+#line4 {
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+
+  padding: 3px;
+}
+
+#line3 p {
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+
+  padding: 3px;
+}
+
+#cross {
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  position: relative;
+  bottom: 1px;
+  right: 4px;
+}
+
+#crossButton {
+  width: 27px;
+  height: 27px;
+  background-color: white;
+  border: transparent;
+  border-radius: 5px;
+}
+
+#line1P2POption {
+
+  width: 254px;
+  height: 32px;
+
+  /* H1 */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+
+  /* identical to box height, or 160% */
+
+  /* Primary/Dark Shade */
+  color: #05004E;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#line2P2POption {
+  width: 1022px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#line3P2POption {
+  width: 1022px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#p2p2Box2 {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#buttonCoteP2P {
+  height: 32px;
+  width: 100px;
+  border-radius: 5px;
+}
+
+#buttonDiveCoteP2P {
+  height: 32px;
+  width: 100px;
+  border-radius: 5px;
+  background-color: #ECE572;
+  position: relative;
+  bottom: 3px;
+  right: 6px;
+}
+
+#amountBettableP {
+  width: 100px;
+  height: 32px;
+  border: solid;
+  padding: 3px;
+  border-radius: 5px;
+  border-width: 1px;
+  text-align: right;
+}
+
+#coteP2P {
+  position: relative;
+  top: 2px;
+}
+
+.listBets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  width: 1084px;
+  height: 1070px;
+  left: 381px;
+
+
+
+}
+
+#box1ListBets {
+  width: 1084px;
+  height: 230px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  background-color: #539B57;
+  border-radius: 20px;
+}
+
+#box2ListBets {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 1084px;
+  height: 434px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#box3ListBets {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+
+  width: 1084px;
+  height: 412px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
 }

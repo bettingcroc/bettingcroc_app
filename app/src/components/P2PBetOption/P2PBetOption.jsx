@@ -99,41 +99,56 @@ class P2PBetOption extends React.Component {
     return (
       <div id="p2p2">
         <div id="underp2p2">
-          <h5>{this.props.optionsArray === null ? null : this.props.args === null ? null : this.props.optionsArray.split(",")[this.props.args[0]['6']]}</h5>
-          <h5>best cote : {this.props.args === null ? null : this.props.args[1]}</h5>
-          <h5>amount bettable : {this.props.args === null ? null : this.props.args[2]}</h5>
-          <input
-            className="css-input"
-            id="amountToBetOnP2POptionPool"
-            type="number"
-            value={this.state.amountToBet}
-            onChange={(e) => this.setState({ amountToBet: e.target.value })}
-          ></input>
-          <button
-            className="button"
-            onClick={(event) => {
-              this.approveUSDT(this.state.amountToBet);
-            }}
-          >
-            APPROVE USDT
-          </button>
-          <button
-            className="button"
-            onClick={(event) => {
-              this.betOnThisOption(this.state.amountToBet);
-            }}
-          >
-            BET
-          </button>
-          <button
+          <div id="p2p2Box1">
+            <p id="line1P2POption">P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
+          </div>
+          <div id="p2p2Box2">
+            <div id="line2P2POption">
+              <p>Best cote : </p>
+              <button
+              id="buttonCoteP2P"
+                className="button"
+                onClick={(event) => {
+                  if (this.props.args !== null) {
+                    this.props.setTypeBet(3)
+                    this.props.setBetArgs({
+                      betNumber: this.props.betNumber,
+                      betName: this.props.optionsArray,
+                      amountToBet: weiconvert(this.props.amountToBet),
+                      cote: this.props.args[1],
+                      optionName: this.props.optionsArray.split(",")[this.props.args[0]['6']],
+                      toWin: this.props.amountToBet * this.props.args[1],
+                      betNumberP2P: this.props.args[0]['0']
+
+                    }
+                    )
+                  }
+
+                  //this.betOnThisOption(this.props.amountToBet);
+                }}
+              >
+                <div id="buttonDiveCoteP2P"><p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1]}</p></div>
+              </button>
+            </div>
+            <div id="line3P2POption">
+              <p>Amount bettable : </p>
+              <p id="amountBettableP">{this.props.args === null ? null : this.props.args[2]+" USDT"} </p>
+            </div>
+
+          </div>
+
+
+
+          {/*<button
             className="button"
             onClick={(event) => {
               this.orderBook(weiconvert(this.state.minBet));
             }}
           >
             orderBook
-          </button>
-        </div></div>
+          </button>*/}
+        </div>
+      </div>
     );
   }
 }

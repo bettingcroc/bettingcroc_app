@@ -90,6 +90,11 @@ class App extends Component {
     this.approveUSDT = this.approveUSDT.bind(this)
     this.betFunction = this.betFunction.bind(this)
     this.betOnThisOption = this.betOnThisOption.bind(this)
+    this.createP2PBet = this.createP2PBet.bind(this);
+    this.approve = this.approve.bind(this)
+    this.approveMBT = this.approveMBT.bind(this);
+    this.betOnThisOptionP2P = this.betOnThisOptionP2P.bind(this)
+    this.setAmountBet = this.setAmountBet.bind(this)
   }
   togglePopup() {
     this.setState({
@@ -123,6 +128,7 @@ class App extends Component {
     }
   }
   componentDidUpdate() {
+    console.log("update index")
     if (window.ethereum.networkVersion != 97) {
       console.log("bad chain : " + window.ethereum.networkVersion)
       if (this.state.showPopup == false && this.state.switchChainPending == false) { this.togglePopup(); this.setState({ switchChainPending: true }); }
@@ -207,9 +213,22 @@ class App extends Component {
   setTypeBet(newTypeBet) {
     this.setState({ typeBet: newTypeBet })
     console.log(this.state.typeBet)
+    if (newTypeBet !== 0) { this.goPanier() }
   }
   setBetArgs(newBetArgs) {
     this.setState({ betArgs: newBetArgs })
+  }
+  setAmountBet(newAmount) {
+    this.setState({ amountToBet: newAmount })
+  }
+  approve() {
+    if (this.state.typeBet === 1 || this.state.typeBet === 3) {
+      this.approveUSDT(this.state.betArgs.amountToBet)
+    }
+    if (this.state.typeBet === 2) {
+      this.approveUSDT(this.state.betArgs.amountToBet)
+      this.approveMBT(this.state.betArgs.amountToBet)
+    }
   }
   approveUSDT(amount) {
     console.log("wtf")
@@ -218,10 +237,29 @@ class App extends Component {
         console.log("approve success")
       })
   }
+  approveMBT(amount) {
+    this.state.mbtContract.methods
+      .approve("0xD90531a9234A38dfFC8493c0018ad17cB5F7A867", amount)
+      .send({ from: this.state.defaultAccount })
+      .once("receipt", (receipt) => {
+        console.log("approve success");
+      });
+  }
   betFunction(args) {
     console.log("bet")
     if (this.state.typeBet === 1) {
       this.betOnThisOption(this.state.betArgs.amountToBet)
+    }
+    if (this.state.typeBet === 2) {
+      this.createP2PBet(
+        this.state.betArgs.amountToBet,
+        this.state.betArgs.cote,
+        this.state.betArgs.selectedOption,
+        this.state.betArgs.authorized
+      );
+    }
+    if (this.state.typeBet === 3) {
+      this.betOnThisOptionP2P(this.state.betArgs.amountToBet)
     }
   }
   betOnThisOption(amount) {
@@ -230,6 +268,45 @@ class App extends Component {
       .once('receipt', (receipt) => {
         console.log("bet success")
       })
+  }
+  betOnThisOptionP2P(amount) {
+    try {
+      this.state.multiBetContract.methods
+        .joinP2PBet(
+          this.state.betArgs.betNumber,
+          this.state.betArgs.betNumberP2P,
+          amount
+        )
+        .send({ from: this.state.defaultAccount })
+        .once("receipt", (receipt) => {
+          console.log("bet success");
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  createP2PBet(amount, cote, option, authorized) {
+    if (authorized === undefined) {
+      authorized = [];
+    }
+    else {
+      authorized = authorized.split(',')
+    }
+    console.log(amount, cote, option, authorized);
+    let amountToEnter = (cote - 1) * (parseFloat(amount) / decimalsConverter(10));
+    amountToEnter = weiconvert(parseFloat(amountToEnter.toPrecision(7)));
+    this.state.multiBetContract.methods
+      .createP2PBet(
+        amount,
+        amountToEnter,
+        this.state.betArgs.betNumber,
+        option,
+        authorized
+      )
+      .send({ from: this.state.defaultAccount })
+      .once("receipt", (receipt) => {
+        console.log("new bet Created");
+      });
   }
   render() {
     return (
@@ -248,9 +325,9 @@ class App extends Component {
                       </Link>
                     </div>
                     <div id="links">
-                      <Link to="/basketball"><p id="listBetsTitle">ListBets</p></Link>
+                      <Link to="/basketball"><p id="listBetsTitle">List Bets</p></Link>
                       <Link to="/decentrabet"><p id="decentraBetTitle">Decentrabet</p></Link>
-                      <Link to="/classement"><p id="classementTitle">Classement</p></Link>
+                      <Link to="/classement"><p id="classementTitle">Rankings</p></Link>
                     </div>
                   </div>
                   <div id="topRight">
@@ -292,38 +369,7 @@ class App extends Component {
                   </div>
                 </div>
 
-                <div id="superStakeJauge">
-                  <div id="stakeJauge">
-                    <div id="stakeTitle">
-                      <p id="stakeTitleP">Stake</p>
 
-                      {/*<div id="underStakeTitle">
-                      <div id="under2StakeTitle">
-                      </div>
-            </div>*/}
-                    </div>
-                    <div id="stakeBox">
-                      <div id="jaugeDiv">
-                        <div id="graduation">
-                          <p id="zeroRange">1 USDT</p>
-                          <p id="midRange">50%</p>
-                          <p id="maxRange">Max ({Math.round(this.state.balanceUSDT * 10) / 10})</p>
-                        </div>
-                        <div id="range">
-                          <input type="range" min="1" step="1" max={this.state.balanceUSDT} id="rangeInput" value={this.state.amountToBet} onChange={e => this.setState({ amountToBet: e.target.value })}></input>
-                        </div>
-                      </div>
-                      <div>
-                        <input type="number" id="inputStake" min="1" value={this.state.amountToBet} onChange={e => this.setState({ amountToBet: e.target.value })}></input>
-                        {/*<button id="enterStakeButtonB">
-                        <div id="enterStakeButton">
-                          Enter stake
-                        </div>
-                      </button>*/}
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div id="mainVue">
                   {this.state.showPopup ?
                     <Popup
@@ -338,15 +384,17 @@ class App extends Component {
                 <div id="rightBar">
                   <div id="topRightBar">
                     <div id="underTopRightBar">
-                      <button onClick={this.goPanier} id="panierP">Panier</button>
-                      <button onClick={this.goMyBets} id="myBetsP">My Bets</button>
+                      <button onClick={this.goPanier} className="topRightButton" id="panierP"><div id="buttonBetMakerDiv" className="topRightDiv">Bet maker</div></button>
+                      <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id="buttonMyBetsDiv" className="topRightDiv">My Bets</div></button>
                     </div>
                   </div>
-                  <div id="midRightBar">
-                    {this.state.rightBar === "panier" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs}></BetMaker> : <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
-                    }
-                  </div>
+                  <div id="superMidRightBar">
+                    <div id="midRightBar">
+                      {this.state.rightBar === "panier" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker> : <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
+                      }
 
+                    </div>
+                  </div>
 
                 </div>
                 <div id="bottomRightBar">
@@ -360,7 +408,7 @@ class App extends Component {
                       <p id="gainsP2">{this.state.betArgs === null ? null : this.state.betArgs === null ? null : this.state.betArgs.toWin + " USDT"} </p>
                     </div>
                   </div>
-                  <button id="buttonApprover" onClick={(event) => { this.approveUSDT(this.state.betArgs.amountToBet) }}><div id="approveButton"><p id="approveP">APPROVE</p></div></button>
+                  <button id="buttonApprover" onClick={(event) => { this.approve() }}><div id="approveButton"><p id="approveP">APPROVE</p></div></button>
                   <button id="buttonBetter" onClick={(event) => { this.betFunction(this.state.betArgs) }}><div id="betButton"><p id="betP">BET</p></div></button>
                 </div>
 
@@ -368,7 +416,7 @@ class App extends Component {
             >
               <Route path="/basketball" element={<ListBet ></ListBet>} />
               <Route path="/football" element={<ListBet ></ListBet>} />
-              <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs}></Bet>} />
+              <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet}></Bet>} />
               <Route path="/decentrabet" element={<DecentraBet decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
               <Route path="/classement" element={<Classement address={this.state.defaultAccount}></Classement>}></Route>
               <Route path="/mybets" element={<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>

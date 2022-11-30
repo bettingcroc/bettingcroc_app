@@ -2,14 +2,14 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-
+var __mounted;
 class P2PBetCreator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       amountToBet: undefined,
       cote: undefined,
-      P2PBetCreatorSwitcher: "public",
+      P2PBetCreatorSwitcher: "Public",
       selectedOption: 0,
       authorized: undefined,
     };
@@ -22,12 +22,18 @@ class P2PBetCreator extends React.Component {
   componentDidMount() {
     this.setState({ authorized: undefined });
     console.log(this.state.authorized);
+    __mounted = true
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props && __mounted) {
+      this.setState({ amountToBet: this.props.amountToBet })
+    }
   }
   switchButton() {
-    if (this.state.P2PBetCreatorSwitcher === "public") {
-      this.setState({ P2PBetCreatorSwitcher: "friends only" });
+    if (this.state.P2PBetCreatorSwitcher === "Public") {
+      this.setState({ P2PBetCreatorSwitcher: "Friends only" });
     } else {
-      this.setState({ P2PBetCreatorSwitcher: "public" });
+      this.setState({ P2PBetCreatorSwitcher: "Public" });
     }
   }
   approveUSDT(amount) {
@@ -72,7 +78,7 @@ class P2PBetCreator extends React.Component {
   seeP2PBets() {
     try {
       this.props.betContract.methods.seeP2PBets(this.props.betNumber).call()
-      .then(console.log)
+        .then(console.log)
     }
     catch (error) {
       console.log(error)
@@ -81,88 +87,95 @@ class P2PBetCreator extends React.Component {
   render() {
     return (
       <div id="p2pcreator">
+
+
         <div id="underp2pcreator">
-          <h3>Create a new Bet</h3>
-          <h5>amountTOBet :</h5>
-          <input
-            className="css-input"
-            placeholder="amountTOBet"
-            id="amountToBet"
-            type="number"
-            value={this.state.amountToBet || ""}
-            onChange={(e) => this.setState({ amountToBet: e.target.value })}
-          ></input>
-          <h5>cote :</h5>
-          <input
-            className="css-input"
-            placeholder="cote"
-            id="cote"
-            type="number"
-            value={this.state.cote || ""}
-            onChange={(e) => this.setState({ cote: e.target.value })}
-          ></input>
-          <select
-            value={this.state.selectedOption}
-            onChange={(e) => {
-              this.setState({ selectedOption: e.target.value });
-              console.log(e.target.value);
-            }}
-          >
-            {this.props.optionsArray == null
-              ? null
-              : this.props.optionsArray.split(",").map((item, index) => {
-                return (
-                  <option key={index} value={index}>
-                    {item}
-                  </option>
-                );
-              })}
-          </select>
-          <br></br>
-          <button className="button" onClick={this.switchButton}>
-            {this.state.P2PBetCreatorSwitcher}
-          </button>
-          <input
-            type="text"
-            className={
-              this.state.P2PBetCreatorSwitcher === "public" ? "hidden" : undefined
-            }
-            value={this.state.authorized || ''}
-            onChange={(e) => { this.setState({ authorized: e.target.value }); console.log(this.state.authorized) }}
-          ></input>
-          <h3>
-            will cost you {this.state.amountToBet} USDT and{" "}
-            {this.state.amountToBet} MBT
-          </h3>
-          <button className="button"
-            onClick={(event) => {
-              this.approveUSDT(this.state.amountToBet);
-            }}
-          >
-            APPROVE USDT
-          </button>
-          <button className="button"
-            onClick={(event) => {
-              this.approveMBT(this.state.amountToBet);
-            }}
-          >
-            APPROVE MBT
-          </button>
-          <button className="button"
-            onClick={(event) => {
-              console.log(this.state.selectedOption);
-              this.createP2PBet(
-                this.state.amountToBet,
-                this.state.cote,
-                this.state.selectedOption,
-                this.state.authorized
-              );
-            }}
-          >
-            CREATE BET
-          </button>
-          <button className="button" onClick={this.seeP2PBets}>seeP2PBets</button>
-        </div></div>
+          <div id="superNewP2P">
+            <div id="newP2P">
+              <div id="underNewP2P">
+                <p id="newP2PP">New P2P</p>
+              </div>
+            </div>
+          </div>
+          <div id="inputsP2P">
+            <input
+              className="css-input"
+              placeholder="cote"
+              id="cote"
+              type="number"
+              min="1.01"
+              value={this.state.cote || ""}
+              onChange={(e) => this.setState({ cote: e.target.value })}
+            ></input>
+            <div id="selectCreateNewP2P">
+              <select
+                value={this.state.selectedOption}
+                onChange={(e) => {
+                  this.setState({ selectedOption: e.target.value });
+                  console.log(e.target.value);
+                }}
+              >
+                {this.props.optionsArray == null
+                  ? null
+                  : this.props.optionsArray.split(",").map((item, index) => {
+                    return (
+                      <option key={index} value={index}>
+                        {item}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
+
+            <div id="authorizedDiv">
+              <button id="publicSwitchButton" className="button" onClick={this.switchButton}>
+                {this.state.P2PBetCreatorSwitcher}
+              </button>
+              <input
+                type="text"
+                className={
+                  this.state.P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
+                }
+                id="adressAuthorizedInput"
+                value={this.state.authorized || ''}
+                onChange={(e) => { this.setState({ authorized: e.target.value }); console.log(this.state.authorized) }}
+              ></input>
+            </div>
+            <div id="superButtonCreateP2Pbutton">
+              <button className="button"
+                id="buttonCreateP2Pbutton"
+                onClick={(event) => {
+                  console.log(this.state.selectedOption);
+                  this.props.setTypeBet(2)
+                  this.props.setBetArgs({
+                    betNumber: this.props.betNumber,
+                    betName: this.props.optionsArray,
+                    amountToBet: weiconvert(this.state.amountToBet),
+                    cote: this.state.cote,
+                    selectedOption: this.state.selectedOption,
+                    authorized: this.state.authorized,
+                    optionName: this.props.optionsArray.split(",")[this.state.selectedOption],
+                    toWin: this.state.amountToBet * this.state.cote
+                  })
+
+                }}
+              >
+                <div id="buttonCreateP2P"><p id="buttonCreateP2PP">Create bet</p></div>
+              </button>
+            </div>
+            {/*<h3>
+              will cost you {this.state.amountToBet} USDT and{" "}
+              {this.state.amountToBet} MBT
+              </h3>*/}
+          </div>
+
+
+
+
+
+          {/*<button className="button" onClick={this.seeP2PBets}>seeP2PBets</button>*/}
+        </div>
+      </div>
     );
   }
 }
