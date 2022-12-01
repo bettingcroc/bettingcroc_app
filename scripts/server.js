@@ -6,6 +6,13 @@ const apiServer = require('./apiServer')
 const app = express()
 const port = process.env.PORT || 4000;
 const session = require('express-session')
+var topBets={};
+updateTopBets()
+function updateTopBets(){
+  console.log("update")
+  apiServer.getTopBets().then((result)=>{topBets=result})
+  setTimeout(updateTopBets,180000)
+}
 app.use(session({
   "secret": "zgkijngzjigizg244515FGFG"
   }))
@@ -91,8 +98,9 @@ app.post('/api/setUpPseudo/',(req,res)=>{
 app.get('/api/lastbets',(req,res)=>{
   res.send(apiServer.getTodayMatches())
 })
-app.get('/api/topBets',(req,res)=>{
-  res.send(apiServer.getTopBets())
+app.get('/api/topBets',async(req,res)=>{
+  console.log(topBets)
+  res.send(topBets)
 })
 app.get('/api/infoMatch/:id',(req,res)=>{
   res.send(apiServer.getMatchInfo(req.params.id))

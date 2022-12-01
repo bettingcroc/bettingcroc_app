@@ -1,42 +1,80 @@
+/* global BigInt */
+
 multiBetABI = [
+
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_tetherAddress",
-				"type": "address"
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
 			},
 			{
-				"internalType": "address",
-				"name": "_MBTaddress",
-				"type": "address"
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "previousAdminRole",
+				"type": "bytes32"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_fees",
-				"type": "uint256"
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "newAdminRole",
+				"type": "bytes32"
 			}
 		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"name": "RoleAdminChanged",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": true,
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
 				"internalType": "address",
-				"name": "oldOwner",
+				"name": "account",
 				"type": "address"
 			},
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "newOwner",
+				"name": "sender",
 				"type": "address"
 			}
 		],
-		"name": "OwnerSet",
+		"name": "RoleGranted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			}
+		],
+		"name": "RoleRevoked",
 		"type": "event"
 	},
 	{
@@ -154,6 +192,77 @@ multiBetABI = [
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "CREATOR_ROLE",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "DEFAULT_ADMIN_ROLE",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ENDER_ROLE",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "PAUSER_ROLE",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "arr",
+				"type": "uint256[]"
+			}
+		],
+		"name": "arrayReverser",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -179,14 +288,33 @@ multiBetABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "betNumber",
+				"type": "uint256"
 			}
 		],
-		"name": "changeOwner",
+		"name": "cancelBet",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "testNo",
+				"type": "uint256"
+			}
+		],
+		"name": "checkEven",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "pure",
 		"type": "function"
 	},
 	{
@@ -241,6 +369,32 @@ multiBetABI = [
 				"internalType": "bool",
 				"name": "",
 				"type": "bool"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "constructor1",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "list",
+				"type": "uint256[]"
+			}
+		],
+		"name": "countZeros",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "pure",
@@ -324,24 +478,24 @@ multiBetABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "betNumber",
+				"name": "index",
 				"type": "uint256"
 			},
 			{
-				"internalType": "address",
-				"name": "msgsender",
-				"type": "address"
+				"internalType": "uint256[]",
+				"name": "list",
+				"type": "uint256[]"
 			}
 		],
-		"name": "didIWinSmth",
+		"name": "deleteIndexFromUint256Array",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "bool"
+				"type": "uint256[]"
 			}
 		],
-		"stateMutability": "view",
+		"stateMutability": "pure",
 		"type": "function"
 	},
 	{
@@ -443,6 +597,38 @@ multiBetABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "list",
+				"type": "uint256[]"
+			}
+		],
+		"name": "getLowerIndexMinimum",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getMBTaddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -597,19 +783,6 @@ multiBetABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getOwner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -636,6 +809,25 @@ multiBetABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			}
+		],
+		"name": "getRoleAdmin",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "msgsender",
 				"type": "address"
@@ -647,6 +839,38 @@ multiBetABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "getTotalMoney",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getUSDTaddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -685,6 +909,48 @@ multiBetABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "grantRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "hasRole",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -781,6 +1047,25 @@ multiBetABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "isCanceled",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -926,6 +1211,19 @@ multiBetABI = [
 	},
 	{
 		"inputs": [],
+		"name": "proxiableUUID",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "recupAllP2PWin",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -934,6 +1232,42 @@ multiBetABI = [
 	{
 		"inputs": [],
 		"name": "recupAllWin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "renounceRole",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "role",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "revokeRole",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -1122,7 +1456,7 @@ multiBetABI = [
 						"type": "address[]"
 					}
 				],
-				"internalType": "struct MultiBetUSDTMultiOptionsP2P.p2pBet[]",
+				"internalType": "struct MultiBetUSDTMultiOptions.p2pBet[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -1146,6 +1480,44 @@ multiBetABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256[]",
+				"name": "data",
+				"type": "uint256[]"
+			}
+		],
+		"name": "sort",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes4",
+				"name": "interfaceId",
+				"type": "bytes4"
+			}
+		],
+		"name": "supportsInterface",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "msgsender",
 				"type": "address"
@@ -1161,11 +1533,25 @@ multiBetABI = [
 		],
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newCode",
+				"type": "address"
+			}
+		],
+		"name": "updateCode",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
+
 ]
 
 //const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
-const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
+const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545";
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet";
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
@@ -1243,12 +1629,12 @@ function get_Type(betNumber) {
 	return null;
 }
 
-function get_CLosestDates(date) {
+/*function get_CLosestDates(date) {
 	let select = db.prepare(`select betNumber from bets where date>'${date}' limit 14`);
 	let result = select.all();
 	if (result) return result;
 	return null;
-}
+}*/
 
 function get_CLosestDatesByType(date, type) {
 	let select = db.prepare(`select betNumber from bets where date>'${date}' and type='${type}' limit 14`);
@@ -1292,10 +1678,12 @@ function get10MaxScore() {
 	//console.log(result)
 	if (result) return result;
 }
-function getTodayMatches() {
+async function getTodayMatches() {
 	timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
+	console.log(timeNow)
 	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
+	arrayIndex.push({ betNumber: 15 })
 	console.log(arrayIndex)
 	let matches = { matches: [] }
 	list = ''
@@ -1306,13 +1694,46 @@ function getTodayMatches() {
 		match["name"] = get_Name(arrayIndex[i]["betNumber"])
 		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
 		match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
+		//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
+		/*await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
+			.then(function (result) {
+				console.log(i)
+				console.log(result)
+				match["moneyBetted"] = result
+			})*/
 		matches.matches.push(match)
 	}
 	console.log(matches)
 	return (matches)
 }
-function getTopBets() {
-
+async function getTopBets() {
+	timeNow = new Date().getTime() - 10800;
+	timeNow = new Date(timeNow);
+	console.log(timeNow)
+	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
+	arrayIndex.push({ betNumber: 15 })
+	console.log(arrayIndex)
+	let matches = { matches: [] }
+	list = ''
+	opt = arrayIndex.length;
+	for (i = 0; i < opt; i++) {
+		let match = {}
+		match["betNumber"] = arrayIndex[i]["betNumber"]
+		match["name"] = get_Name(arrayIndex[i]["betNumber"])
+		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
+		match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
+		//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
+		await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
+			.then(function (result) {
+				console.log(i)
+				console.log(result)
+				match["moneyBetted"] = result
+			})
+		matches.matches.push(match)
+	}
+	matches.matches.sort((a, b) => (a.moneyBetted > b.moneyBetted ? -1 : 1))
+	console.log({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
+	return ({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
 }
 function getMatchInfo(id) {
 	let optionsArray = get_List(id)
@@ -1357,6 +1778,12 @@ module.exports = {
 	getMatchInfo: getMatchInfo,
 	get10MaxScore: get10MaxScore,
 	getMyScore: getMyScore,
-	getMyBets: getMyBets
+	getMyBets: getMyBets,
+	getTopBets:getTopBets
 }
-getTodayMatches()
+getTopBets()
+//getMyBets("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0")
+/*multiBetContract.methods.getTotalMoney(15).call()
+		.then(function (result) {
+			console.log(result)
+		})*/
