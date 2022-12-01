@@ -1695,7 +1695,7 @@ function getTodayMatches() {
 		match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
 		matches.matches.push(match)
 	}
-	console.log(matches)
+	//console.log(matches)
 	return (matches)
 }
 async function getTopBets() {
@@ -1773,7 +1773,7 @@ module.exports = {
 	getMyBets: getMyBets,
 	getTopBets:getTopBets
 }
-getTopBets()
+//getTopBets()
 //getMyBets("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0")
 /*multiBetContract.methods.getTotalMoney(15).call()
 		.then(function (result) {
