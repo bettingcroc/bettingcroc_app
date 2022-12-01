@@ -1678,15 +1678,14 @@ function get10MaxScore() {
 	//console.log(result)
 	if (result) return result;
 }
-async function getTodayMatches() {
+function getTodayMatches() {
 	timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
 	console.log(timeNow)
 	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
-	arrayIndex.push({ betNumber: 15 })
+	//arrayIndex.push({ betNumber: 15 })
 	console.log(arrayIndex)
 	let matches = { matches: [] }
-	list = ''
 	opt = arrayIndex.length;
 	for (i = 0; i < opt; i++) {
 		let match = {}
@@ -1694,13 +1693,6 @@ async function getTodayMatches() {
 		match["name"] = get_Name(arrayIndex[i]["betNumber"])
 		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
 		match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
-		//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
-		/*await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
-			.then(function (result) {
-				console.log(i)
-				console.log(result)
-				match["moneyBetted"] = result
-			})*/
 		matches.matches.push(match)
 	}
 	console.log(matches)
