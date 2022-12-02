@@ -1723,7 +1723,7 @@ async function getTopBets() {
 			})
 		matches.matches.push(match)
 	}
-	matches.matches.sort((a, b) => (a.moneyBetted > b.moneyBetted ? -1 : 1))
+	matches.matches.sort((a, b) => (BigInt(a.moneyBetted) > BigInt(b.moneyBetted) ? -1 : 1))
 	console.log({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
 	return ({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
 }
