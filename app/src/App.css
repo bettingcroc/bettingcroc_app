@@ -1893,7 +1893,7 @@
   border-radius: 10px;
   background-color: #539B57;
   border: none;
-  color:white;
+  color: white;
 }
 
 #adressAuthorizedInput {
@@ -2127,14 +2127,7 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-
-  width: 1084px;
-  height: 1070px;
-  left: 381px;
-
-
-
+  gap: 20px;
 }
 
 #box1ListBets {
@@ -2176,7 +2169,7 @@ a:hover {
   gap: 10px;
 
   width: 1084px;
-  height: 412px;
+
 
 
   /* Inside auto layout */
@@ -2185,21 +2178,174 @@ a:hover {
   align-self: stretch;
   flex-grow: 0;
 }
-#errorCoteDiv{
+
+#errorCoteDiv {
   order: 4;
 }
 
 @keyframes horizontal-shaking {
-  0% { transform: translateX(0) }
-  25% { transform: translateX(5px) }
-  50% { transform: translateX(-5px) }
-  75% { transform: translateX(5px) }
-  100% { transform: translateX(0) }
+  0% {
+    transform: translateX(0)
+  }
+
+  25% {
+    transform: translateX(5px)
+  }
+
+  50% {
+    transform: translateX(-5px)
+  }
+
+  75% {
+    transform: translateX(5px)
+  }
+
+  100% {
+    transform: translateX(0)
+  }
 }
+
 .horizontal-shake {
   animation: horizontal-shaking 0.35s infinite;
-  
+
 }
-#errorP{
+
+#errorP {
   color: red;
+}
+
+body {
+  background: #F4F7F9;
+  ;
+}
+
+#topBetsBox1 {
+  /* Today Sales */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  isolation: isolate;
+
+  width: 348px;
+  height: 434px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#topBetsBox2 {
+  /* Today Sales */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  isolation: isolate;
+
+  width: 348px;
+  height: 434px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#topBetsBox3 {
+  /* Today Sales */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  isolation: isolate;
+
+  width: 348px;
+  height: 434px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#underBox3ListBets {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 30px;
+  gap: 10px;
+
+  width: 1084px;
+
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.topBetsMiniBox1{
+  /* Mask group */
+
+  width: 348px;
+  height: 228px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  z-index: 0;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  display: flex;
+
+}
+
+.topBetsMiniBox2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px;
+  gap: 20px;
+  isolation: isolate;
+
+  width: 348px;
+  height: 206px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  z-index: 1;
 }

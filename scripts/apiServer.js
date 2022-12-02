@@ -1584,7 +1584,7 @@ function get_Name(betNumber) {
 	let select = db.prepare(`SELECT optionsArray FROM Bets WHERE betNumber = '${betNumber}'`);
 	let result = select.get();
 	array = result.optionsArray.split(',');
-	if (result) return array[0] + " vs " + array[array.length - 1];
+	if (result) return array[0] + " - " + array[array.length - 1];
 	return null;
 }
 
