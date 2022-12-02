@@ -1703,7 +1703,7 @@ async function getTopBets() {
 	timeNow = new Date(timeNow);
 	console.log(timeNow)
 	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
-	arrayIndex.push({ betNumber: 15 })
+	//arrayIndex.push({ betNumber: 15 })
 	console.log(arrayIndex)
 	let matches = { matches: [] }
 	list = ''
