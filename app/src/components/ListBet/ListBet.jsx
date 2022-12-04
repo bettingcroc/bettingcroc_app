@@ -64,8 +64,13 @@ class ListBet extends React.Component {
           <div id="underBox3ListBets">
             {this.state.matches.map(function (item) {
               return (
-                <div id="" key={item.betNumber}>
-                  <Link to={"/bet/numBet?n=" + item.betNumber} ><p>{item.type + " Bet " + item.betNumber + " : " + item.name}</p></Link>
+                <div  key={item.betNumber}>
+                  <Link to={"/bet/numBet?n=" + item.betNumber} >
+                    <div className="betLineListBets">
+                      <p>{item.name}</p>
+                      <p>{item.type}</p>
+                    </div>
+                  </Link>
                 </div>
               )
             })

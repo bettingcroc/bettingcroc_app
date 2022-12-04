@@ -352,18 +352,34 @@ class App extends Component {
                         <input type="text"></input>
                       </div>
                       <div id="popular">
-                        <p>Popular</p>
-                        <Link to="/basketball"><h3>Basketball</h3></Link>
-                        <Link to="/football"><h3>Football</h3></Link>
-                        <Link to="/finance"><h3>Finance</h3></Link>
-                        <Link to="/baseball"><h3>Baseball</h3></Link>
+                        <p className="titleLeftBar">Popular</p>
+                        <Link to="/basketball">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Basketball</p></div>
+                        </Link>
+                        <Link to="/football">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Football</p></div>
+                        </Link>
+                        <Link to="/finance">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Finance</p></div>
+                        </Link>
+                        <Link to="/baseball">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Baseball</p></div>
+                        </Link>
                       </div>
                       <div id="categories">
-                        <p>All categories</p>
-                        <Link to="/basketball"><h3>Basketball</h3></Link>
-                        <Link to="/football"><h3>Football</h3></Link>
-                        <Link to="/finance"><h3>Finance</h3></Link>
-                        <Link to="/baseball"><h3>Baseball</h3></Link>
+                        <p className="titleLeftBar">All categories</p>
+                        <Link to="/basketball">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Basketball</p></div>
+                        </Link>
+                        <Link to="/football">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Football</p></div>
+                        </Link>
+                        <Link to="/finance">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Finance</p></div>
+                        </Link>
+                        <Link to="/baseball">
+                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Baseball</p></div>
+                        </Link>
                       </div>
                     </div>
                   </div>

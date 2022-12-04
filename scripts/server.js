@@ -10,7 +10,11 @@ var topBets={};
 updateTopBets()
 function updateTopBets(){
   console.log("update")
-  apiServer.getTopBets().then((result)=>{topBets=result})
+  try{apiServer.getTopBets().then((result)=>{topBets=result})}
+  catch(e){
+    console.log(e)
+    setTimeout(updateTopBets,60000)
+  }
   setTimeout(updateTopBets,180000)
 }
 app.use(session({
