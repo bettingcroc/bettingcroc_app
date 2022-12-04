@@ -1708,27 +1708,28 @@ async function getTopBets() {
 	let matches = { matches: [] }
 	list = ''
 	opt = arrayIndex.length;
-	try{
-	for (i = 0; i < opt; i++) {
-		let match = {}
-		match["betNumber"] = arrayIndex[i]["betNumber"]
-		match["name"] = get_Name(arrayIndex[i]["betNumber"])
-		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
-		match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
-		//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
-		await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
-			.then(function (result) {
-				console.log(i)
-				console.log(result)
-				match["moneyBetted"] = result
-			})
-		matches.matches.push(match)
+	try {
+		for (i = 0; i < opt; i++) {
+			let match = {}
+			match["betNumber"] = arrayIndex[i]["betNumber"]
+			match["name"] = get_Name(arrayIndex[i]["betNumber"])
+			match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
+			match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
+			//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
+			await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
+				.then(function (result) {
+					console.log(i)
+					console.log(result)
+					match["moneyBetted"] = result
+				})
+			matches.matches.push(match)
+		}
+		matches.matches.sort((a, b) => (BigInt(a.moneyBetted) > BigInt(b.moneyBetted) ? -1 : 1))
+		console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
+		return ({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 	}
-}
-catch(e){console.log(e)}
-	matches.matches.sort((a, b) => (BigInt(a.moneyBetted) > BigInt(b.moneyBetted) ? -1 : 1))
-	console.log({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
-	return ({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
+	catch (e) { console.log(e);return "error" }
+
 }
 function getMatchInfo(id) {
 	let optionsArray = get_List(id)
@@ -1774,7 +1775,7 @@ module.exports = {
 	get10MaxScore: get10MaxScore,
 	getMyScore: getMyScore,
 	getMyBets: getMyBets,
-	getTopBets:getTopBets
+	getTopBets: getTopBets
 }
 //getTopBets()
 //getMyBets("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0")
