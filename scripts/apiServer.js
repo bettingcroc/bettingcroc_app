@@ -1708,6 +1708,7 @@ async function getTopBets() {
 	let matches = { matches: [] }
 	list = ''
 	opt = arrayIndex.length;
+	try{
 	for (i = 0; i < opt; i++) {
 		let match = {}
 		match["betNumber"] = arrayIndex[i]["betNumber"]
@@ -1723,6 +1724,8 @@ async function getTopBets() {
 			})
 		matches.matches.push(match)
 	}
+}
+catch(e){console.log(e)}
 	matches.matches.sort((a, b) => (BigInt(a.moneyBetted) > BigInt(b.moneyBetted) ? -1 : 1))
 	console.log({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
 	return ({ matches: [matches.matches[0],matches.matches[1],matches.matches[2]] })
