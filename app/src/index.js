@@ -15,6 +15,10 @@ import { Link, Outlet } from "react-router-dom";
 import ConnectButton from "./components/ConnectButton/ConnectButton";
 import homeImage from './home.png'
 import titleImage from './bettingCrocTitle.png'
+import basketBallImage from './basketball.png'
+import footballImage from './football.png'
+import financeImage from './finance.png'
+import tennisImage from './tennis.png'
 import accountImage from './account.jpg'
 import DecentraBet from "./components/DecentraBet/DecentraBet";
 import Classement from "./components/Classement/Classement";
@@ -22,6 +26,22 @@ import MyBets from "./components/MyBets/MyBets";
 import Authentification from "./components/Authentification/Authentification";
 import Account from "./components/Account/Account";
 import BetMaker from "./components/betMaker/betMaker";
+import ComingSoon from "./components/ComingSoon/ComingSoon";
+import LandingComponent from "./components/LandingComponent/LandingComponent"
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import ConnectWc from "./components/ConnectWC/ConnectWC";
+
+//  Create WalletConnect Provider
+const provider = new WalletConnectProvider({
+  infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
+  rpc: {
+    97: "https://rpc.ankr.com/bsc_testnet_chapel"
+    // ...
+  },
+});
+
+
+
 const chainId = 97;
 class Popup extends React.Component {
   render() {
@@ -38,8 +58,50 @@ class Popup extends React.Component {
 }
 class App extends Component {
   async loadBlockchainData() {
-    const web3 = new Web3(Web3.givenProvider);
+    /*//  Enable session (triggers QR Code modal)
+    await provider.enable();
+    //const web3 = new Web3(Web3.givenProvider);
+    const web3 = new Web3(provider);
+    console.log(web3)
+    //  Get Accounts
     const accounts = await web3.eth.getAccounts();
+    
+    console.log(accounts)
+    // Sign Typed Data
+    let nonce = "ewww"
+    var hex = ''
+    for (var i = 0; i < nonce.length; i++) {
+      hex += '' + nonce.charCodeAt(i).toString(16)
+    }
+    var hexMessage = "0x" + hex
+    console.log(hexMessage)
+    const signedTypedData = await web3.eth.personal.sign(hexMessage, accounts[0]);
+    console.log(signedTypedData)
+    //const accounts = await web3.eth.getAccounts();
+    this.setState({ account: accounts[0] });*/
+    const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
+    console.log(web3.givenProvider)
+    console.log("testEth")
+    //console.log(web3.givenProvider.isWalletSelected)
+    //console.log(window.ethereum.isWalletSelected)
+    console.log("testEth")
+    if (web3.givenProvider) {
+      web3.setProvider(Web3.givenProvider)
+    }
+    if (localStorage.getItem("walletconnect") !== null) {
+      await provider.enable();
+      web3.setProvider(provider)
+      web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
+    }
+
+    console.log("provider")
+    console.log(provider)
+    console.log(provider.accounts)
+    console.log("provider")
+    const accounts = await web3.eth.getAccounts();
+    console.log("accounts")
+    console.log(accounts)
+    console.log("accounts")
     this.setState({ account: accounts[0] });
     const multiBetContract = new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS);
     const USDTContract = new web3.eth.Contract(USDT_ABI, USDT_ADDRESS);
@@ -50,11 +112,12 @@ class App extends Component {
     this.setState({ mbtContract });
     this.setState({ decentrabetContract });
     this.setState({ web3 })
-    window.ethereum
+    this.accountChangedHandler(accounts[0])
+    /*window.ethereum
       .request({ method: "eth_requestAccounts" })
       .then((result) => {
         this.accountChangedHandler(result[0]);
-      });
+      });*/
     this.setState({ loading: false });
     this.setState({ balanceUSDT: null })
 
@@ -75,9 +138,11 @@ class App extends Component {
       showPopup: false,
       switchChainPending: false,
       amountToBet: 1,
-      rightBar: "panier",
+      rightBar: "betMaker",
       typeBet: 0,
-      betArgs: null
+      betArgs: null,
+      vue: null,
+      vueRightBar: "betMaker"
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this);
     this.loadBlockchainData();
@@ -95,6 +160,8 @@ class App extends Component {
     this.approveMBT = this.approveMBT.bind(this);
     this.betOnThisOptionP2P = this.betOnThisOptionP2P.bind(this)
     this.setAmountBet = this.setAmountBet.bind(this)
+    this.setVue = this.setVue.bind(this)
+    this.setVueRightBar = this.setVueRightBar.bind(this)
   }
   togglePopup() {
     this.setState({
@@ -129,10 +196,12 @@ class App extends Component {
   }
   componentDidUpdate() {
     console.log("update index")
-    if (window.ethereum.networkVersion != 97) {
-      console.log("bad chain : " + window.ethereum.networkVersion)
-      if (this.state.showPopup == false && this.state.switchChainPending == false) { this.togglePopup(); this.setState({ switchChainPending: true }); }
-      if (this.state.switchChainPending == false) { this.chainChanger(); this.setState({ switchChainPending: true }); }
+    if (window.ethereum) {
+      if (window.ethereum.networkVersion != 97) {
+        console.log("bad chain : " + window.ethereum.networkVersion)
+        if (this.state.showPopup == false && this.state.switchChainPending == false) { this.togglePopup(); this.setState({ switchChainPending: true }); }
+        if (this.state.switchChainPending == false) { this.chainChanger(); this.setState({ switchChainPending: true }); }
+      }
     }
     if (window.ethereum) {
       window.ethereum.on('chainChanged', () => {
@@ -152,7 +221,7 @@ class App extends Component {
 
       })
     }
-    console.log(window.ethereum.networkVersion)
+    //console.log(window.ethereum.networkVersion)
 
   }
   accountChangedHandler = (newAccount) => {
@@ -166,8 +235,9 @@ class App extends Component {
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
+          this.state.web3.setProvider(Web3.givenProvider)
           this.accountChangedHandler(result[0]);
-          //console.log(result[0])
+          console.log(result[0])
           this.setState({ connButtonText: "Wallet Connected" });
           //getAccountBalance(result[0]);
         })
@@ -181,6 +251,14 @@ class App extends Component {
       });
     }
   };
+  connectWalletConnect = async () => {
+    await provider.enable();
+    this.state.web3.setProvider(provider)
+    this.state.web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
+    console.log("provider2")
+    console.log(provider)
+    console.log("provider2")
+  }
   allowancesSetter() {
     try {
       console.log(this.state.defaultAccount)
@@ -208,7 +286,7 @@ class App extends Component {
     this.setState({ rightBar: "myBets" })
   }
   goPanier() {
-    this.setState({ rightBar: "panier" })
+    this.setState({ rightBar: "betMaker" })
   }
   setTypeBet(newTypeBet) {
     this.setState({ typeBet: newTypeBet })
@@ -221,6 +299,12 @@ class App extends Component {
   setAmountBet(newAmount) {
     this.setState({ amountToBet: newAmount })
   }
+  setVue(newVue) {
+    this.setState({ vue: newVue })
+  }
+  setVueRightBar(newVue) {
+    this.setState({ vueRightBar: newVue })
+  }
   approve() {
     if (this.state.typeBet === 1 || this.state.typeBet === 3) {
       this.approveUSDT(this.state.betArgs.amountToBet)
@@ -231,7 +315,6 @@ class App extends Component {
     }
   }
   approveUSDT(amount) {
-    console.log("wtf")
     this.state.USDTContract.methods.approve("0xD90531a9234A38dfFC8493c0018ad17cB5F7A867", amount).send({ from: this.state.defaultAccount })
       .once('receipt', (receipt) => {
         console.log("approve success")
@@ -325,15 +408,15 @@ class App extends Component {
                       </Link>
                     </div>
                     <div id="links">
-                      <Link to="/basketball"><p id="listBetsTitle">List Bets</p></Link>
-                      <Link to="/decentrabet"><p id="decentraBetTitle">Decentrabet</p></Link>
-                      <Link to="/classement"><p id="classementTitle">Rankings</p></Link>
+                      <Link to="/basketball"><p id="listBetsTitle" className={this.state.vue === "listBets" ? "titleActive" : "titleInactive"}>List Bets</p></Link>
+                      <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vue === "decentraBet" ? "titleActive" : "titleInactive"}>Decentrabet</p></Link>
+                      <Link to="/rankings"><p id="rankingsTitle" className={this.state.vue === "rankings" ? "titleActive" : "titleInactive"}>Rankings</p></Link>
                     </div>
                   </div>
                   <div id="topRight">
 
                     <ConnectButton connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText}></ConnectButton>
-
+                    <ConnectWc connectWalletHandler={this.connectWalletConnect}></ConnectWc>
                     <div id="allowancesMain">
                       <p>usdt allowed: {this.state.usdtAllowed}</p>
                       <p> mbt allowed: {this.state.mbtAllowed}</p>
@@ -354,31 +437,53 @@ class App extends Component {
                       <div id="popular">
                         <p className="titleLeftBar">Popular</p>
                         <Link to="/basketball">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Basketball</p></div>
+                          <div className="optionsLeftBar">
+                            <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Basketball</p></div>
                         </Link>
                         <Link to="/football">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Football</p></div>
+                          <div className="optionsLeftBar">
+                            <img src={footballImage} alt="footballImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Football</p>
+                          </div>
                         </Link>
                         <Link to="/finance">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Finance</p></div>
+                          <div className="optionsLeftBar">
+                            <img src={financeImage} alt="financeImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Finance</p>
+                          </div>
                         </Link>
-                        <Link to="/baseball">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Baseball</p></div>
+                        <Link to="/tennis">
+                          <div className="optionsLeftBar">
+                            <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Tennis</p>
+                          </div>
                         </Link>
                       </div>
                       <div id="categories">
                         <p className="titleLeftBar">All categories</p>
                         <Link to="/basketball">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Basketball</p></div>
+                          <div className="optionsLeftBar">
+                            <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Basketball</p></div>
                         </Link>
                         <Link to="/football">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Football</p></div>
+                          <div className="optionsLeftBar">
+                            <img src={footballImage} alt="footballImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Football</p>
+                          </div>
                         </Link>
                         <Link to="/finance">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Finance</p></div>
+                          <div className="optionsLeftBar">
+                            <img src={financeImage} alt="financeImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Finance</p>
+                          </div>
                         </Link>
-                        <Link to="/baseball">
-                          <div className="optionsLeftBar"><p className="optionsLeftBarP">Baseball</p></div>
+                        <Link to="/tennis">
+                          <div className="optionsLeftBar">
+                            <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
+                            <p className="optionsLeftBarP">Tennis</p>
+                          </div>
                         </Link>
                       </div>
                     </div>
@@ -400,13 +505,13 @@ class App extends Component {
                 <div id="rightBar">
                   <div id="topRightBar">
                     <div id="underTopRightBar">
-                      <button onClick={this.goPanier} className="topRightButton" id="panierP"><div id="buttonBetMakerDiv" className="topRightDiv">Bet maker</div></button>
-                      <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id="buttonMyBetsDiv" className="topRightDiv">My Bets</div></button>
+                      <button onClick={this.goPanier} className="topRightButton" id="panierP"><div id={this.state.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
+                      <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id={this.state.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
                     </div>
                   </div>
                   <div id="superMidRightBar">
                     <div id="midRightBar">
-                      {this.state.rightBar === "panier" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker> : <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
+                      {this.state.rightBar === "betMaker" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker> : <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
                       }
 
                     </div>
@@ -430,14 +535,18 @@ class App extends Component {
 
               </div>}
             >
-              <Route path="/basketball" element={<ListBet ></ListBet>} />
-              <Route path="/football" element={<ListBet ></ListBet>} />
+              <Route path="/" element={<LandingComponent vueSetter={this.setVue}></LandingComponent>} />
+              <Route path="/basketball" element={<ListBet vueSetter={this.setVue}></ListBet>} />
+              <Route path="/football" element={<ComingSoon ></ComingSoon>} />
+              <Route path="/tennis" element={<ComingSoon ></ComingSoon>} />
+              <Route path="/finance" element={<ComingSoon ></ComingSoon>} />
               <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet}></Bet>} />
-              <Route path="/decentrabet" element={<DecentraBet decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
-              <Route path="/classement" element={<Classement address={this.state.defaultAccount}></Classement>}></Route>
+              <Route path="/decentrabet" element={<DecentraBet vueSetter={this.setVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
+              <Route path="/rankings" element={<Classement vueSetter={this.setVue} address={this.state.defaultAccount}></Classement>}></Route>
               <Route path="/mybets" element={<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
               <Route path="/authentification" element={<Authentification web3={this.state.web3} address={this.state.defaultAccount}></Authentification>}></Route>
               <Route path="/account" element={<Account address={this.state.defaultAccount}></Account>}></Route>
+              <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
             </Route>
 
           </Routes>

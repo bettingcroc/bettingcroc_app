@@ -5,6 +5,7 @@ import ViewADecentrabet from '../ViewADecentrabet/ViewADecentrabet';
 class DecentraBet extends React.Component {
   constructor(props){
     super(props);
+    this.props.vueSetter("decentraBet")
   } 
   render(){
     return(
