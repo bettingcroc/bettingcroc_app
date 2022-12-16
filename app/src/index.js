@@ -30,9 +30,9 @@ import ComingSoon from "./components/ComingSoon/ComingSoon";
 import LandingComponent from "./components/LandingComponent/LandingComponent"
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import ConnectWc from "./components/ConnectWC/ConnectWC";
-
+import Connecter from "./components/Connecter/Connecter";
 //  Create WalletConnect Provider
-const provider = new WalletConnectProvider({
+var provider = new WalletConnectProvider({
   infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
   rpc: {
     97: "https://rpc.ankr.com/bsc_testnet_chapel"
@@ -131,7 +131,7 @@ class App extends Component {
       tasks: [],
       loading: true,
       errorMessage: "",
-      defaultAccount: "",
+      defaultAccount: undefined,
       connButtonText: "Connect Wallet",
       usdtAllowed: null,
       mbtAllowed: null,
@@ -199,8 +199,8 @@ class App extends Component {
     if (window.ethereum) {
       if (window.ethereum.networkVersion != 97) {
         console.log("bad chain : " + window.ethereum.networkVersion)
-        if (this.state.showPopup == false && this.state.switchChainPending == false) { this.togglePopup(); this.setState({ switchChainPending: true }); }
-        if (this.state.switchChainPending == false) { this.chainChanger(); this.setState({ switchChainPending: true }); }
+        //if (this.state.showPopup == false && this.state.switchChainPending == false) { this.togglePopup(); this.setState({ switchChainPending: true }); }
+        //if (this.state.switchChainPending == false) { this.chainChanger(); this.setState({ switchChainPending: true }); }
       }
     }
     if (window.ethereum) {
@@ -252,12 +252,23 @@ class App extends Component {
     }
   };
   connectWalletConnect = async () => {
-    await provider.enable();
-    this.state.web3.setProvider(provider)
-    this.state.web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
-    console.log("provider2")
-    console.log(provider)
-    console.log("provider2")
+    try {
+      await provider.enable();
+      this.state.web3.setProvider(provider)
+      this.state.web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
+      console.log("provider2")
+      console.log(provider)
+      console.log("provider2")
+    }
+    catch (e) {
+      provider = new WalletConnectProvider({
+        infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
+        rpc: {
+          97: "https://rpc.ankr.com/bsc_testnet_chapel"
+          // ...
+        },
+      });
+    }
   }
   allowancesSetter() {
     try {
@@ -415,8 +426,9 @@ class App extends Component {
                   </div>
                   <div id="topRight">
 
-                    <ConnectButton connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText}></ConnectButton>
-                    <ConnectWc connectWalletHandler={this.connectWalletConnect}></ConnectWc>
+                    {this.state.defaultAccount === undefined ? <Connecter connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText} connectWalletConnectHandler={this.connectWalletConnect}></Connecter> : <p className="accountDisplay">{this.state.defaultAccount}</p>}
+
+
                     <div id="allowancesMain">
                       <p>usdt allowed: {this.state.usdtAllowed}</p>
                       <p> mbt allowed: {this.state.mbtAllowed}</p>

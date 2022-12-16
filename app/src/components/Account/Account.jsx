@@ -9,26 +9,32 @@ class Account extends React.Component {
       loaded: false,
       myPseudo: undefined,
       dataPerso: undefined,
-      newPseudo: ""
+      newPseudo: "",
+      newFriend: undefined
     };
     this.setPseudoReact = this.setPseudoReact.bind(this)
+    this.sendFriendRequestReact=this.sendFriendRequestReact.bind(this)
   }
   render() {
     return (
       <div className="mainContent">
-        <h4>Account Component</h4>
-        <h3>
-          my pseudo is {this.state.loaded ? this.state.dataPerso[0].pseudo : ""}
-        </h3>
+        <p>
+          Hi {this.state.loaded ? this.state.dataPerso[0].pseudo : ""} !
+        </p>
         <input type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
         <button onClick={(event) => { this.setPseudoReact(this.state.newPseudo) }}>change Pseudo</button>
-        <Link to="/mybets"><h3>myBets</h3></Link>
         <Link to="/authentification"><h3>authentification</h3></Link>
+        <p>Friends</p>
+        <input type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
+        <button onClick={(event) => { this.sendFriendRequestReact(this.state.newFriend) }}>Add friend</button>
       </div>
     );
   }
   setPseudoReact(newPseudo) {
     setPseudo(newPseudo)
+  }
+  sendFriendRequestReact(newFriend){
+    sendFriendRequest(newFriend)
   }
   componentDidMount() {
     /*if (this.props.address !== "") {
@@ -48,14 +54,15 @@ class Account extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props && this.state.loaded === false) {
-      if (this.props.address !== "") {
+      if (this.props.address !== undefined) {
         this.setState({ address: this.props.address.toLowerCase() });
-        let link = "https://testnet.bettingcroc.com/api/score/" + this.props.address;
+        let link = "https://testnet.bettingcroc.com/api/score/" + this.props.address.toLowerCase();
         console.log(link);
         fetch(link, { method: "GET" }).then((res) => {
           res.json().then((data) => {
-            console.log(data[0]);
-            this.setState({ loaded: true, dataPerso: data }); // todo mettre le claseement de laddresse connectée
+            //console.log(data[0]);
+            if(this.state.loaded!==true){this.setState({ loaded: true, dataPerso: data });}
+             // todo mettre le claseement de laddresse connectée
           });
         });
       }
@@ -69,6 +76,31 @@ async function setPseudo(newPseudo) {
     let url = "https://testnet.bettingcroc.com/api/setUpPseudo/";
     let bodyToSend = JSON.stringify({
       "newPseudo": newPseudo,
+    });
+    let options = {
+      method: "POST",
+      body: bodyToSend,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    await new Promise(next => {
+      fetch(url, options).then((res) => {
+        console.log("done " + res.status);
+        next()
+      });
+    })
+    console.log("end function")
+    return ("done2")
+  }
+}
+
+async function sendFriendRequest(newFriend) {
+  if (__mounted) {
+    let url = "https://testnet.bettingcroc.com/api/sendFriendRequest/";
+    let bodyToSend = JSON.stringify({
+      "head":"newFriend",
+      "newFriend": newFriend,
     });
     let options = {
       method: "POST",

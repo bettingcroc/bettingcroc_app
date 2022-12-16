@@ -144,7 +144,7 @@ body {
   /* or 25px */
 
   /* Texte noir */
-  
+
 
 
   /* Inside auto layout */
@@ -152,12 +152,15 @@ body {
   order: 0;
   flex-grow: 0;
 }
-.titleInactive{
+
+.titleInactive {
   color: #737791;
 }
-.titleActive{
+
+.titleActive {
   color: #151D48;
 }
+
 #decentraBetTitle {
   width: 100px;
   height: 25px;
@@ -171,7 +174,7 @@ body {
   /* or 25px */
 
   /* Texte gris */
-  
+
 
 
   /* Inside auto layout */
@@ -209,6 +212,7 @@ body {
 #topRight {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 #leftBar {
@@ -234,7 +238,7 @@ body {
   padding: 0px;
 
   position: fixed;
-  z-index: 100;
+  z-index: 80;
   width: 420px;
   height: 1300px;
   right: 0px;
@@ -378,7 +382,7 @@ body {
   gap: 10px;
 
   position: fixed;
-  z-index: 100;
+  z-index: 90;
   width: 1155px;
   height: 100px;
   left: 345px;
@@ -904,13 +908,16 @@ body {
   order: 0;
   flex-grow: 0;
 }
-#inactiveRightBar{
+
+#inactiveRightBar {
   color: #737791;
 }
-#activeRightBar{
+
+#activeRightBar {
   color: #151D48;
 
 }
+
 #panierP {
   /* Basket */
 
@@ -924,7 +931,7 @@ body {
   /* or 25px */
 
   /* Bleu */
-  
+
 
   /* Inside auto layout */
   flex: none;
@@ -945,7 +952,7 @@ body {
   /* or 25px */
 
   /* Texte gris */
-  
+
 
 
   /* Inside auto layout */
@@ -963,7 +970,7 @@ body {
   align-items: flex-start;
   padding: 30px 25px;
   gap: 10px;
-  z-index: 101;
+  z-index: 90;
   position: fixed;
   width: 420px;
   height: 220px;
@@ -2496,4 +2503,82 @@ body {
   width: 47.5%;
   height: 90%;
   border-radius: 18px;
+}
+
+#connecterDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: solid;
+  border-width: 1px;
+  border-color: white;
+  width: 600px;
+  height: 200px;
+  background-color: #8d8d8d;
+  z-index: 100;
+  margin-left: -300px;
+
+}
+
+#connecterDiv p {
+  color: white;
+}
+
+#metamaskImage {
+  width: 80px;
+}
+
+#walletconnectImage {
+  width: 80px;
+}
+
+#line1Modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#line2Modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#chooseYourProvider {
+  width: 598px;
+  text-align: center;
+}
+
+.buttonTransparent {
+  background-color: transparent;
+  border: transparent;
+}
+.buttonTransparent:hover{
+  background-color: rgb(255, 255, 255,0.2);
+
+}
+
+
+table.customTable {
+  width: 100%;
+  background-color: #FFFFFF;
+  border-collapse: collapse;
+  border-width: 3px;
+  border-color: #539B57;
+  border-style: solid;
+  color: #000000;
+}
+
+table.customTable td, table.customTable th {
+  border-width: 3px;
+  border-color: #539B57;
+  border-style: solid;
+  padding: 5px;
+}
+
+table.customTable thead {
+  background-color: #539B57;
 }

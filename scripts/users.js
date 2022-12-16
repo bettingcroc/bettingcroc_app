@@ -1182,6 +1182,9 @@ multiBetAddress= '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER,nonce TEXT, pseudo TEXT)').run();
+db.prepare('create TABLE IF NOT EXISTS friendsLinks (address1 TEXT,address2 text)').run();
+db.prepare('create TABLE IF NOT EXISTS friendsRequests (address1 TEXT,address2 text,header text,body text,dateRequest date)').run();
+
 web3.eth.accounts.wallet.add('0x2d548a72a666dc56338fd0b886aaf31242dd4ce98c0efe0c38faea44af45ddd2');
 
 var randomString = function(length) {
@@ -1206,6 +1209,11 @@ function setPseudo(newPseudo,address){
 	db.prepare(` update Players set pseudo='${newPseudo}' where address='${address}'`).run()
 
 	
+}
+function newFriendRequest(args,address){
+	console.log(args)
+	console.log(address)
+
 }
 function getNonce(address){
     address=address.toLowerCase();
@@ -1338,5 +1346,6 @@ module.exports={
 	update_WeekScores:update_WeekScores,
 	recover:recover,
 	setPseudo:setPseudo,
-	newNonce:newNonce
+	newNonce:newNonce,
+	newFriendRequest:newFriendRequest
 }

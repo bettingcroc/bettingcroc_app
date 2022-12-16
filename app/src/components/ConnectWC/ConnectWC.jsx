@@ -1,14 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
+import walletconnectImage from "./walletconnect.png"
 
 class ConnectWc extends React.Component {
   render() {
     return (
       <div>
-        <button className="button" onClick={this.props.connectWalletHandler}>
-            WC
-          </button>
+        <button className="buttonTransparent" onClick={this.props.connectWalletHandler}>
+          <img src={walletconnectImage} alt="walletconnectImage" id="walletconnectImage"></img>
+          <p>WalletConnect</p>
+
+        </button>
       </div>
     );
   }

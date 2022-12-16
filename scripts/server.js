@@ -104,6 +104,19 @@ app.post('/api/setUpPseudo/', (req, res) => {
     res.status(401).send()
   }
 })
+
+app.post('/api/sendFriendRequest/', (req, res) => {
+  if (req.session.logged === true) {
+    console.log(req.body, " from ", req.session.address)
+    users.newFriendRequest(req.body, req.session.address)
+    res.status(200).send()
+  }
+  else {
+    console.log("not logged")
+    res.status(401).send()
+  }
+})
+
 app.get('/api/lastbets', (req, res) => {
   res.send(apiServer.getTodayMatches())
 })
