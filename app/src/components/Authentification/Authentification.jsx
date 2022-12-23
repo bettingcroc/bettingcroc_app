@@ -21,6 +21,7 @@ class Authentification extends React.Component {
     await signNonce("ewww", this.props.web3, this.props.address); //FINIR AUTHENTIFICATION VIA NONCE SIGNED
   }
   async requestLoginReact() {
+    console.log(this.props.address)
     await getNonce(this.props.address)
     .then(async (nonce)=>{await requestLogin(nonce.nonce, this.props.web3, this.props.address)
       .then((ew)=>{console.log(ew);this.testLoginReact()})
@@ -98,7 +99,7 @@ async function getNonce(address) {
   console.log("trying request nonce");
   let toReturn="ewe"
   if (__mounted && address !== "") {
-    let url = "https://testnet.bettingcroc.com/api/nonce/" + address;
+    let url = "http://localhost:4000/api/nonce/" + address;
     //console.log(url);
     let options = { method: "GET" };
     await new Promise(next =>{ fetch(url, options).then((res) => {
@@ -128,7 +129,7 @@ async function requestLogin(nonce, web3, address) {
   let signedNonce = await signNonce(nonce, web3, address);
   console.log("trying login request with "+signedNonce);
   if (__mounted && address !== "") {
-    let url = "https://testnet.bettingcroc.com/login";
+    let url = "http://localhost:4000/login";
     let bodyToSend = JSON.stringify({
       signedNonce: signedNonce,
       address: address,
@@ -152,7 +153,7 @@ async function requestLogin(nonce, web3, address) {
 }
 async function testLogin(){
   if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/api/testlogin";
+    let url = "http://localhost:4000/api/testlogin";
     
     console.log(url);
     let options = {
@@ -174,7 +175,7 @@ async function testLogin(){
 }
 async function logout(){
   if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/logout";
+    let url = "http://localhost:4000/logout";
     
     console.log(url);
     let options = {

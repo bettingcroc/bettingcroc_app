@@ -1701,10 +1701,10 @@ function getTodayMatches() {
 async function getTopBets() {
 	timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
-	console.log(timeNow)
+	//console.log(timeNow)
 	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
 	//arrayIndex.push({ betNumber: 15 })
-	console.log(arrayIndex)
+	//console.log(arrayIndex)
 	let matches = { matches: [] }
 	list = ''
 	opt = arrayIndex.length;
@@ -1718,17 +1718,18 @@ async function getTopBets() {
 			//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
 			await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
 				.then(function (result) {
-					console.log(i)
-					console.log(result)
+					//console.log(i)
+					//console.log(result)
 					match["moneyBetted"] = result
 				})
 			matches.matches.push(match)
 		}
 		matches.matches.sort((a, b) => (BigInt(a.moneyBetted) > BigInt(b.moneyBetted) ? -1 : 1))
-		console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
+		//console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 		return ({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 	}
-	catch (e) { console.log(e);return "error" }
+	catch (e) { //console.log(e);return "error" 
+	}
 
 }
 function getMatchInfo(id) {
@@ -1769,13 +1770,68 @@ async function getMyBets(address) {
 	}
 	return toReturn
 }
+
+async function getMyP2PBets(address) {
+	let listMatches;
+	await multiBetContract.methods.seeMyP2PBets(address).call()
+		.then(function (result) {
+			console.log(result)
+			listMatches = result
+
+		}
+		)
+	toReturn = []
+	numBet = 0
+	compteur = 0
+	for (m in listMatches) {
+		//console.log(m)
+		if (numBet === parseInt(listMatches[m])) {
+			compteur++
+		}
+		else {
+			numBet = parseInt(listMatches[m])
+		}
+		console.log("numBet " + numBet + " compteur " + compteur)
+		//console.log(m)
+		toReturn.push(getMatchInfo(listMatches[m]))
+		toReturn[m].id = listMatches[m]
+		await multiBetContract.methods.seeMyP2PBetsDetail(address,numBet).call()
+		.then((res)=>{
+			toReturn[m].p2pNum=res[compteur]
+		})
+	}
+	return toReturn
+}
+
+function getMyRequests(address, maxDate = 0) {
+	console.log(maxDate)
+	if (maxDate === 0) {
+		let select = db.prepare(`select * from friendsRequests where address2='${address}'`);
+		let result = select.all();
+		//console.log(`select * from friendsRequests where address2='${address}'`)
+		console.log(result)
+		if (result) return result;
+	}
+}
+
+function getMyFriends(address) {
+	let select = db.prepare(`select address2 from friendsLinks where address1='${address}'`);
+	let result = select.all();
+	//console.log(`select * from friendsRequests where address2='${address}'`)
+	console.log(result)
+	if (result) return result;
+}
+
 module.exports = {
 	getTodayMatches: getTodayMatches,
 	getMatchInfo: getMatchInfo,
 	get10MaxScore: get10MaxScore,
 	getMyScore: getMyScore,
 	getMyBets: getMyBets,
-	getTopBets: getTopBets
+	getTopBets: getTopBets,
+	getMyRequests: getMyRequests,
+	getMyFriends: getMyFriends,
+	getMyP2PBets: getMyP2PBets
 }
 //getTopBets()
 //getMyBets("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0")

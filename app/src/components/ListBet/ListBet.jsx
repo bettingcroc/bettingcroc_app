@@ -14,7 +14,7 @@ class ListBet extends React.Component {
   }
   componentDidMount() {
     _mounted = true
-    fetch("https://testnet.bettingcroc.com/api/lastbets", { method: "GET" }).then((res) => {
+    fetch("http://localhost:4000/api/lastbets", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         if (_mounted) {
           this.setState({ matches: data.matches });
@@ -22,7 +22,7 @@ class ListBet extends React.Component {
         //console.log("state.matches then " + this.state.matches);
       });
     });
-    fetch("https://testnet.bettingcroc.com/api/topbets", { method: "GET" }).then((res) => {
+    fetch("http://localhost:4000/api/topbets", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         if (_mounted) {
           this.setState({ topMatches: data.matches });

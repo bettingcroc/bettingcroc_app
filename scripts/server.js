@@ -9,12 +9,13 @@ const session = require('express-session')
 var topBets = {};
 updateTopBets()
 function updateTopBets() {
-  console.log("update")
+  //console.log("update")
   apiServer.getTopBets().then((result) => {
 
     if (result === "error") { setTimeout(updateTopBets, 60000) }
     else {
-      topBets = result; setTimeout(updateTopBets, 180000)
+      topBets = result;
+      setTimeout(updateTopBets, 180000)
     }
   })
 }
@@ -49,7 +50,17 @@ app.get('/api/position/:address', (req, res) => { //TODO inclure rank dans react
 
 
 app.get('/api/nonce/:address', async (req, res) => {
-  console.log("requesting a nonce")
+  if (
+    typeof req.params.address !== "string"
+    || req.params.address.length !== 42
+    || req.params.address[0] !== "0"
+    || req.params.address[1] !== "x"
+  ) {
+    //console.log("404")
+    res.status(404).send("invalid address")
+    return
+  }
+  console.log(req.params.address + " requesting a nonce")
   let nonce = users.getNonce(req.params.address);
   if (nonce === 0) {
     users.addUser(req.params.address).then(() => {
@@ -58,9 +69,6 @@ app.get('/api/nonce/:address', async (req, res) => {
       console.log(nonce);
       res.send({ 'nonce': nonce });
     })
-    //await new Promise(next =>{
-    //next();
-    //})
 
   }
   else {
@@ -117,6 +125,38 @@ app.post('/api/sendFriendRequest/', (req, res) => {
   }
 })
 
+app.post('/api/answerRequest/', (req, res) => {
+  if (req.session.logged === true) {
+    console.log(req.body, " from ", req.session.address)
+    users.answerRequest(req.body, req.session.address)
+    res.status(200).send()
+  }
+  else {
+    console.log("not logged")
+    res.status(401).send()
+  }
+})
+
+app.get('/api/myrequests', (req, res) => {
+  if (req.session.logged === true) {
+    res.send(apiServer.getMyRequests(req.session.address))
+  }
+  else {
+    console.log("not logged")
+    res.status(401).send()
+  }
+})
+
+app.get('/api/myfriends', (req, res) => {
+  if (req.session.logged === true) {
+    res.send(apiServer.getMyFriends(req.session.address))
+  }
+  else {
+    console.log("not logged")
+    res.status(401).send()
+  }
+})
+
 app.get('/api/lastbets', (req, res) => {
   res.send(apiServer.getTodayMatches())
 })
@@ -131,11 +171,16 @@ app.get('/api/classement', (req, res) => {
   res.send(apiServer.get10MaxScore())
 })
 app.get('/api/score/:address', (req, res) => {
+  console.log("score")
   res.send(apiServer.getMyScore(req.params.address))
 })
 app.get('/api/myBets/:address', async (req, res) => {
   res.send(await apiServer.getMyBets(req.params.address))
 })
+app.get('/api/myP2PBets/:address', async (req, res) => {
+  res.send(await apiServer.getMyP2PBets(req.params.address))
+})
+
 
 app.use(express.static("./app/build/"))
 

@@ -98,7 +98,7 @@ class P2PBetOption extends React.Component {
   render() {
     return (
       <div id="p2p2">
-        <div id="underp2p2">
+        <div id="myP2P">
           <div id="p2p2Box1">
             <p id="line1P2POption">P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
           </div>

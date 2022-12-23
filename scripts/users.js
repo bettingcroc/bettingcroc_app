@@ -1183,7 +1183,8 @@ multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER,nonce TEXT, pseudo TEXT)').run();
 db.prepare('create TABLE IF NOT EXISTS friendsLinks (address1 TEXT,address2 text)').run();
-db.prepare('create TABLE IF NOT EXISTS friendsRequests (address1 TEXT,address2 text,header text,body text,dateRequest date)').run();
+//db.prepare('drop table friendsRequests').run()
+db.prepare('create TABLE IF NOT EXISTS friendsRequests (id INTEGER PRIMARY KEY,address1 TEXT,address2 text,header text,body text,dateRequest date)').run();
 
 web3.eth.accounts.wallet.add('0x2d548a72a666dc56338fd0b886aaf31242dd4ce98c0efe0c38faea44af45ddd2');
 
@@ -1211,10 +1212,27 @@ function setPseudo(newPseudo,address){
 	
 }
 function newFriendRequest(args,address){
-	console.log(args)
-	console.log(address)
-
+	//console.log(args)
+	//console.log(address)
+	let insert =  db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest) VALUES (?,?,?,?,?)`);
+	timeNow=new Date().toLocaleTimeString();
+    dateNow=new Date().toLocaleDateString();
+	//console.log(address,args.newFriend,args.head, JSON.stringify(args),dateNow+" "+timeNow)
+	insert.run(address,args.newFriend.toLowerCase(),args.head, JSON.stringify(args),dateNow+" "+timeNow);
 }
+
+function answerRequest(args,address){
+	console.log(address)
+	console.log(address)
+	if(args.head==="newFriend"){
+		let insert =  db.prepare(`INSERT INTO friendsLinks (address1,address2) VALUES (?,?)`);
+		insert.run(address.toLowerCase(),args.newFriend.toLowerCase());
+		insert.run(args.newFriend.toLowerCase(),address.toLowerCase());
+		let del = db.prepare('DELETE FROM friendsRequests WHERE id='+args.id)
+		del.run()
+	}
+}
+
 function getNonce(address){
     address=address.toLowerCase();
     let select = db.prepare(`SELECT nonce FROM Players WHERE address = '${address}'`);
@@ -1347,5 +1365,6 @@ module.exports={
 	recover:recover,
 	setPseudo:setPseudo,
 	newNonce:newNonce,
-	newFriendRequest:newFriendRequest
+	newFriendRequest:newFriendRequest,
+	answerRequest:answerRequest
 }

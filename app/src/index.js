@@ -31,6 +31,7 @@ import LandingComponent from "./components/LandingComponent/LandingComponent"
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import ConnectWc from "./components/ConnectWC/ConnectWC";
 import Connecter from "./components/Connecter/Connecter";
+import MyP2PBets from "./components/MyP2PBets/MyP2PBets";
 //  Create WalletConnect Provider
 var provider = new WalletConnectProvider({
   infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
@@ -162,6 +163,7 @@ class App extends Component {
     this.setAmountBet = this.setAmountBet.bind(this)
     this.setVue = this.setVue.bind(this)
     this.setVueRightBar = this.setVueRightBar.bind(this)
+    this.goMyP2PBets=this.goMyP2PBets.bind(this)
   }
   togglePopup() {
     this.setState({
@@ -208,7 +210,7 @@ class App extends Component {
         window.location.reload();
       })
       window.ethereum.on('accountsChanged', () => {
-        let url = "https://testnet.bettingcroc.com/logout";
+        let url = "http://localhost:4000/logout";
 
         console.log(url);
         let options = {
@@ -298,6 +300,9 @@ class App extends Component {
   }
   goPanier() {
     this.setState({ rightBar: "betMaker" })
+  }
+  goMyP2PBets(){
+    this.setState({ rightBar: "myP2PBets" })
   }
   setTypeBet(newTypeBet) {
     this.setState({ typeBet: newTypeBet })
@@ -519,11 +524,13 @@ class App extends Component {
                     <div id="underTopRightBar">
                       <button onClick={this.goPanier} className="topRightButton" id="panierP"><div id={this.state.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
                       <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id={this.state.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
+                      <button onClick={this.goMyP2PBets} className="topRightButton" id="myP2PBetsP"><div id={this.state.rightBar === "myP2PBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My P2P Bets</div></button>
+
                     </div>
                   </div>
                   <div id="superMidRightBar">
                     <div id="midRightBar">
-                      {this.state.rightBar === "betMaker" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker> : <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
+                      {this.state.rightBar === "betMaker" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker> : this.state.rightBar ==="myBets"?<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>:<MyP2PBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyP2PBets>
                       }
 
                     </div>
@@ -552,12 +559,12 @@ class App extends Component {
               <Route path="/football" element={<ComingSoon ></ComingSoon>} />
               <Route path="/tennis" element={<ComingSoon ></ComingSoon>} />
               <Route path="/finance" element={<ComingSoon ></ComingSoon>} />
-              <Route path="/bet/:id" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet}></Bet>} />
+              <Route path="/bet/:betNum" element={<Bet betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet}></Bet>} />
               <Route path="/decentrabet" element={<DecentraBet vueSetter={this.setVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
               <Route path="/rankings" element={<Classement vueSetter={this.setVue} address={this.state.defaultAccount}></Classement>}></Route>
               <Route path="/mybets" element={<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
               <Route path="/authentification" element={<Authentification web3={this.state.web3} address={this.state.defaultAccount}></Authentification>}></Route>
-              <Route path="/account" element={<Account address={this.state.defaultAccount}></Account>}></Route>
+              <Route path="/account" element={<Account web3={this.state.web3} address={this.state.defaultAccount}></Account>}></Route>
               <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
             </Route>
 

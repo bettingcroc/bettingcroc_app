@@ -9,6 +9,7 @@ class OptionPool extends React.Component {
     this.state = {
       moneyInPool: null,
       moneyIgot: null,
+      loaded:false
     }
     this.betOnThisOption = this.betOnThisOption.bind(this)
     this.approveUSDT = this.approveUSDT.bind(this)
@@ -42,9 +43,43 @@ class OptionPool extends React.Component {
         });
     } catch (error) { }
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps,prevState) {
     console.log("update OptionPool")
+    /*console.log(this.state)
+    console.log(prevState)
+    if(prevState!==this.state){
+      console.log("stateChanged")
+    }
+    if(prevProps!==this.props){
+      console.log("propsChanged")
+    }
+    console.log("update OptionPool "+true)
     //console.log(this.props.address)
+    console.log("propsMovement "+(prevProps !==this.props))
+    for(let v in Object.values(prevProps)){
+      if(Object.values(prevProps)[v]!==Object.values(this.props)[v]){
+        console.log("COUPABLE "+v)
+      }
+    }
+    console.log(Object.values(prevProps))
+    console.log(Object.values(this.props))
+    console.log(prevProps.address !== this.props.address)
+    console.log(prevProps.amountToBet !== this.props.amountToBet)
+    console.log(prevProps.betContract !== this.props.betContract)
+    console.log(prevProps.betName !== this.props.betName)
+    console.log(prevProps.betNumber !== this.props.betNumber)
+    console.log(prevProps.moneyInOtherPools !== this.props.moneyInOtherPools)
+    console.log(prevProps.optionNumber !== this.props.optionNumber)
+    console.log(prevProps.setBetArgs !== this.props.setBetArgs)
+    console.log(prevProps.setTypeBet !== this.props.setTypeBet)
+
+    console.log(prevProps.team !== this.props.team)
+    console.log(prevProps.usdtContract !== this.props.usdtContract)
+
+
+    console.log(this.props)
+    console.log("update OptionPool2")
+    */
     if (prevProps !== this.props && __mounted) {
       try {
         this.props.betContract.methods
@@ -53,7 +88,7 @@ class OptionPool extends React.Component {
           .then((result) => {
             console.log(result)
             try {
-              if (__mounted) { this.setState({ moneyInPool: result }); }
+              if (__mounted && this.state.loaded===false) { this.setState({ moneyInPool: result }); console.log("settingMoney1") }
 
             } catch (error) { }
           });
@@ -64,14 +99,12 @@ class OptionPool extends React.Component {
           .call()
           .then((result) => {
             try {
-              if (__mounted) { this.setState({ moneyIgot: result }); }
+              if (__mounted && this.state.loaded===false) { this.setState({ moneyIgot: result }); console.log("settingMoney2") ;this.setState({loaded:true})}
 
             } catch (error) { }
           });
       } catch (error) { }
-      console.log("ewwwwwwwwwww")
-      console.log(prevProps.moneyInOtherPools !== this.props.moneyInOtherPools)
-      console.log("ewwwwwwwwwww")
+      //console.log(prevProps.moneyInOtherPools !== this.props.moneyInOtherPools)
       
 
     }

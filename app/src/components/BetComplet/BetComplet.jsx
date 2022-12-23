@@ -9,6 +9,7 @@ var __mounted;
 var __moneyCalculated = 0;
 class BetComplet extends React.Component {
   constructor(props) {
+    //console.log("p2pToDisplay "+this.props.p2pToDisplay)
 
     super(props);
     this.state = {
@@ -20,7 +21,7 @@ class BetComplet extends React.Component {
       moneyInPools: null,
       p2pdisplayArgs: null
     };
-    fetch("https://testnet.bettingcroc.com/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
+    fetch("http://localhost:4000/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
       res.json().then((data) => {
         this.setState({
           optionsArray: data.optionsArray,
@@ -58,17 +59,17 @@ class BetComplet extends React.Component {
             } catch (error) { }
           }
           try {
-            console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet[0])
+            //console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet[0])
             if (moneyInPoolsLet[0] === -1) {
             }
             else {
-              console.log(moneyInPoolsLet)
+              //console.log(moneyInPoolsLet)
               this.setState({ moneyInPools: moneyInPoolsLet })
-              console.log("setting " + this.state.moneyInPools)
+              //console.log("setting " + this.state.moneyInPools)
             }
-            console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet)
+            //console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet)
             this.setState({ moneyInPools: moneyInPoolsLet })
-            console.log("setting " + this.state.moneyInPools)
+            //console.log("setting " + this.state.moneyInPools)
           } catch (error) { }
         }
       });
@@ -82,17 +83,26 @@ class BetComplet extends React.Component {
     console.log("mount BetComplet")
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps,prevState) {
     if (prevProps.betNumber !== this.props.betNumber) {
       __moneyCalculated = 0;
     }
     console.log("update betComplet")
-    console.log(prevProps)
-    console.log(this.props)
-
-    console.log(this.props === prevProps)
+    /*console.log(prevState)
+    console.log(this.state)
+    console.log("propsMovement "+(prevState !==this.state))
+    for(let v in Object.values(prevState)){
+      if(Object.values(prevState)[v]!==Object.values(this.state)[v]){
+        console.log("COUPABLE "+v)
+        console.log(Object.values(prevState)[v])
+        console.log(Object.values(this.state)[v])
+      }
+    }
+    console.log(Object.values(prevState))
+    console.log(Object.values(this.state))
+    console.log(this.props === prevProps)*/
     if (this.props !== prevProps) {
-      fetch("https://testnet.bettingcroc.com/api/infoMatch/" + this.props.betNumber, { method: "GET" }).then((res) => {
+      fetch("http://localhost:4000/api/infoMatch/" + this.props.betNumber, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           if (__mounted) {
             this.setState({
@@ -202,7 +212,7 @@ class BetComplet extends React.Component {
           </div>
 
           <div id="p2p1">
-            <P2PFinder optionsArray={this.state.optionsArray} betContract={this.props.betContract} betNumber={this.props.betNumber} setP2PdisplayArgs={this.setP2PdisplayArgs}></P2PFinder>
+            <P2PFinder id={this.props.p2pLink!==undefined?this.props.p2pLink:undefined} optionsArray={this.state.optionsArray} betContract={this.props.betContract} betNumber={this.props.betNumber} setP2PdisplayArgs={this.setP2PdisplayArgs}></P2PFinder>
             
             <P2PBetCreator betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} mbtContract={this.props.mbtContract} optionsArray={this.state.optionsArray} betNumber={this.props.betNumber} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} ></P2PBetCreator>
 
