@@ -1172,13 +1172,13 @@ const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 
-var accounts=require('web3-eth-accounts')
-var account= new accounts(NODE_URL_BSCTESTNET);
+var accounts = require('web3-eth-accounts')
+var account = new accounts(NODE_URL_BSCTESTNET);
 
 
 
 //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-multiBetAddress= '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
+multiBetAddress = '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER,nonce TEXT, pseudo TEXT)').run();
@@ -1188,183 +1188,199 @@ db.prepare('create TABLE IF NOT EXISTS friendsRequests (id INTEGER PRIMARY KEY,a
 
 web3.eth.accounts.wallet.add('0x2d548a72a666dc56338fd0b886aaf31242dd4ce98c0efe0c38faea44af45ddd2');
 
-var randomString = function(length) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for(var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
+var randomString = function (length) {
+	var text = "";
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	for (var i = 0; i < length; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	return text;
 }
 
-function getPseudo(address){
-    address=address.toLowerCase();
-    let select = db.prepare(`SELECT pseudo FROM Players WHERE address = '${address}'`);
-    let result = select.get();
-    console.log("from users.js : "+result)
-    if(result) return result.pseudo;
-    return 0;
+function getPseudo(address) {
+	address = address.toLowerCase();
+	let select = db.prepare(`SELECT pseudo FROM Players WHERE address = '${address}'`);
+	let result = select.get();
+	console.log("from users.js : " + result)
+	if (result) return result.pseudo;
+	return 0;
 }
-function setPseudo(newPseudo,address){
-	address=address.toLowerCase();
+function setPseudo(newPseudo, address) {
+	address = address.toLowerCase();
 	db.prepare(` update Players set pseudo='${newPseudo}' where address='${address}'`).run()
 
-	
+
 }
-function newFriendRequest(args,address){
+function newFriendRequest(args, address) {
 	//console.log(args)
 	//console.log(address)
-	let insert =  db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest) VALUES (?,?,?,?,?)`);
-	timeNow=new Date().toLocaleTimeString();
-    dateNow=new Date().toLocaleDateString();
+	let insert = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest) VALUES (?,?,?,?,?)`);
+	timeNow = new Date().toLocaleTimeString();
+	dateNow = new Date().toLocaleDateString();
 	//console.log(address,args.newFriend,args.head, JSON.stringify(args),dateNow+" "+timeNow)
-	insert.run(address,args.newFriend.toLowerCase(),args.head, JSON.stringify(args),dateNow+" "+timeNow);
+	insert.run(address, args.newFriend.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow);
 }
 
-function answerRequest(args,address){
+function areUsersFriends(address1, address2) {
+	let select = db.prepare(`select * from friendsLinks where address1='${address1}' and address2='${address2}'`);
+	let result = select.get();
+	if (result) return true
+	
+	else return false
+}
+
+function answerRequest(args, address) {
 	console.log(address)
 	console.log(address)
-	if(args.head==="newFriend"){
-		let insert =  db.prepare(`INSERT INTO friendsLinks (address1,address2) VALUES (?,?)`);
-		insert.run(address.toLowerCase(),args.newFriend.toLowerCase());
-		insert.run(args.newFriend.toLowerCase(),address.toLowerCase());
-		let del = db.prepare('DELETE FROM friendsRequests WHERE id='+args.id)
+	if (args.head === "newFriend") {
+		let insert = db.prepare(`INSERT INTO friendsLinks (address1,address2) VALUES (?,?)`);
+		insert.run(address.toLowerCase(), args.newFriend.toLowerCase());
+		insert.run(args.newFriend.toLowerCase(), address.toLowerCase());
+		let del = db.prepare('DELETE FROM friendsRequests WHERE id=' + args.id)
 		del.run()
 	}
 }
-
-function getNonce(address){
-    address=address.toLowerCase();
-    let select = db.prepare(`SELECT nonce FROM Players WHERE address = '${address}'`);
-    let result = select.get();
-    //console.log("from users.js : "+result)
-    if(result) return result.nonce;
-    return 0;
+function removeFriend(args, address) {
+	let del = db.prepare(`DELETE from friendsLinks where address1='` + address.toLowerCase() + `' and address2='` + args.oldFriend.toLowerCase() + `'`);
+	del.run();
+	let del2 = db.prepare(`DELETE from friendsLinks where address1='` + args.oldFriend.toLowerCase() + `' and address2='` + address.toLowerCase() + `'`);
+	del2.run();
 }
 
-function get10MaxScore(){
+function getNonce(address) {
+	address = address.toLowerCase();
+	let select = db.prepare(`SELECT nonce FROM Players WHERE address = '${address}'`);
+	let result = select.get();
+	//console.log("from users.js : "+result)
+	if (result) return result.nonce;
+	return 0;
+}
+
+function get10MaxScore() {
 	let select = db.prepare(`SELECT * FROM Players order by score desc limit 10;`);
-  	let result = select.all();
-  	if(result) return result;
+	let result = select.all();
+	if (result) return result;
 }
 
-function update_Scores(){
-    let taille=db.prepare('SELECT COUNT(*) as taille FROM Players').get();
-    taille=taille.taille;
-    //console.log("from users.js "+taille);
+function update_Scores() {
+	let taille = db.prepare('SELECT COUNT(*) as taille FROM Players').get();
+	taille = taille.taille;
+	//console.log("from users.js "+taille);
 	console.log(get_addresses())
-    for(i=0;i<taille;i++){
-      address=get_addresses()[i].address;
-      multiBetContract.methods.getScore(address).call()
-      .then((result)=>{
-          update_Score(address,result);
-      })
-    }
-  }
-  function update_Score(address,score){
-	let update= db.prepare(`UPDATE players SET score = '${score}' WHERE address= '${address}'`)
+	for (i = 0; i < taille; i++) {
+		address = get_addresses()[i].address;
+		multiBetContract.methods.getScore(address).call()
+			.then((result) => {
+				update_Score(address, result);
+			})
+	}
+}
+function update_Score(address, score) {
+	let update = db.prepare(`UPDATE players SET score = '${score}' WHERE address= '${address}'`)
 	update.run();
 }
-function update_WeekScores(){
-	let taille=db.prepare('SELECT COUNT(*) as taille FROM Players').get();
-    taille=taille.taille;
-    //console.log("from users.js "+taille);
+function update_WeekScores() {
+	let taille = db.prepare('SELECT COUNT(*) as taille FROM Players').get();
+	taille = taille.taille;
+	//console.log("from users.js "+taille);
 	console.log(get_addresses())
-    for(i=0;i<taille;i++){
-      address=get_addresses()[i].address;
-      multiBetContract.methods.getScore(address).call()
-      .then((result)=>{
-		  console.log("result "+result)
-          update_WeekScore(address,result);
-      })
-    }
+	for (i = 0; i < taille; i++) {
+		address = get_addresses()[i].address;
+		multiBetContract.methods.getScore(address).call()
+			.then((result) => {
+				console.log("result " + result)
+				update_WeekScore(address, result);
+			})
+	}
 }
 
 
-function update_WeekScore(address,score){
-	db.prepare(`UPDATE players SET oldWeek = (select week from players where address = '${address}' ) WHERE address= '${address}'`).run()  
+function update_WeekScore(address, score) {
+	db.prepare(`UPDATE players SET oldWeek = (select week from players where address = '${address}' ) WHERE address= '${address}'`).run()
 	console.log(`UPDATE players SET oldWeek = (select week from players where address = '${address}' ) WHERE address= '${address}'`)
-	let oldScore=db.prepare(`select week from players where address ='${address}'`).get()
+	let oldScore = db.prepare(`select week from players where address ='${address}'`).get()
 	console.log(oldScore)
-	let scoreUpdated=score-oldScore.week
+	let scoreUpdated = score - oldScore.week
 	console.log(scoreUpdated)
-	let update= db.prepare(`UPDATE players SET week = '${scoreUpdated}' WHERE address= '${address}'`)
+	let update = db.prepare(`UPDATE players SET week = '${scoreUpdated}' WHERE address= '${address}'`)
 	update.run();
 }
 
 
-  function get_addresses(){
-      let result=db.prepare('select address from Players').all();
-      return result;
-  }
-  
-  
-  
-async function addUser(address){
-    if(!address ){console.log("pas d'address"+!address );return;}
-    address=address.toLowerCase();
-    //console.log(address);
-    try {
-        let insert =  db.prepare(`INSERT INTO Players (address,score,nonce) VALUES (?,?,?)`);
-        await multiBetContract.methods.getScore(address.toLowerCase()).call()
-        .then((result)=>{
-			console.log("new user score :"+result)
-			firstNonce=randomString(16)
-			insert.run(address,result,firstNonce);
-			console.log(address," added to DataBase with ",address," ",result," ",firstNonce);
-		})
-        
-      }
-      catch(e) {
-        console.log("error adding a player to database => ",e.code);
-        if(e.code == 'SQLITE_CONSTRAINT_PRIMARYKEY') return -1;
-        throw e;
-      }
-    
+function get_addresses() {
+	let result = db.prepare('select address from Players').all();
+	return result;
 }
 
-function get_Classement_address(address){
+
+
+async function addUser(address) {
+	if (!address) { console.log("pas d'address" + !address); return; }
+	address = address.toLowerCase();
+	//console.log(address);
+	try {
+		let insert = db.prepare(`INSERT INTO Players (address,score,nonce) VALUES (?,?,?)`);
+		await multiBetContract.methods.getScore(address.toLowerCase()).call()
+			.then((result) => {
+				console.log("new user score :" + result)
+				firstNonce = randomString(16)
+				insert.run(address, result, firstNonce);
+				console.log(address, " added to DataBase with ", address, " ", result, " ", firstNonce);
+			})
+
+	}
+	catch (e) {
+		console.log("error adding a player to database => ", e.code);
+		if (e.code == 'SQLITE_CONSTRAINT_PRIMARYKEY') return -1;
+		throw e;
+	}
+
+}
+
+function get_Classement_address(address) {
 	let select = db.prepare(`select position,score,pseudo from(select row_number() over (order by score desc) as position,address,score,pseudo from players )  where address='${address}'`);
-  	let result = select.get();
-	if(result) return result;
+	let result = select.get();
+	if (result) return result;
 }//TODO réparer
 
-function update_Pseudo(address,pseudo){
-    db.prepare(`update players set pseudo='${pseudo}' where address='${address}'`).run();
+function update_Pseudo(address, pseudo) {
+	db.prepare(`update players set pseudo='${pseudo}' where address='${address}'`).run();
 }
 
-function verifySignature(address,signedData,pseudo){
-    let nonce= getNonce(address);
-    let signer =web3.eth.accounts.recover(web3.utils.sha3(nonce), signedData);
-    if(address.toLowerCase()===signer.toLowerCase()){
-        console.log("signer authentified")
-        update_Pseudo(address,pseudo)
-    }
+function verifySignature(address, signedData, pseudo) {
+	let nonce = getNonce(address);
+	let signer = web3.eth.accounts.recover(web3.utils.sha3(nonce), signedData);
+	if (address.toLowerCase() === signer.toLowerCase()) {
+		console.log("signer authentified")
+		update_Pseudo(address, pseudo)
+	}
 }
 
-function recover(nonsigned,signed){
+function recover(nonsigned, signed) {
 	//console.log("before signed "+web3.utils.sha3(nonsigned)+" signed "+signed)
 	return web3.eth.accounts.recover(web3.utils.sha3(nonsigned), signed);
 }
 
-function newNonce(address){
-	nonce=randomString(16)
+function newNonce(address) {
+	nonce = randomString(16)
 	db.prepare(`update players set nonce='${nonce}' where address='${address}'`).run();
 	console.log(`update players set nonce='${nonce}' where address='${address}'`)
 }
 
-module.exports={
-    addUser:addUser,
-    update_Scores:update_Scores,
-    update_Scores:update_Scores,
-    get10MaxScore:get10MaxScore,
-    get_Classement_address:get_Classement_address,
-    getNonce:getNonce,
-    verifySignature:verifySignature,
-	update_WeekScores:update_WeekScores,
-	recover:recover,
-	setPseudo:setPseudo,
-	newNonce:newNonce,
-	newFriendRequest:newFriendRequest,
-	answerRequest:answerRequest
+module.exports = {
+	addUser: addUser,
+	update_Scores: update_Scores,
+	update_Scores: update_Scores,
+	get10MaxScore: get10MaxScore,
+	get_Classement_address: get_Classement_address,
+	getNonce: getNonce,
+	verifySignature: verifySignature,
+	update_WeekScores: update_WeekScores,
+	recover: recover,
+	setPseudo: setPseudo,
+	newNonce: newNonce,
+	newFriendRequest: newFriendRequest,
+	answerRequest: answerRequest,
+	removeFriend: removeFriend,
+	areUsersFriends:areUsersFriends
 }

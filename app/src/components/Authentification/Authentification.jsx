@@ -31,7 +31,7 @@ class Authentification extends React.Component {
   async testLoginReact(){
     await testLogin().then((res)=>{
       console.log("res "+res)
-      if(res.isLogged===true){this.setState({logged:"logged"})}
+      if(res.isLogged===true){this.setState({logged:"logged"}); this.props.setLogged()}
       else{this.setState({logged:"not logged"})}
     })
   }

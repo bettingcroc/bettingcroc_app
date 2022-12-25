@@ -1,33 +1,32 @@
 {
-  "name": "bsctest",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@metamask/detect-provider": "^1.2.0",
-    "@truffle/hdwallet-provider": "^2.0.11",
-    "better-sqlite3": "^7.6.2",
-    "consolidate": "^0.16.0",
-    "cors": "^2.8.5",
-    "ethers": "^5.5.4",
-    "express": "^4.17.1",
-    "express-session": "^1.17.3",
-    "fetch": "^1.1.0",
-    "follow-redirects": "^1.15.2",
-    "jquery": "^3.6.0",
-    "mustache": "^4.2.0",
-    "require": "^2.4.20",
-    "sqlite3": "^5.0.2",
-    "truffle": "^5.4.26",
-    "web3": "^1.7.5",
-    "web3-eth-accounts": "^1.7.0",
-    "web3-token": "^0.2.7"
-  }
+    "name": "bsctest",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@metamask/detect-provider": "^1.2.0",
+        "@truffle/hdwallet-provider": "^2.0.11",
+        "better-sqlite3": "^7.6.2",
+        "consolidate": "^0.16.0",
+        "cors": "^2.8.5",
+        "ethers": "^5.5.4",
+        "express": "^4.17.1",
+        "express-session": "^1.17.3",
+        "fetch": "^1.1.0",
+        "follow-redirects": "^1.15.2",
+        "jquery": "^3.6.0",
+        "mustache": "^4.2.0",
+        "require": "^2.4.20",
+        "truffle": "^5.4.26",
+        "web3": "^1.7.5",
+        "web3-eth-accounts": "^1.7.0",
+        "web3-token": "^0.2.7"
+    }
 }

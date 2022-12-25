@@ -24,7 +24,7 @@ class OptionPool extends React.Component {
         .getOptionMoney(this.props.betNumber, this.props.optionNumber)
         .call()
         .then((result) => {
-          console.log(result)
+          //console.log(result)
           try {
             if (__mounted) { this.setState({ moneyInPool: result }); }
 
@@ -86,9 +86,9 @@ class OptionPool extends React.Component {
           .getOptionMoney(this.props.betNumber, this.props.optionNumber)
           .call()
           .then((result) => {
-            console.log(result)
+            //console.log(result)
             try {
-              if (__mounted && this.state.loaded===false) { this.setState({ moneyInPool: result }); console.log("settingMoney1") }
+              if (__mounted && this.state.loaded===false) { this.setState({ moneyInPool: result }); }
 
             } catch (error) { }
           });
@@ -99,7 +99,7 @@ class OptionPool extends React.Component {
           .call()
           .then((result) => {
             try {
-              if (__mounted && this.state.loaded===false) { this.setState({ moneyIgot: result }); console.log("settingMoney2") ;this.setState({loaded:true})}
+              if (__mounted && this.state.loaded===false) { this.setState({ moneyIgot: result }) ;this.setState({loaded:true})}
 
             } catch (error) { }
           });

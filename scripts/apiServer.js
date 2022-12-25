@@ -1804,12 +1804,12 @@ async function getMyP2PBets(address) {
 }
 
 function getMyRequests(address, maxDate = 0) {
-	console.log(maxDate)
+	//console.log(maxDate)
 	if (maxDate === 0) {
 		let select = db.prepare(`select * from friendsRequests where address2='${address}'`);
 		let result = select.all();
 		//console.log(`select * from friendsRequests where address2='${address}'`)
-		console.log(result)
+		//console.log(result)
 		if (result) return result;
 	}
 }
@@ -1818,7 +1818,7 @@ function getMyFriends(address) {
 	let select = db.prepare(`select address2 from friendsLinks where address1='${address}'`);
 	let result = select.all();
 	//console.log(`select * from friendsRequests where address2='${address}'`)
-	console.log(result)
+	//console.log(result)
 	if (result) return result;
 }
 

@@ -115,9 +115,31 @@ app.post('/api/setUpPseudo/', (req, res) => {
 
 app.post('/api/sendFriendRequest/', (req, res) => {
   if (req.session.logged === true) {
-    console.log(req.body, " from ", req.session.address)
+    if (req.body.head === "newFriend") {
+      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())){
+        console.log("already friends")
+        res.status(401).send()
+      }
+      else {
+        console.log(req.body, " from ", req.session.address)
+        users.newFriendRequest(req.body, req.session.address)
+        res.status(200).send()
+      }
+    }
+    else {
+      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())){
+        console.log(req.body, " from ", req.session.address)
+        users.newFriendRequest(req.body, req.session.address)
+        res.status(200).send()
+      }
+      else {
+        console.log("not friends")
+        res.status(401).send()
+      }
+    }
+    /*console.log(req.body, " from ", req.session.address)
     users.newFriendRequest(req.body, req.session.address)
-    res.status(200).send()
+    res.status(200).send()*/
   }
   else {
     console.log("not logged")
@@ -129,6 +151,18 @@ app.post('/api/answerRequest/', (req, res) => {
   if (req.session.logged === true) {
     console.log(req.body, " from ", req.session.address)
     users.answerRequest(req.body, req.session.address)
+    res.status(200).send()
+  }
+  else {
+    console.log("not logged")
+    res.status(401).send()
+  }
+})
+
+app.post('/api/removeFriend/', (req, res) => { //
+  if (req.session.logged === true) {
+    console.log(req.body, " from ", req.session.address)
+    users.removeFriend(req.body, req.session.address)
     res.status(200).send()
   }
   else {
@@ -171,7 +205,6 @@ app.get('/api/classement', (req, res) => {
   res.send(apiServer.get10MaxScore())
 })
 app.get('/api/score/:address', (req, res) => {
-  console.log("score")
   res.send(apiServer.getMyScore(req.params.address))
 })
 app.get('/api/myBets/:address', async (req, res) => {

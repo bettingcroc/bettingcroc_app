@@ -2613,3 +2613,9 @@ table.customTable thead {
   line-height: 140%;
   order: 2;
 }
+#messageAddFriend1{
+  color: red;
+}
+#messageAddFriend2{
+  color: green;
+}
