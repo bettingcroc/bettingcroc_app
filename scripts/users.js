@@ -1181,7 +1181,7 @@ var account = new accounts(NODE_URL_BSCTESTNET);
 multiBetAddress = '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
-db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER,nonce TEXT, pseudo TEXT)').run();
+db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER, pseudo TEXT)').run();
 db.prepare('create TABLE IF NOT EXISTS friendsLinks (address1 TEXT,address2 text)').run();
 //db.prepare('drop table friendsRequests').run()
 db.prepare('create TABLE IF NOT EXISTS friendsRequests (id INTEGER PRIMARY KEY,address1 TEXT,address2 text,header text,body text,dateRequest date)').run();
@@ -1225,7 +1225,7 @@ function areUsersFriends(address1, address2) {
 	let select = db.prepare(`select * from friendsLinks where address1='${address1}' and address2='${address2}'`);
 	let result = select.get();
 	if (result) return true
-	
+
 	else return false
 }
 
@@ -1323,8 +1323,8 @@ async function addUser(address) {
 		await multiBetContract.methods.getScore(address.toLowerCase()).call()
 			.then((result) => {
 				console.log("new user score :" + result)
-				firstNonce = randomString(16)
-				insert.run(address, result, firstNonce);
+				firstNonce = "Login to Bettingcroc : " + randomString(16)
+				insert.run(address, result, null);
 				console.log(address, " added to DataBase with ", address, " ", result, " ", firstNonce);
 			})
 
@@ -1347,24 +1347,31 @@ function update_Pseudo(address, pseudo) {
 	db.prepare(`update players set pseudo='${pseudo}' where address='${address}'`).run();
 }
 
-function verifySignature(address, signedData, pseudo) {
+/*function verifySignature(address, signedData, pseudo) {
 	let nonce = getNonce(address);
 	let signer = web3.eth.accounts.recover(web3.utils.sha3(nonce), signedData);
 	if (address.toLowerCase() === signer.toLowerCase()) {
 		console.log("signer authentified")
 		update_Pseudo(address, pseudo)
 	}
-}
+}*/
 
 function recover(nonsigned, signed) {
+	var hex = ''
+	for (var i = 0; i < nonsigned.length; i++) {
+		hex += '' + nonsigned.charCodeAt(i).toString(16)
+	}
+	var hexMessage = "0x" + hex
+	console.log(hexMessage)
 	//console.log("before signed "+web3.utils.sha3(nonsigned)+" signed "+signed)
-	return web3.eth.accounts.recover(web3.utils.sha3(nonsigned), signed);
+	return web3.eth.accounts.recover(hexMessage, signed);
 }
 
 function newNonce(address) {
-	nonce = randomString(16)
-	db.prepare(`update players set nonce='${nonce}' where address='${address}'`).run();
-	console.log(`update players set nonce='${nonce}' where address='${address}'`)
+	nonce = "Login to Bettingcroc : " + randomString(6)
+	/*db.prepare(`update players set nonce='${nonce}' where address='${address}'`).run();
+	console.log(`update players set nonce='${nonce}' where address='${address}'`)*/
+	return nonce
 }
 
 module.exports = {
@@ -1374,7 +1381,7 @@ module.exports = {
 	get10MaxScore: get10MaxScore,
 	get_Classement_address: get_Classement_address,
 	getNonce: getNonce,
-	verifySignature: verifySignature,
+	//verifySignature: verifySignature,
 	update_WeekScores: update_WeekScores,
 	recover: recover,
 	setPseudo: setPseudo,
@@ -1382,5 +1389,5 @@ module.exports = {
 	newFriendRequest: newFriendRequest,
 	answerRequest: answerRequest,
 	removeFriend: removeFriend,
-	areUsersFriends:areUsersFriends
+	areUsersFriends: areUsersFriends
 }

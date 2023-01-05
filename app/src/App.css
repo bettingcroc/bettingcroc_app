@@ -213,6 +213,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 20px;
 }
 
 #leftBar {
@@ -2532,6 +2533,11 @@ body {
   width: 80px;
 }
 
+#coinbaseImage{
+  width: 80px;
+}
+
+
 #line1Modal {
   display: flex;
   flex-direction: row;
@@ -2618,4 +2624,63 @@ table.customTable thead {
 }
 #messageAddFriend2{
   color: green;
+}
+
+#accountDisplay{
+  margin: 0;
+}
+
+#allowancesMain{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#allowancesMain p{
+  margin: 0;
+}
+#connecterConnected{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#hiUser{
+  margin: 0;
+  display:inline-block;
+  text-align: center;
+  font-size: 40px;
+}
+.mainContentAccount{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 30px ;
+}
+#changePseudoDiv{
+  display: flex;
+  flex-direction: row;
+}
+#addFriendInput{
+  width: 68%;
+}
+#addFriendButton{
+  width: 28%;
+
+}
+#friendsDiv{
+  display: flex;
+  flex-direction: column;
+}
+.accountP{
+  padding-left: 20px;
+}
+#friendAdder{
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  justify-content: space-between;
+}
+#requestSuperDiv{
+  display: flex;
+  flex-direction: column;
 }

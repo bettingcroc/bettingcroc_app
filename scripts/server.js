@@ -34,11 +34,13 @@ app.listen(port, () => {
   console.log(`Bettingcroc application listening on port ${port}`)
 })
 
-app.get('/api/position/:address', (req, res) => { //TODO inclure rank dans react
-  let position = users.get_Classement_address(req.params.address);
+app.get('/api/position/:address', (req, res) => {
+  address = req.params.address.toLowerCase()
+  console.log(address)
+  let position = users.get_Classement_address(address);
   if (position === undefined) {
-    users.addUser(req.params.address);
-    position = users.get_Classement_address(req.params.address);
+    users.addUser(address);
+    position = users.get_Classement_address(address);
     console.log("position request " + position)
     res.send({ address: 'unknown', score: 'unknown', position: 'unknown' })
 
@@ -50,38 +52,14 @@ app.get('/api/position/:address', (req, res) => { //TODO inclure rank dans react
 
 
 app.get('/api/nonce/:address', async (req, res) => {
-  if (
-    typeof req.params.address !== "string"
-    || req.params.address.length !== 42
-    || req.params.address[0] !== "0"
-    || req.params.address[1] !== "x"
-  ) {
-    //console.log("404")
-    res.status(404).send("invalid address")
-    return
-  }
-  console.log(req.params.address + " requesting a nonce")
-  let nonce = users.getNonce(req.params.address);
-  if (nonce === 0) {
-    users.addUser(req.params.address).then(() => {
-      console.log("user not registered");
-      nonce = users.getNonce(req.params.address);
-      console.log(nonce);
-      res.send({ 'nonce': nonce });
-    })
-
-  }
-  else {
-    console.log(nonce)
-    res.send({ 'nonce': nonce })
-  }
-
+  req.session.nonce = users.newNonce(req.params.address)
+  res.send({ 'nonce': req.session.nonce })
 })
 
 app.post('/login', (req, res) => {
   console.log("nonce signed " + req.body.signedNonce)
   console.log("address " + req.body.address)
-  let nonce = users.getNonce(req.body.address)
+  let nonce = req.session.nonce
   console.log("nonce " + nonce)
   console.log("signer : " + users.recover(nonce, req.body.signedNonce))
   if (users.recover(nonce, req.body.signedNonce).toLowerCase() === req.body.address.toLowerCase()) {
@@ -89,7 +67,10 @@ app.post('/login', (req, res) => {
     req.session.logged = true
     req.session.address = users.recover(nonce, req.body.signedNonce).toLowerCase()
   }
-  users.newNonce(req.session.address)
+  let position = users.get_Classement_address(req.params.address.toLowerCase());
+  if (position === undefined) {
+    users.addUser(req.params.address);
+  }
   res.send("login")
 })
 
@@ -116,7 +97,7 @@ app.post('/api/setUpPseudo/', (req, res) => {
 app.post('/api/sendFriendRequest/', (req, res) => {
   if (req.session.logged === true) {
     if (req.body.head === "newFriend") {
-      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())){
+      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
         console.log("already friends")
         res.status(401).send()
       }
@@ -127,7 +108,7 @@ app.post('/api/sendFriendRequest/', (req, res) => {
       }
     }
     else {
-      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())){
+      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
         console.log(req.body, " from ", req.session.address)
         users.newFriendRequest(req.body, req.session.address)
         res.status(200).send()
@@ -205,7 +186,24 @@ app.get('/api/classement', (req, res) => {
   res.send(apiServer.get10MaxScore())
 })
 app.get('/api/score/:address', (req, res) => {
-  res.send(apiServer.getMyScore(req.params.address))
+  address = req.params.address.toLowerCase()
+  console.log(address)
+  let position = users.get_Classement_address(address);
+  console.log(position)
+  if (position === undefined) {
+    users.addUser(address);
+    position = users.get_Classement_address(address);
+    console.log("position request " + position)
+    score = apiServer.getMyScore(req.params.address.toLowerCase())
+    console.log(score)
+    res.send(score)
+
+  }
+  else {
+    score = apiServer.getMyScore(req.params.address.toLowerCase())
+    console.log(score)
+    res.send(score)
+  }
 })
 app.get('/api/myBets/:address', async (req, res) => {
   res.send(await apiServer.getMyBets(req.params.address))

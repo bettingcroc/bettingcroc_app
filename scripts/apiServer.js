@@ -1815,7 +1815,7 @@ function getMyRequests(address, maxDate = 0) {
 }
 
 function getMyFriends(address) {
-	let select = db.prepare(`select address2 from friendsLinks where address1='${address}'`);
+	let select = db.prepare(`select address2,pseudo from friendsLinks,Players where address1='${address}' and address2=address`);
 	let result = select.all();
 	//console.log(`select * from friendsRequests where address2='${address}'`)
 	//console.log(result)

@@ -9,7 +9,7 @@ class Authentification extends React.Component {
     this.testLoginReact = this.testLoginReact.bind(this);
     this.logoutReact=this.logoutReact.bind(this);
     this.state={
-      logged:"not logged"
+      logged:false
     }
   }
   async getNonceReact(address) {
@@ -31,8 +31,8 @@ class Authentification extends React.Component {
   async testLoginReact(){
     await testLogin().then((res)=>{
       console.log("res "+res)
-      if(res.isLogged===true){this.setState({logged:"logged"}); this.props.setLogged()}
-      else{this.setState({logged:"not logged"})}
+      if(res.isLogged===true){this.setState({logged:true}); this.props.setLogged()}
+      else{this.setState({logged: false })}
     })
   }
   async logoutReact(){
@@ -41,17 +41,6 @@ class Authentification extends React.Component {
   render() {
     return (
       <div className="mainContent">
-        <h3> Authentification Component</h3>
-        {/*<button
-          onClick={(event) => {
-            this.getNonceReact(this.props.address);
-          }}
-        >
-          Request my nonce
-        </button>
-        <button onClick={this.signNonceReact}>Sign Nonce</button>
-        <button onClick={this.testLoginReact}>testLogin</button>
-      */}
         <button onClick={this.requestLoginReact}>Login</button>
         <button onClick={this.logoutReact}>LogOut</button>
         <h4>{this.state.logged}</h4>
@@ -66,34 +55,6 @@ class Authentification extends React.Component {
 
 export default Authentification;
 
-/*async function changePseudo(newPseudo) {
-	let url = 'api/nonce/' + myaddress;
-	options = { 'method': 'GET' }
-	fetch(url, options).then(
-	  (res) => {
-		res.json().then((data) => {
-		  console.log("address: "+myaddress)
-		  console.log("Nonce: "+ data.nonce)
-		  web3.eth.personal.sign(web3.utils.sha3(data.nonce), myaddress, function (err, result) {
-			console.log("signedNonce: ", result)
-			//web3.eth.personal.ecRecover(web3.utils.sha3(data.nonce),result).then((result2)=>console.log("signer: "+result2))
-			//.then((result2)=>console.log("signer: "+result2))
-			let url2= 'api/setUpPseudo/'+myaddress+"&"+result+"&"+newPseudo
-			let options2 = { 'method': 'POST' }
-			fetch(url2,options2)
-			.then(
-			  //console.log('done')
-			)
-
-		  })
-	
-		  setTimeout(closeForm,1000)
-		}
-		)
-	  },
-	  (error) => { console.log(error) }
-	)
-  }*/
 
 async function getNonce(address) {
   console.log("trying request nonce");
@@ -114,9 +75,15 @@ async function getNonce(address) {
   return toReturn
 }
 async function signNonce(nonce, web3, address) {
-  var toReturn="ew";
+  var hex = ''
+      for (var i = 0; i < nonce.length; i++) {
+        hex += '' + nonce.charCodeAt(i).toString(16)
+      }
+  var hexMessage = "0x" + hex
+  console.log(hexMessage)
+  var toReturn="";
   await web3.eth.personal.sign(
-    web3.utils.sha3(nonce),
+    hexMessage,
     address,
     
   ).then((result)=>{console.log("signedNonce: ", result);

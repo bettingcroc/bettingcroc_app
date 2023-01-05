@@ -11,35 +11,39 @@ class Classement extends React.Component {
     }
     fetch("http://localhost:4000/api/classement/", { method: "GET" }).then((res) => {
       res.json().then((data) => {
-        console.log(data)
+        //console.log(data)
         this.setState({ data: data })
       });
     });
     this.props.vueSetter("rankings")
   }
   componentDidMount() {
+    /*
     if (this.props.address !== undefined) {
       this.setState({ address: this.props.address.toLowerCase() })
       let link = "http://localhost:4000/api/score/" + this.state.address
       console.log(link)
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
-          console.log(data[0].position)
+          //console.log(data)
           this.setState({ loaded: true, dataPerso: data }) // todo mettre le claseement de laddresse connectée
         });
       });
-    }
+    }*/
   }
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props && this.state.loaded === false && this.props.address !== undefined) {
       if (this.props.address !== "") {
         this.setState({ address: this.props.address.toLowerCase() })
-        let link = "http://localhost:4000/api/score/" + this.state.address
+        let link = "http://localhost:4000/api/score/" + this.props.address
         console.log(link)
         fetch(link, { method: "GET" }).then((res) => {
           res.json().then((data) => {
             if (this.state.loaded === false && this.props.address !== undefined) {
-              console.log(data[0].position)
+              console.log("dataclassement")
+              console.log(data)
+
+              console.log("dataclassement")
               this.setState({ loaded: true, dataPerso: data }) // todo mettre le claseement de laddresse connectée
             }
           });
@@ -61,9 +65,9 @@ class Classement extends React.Component {
         </thead>
         <tbody>
           {this.state.data == null ? null : this.state.data.map((item, index) => {
-            console.log("item "+index)
+            //console.log("item "+index)
 
-            console.log(item)
+            //console.log(item)
             if(item===null){return null}
             return <tr key={index}>
               <td>{item.address}</td>
@@ -74,7 +78,7 @@ class Classement extends React.Component {
           })}
           {this.state.loaded===false?null:<tr>
             <td>{this.state.address}</td>
-            <td>{this.state.loaded ? this.state.dataPerso[0].pseudo : ""}</td>
+            <td>{this.state.loaded && this.state.dataPerso[0].pseudo !==undefined ? this.state.dataPerso[0].pseudo : ""}</td>
             <td>{this.state.loaded ? this.state.dataPerso[0].score : ""}</td>
             <td>{this.state.loaded ? this.state.dataPerso[0].position : ""}</td>
           </tr>}

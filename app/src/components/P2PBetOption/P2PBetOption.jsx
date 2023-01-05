@@ -14,7 +14,7 @@ class P2PBetOption extends React.Component {
       betNumberP2P: null,
     };
     this.searchCote = this.searchCote.bind(this);
-    this.betOnThisOption = this.betOnThisOption.bind(this);
+    //this.betOnThisOption = this.betOnThisOption.bind(this);
     this.approveUSDT = this.approveUSDT.bind(this);
   }
   componentDidMount() {
@@ -79,7 +79,7 @@ class P2PBetOption extends React.Component {
         console.log("approve success");
       });
   }
-  betOnThisOption(amount) {
+  /*betOnThisOption(amount) {
     try {
       this.props.betContract.methods
         .joinP2PBet(
@@ -94,7 +94,7 @@ class P2PBetOption extends React.Component {
     } catch (error) {
       console.log(error);
     }
-  }
+  }*/
   render() {
     return (
       <div id="p2p2">

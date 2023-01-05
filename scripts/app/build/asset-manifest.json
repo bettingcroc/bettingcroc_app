@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.6bf55ce6.chunk.css",
-    "main.js": "/static/js/main.125165ba.chunk.js",
-    "main.js.map": "/static/js/main.125165ba.chunk.js.map",
+    "main.css": "/static/css/main.d632af72.chunk.css",
+    "main.js": "/static/js/main.e16062ab.chunk.js",
+    "main.js.map": "/static/js/main.e16062ab.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a55ac8a3.js",
     "runtime-main.js.map": "/static/js/runtime-main.a55ac8a3.js.map",
     "static/css/2.8a17276e.chunk.css": "/static/css/2.8a17276e.chunk.css",
-    "static/js/2.9a6abcc5.chunk.js": "/static/js/2.9a6abcc5.chunk.js",
-    "static/js/2.9a6abcc5.chunk.js.map": "/static/js/2.9a6abcc5.chunk.js.map",
+    "static/js/2.4859d16d.chunk.js": "/static/js/2.4859d16d.chunk.js",
+    "static/js/2.4859d16d.chunk.js.map": "/static/js/2.4859d16d.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.8a17276e.chunk.css.map": "/static/css/2.8a17276e.chunk.css.map",
-    "static/css/main.6bf55ce6.chunk.css.map": "/static/css/main.6bf55ce6.chunk.css.map",
-    "static/js/2.9a6abcc5.chunk.js.LICENSE.txt": "/static/js/2.9a6abcc5.chunk.js.LICENSE.txt",
+    "static/css/main.d632af72.chunk.css.map": "/static/css/main.d632af72.chunk.css.map",
+    "static/js/2.4859d16d.chunk.js.LICENSE.txt": "/static/js/2.4859d16d.chunk.js.LICENSE.txt",
     "static/media/App.css": "/static/media/Roboto-Regular.fc2b5060.ttf",
     "static/media/bettingCrocTitle.a80d3b83.png": "/static/media/bettingCrocTitle.a80d3b83.png",
     "static/media/bettingCrocTransparent.3e8bea4e.png": "/static/media/bettingCrocTransparent.3e8bea4e.png",
+    "static/media/coinbase.d690a1fe.png": "/static/media/coinbase.d690a1fe.png",
     "static/media/cross.87083ade.png": "/static/media/cross.87083ade.png",
     "static/media/home.de3a12ee.png": "/static/media/home.de3a12ee.png",
     "static/media/metamask.00007b1c.png": "/static/media/metamask.00007b1c.png",
@@ -23,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.a55ac8a3.js",
     "static/css/2.8a17276e.chunk.css",
-    "static/js/2.9a6abcc5.chunk.js",
-    "static/css/main.6bf55ce6.chunk.css",
-    "static/js/main.125165ba.chunk.js"
+    "static/js/2.4859d16d.chunk.js",
+    "static/css/main.d632af72.chunk.css",
+    "static/js/main.e16062ab.chunk.js"
   ]
 }

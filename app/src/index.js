@@ -32,6 +32,31 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import ConnectWc from "./components/ConnectWC/ConnectWC";
 import Connecter from "./components/Connecter/Connecter";
 import MyP2PBets from "./components/MyP2PBets/MyP2PBets";
+import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
+
+
+const APP_NAME = 'bettingcroc'
+const APP_LOGO_URL = 'http://localhost:3000/static/media/home.de3a12ee.png'
+const DEFAULT_ETH_JSONRPC_URL = `https://data-seed-prebsc-1-s3.binance.org:8545`
+const DEFAULT_CHAIN_ID = 97
+const coinbaseWallet = new CoinbaseWalletSDK({
+  appName: APP_NAME,
+  appLogoUrl: APP_LOGO_URL,
+  darkMode: false
+})
+const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
+//const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
+
+    // Initialize a Web3 object
+//const web3CB = new Web3(ethereum)
+//ethereum.request({ method: 'eth_requestAccounts' })
+// Initialize Coinbase Wallet SDK
+
+
+// Initialize a Web3 Provider object
+//const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
+
+
 //  Create WalletConnect Provider
 var provider = new WalletConnectProvider({
   infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
@@ -96,7 +121,11 @@ class App extends Component {
     }
 
     console.log("provider")
-    console.log(provider)
+    console.log(web3._provider)
+    try {
+      console.log(provider.wc.peerMeta.name)
+    }
+    catch (e) { }
     console.log(provider.accounts)
     console.log("provider")
     const accounts = await web3.eth.getAccounts();
@@ -163,7 +192,9 @@ class App extends Component {
     this.setAmountBet = this.setAmountBet.bind(this)
     this.setVue = this.setVue.bind(this)
     this.setVueRightBar = this.setVueRightBar.bind(this)
-    this.goMyP2PBets=this.goMyP2PBets.bind(this)
+    this.goMyP2PBets = this.goMyP2PBets.bind(this)
+    this.connectCoinBase = this.connectCoinBase.bind(this)
+    this.disconnect = this.disconnect.bind(this);
   }
   togglePopup() {
     this.setState({
@@ -272,6 +303,34 @@ class App extends Component {
       });
     }
   }
+  connectCoinBase = async () => {
+    
+    
+
+    ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
+      this.state.web3.setProvider(Web3.givenProvider)
+      this.accountChangedHandler(result[0]);
+      console.log(result[0])
+      this.setState({ connButtonText: "Wallet Connected" });
+      //getAccountBalance(result[0]);
+    })
+    .catch((error) => {
+      this.setState({ errorMessage: error.message });
+    });
+    // Initialize a Web3 object
+    this.state.web3.setProvider(ethereum)
+    console.log("web3CB.eth.getBlock()")
+    this.state.web3.eth.getBlock("latest").then(console.log);
+    console.log("web3CB.eth.getBlock()")
+  }
+
+  disconnect(){
+    console.log("disconnecting wallet")
+    this.setState({defaultAccount:undefined})
+    this.state.web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
+    localStorage.clear();
+    //TODO Disconnect button
+  }
   allowancesSetter() {
     try {
       console.log(this.state.defaultAccount)
@@ -301,7 +360,7 @@ class App extends Component {
   goPanier() {
     this.setState({ rightBar: "betMaker" })
   }
-  goMyP2PBets(){
+  goMyP2PBets() {
     this.setState({ rightBar: "myP2PBets" })
   }
   setTypeBet(newTypeBet) {
@@ -431,13 +490,17 @@ class App extends Component {
                   </div>
                   <div id="topRight">
 
-                    {this.state.defaultAccount === undefined ? <Connecter connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText} connectWalletConnectHandler={this.connectWalletConnect}></Connecter> : <p className="accountDisplay">{this.state.defaultAccount}</p>}
+                    {//this.state.defaultAccount === undefined ? 
+                    }
+                    <Connecter disconnect={this.disconnect} connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText} connectWalletConnectHandler={this.connectWalletConnect} connectCoinBaseHandler={this.connectCoinBase}></Connecter>
+                    {// : <p id="accountDisplay">{this.state.defaultAccount}</p>
+                    }
 
 
-                    <div id="allowancesMain">
+                    {/*<div id="allowancesMain">
                       <p>usdt allowed: {this.state.usdtAllowed}</p>
                       <p> mbt allowed: {this.state.mbtAllowed}</p>
-                    </div>
+                  </div>*/}
                     <div id="accountLink">
                       <Link to="/account"><img className="accountLogo" src={accountImage} alt="accountImage"></img></Link>
                     </div>
@@ -530,7 +593,7 @@ class App extends Component {
                   </div>
                   <div id="superMidRightBar">
                     <div id="midRightBar">
-                      {this.state.rightBar === "betMaker" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker> : this.state.rightBar ==="myBets"?<MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>:<MyP2PBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyP2PBets>
+                      {this.state.rightBar === "betMaker" ? this.state.typeBet === 0 ? null : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker> : this.state.rightBar === "myBets" ? <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets> : <MyP2PBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyP2PBets>
                       }
 
                     </div>

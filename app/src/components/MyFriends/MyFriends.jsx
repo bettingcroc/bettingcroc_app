@@ -7,61 +7,41 @@ class MyFriends extends React.Component {
     super(props);
     this.state = {
       loaded: false,
-      myFriends: undefined,
+      myFriends: [{"address2":"0xb215c8f61e33ec88b033670049417fa8258236de","pseudo":"Account7"},{"address2":"0x1c49a4b38422269c0315d42b03dee99929a4a1ce","pseudo":"MetaMobile3"},{"address2":"0xb2af31ce8c58adbfb29bcfe2cd1838b959d0cf7e","pseudo":"CoinBase1"}],
     };
-    this.updateFriends = this.updateFriends.bind(this)
-    this.removeFriendReact=this.removeFriendReact.bind(this)
+    this.removeFriendReact = this.removeFriendReact.bind(this)
   }
   componentDidMount() {
     __mounted = true;
     console.log("mount myFriends")
   }
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props && this.state.loaded === false && this.props.address !== undefined && this.props.logged === "logged") {
-
-      this.setState({ address: this.props.address.toLowerCase() });
-      let link = "http://localhost:4000/api/myfriends/"
-      fetch(link, { method: "GET" }).then((res) => {
-        res.json().then((data) => {
-          //console.log(data[0]);
-          if (this.state.loaded !== true) {
-            this.setState({ loaded: true, myFriends: data });
-            this.props.setFriendsList(data)
-          }
-          // todo mettre le claseement de laddresse connectée
-        });
-      });
+    console.log("from myFriends")
+    try {
+      console.log(this.props.myFriends)
 
     }
-  }
-  updateFriends() {
-    console.log("updateFriends")
-    this.setState({ address: this.props.address.toLowerCase() });
-    let link = "http://localhost:4000/api/myfriends/"
-    fetch(link, { method: "GET" }).then((res) => {
-      res.json().then((data) => {
-        console.log(data)
-        //console.log(data[0]);
-        this.setState({ loaded: true, myFriends: data });
-        this.props.setFriendsList(data)
+    catch (e) {
+      console.log(e)
+    }
+    console.log("from myFriends")
 
-        // todo mettre le claseement de laddresse connectée
-      });
-    });
   }
+
   removeFriendReact(args) {
     removeFriend(args)
-    this.updateFriends()
+    this.props.updateFriends()
   }
   render() {
     return (
       <div>
-        <p>Friends</p>
         <div>
-          {this.state.myFriends !== undefined ?
-            this.state.myFriends.map(function (item) {
+          {this.props.myFriends !== undefined ?
+            this.props.myFriends.map((item) => {
               return (
                 <div key={item.address2} className="requestDiv">
+                  <p>{item.pseudo}</p>
+
                   <p>{item.address2}</p>
                   <button onClick={(event) => { //e is undefined
                     this.removeFriendReact(

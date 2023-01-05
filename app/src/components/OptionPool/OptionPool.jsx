@@ -11,7 +11,7 @@ class OptionPool extends React.Component {
       moneyIgot: null,
       loaded:false
     }
-    this.betOnThisOption = this.betOnThisOption.bind(this)
+    //this.betOnThisOption = this.betOnThisOption.bind(this)
     this.approveUSDT = this.approveUSDT.bind(this)
     this.setBet = this.setBet.bind(this)
   }
@@ -119,13 +119,13 @@ class OptionPool extends React.Component {
         console.log("approve success")
       })
   }
-  betOnThisOption(amount) {
+  /*betOnThisOption(amount) {
     console.log("bet Try")
     this.props.betContract.methods.betOn(this.props.betNumber, this.props.optionNumber, weiconvert(amount)).send({ from: this.props.address })
       .once('receipt', (receipt) => {
         console.log("bet success")
       })
-  }
+  }*/
   setBet() {
     this.props.setTypeBet(1);
     this.props.setBetArgs({

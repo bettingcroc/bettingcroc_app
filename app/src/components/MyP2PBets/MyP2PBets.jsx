@@ -63,7 +63,7 @@ class MyP2PBets extends React.Component {
         {this.state.myBets.map(function (item,index) {
           return (
             <div key={index} className="myBetDiv">
-              <Link to={"/bet/numBet?n=" + item.id+"&p2p="+item.p2pNum}>
+              <Link to={"/bet/numBet?n=" + item.id+"&p2p="+item.p2pNum+"#myP2P"}>
                 <span className="myBetUnderDiv">
                   <p className="lineMyBetsPTitle">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
                   <p className="lineMyBetsPDate">{timeConverterDate(item.date)}</p>
