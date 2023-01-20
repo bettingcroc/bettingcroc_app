@@ -1221,6 +1221,16 @@ function newFriendRequest(args, address) {
 	insert.run(address, args.newFriend.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow);
 }
 
+function newBetInvitation(args, address) {
+	console.log(args)
+	console.log(address)
+	let insert = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest) VALUES (?,?,?,?,?)`);
+	timeNow = new Date().toLocaleTimeString();
+	dateNow = new Date().toLocaleDateString();
+	//console.log(address,args.newFriend,args.head, JSON.stringify(args),dateNow+" "+timeNow)
+	insert.run(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow);
+}
+
 function areUsersFriends(address1, address2) {
 	let select = db.prepare(`select * from friendsLinks where address1='${address1}' and address2='${address2}'`);
 	let result = select.get();
@@ -1389,5 +1399,6 @@ module.exports = {
 	newFriendRequest: newFriendRequest,
 	answerRequest: answerRequest,
 	removeFriend: removeFriend,
-	areUsersFriends: areUsersFriends
+	areUsersFriends: areUsersFriends,
+	newBetInvitation:newBetInvitation
 }

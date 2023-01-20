@@ -11,8 +11,8 @@ class ConnectCb extends React.Component {
 
   render() {
     return (
-      <div>
-        <button className="buttonTransparent" onClick={this.props.connectWalletHandler}>
+      <div className="connectButton">
+        <button className="buttonTransparent buttonTransparentModal" onClick={this.props.connectWalletHandler}>
           <img src={coinbaseImage} alt="coinbaseImage" id="coinbaseImage"></img>
           <p>CoinBase</p>
 

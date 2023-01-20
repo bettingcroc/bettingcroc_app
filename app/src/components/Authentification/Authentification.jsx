@@ -1,4 +1,5 @@
 import React from "react";
+import loggedImage from "../Authentification/logged.png"
 var __mounted;
 class Authentification extends React.Component {
   constructor(props) {
@@ -31,8 +32,8 @@ class Authentification extends React.Component {
   async testLoginReact(){
     await testLogin().then((res)=>{
       console.log("res "+res)
-      if(res.isLogged===true){this.setState({logged:true}); this.props.setLogged()}
-      else{this.setState({logged: false })}
+      if(res.isLogged===true){this.props.setLogged(true)}
+      else{this.props.setLogged(false)}
     })
   }
   async logoutReact(){
@@ -41,9 +42,10 @@ class Authentification extends React.Component {
   render() {
     return (
       <div className="mainContent">
-        <button onClick={this.requestLoginReact}>Login</button>
-        <button onClick={this.logoutReact}>LogOut</button>
-        <h4>{this.state.logged}</h4>
+        {!this.props.logged?<button className='generalsButton' onClick={this.requestLoginReact}><p className="buttonP">Login</p></button>:<img src={loggedImage} alt="loggedImage" id="loggedImage"></img>}
+        
+        {/*<button onClick={this.logoutReact}>LogOut</button> <h4>{this.props.logged}</h4>*/}
+        
       </div>
     );
   }

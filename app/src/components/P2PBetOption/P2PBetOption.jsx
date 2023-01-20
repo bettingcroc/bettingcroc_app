@@ -1,6 +1,8 @@
 /* global BigInt */
 
 import React from "react";
+import FriendInviter from "../FriendInviter/FriendInviter";
+
 var __mounted;
 
 class P2PBetOption extends React.Component {
@@ -16,6 +18,8 @@ class P2PBetOption extends React.Component {
     this.searchCote = this.searchCote.bind(this);
     //this.betOnThisOption = this.betOnThisOption.bind(this);
     this.approveUSDT = this.approveUSDT.bind(this);
+    this.openModalInviter = this.openModalInviter.bind(this)
+    this.closeModalInviter = this.closeModalInviter.bind(this);
   }
   componentDidMount() {
     __mounted = true;
@@ -79,34 +83,29 @@ class P2PBetOption extends React.Component {
         console.log("approve success");
       });
   }
-  /*betOnThisOption(amount) {
-    try {
-      this.props.betContract.methods
-        .joinP2PBet(
-          this.props.betNumber,
-          this.state.betNumberP2P,
-          weiconvert(amount)
-        )
-        .send({ from: this.props.address })
-        .once("receipt", (receipt) => {
-          console.log("bet success");
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }*/
+  openModalInviter() {
+    this.setState({ modalInviterOpened: true })
+  }
+  closeModalInviter() {
+    this.setState({ modalInviterOpened: false })
+  }
   render() {
     return (
       <div id="p2p2">
         <div id="myP2P">
           <div id="p2p2Box1">
             <p id="line1P2POption">P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
+            <div className="friendInviterTrigger">
+              <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
+              <FriendInviter typeBet="p2p" argsBet={{betNumber:this.props.betNumber,title:this.props.optionsArray,p2pnumber:this.props.args}} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
+            </div>
+
           </div>
           <div id="p2p2Box2">
             <div id="line2P2POption">
               <p>Best cote : </p>
               <button
-              id="buttonCoteP2P"
+                id="buttonCoteP2P"
                 className="button"
                 onClick={(event) => {
                   if (this.props.args !== null) {
@@ -127,12 +126,12 @@ class P2PBetOption extends React.Component {
                   //this.betOnThisOption(this.props.amountToBet);
                 }}
               >
-                <div id="buttonDiveCoteP2P"><p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1]}</p></div>
+                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1]}</p>
               </button>
             </div>
             <div id="line3P2POption">
               <p>Amount bettable : </p>
-              <p id="amountBettableP">{this.props.args === null ? null : this.props.args[2]+" USDT"} </p>
+              <p id="amountBettableP">{this.props.args === null ? null : this.props.args[2] + " USDT"} </p>
             </div>
 
           </div>

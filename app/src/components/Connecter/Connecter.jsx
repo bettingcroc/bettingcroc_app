@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ConnectButton from '../ConnectButton/ConnectButton';
 import ConnectWc from '../ConnectWC/ConnectWC';
-import ConnectCb from '../ConnectCB/ConnectCB'
+import ConnectCb from '../ConnectCB/ConnectCB';
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+
 class Connecter extends React.Component {
   constructor(props) {
     super(props)
@@ -12,6 +14,7 @@ class Connecter extends React.Component {
     }
     this.openModal = this.openModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.handleClickAwayEvent = this.handleClickAwayEvent.bind(this);
 
     if (this.props.defaultAccount !== undefined) {
       this.setState({ connected: true })
@@ -19,9 +22,15 @@ class Connecter extends React.Component {
   }
   openModal() {
     this.setState({ modalState: "open" })
+    this.props.switchOverlayMode()
   }
   closeModal() {
     this.setState({ modalState: "closed" })
+    this.props.switchOverlayMode()
+
+  }
+  handleClickAwayEvent(){
+    this.closeModal()
   }
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
@@ -40,29 +49,34 @@ class Connecter extends React.Component {
     return (
       <div >
         {this.state.connected === true ?
-          <div id="connecterConnected"><p id="accountDisplay">{this.props.defaultAccount}</p><button onClick={this.props.disconnect}>Disconnect</button></div>
+          <div id="connecterConnected"><p id="accountDisplay">{this.props.defaultAccount}</p><button className='generalsButton' onClick={this.props.disconnect}><p className="buttonP">Disconnect</p></button></div>
           :
           this.state.modalState === "closed" ?
-            <button onClick={this.openModal}>Connect Your Wallet</button> :
-            <div id="connecterDiv">
-              <div id="line1Modal">
-                <p id="chooseYourProvider">Choose your provider !</p>
-                <button onClick={this.closeModal}>X</button>
+            <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> :
+            <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
+
+              <div id="connecterDiv">
+
+                <div id="line1Modal">
+                  <p id="chooseYourProvider">Choose your provider !</p>
+                </div>
+
+                <div id="line2Modal">
+
+                  <div>
+                    <ConnectWc connectWalletHandler={this.props.connectWalletConnectHandler}></ConnectWc>
+                  </div>
+                  <div>
+                    <ConnectButton connectWalletHandler={this.props.connectWalletHandler} defaultAccount={this.props.defaultAccount} errorMessage={this.props.errorMessage} connButtonText={this.props.connButtonText}></ConnectButton>
+                  </div>
+                  <div>
+                    <ConnectCb connectWalletHandler={this.props.connectCoinBaseHandler}></ConnectCb>
+                  </div>
+                </div>
+                <button id="closeConnecter" onClick={this.closeModal}>X</button>
 
               </div>
-              <div id="line2Modal">
-
-                <div>
-                  <ConnectWc connectWalletHandler={this.props.connectWalletConnectHandler}></ConnectWc>
-                </div>
-                <div>
-                  <ConnectButton connectWalletHandler={this.props.connectWalletHandler} defaultAccount={this.props.defaultAccount} errorMessage={this.props.errorMessage} connButtonText={this.props.connButtonText}></ConnectButton>
-                </div>
-                <div>
-                  <ConnectCb connectWalletHandler={this.props.connectCoinBaseHandler}></ConnectCb>
-                </div>
-              </div>
-            </div>
+            </ClickAwayListener>
         }
 
       </div>

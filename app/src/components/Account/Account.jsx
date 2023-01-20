@@ -2,10 +2,12 @@ import React from "react";
 import Authentification from "../Authentification/Authentification";
 import { Link, Outlet } from "react-router-dom";
 import MyFriends from "../MyFriends/MyFriends";
+import MyRequests from "../MyRequests/MyRequests";
 var __mounted;
 
 class Account extends React.Component {
   constructor(props) {
+
     super(props);
     this.state = {
       dataPersoloaded: false,
@@ -16,14 +18,12 @@ class Account extends React.Component {
       newFriend: undefined,
       requests: undefined,
       logged: false,
-      friends: [{ "address2": "0xb215c8f61e33ec88b033670049417fa8258236de", "pseudo": "Account7" }, { "address2": "0x1c49a4b38422269c0315d42b03dee99929a4a1ce", "pseudo": "MetaMobile3" }, { "address2": "0xb2af31ce8c58adbfb29bcfe2cd1838b959d0cf7e", "pseudo": "CoinBase1" }],
+      friends: undefined,
       messageAddFriend: null,
       cssmessageAddFriend: null
     };
     this.setPseudoReact = this.setPseudoReact.bind(this);
     this.sendFriendRequestReact = this.sendFriendRequestReact.bind(this);
-    this.answerRequestReact = this.answerRequestReact.bind(this);
-    this.setLogged = this.setLogged.bind(this);
     this.setFriendsList = this.setFriendsList.bind(this);
     this.updateRequests = this.updateRequests.bind(this);
     this.updateFriends = this.updateFriends.bind(this);
@@ -37,44 +37,26 @@ class Account extends React.Component {
         <div id="friendsDiv">
           <p className="headerTitle accountP">Friends</p>
           <div id="friendAdder">
-            <input id="addFriendInput" type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
-            <button id="addFriendButton" onClick={(event) => { this.sendFriendRequestReact(this.state.newFriend) }}>Add friend</button>
+            <input className="settingsInput" type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
+            <button className='generalsButton settingsButton' onClick={(event) => { this.sendFriendRequestReact(this.state.newFriend) }}><p className="buttonP">Add friend</p></button>
           </div>
 
           <p id={this.state.cssmessageAddFriend}>{this.state.messageAddFriend}</p>
-          <MyFriends updateFriends={this.updateFriends} myFriends={this.state.friends} address={this.props.address} logged={this.state.logged} setFriendsList={this.setFriendsList}></MyFriends></div>
+          <MyFriends updateFriends={this.updateFriends} myFriends={this.state.friends} address={this.props.address} logged={this.props.logged} setFriendsList={this.setFriendsList}></MyFriends>
+        </div>
         <div id="requestSuperDiv">
           <p className="headerTitle accountP">Notifications</p>
 
-          <div>
-            {this.state.requests !== undefined ?
-              this.state.requests.map((item) => {
-                return (<div key={item.dateRequest} className="requestDiv">
-                  <p>From {item.address1}</p>
-                  <p>object {item.header}</p>
-                  <p>date {item.dateRequest}</p>
-                  <button onClick={(event) => { //e is undefined
-                    this.answerRequestReact(
-                      { "head": "newFriend", "id": item.id, "newFriend": item.address1 }
-                    )
-                  }
-                  }
-                  >
-                    Accept</button>
-                </div>
-                );
-              }) : null}
-          </div>
-          </div>
-
-        <div id="changePseudoDiv">
-          <input type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
-          <button onClick={(event) => { this.setPseudoReact(this.state.newPseudo) }}>change Pseudo</button>
+          <MyRequests updateRequests={this.updateRequests} requests={this.state.requests} updateFriends={this.updateFriends} address={this.props.address} logged={this.props.logged}></MyRequests>
         </div>
-        <Authentification web3={this.props.web3} address={this.props.address} setLogged={this.setLogged}></Authentification>
+        <div id="settingsAccount">
+          <p className="headerTitle accountP">Settings</p>
 
-
-
+          <div id="changePseudoDiv">
+            <input className="settingsInput" type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
+            <button className='generalsButton settingsButton' onClick={(event) => { this.setPseudoReact(this.state.newPseudo) }}><p className="buttonP" >Change Pseudo</p></button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -95,24 +77,42 @@ class Account extends React.Component {
     this.setState({ cssmessageAddFriend: "messageAddFriend2" })
     return
   }
-  answerRequestReact(args) {
-    answerRequest(args)
-    this.updateRequests()
-    this.updateFriends()
-  }
+
   componentDidMount() {
     __mounted = true;
+    this.props.mainVueSetter("account")
 
     testLogin().then((res) => {
       console.log("res " + res)
-      if (res.isLogged === true) { this.setState({ logged: true }) }
-      else { this.setState({ logged: false }) }
+      if (res.isLogged === true) {
+
+        this.setState({ logged: true });
+        this.props.setLogged(true);
+        if (this.props.logged) {
+          let link2 = "http://localhost:4000/api/myrequests"
+          console.log(link2)
+          fetch(link2, { method: "GET" }).then((res) => {
+            res.json().then((data) => {
+              console.log(data)
+              if (this.state.requests === undefined) { this.setState({ requests: data }); }
+            });
+          });
+          let link3 = "http://localhost:4000/api/myfriends/"
+          console.log(link3)
+          fetch(link3, { method: "GET" }).then((res) => {
+            res.json().then((data) => {
+              console.log(data)
+              if (this.state.friends === undefined) { this.setState({ friends: data }); }
+              console.log("this.state.friends")
+              console.log(this.state.friends)
+              console.log("this.state.friends")
+            });
+          });
+        }
+      }
+      else { this.setState({ logged: false }); this.props.setLogged(false) }
     })
 
-  }
-  setLogged() {
-    this.setState({ logged: true })
-    console.log("loggin from authentification")
   }
   setFriendsList(friends) {
     this.setState({ friends: friends })
@@ -147,10 +147,10 @@ class Account extends React.Component {
       });
     }
 
-    if ((prevProps !== this.props && this.props.address !== undefined) || (prevState.logged !== this.state.logged && this.props.address !== undefined)) {
+    if ((prevProps !== this.props && this.props.address !== undefined) || (prevProps.logged !== this.props.logged && this.props.address !== undefined)) {
 
 
-      if (this.state.logged) {
+      if (this.props.logged) {
         let link2 = "http://localhost:4000/api/myrequests"
         console.log(link2)
         fetch(link2, { method: "GET" }).then((res) => {
@@ -224,32 +224,7 @@ async function sendFriendRequest(newFriend) {
     return ("done2")
   }
 }
-async function answerRequest(args) {
-  if (__mounted) {
-    let url = "http://localhost:4000/api/answerRequest/";
-    console.log(args)
-    console.log(args.head)
 
-    let bodyToSend = JSON.stringify(
-      args
-    );
-    let options = {
-      method: "POST",
-      body: bodyToSend,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    await new Promise(next => {
-      fetch(url, options).then((res) => {
-        console.log("done " + res.status);
-        next()
-      });
-    })
-    console.log("end function")
-    return ("done2")
-  }
-}
 async function testLogin() {
   if (__mounted) {
     let url = "http://localhost:4000/api/testlogin";

@@ -16,8 +16,11 @@ class Classement extends React.Component {
       });
     });
     this.props.vueSetter("rankings")
+
   }
   componentDidMount() {
+    this.props.mainVueSetter("rankings")
+
     /*
     if (this.props.address !== undefined) {
       this.setState({ address: this.props.address.toLowerCase() })

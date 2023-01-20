@@ -9,7 +9,7 @@ class MyP2PBets extends React.Component {
     this.state = {
       myBets: [],
     };
-    console.log("contrsuction");
+    console.log("constrsuction");
   }
   componentDidMount() {
     __mounted = true;

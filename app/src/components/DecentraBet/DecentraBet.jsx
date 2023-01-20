@@ -6,12 +6,14 @@ class DecentraBet extends React.Component {
   constructor(props){
     super(props);
     this.props.vueSetter("decentraBet")
+    this.props.mainVueSetter("decentraBet")
   } 
   render(){
     return(
-      <div className="mainContent">
+      <div className="mainContentDecentraBet">
+        <ViewADecentrabet decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address}></ViewADecentrabet>
         <DecentraBetCreator decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address}></DecentraBetCreator> 
-        <ViewADecentrabet decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address}></ViewADecentrabet>   
+   
       </div>
     );
   }

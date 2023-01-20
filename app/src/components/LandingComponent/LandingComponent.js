@@ -8,6 +8,10 @@ class LandingComponent extends React.Component {
     super(props);
     this.props.vueSetter(null)
   }
+  componentDidMount(){
+    this.props.mainVueSetter("landing")
+
+  }
   render() {
     return (
       <div id="landingComponent">
@@ -24,7 +28,7 @@ class LandingComponent extends React.Component {
           </Link>
         </div>
         <div id="landingLineDiv2">
-          <Link to="/classement" className='linkLanding'>
+          <Link to="/rankings" className='linkLanding'>
             <div className="landingSquare" id="landingDivRanking">
               <p className="landingP">Rankings</p>
             </div>

@@ -7,7 +7,7 @@ class MyFriends extends React.Component {
     super(props);
     this.state = {
       loaded: false,
-      myFriends: [{"address2":"0xb215c8f61e33ec88b033670049417fa8258236de","pseudo":"Account7"},{"address2":"0x1c49a4b38422269c0315d42b03dee99929a4a1ce","pseudo":"MetaMobile3"},{"address2":"0xb2af31ce8c58adbfb29bcfe2cd1838b959d0cf7e","pseudo":"CoinBase1"}],
+      myFriends: undefined,
     };
     this.removeFriendReact = this.removeFriendReact.bind(this)
   }
@@ -16,7 +16,7 @@ class MyFriends extends React.Component {
     console.log("mount myFriends")
   }
   componentDidUpdate(prevProps) {
-    console.log("from myFriends")
+    /*console.log("from myFriends")
     try {
       console.log(this.props.myFriends)
 
@@ -24,7 +24,7 @@ class MyFriends extends React.Component {
     catch (e) {
       console.log(e)
     }
-    console.log("from myFriends")
+    console.log("from myFriends")*/
 
   }
 
@@ -34,8 +34,7 @@ class MyFriends extends React.Component {
   }
   render() {
     return (
-      <div>
-        <div>
+        <div className="accountContainer">
           {this.props.myFriends !== undefined ?
             this.props.myFriends.map((item) => {
               return (
@@ -43,19 +42,18 @@ class MyFriends extends React.Component {
                   <p>{item.pseudo}</p>
 
                   <p>{item.address2}</p>
-                  <button onClick={(event) => { //e is undefined
+                  <button className='generalsButton' onClick={(event) => { //e is undefined
                     this.removeFriendReact(
                       { "head": "removeFriend", "oldFriend": item.address2 }
                     )
                   }
                   }
                   >
-                    Remove</button>
+                    <p className="buttonP">Remove</p></button>
                 </div>
               );
             }) : null}
         </div>
-      </div>
     );
   }
 

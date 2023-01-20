@@ -8,16 +8,11 @@ class ConnectButton extends React.Component {
   // }
   render() {
     return (
-      <div id="connectButton">
-        <div id="metamaskButton">
-          <button className="buttonTransparent" onClick={this.props.connectWalletHandler}>
+      <div className="connectButton">
+          <button className="buttonTransparent buttonTransparentModal" onClick={this.props.connectWalletHandler}>
             <img src={metamaskImage} alt="metamaskImage" id="metamaskImage"></img>
             <p>Metamask Web Extension</p>
           </button>
-        </div>
-
-
-        {/*this.props.errorMessage*/}
       </div>
     );
   }

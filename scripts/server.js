@@ -1,4 +1,6 @@
 const express = require('express')
+const logger = require('./logger.js')
+
 const model = require('./model')
 var cors = require('cors')
 const users = require('./users')
@@ -67,9 +69,9 @@ app.post('/login', (req, res) => {
     req.session.logged = true
     req.session.address = users.recover(nonce, req.body.signedNonce).toLowerCase()
   }
-  let position = users.get_Classement_address(req.params.address.toLowerCase());
+  let position = users.get_Classement_address(req.body.address.toLowerCase());
   if (position === undefined) {
-    users.addUser(req.params.address);
+    users.addUser(req.body.address);
   }
   res.send("login")
 })
@@ -96,6 +98,7 @@ app.post('/api/setUpPseudo/', (req, res) => {
 
 app.post('/api/sendFriendRequest/', (req, res) => {
   if (req.session.logged === true) {
+    console.log(req.body)
     if (req.body.head === "newFriend") {
       if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
         console.log("already friends")
@@ -107,7 +110,20 @@ app.post('/api/sendFriendRequest/', (req, res) => {
         res.status(200).send()
       }
     }
-    else {
+    if (req.body.head === "betInvitation") {
+      if (users.areUsersFriends(req.session.address, req.body.address.toLowerCase())) {
+        users.newBetInvitation(req.body,req.session.address)
+        res.status(200).send()
+      }
+      else {
+        console.log("users aren't friends")
+        res.status(401).send()
+      }
+
+    }
+    /*else {
+      logger.blue(req.body.head === "newFriend")
+      logger.blue(req.body.head)
       if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
         console.log(req.body, " from ", req.session.address)
         users.newFriendRequest(req.body, req.session.address)
@@ -118,6 +134,7 @@ app.post('/api/sendFriendRequest/', (req, res) => {
         res.status(401).send()
       }
     }
+    /*
     /*console.log(req.body, " from ", req.session.address)
     users.newFriendRequest(req.body, req.session.address)
     res.status(200).send()*/

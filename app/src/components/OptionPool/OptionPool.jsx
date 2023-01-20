@@ -141,7 +141,7 @@ class OptionPool extends React.Component {
   render() {
     return (
       <div className="optionPool">
-        <button className="buttonTeamTitle" onClick={(event) => { /*this.betOnThisOption(this.state.amountToBet)*/  this.setBet(); }}><div className='teamTitle'>{this.props.team}</div></button>
+        <button className="buttonTeamTitle" onClick={(event) => { /*this.betOnThisOption(this.state.amountToBet)*/  this.setBet(); }}><p className='teamTitle'>{this.props.team}</p></button>
 
         <p>To win : {this.props.moneyInOtherPools == null ? null : ((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))).toFixed(2)}</p>
         <p>Cote : {this.props.moneyInOtherPools == null ? null : (((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))) / parseFloat(this.props.amountToBet) + 1).toFixed(2)}</p>

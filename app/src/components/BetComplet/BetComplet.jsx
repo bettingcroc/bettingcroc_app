@@ -4,11 +4,13 @@ import P2PBetOption from "../P2PBetOption/P2PBetOption";
 import P2PBetCreator from "../P2PBetCreator/P2PBetCreator";
 import P2PFinder from "../P2PFinder/P2PFinder";
 import Jauge from "../Jauge/Jauge";
+import FriendInviter from "../FriendInviter/FriendInviter";
 
 var __mounted;
 var __moneyCalculated = 0;
 class BetComplet extends React.Component {
   constructor(props) {
+    //this.props.mainVueSetter("bet")
     //console.log("p2pToDisplay "+this.props.p2pToDisplay)
 
     super(props);
@@ -19,7 +21,8 @@ class BetComplet extends React.Component {
       country: null,
       league: null,
       moneyInPools: null,
-      p2pdisplayArgs: null
+      p2pdisplayArgs: null,
+      friends: [{"address2":"0xb215c8f61e33ec88b033670049417fa8258236de","pseudo":"Account7"},{"address2":"0x1c49a4b38422269c0315d42b03dee99929a4a1ce","pseudo":"MetaMobile3"}]
     };
     fetch("http://localhost:4000/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
       res.json().then((data) => {
@@ -75,32 +78,30 @@ class BetComplet extends React.Component {
       });
     });
     this.setP2PdisplayArgs = this.setP2PdisplayArgs.bind(this)
-
+    this.openModalInviter = this.openModalInviter.bind(this)
+    this.closeModalInviter = this.closeModalInviter.bind(this);
   }
   componentDidMount() {
     __mounted = true
     __moneyCalculated = 0;
     console.log("mount BetComplet")
+    if (this.props.logged) {
+      let link = "http://localhost:4000/api/myfriends/"
+      fetch(link, { method: "GET" }).then((res) => {
+        res.json().then((data) => {
+          console.log(data)
+          this.setState({ friends: data });
+        });
+      });
+    }
   }
 
-  componentDidUpdate(prevProps,prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.betNumber !== this.props.betNumber) {
       __moneyCalculated = 0;
     }
     console.log("update betComplet")
-    /*console.log(prevState)
-    console.log(this.state)
-    console.log("propsMovement "+(prevState !==this.state))
-    for(let v in Object.values(prevState)){
-      if(Object.values(prevState)[v]!==Object.values(this.state)[v]){
-        console.log("COUPABLE "+v)
-        console.log(Object.values(prevState)[v])
-        console.log(Object.values(this.state)[v])
-      }
-    }
-    console.log(Object.values(prevState))
-    console.log(Object.values(this.state))
-    console.log(this.props === prevProps)*/
+
     if (this.props !== prevProps) {
       fetch("http://localhost:4000/api/infoMatch/" + this.props.betNumber, { method: "GET" }).then((res) => {
         res.json().then((data) => {
@@ -158,7 +159,15 @@ class BetComplet extends React.Component {
         });
       });
     }
-
+    if (this.props.logged===true && prevProps.logged===false) {
+      let link = "http://localhost:4000/api/myfriends/"
+      fetch(link, { method: "GET" }).then((res) => {
+        res.json().then((data) => {
+          console.log(data)
+          this.setState({ friends: data });
+        });
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -167,6 +176,12 @@ class BetComplet extends React.Component {
   }
   setP2PdisplayArgs(newArgs) {
     this.setState({ p2pdisplayArgs: newArgs })
+  }
+  openModalInviter() {
+    this.setState({ modalInviterOpened: true })
+  }
+  closeModalInviter() {
+    this.setState({ modalInviterOpened: false })
   }
   render() {
     return (
@@ -196,12 +211,12 @@ class BetComplet extends React.Component {
           </div>
           <div id="superOptionPool">
             <div id="optionsPool">
-              <div id="sperGameResults">
-                <div id="gameResults">
-                  <div id="underGameResults">
-                    <p id="gameResultsP">Game Results</p>
-                  </div>
-                </div>
+              <div id="gameResults">
+                <p id="gameResultsP">Game Results</p>
+                {this.props.logged?<div className="friendInviterTrigger">
+                  <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
+                  <FriendInviter typeBet="general" modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened} argsBet={{betNumber:this.props.betNumber,title:this.state.optionsArray}}></FriendInviter>
+                </div>:null}
               </div>
               <div id="optionsBox">
                 {this.state.optionsArray == null ? null : this.state.optionsArray.split(",").map((item, index) => {
@@ -212,14 +227,14 @@ class BetComplet extends React.Component {
           </div>
 
           <div id="p2p1">
-            <P2PFinder id={this.props.p2pLink!==undefined?this.props.p2pLink:undefined} optionsArray={this.state.optionsArray} betContract={this.props.betContract} betNumber={this.props.betNumber} setP2PdisplayArgs={this.setP2PdisplayArgs}></P2PFinder>
-            
+            <P2PFinder id={this.props.p2pLink !== undefined ? this.props.p2pLink : undefined} optionsArray={this.state.optionsArray} betContract={this.props.betContract} betNumber={this.props.betNumber} setP2PdisplayArgs={this.setP2PdisplayArgs}></P2PFinder>
+
             <P2PBetCreator betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} mbtContract={this.props.mbtContract} optionsArray={this.state.optionsArray} betNumber={this.props.betNumber} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} ></P2PBetCreator>
 
 
           </div>
 
-          <P2PBetOption args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
+          <P2PBetOption logged={this.props.logged} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
         </div>
 
       </div>
@@ -255,10 +270,10 @@ function timeConverterSchedule(UNIX_timestamp) {
   var min = a.getMinutes();
   var sec = a.getSeconds();
   //console.log("len "+hour.toString().length)
-  if(hour.toString().length===1){hour='0'+hour}
-  if(min.toString().length===1){min='0'+min}
+  if (hour.toString().length === 1) { hour = '0' + hour }
+  if (min.toString().length === 1) { min = '0' + min }
 
-  var time = hour + ':' + min 
+  var time = hour + ':' + min
   //+ ':' + sec;
   return time;
 }

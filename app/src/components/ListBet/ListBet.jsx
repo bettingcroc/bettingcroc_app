@@ -10,10 +10,13 @@ class ListBet extends React.Component {
       topMatches: []
     };
     this.props.vueSetter("listBets")
+
     //console.log("state.matches " + this.state.matches);
   }
   componentDidMount() {
     _mounted = true
+    this.props.mainVueSetter("bet")
+
     fetch("http://localhost:4000/api/lastbets", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         if (_mounted) {
