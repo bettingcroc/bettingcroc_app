@@ -11,11 +11,11 @@ function httpGet(theUrl) {
 	return xmlHttp.responseText;
 }
 multiBetABI = JSON.parse(httpGet('/MultiBetMultiOptionsUSDTABI.txt'));
-multiBetAddress='0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
+multiBetAddress='0x356d98D7461362c6670c55038A1f76CB2Df98ad4';
 multiBetContract= new web3.eth.Contract(multiBetABI,multiBetAddress);
 
 MBTokenABI = JSON.parse(httpGet('/MBTABI.txt'));
-MBTokenAddress='0xF70caeE1a6F3b0cD28701b905215826595CB01a5';
+MBTokenAddress='0x8bC9B949D39d0136ea98CF3AF5d770391e76d999';
 MBTokenContract= new web3.eth.Contract(MBTokenABI,MBTokenAddress);
 
 usdtABI = JSON.parse(httpGet('/USDTABI.txt')); //real USDT

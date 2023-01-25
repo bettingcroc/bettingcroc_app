@@ -77,7 +77,7 @@ class P2PBetOption extends React.Component {
   }
   approveUSDT(amount) {
     this.props.usdtContract.methods
-      .approve("0xD90531a9234A38dfFC8493c0018ad17cB5F7A867", weiconvert(amount))
+      .approve("0x356d98D7461362c6670c55038A1f76CB2Df98ad4", weiconvert(amount))
       .send({ from: this.props.address })
       .once("receipt", (receipt) => {
         console.log("approve success");

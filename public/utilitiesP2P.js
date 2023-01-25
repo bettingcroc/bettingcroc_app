@@ -10,7 +10,7 @@ function httpGet(theUrl) {
 	return xmlHttp.responseText;
 }
 multiBetABI = JSON.parse(httpGet('/MultiBetMultiOptionsUSDTABI.txt'));
-multiBetAddress='0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
+multiBetAddress='0x356d98D7461362c6670c55038A1f76CB2Df98ad4';
 multiBetContract= new web3.eth.Contract(multiBetABI,multiBetAddress);
 
 usdtABI = JSON.parse(httpGet('/USDTABI.txt')); //real USDT

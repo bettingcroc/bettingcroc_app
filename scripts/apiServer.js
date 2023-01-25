@@ -1,7 +1,6 @@
 /* global BigInt */
 
 multiBetABI = [
-
 	{
 		"anonymous": false,
 		"inputs": [
@@ -1547,7 +1546,6 @@ multiBetABI = [
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
-
 ]
 
 //const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
@@ -1558,7 +1556,7 @@ var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // ne
 
 
 //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-multiBetAddress = '0xD90531a9234A38dfFC8493c0018ad17cB5F7A867';
+multiBetAddress = '0x356d98D7461362c6670c55038A1f76CB2Df98ad4';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 
