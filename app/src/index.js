@@ -152,7 +152,7 @@ class App extends Component {
     console.log(this.state.defaultAccount)
     console.log("this.state.defaultAccount")
     if (this.state.defaultAccount !== undefined) {
-      const socket = io('http://localhost:4000')
+      const socket = io('https://testnet.bettingcroc.com')
       this.setState({ socket: socket })
       socket.on('connect', () => console.log("connected to server with " + socket.id))
 
@@ -251,7 +251,7 @@ class App extends Component {
         window.location.reload();
       })
       window.ethereum.on('accountsChanged', () => {
-        let url = "http://localhost:4000/logout";
+        let url = "https://testnet.bettingcroc.com/logout";
 
         console.log(url);
         let options = {
@@ -689,7 +689,7 @@ function decimalsConverter(numberToConvert) {
 }
 function weiconvert(number) { return BigInt(number * decimalsConverter(10)); }
 async function logout() {
-  let url = "http://localhost:4000/logout";
+  let url = "https://testnet.bettingcroc.com/logout";
 
   //console.log(url);
   let options = {

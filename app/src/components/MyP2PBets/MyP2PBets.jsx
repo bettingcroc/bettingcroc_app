@@ -16,7 +16,7 @@ class MyP2PBets extends React.Component {
     if (this.props.address !== undefined ) {
       try {
         console.log(this.props.address);
-        fetch("http://localhost:4000/api/myP2Pbets/" + this.props.address, { method: "GET" }).then(
+        fetch("https://testnet.bettingcroc.com/api/myP2Pbets/" + this.props.address, { method: "GET" }).then(
           (res) => {
             res.json().then((data) => {
               console.log(data)
@@ -37,7 +37,7 @@ class MyP2PBets extends React.Component {
     if (this.props.address !== undefined && this.props !== prevProps && __mounted) {
       try {
         console.log(this.props.address);
-        fetch("http://localhost:4000/api/myP2Pbets/" + this.props.address, { method: "GET" }).then(
+        fetch("https://testnet.bettingcroc.com/api/myP2Pbets/" + this.props.address, { method: "GET" }).then(
           (res) => {
             res.json().then((data) => {
               console.log(data)

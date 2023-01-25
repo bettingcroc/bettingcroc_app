@@ -60,7 +60,7 @@ class MyRequests extends React.Component {
 
 async function answerRequest(args) {
   if (__mounted) {
-    let url = "http://localhost:4000/api/answerRequest/";
+    let url = "https://testnet.bettingcroc.com/api/answerRequest/";
     console.log(args)
     console.log(args.head)
 

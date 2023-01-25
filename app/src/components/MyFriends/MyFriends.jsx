@@ -63,7 +63,7 @@ class MyFriends extends React.Component {
 async function removeFriend(args) {
   console.log(__mounted)
   if (__mounted) {
-    let url = "http://localhost:4000/api/removeFriend/";
+    let url = "https://testnet.bettingcroc.com/api/removeFriend/";
     console.log(args)
     console.log(args.head)
 

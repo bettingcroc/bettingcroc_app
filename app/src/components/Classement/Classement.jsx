@@ -9,7 +9,7 @@ class Classement extends React.Component {
       loaded: false,
       address: null
     }
-    fetch("http://localhost:4000/api/classement/", { method: "GET" }).then((res) => {
+    fetch("https://testnet.bettingcroc.com/api/classement/", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         //console.log(data)
         this.setState({ data: data })
@@ -24,7 +24,7 @@ class Classement extends React.Component {
     /*
     if (this.props.address !== undefined) {
       this.setState({ address: this.props.address.toLowerCase() })
-      let link = "http://localhost:4000/api/score/" + this.state.address
+      let link = "https://testnet.bettingcroc.com/api/score/" + this.state.address
       console.log(link)
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
@@ -38,7 +38,7 @@ class Classement extends React.Component {
     if (prevProps !== this.props && this.state.loaded === false && this.props.address !== undefined) {
       if (this.props.address !== "") {
         this.setState({ address: this.props.address.toLowerCase() })
-        let link = "http://localhost:4000/api/score/" + this.props.address
+        let link = "https://testnet.bettingcroc.com/api/score/" + this.props.address
         console.log(link)
         fetch(link, { method: "GET" }).then((res) => {
           res.json().then((data) => {

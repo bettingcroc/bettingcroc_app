@@ -24,7 +24,7 @@ class BetComplet extends React.Component {
       p2pdisplayArgs: null,
       friends: null
     };
-    fetch("http://localhost:4000/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
+    fetch("https://testnet.bettingcroc.com/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
       res.json().then((data) => {
         this.setState({
           optionsArray: data.optionsArray,
@@ -86,7 +86,7 @@ class BetComplet extends React.Component {
     __moneyCalculated = 0;
     console.log("mount BetComplet")
     if (this.props.logged) {
-      let link = "http://localhost:4000/api/myfriends/"
+      let link = "https://testnet.bettingcroc.com/api/myfriends/"
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           console.log(data)
@@ -103,7 +103,7 @@ class BetComplet extends React.Component {
     console.log("update betComplet")
 
     if (this.props !== prevProps) {
-      fetch("http://localhost:4000/api/infoMatch/" + this.props.betNumber, { method: "GET" }).then((res) => {
+      fetch("https://testnet.bettingcroc.com/api/infoMatch/" + this.props.betNumber, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           if (__mounted) {
             this.setState({
@@ -160,7 +160,7 @@ class BetComplet extends React.Component {
       });
     }
     if (this.props.logged===true && prevProps.logged===false) {
-      let link = "http://localhost:4000/api/myfriends/"
+      let link = "https://testnet.bettingcroc.com/api/myfriends/"
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           console.log(data)
