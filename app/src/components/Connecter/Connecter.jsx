@@ -26,19 +26,20 @@ class Connecter extends React.Component {
   }
   closeModal() {
     this.setState({ modalState: "closed" })
-    this.props.switchOverlayMode()
+    this.props.closeOverlay()
 
   }
   handleClickAwayEvent(){
     this.closeModal()
   }
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
+    if (prevProps.defaultAccount !== this.props.defaultAccount) {
       if (this.props.defaultAccount !== undefined && this.props.defaultAccount !== "") {
         this.setState({ connected: true })
+        this.closeModal()
       }
     }
-    if (prevProps !== this.props) {
+    if (prevProps.defaultAccount !== this.props.defaultAccount) {
       if (this.props.defaultAccount === undefined) {
         this.setState({ connected: false })
 

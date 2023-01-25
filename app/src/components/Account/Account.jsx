@@ -15,7 +15,7 @@ class Account extends React.Component {
       myPseudo: undefined,
       dataPerso: undefined,
       newPseudo: "",
-      newFriend: undefined,
+      newFriend: "",
       requests: undefined,
       logged: false,
       friends: undefined,
@@ -47,7 +47,7 @@ class Account extends React.Component {
         <div id="requestSuperDiv">
           <p className="headerTitle accountP">Notifications</p>
 
-          <MyRequests updateRequests={this.updateRequests} requests={this.state.requests} updateFriends={this.updateFriends} address={this.props.address} logged={this.props.logged}></MyRequests>
+          <MyRequests socket={this.props.socket} updateRequests={this.updateRequests} requests={this.state.requests} updateFriends={this.updateFriends} address={this.props.address} logged={this.props.logged}></MyRequests>
         </div>
         <div id="settingsAccount">
           <p className="headerTitle accountP">Settings</p>
@@ -64,6 +64,7 @@ class Account extends React.Component {
     setPseudo(newPseudo)
   }
   sendFriendRequestReact(newFriend) {
+    this.props.socket.emit("sendFriendRequest", { fromAddress: this.props.address, toAddress: newFriend })
     console.log(this.state.friends)
     for (let add in this.state.friends) {
       if (newFriend === this.state.friends[add].address2) {
@@ -121,10 +122,12 @@ class Account extends React.Component {
     console.log("update requests")
     let link2 = "http://localhost:4000/api/myrequests"
     fetch(link2, { method: "GET" }).then((res) => {
-      res.json().then((data) => {
-        console.log(data)
-        this.setState({ requests: data });
-      });
+      if (res.status === 200) {
+        res.json().then((data) => {
+          console.log(data)
+          this.setState({ requests: data });
+        });
+      }
     });
   }
   updateFriends() {
@@ -138,7 +141,7 @@ class Account extends React.Component {
     });
   }
   componentDidUpdate(prevProps, prevState) {
-    if ((prevProps !== this.props && this.state.dataPersoloaded === false && this.props.address !== undefined)) {
+    if ((prevProps.address !== this.props.address && this.state.dataPersoloaded === false && this.props.address !== undefined)) {
       let link = "http://localhost:4000/api/score/" + this.props.address.toLowerCase();
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
@@ -172,7 +175,14 @@ class Account extends React.Component {
         });
       }
     }
+    if (this.props.requestUpdater !== prevProps.requestUpdater) {
+      this.updateRequests()
+    }
+    if (this.props.friendsUpdater !== prevProps.friendsUpdater) {
+      this.updateFriends()
+    }
   }
+
 
 }
 

@@ -9,8 +9,7 @@ class FriendInviter extends React.Component {
     this.setModal = this.setModal.bind(this);
     this.setSelectedOption = this.setSelectedOption.bind(this);
     this.handleClickAwayEvent = this.handleClickAwayEvent.bind(this);
-    this.sendInvitation = this.sendInvitation.bind(this);
-    this.sendInvitation = this.sendInvitation.bind(this);
+    this.sendInvitationReact = this.sendInvitationReact.bind(this);
     this.state = {
       selectedOption: undefined,
       message: "",
@@ -39,14 +38,14 @@ class FriendInviter extends React.Component {
   handleClickAwayEvent() {
     this.setState({ modal: "collapse" })
   }
-  sendInvitation(address, message, argsBet) {
+  sendInvitationReact(address, message, argsBet,typeBet) {
     console.log("sendingInvitation")
     console.log(this.props.friends)
     console.log(this.state.selectedOption)
     console.log(address, message, argsBet)
 
-    sendBetInvitation(address, message, argsBet)
-    
+    sendBetInvitation(address, message, argsBet,typeBet)
+    this.props.socket.emit("sendBetInvitation", { fromAddress: this.props.address, toAddress: address })
     return
   }
   render() {
@@ -96,8 +95,8 @@ class FriendInviter extends React.Component {
             <div className='lastLineDivFriendInviter'>
               <button className='sendInvitation' onClick={(event) => {
                 if (this.state.selectedOption !== undefined) {
-                  if (this.props.argsBet.p2pnumber !== null && this.props.typeBet === "p2p") {
-                    this.sendInvitation(this.props.friends[this.state.selectedOption].address2, this.state.message, this.props.argsBet);
+                  if (this.props.argsBet.p2pnumber !== null && this.props.typeBet === "p2p" || this.props.typeBet ==="general" ) {
+                    this.sendInvitationReact(this.props.friends[this.state.selectedOption].address2, this.state.message, this.props.argsBet,this.props.typeBet);
                     this.setState({ errorMessage: "Invitation sent !" })
                   }else{
                     this.setState({ errorMessage: "Select a bet !" })
@@ -136,14 +135,15 @@ function addressReducer(address) {
   return addressReduced
 }
 
-async function sendBetInvitation(address, message, argsBet) {
+async function sendBetInvitation(address, message, argsBet,typeBet) {
   if (__mounted) {
     let url = "http://localhost:4000/api/sendFriendRequest/";
     let bodyToSend = JSON.stringify({
       "head": "betInvitation",
       "address": address,
       "message":message,
-      "argsBet":argsBet
+      "argsBet":argsBet,
+      "typeBet":typeBet
     });
     let options = {
       method: "POST",

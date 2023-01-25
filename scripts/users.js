@@ -1166,8 +1166,8 @@ multiBetABI = [
 const { func } = require('assert-plus');
 let Sqlite = require('better-sqlite3');
 let db = new Sqlite('db.sqlite');
-//const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
-const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
+const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
+//const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet";
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
@@ -1327,9 +1327,13 @@ function get_addresses() {
 async function addUser(address) {
 	if (!address) { console.log("pas d'address" + !address); return; }
 	address = address.toLowerCase();
-	//console.log(address);
+	console.log(address);
 	try {
 		let insert = db.prepare(`INSERT INTO Players (address,score,nonce) VALUES (?,?,?)`);
+		/*await multiBetContract.methods.getScore(address).call()
+			.then((result) => {
+				console.log("new user score :" + result)
+			})*/
 		await multiBetContract.methods.getScore(address.toLowerCase()).call()
 			.then((result) => {
 				console.log("new user score :" + result)
@@ -1340,7 +1344,8 @@ async function addUser(address) {
 
 	}
 	catch (e) {
-		console.log("error adding a player to database => ", e.code);
+		console.log(e)
+		//console.log("error adding a player to database => ", e.code);
 		if (e.code == 'SQLITE_CONSTRAINT_PRIMARYKEY') return -1;
 		throw e;
 	}

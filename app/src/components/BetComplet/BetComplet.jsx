@@ -22,7 +22,7 @@ class BetComplet extends React.Component {
       league: null,
       moneyInPools: null,
       p2pdisplayArgs: null,
-      friends: [{"address2":"0xb215c8f61e33ec88b033670049417fa8258236de","pseudo":"Account7"},{"address2":"0x1c49a4b38422269c0315d42b03dee99929a4a1ce","pseudo":"MetaMobile3"}]
+      friends: null
     };
     fetch("http://localhost:4000/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
       res.json().then((data) => {
@@ -215,7 +215,7 @@ class BetComplet extends React.Component {
                 <p id="gameResultsP">Game Results</p>
                 {this.props.logged?<div className="friendInviterTrigger">
                   <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
-                  <FriendInviter typeBet="general" modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened} argsBet={{betNumber:this.props.betNumber,title:this.state.optionsArray}}></FriendInviter>
+                  <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="general" friends={this.state.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened} argsBet={{betNumber:this.props.betNumber,title:this.state.optionsArray}}></FriendInviter>
                 </div>:null}
               </div>
               <div id="optionsBox">
@@ -234,7 +234,7 @@ class BetComplet extends React.Component {
 
           </div>
 
-          <P2PBetOption logged={this.props.logged} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
+          <P2PBetOption  logged={this.props.logged} socket={this.props.socket} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
         </div>
 
       </div>

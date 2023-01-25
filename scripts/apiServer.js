@@ -1806,7 +1806,7 @@ async function getMyP2PBets(address) {
 function getMyRequests(address, maxDate = 0) {
 	//console.log(maxDate)
 	if (maxDate === 0) {
-		let select = db.prepare(`select * from friendsRequests where address2='${address}'`);
+		let select = db.prepare(`select address1,address2,header,body,dateRequest,pseudo,id from friendsRequests,Players where address2='${address}' and address=address1;`);
 		let result = select.all();
 		//console.log(`select * from friendsRequests where address2='${address}'`)
 		//console.log(result)

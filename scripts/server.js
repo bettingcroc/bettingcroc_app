@@ -8,6 +8,49 @@ const apiServer = require('./apiServer')
 const app = express()
 const port = process.env.PORT || 4000;
 const session = require('express-session')
+
+const socketIo = require("socket.io")
+const http = require("http")
+const server = http.createServer(app)
+const io = socketIo(server, {
+    cors: {
+        origin: "http://localhost:3000"
+    }
+}) //in case server and client run on different urls
+io.on("connection", (socket) => {
+    console.log("client connected: ", socket.id)
+    socket.on("joinRoom",(address)=>{
+      console.log(address)
+      console.log(socket.id+" joined room "+address)
+      socket.join(address)
+    })
+    socket.on("sendFriendRequest",(args)=>{
+      //console.log("socket")
+      console.log("sendFriendRequest : "+args.toAddress+" from "+args.fromAddress)
+      io.to(args.toAddress.toLowerCase()).emit("ReceivedFriendRequest",args.fromAddress)
+      //console.log("socket")
+    })
+    socket.on("newFriendAccepted",(args)=>{
+      //console.log("socket")
+      console.log("newFriendAccepted : "+args.toAddress+" from "+args.fromAddress)
+      io.to(args.toAddress.toLowerCase()).emit("newFriendAcceptedToSender",args.fromAddress)
+      //console.log("socket")
+    })
+    socket.on("sendBetInvitation",(args)=>{
+      //console.log("socket")
+      console.log("sendBetInvitation : "+args.toAddress+" from "+args.fromAddress)
+      io.to(args.toAddress.toLowerCase()).emit("ReceivedBetInvitation",args.fromAddress)
+      //console.log("socket")
+    })
+
+    socket.join("clock-room")
+
+    socket.on("disconnect", (reason) => {
+        console.log(reason)
+    })
+})
+
+
 var topBets = {};
 updateTopBets()
 function updateTopBets() {
@@ -32,18 +75,24 @@ app.use(session({
 app.use(cors())
 app.use(express.json())
 
-app.listen(port, () => {
+/*app.listen(port, () => {
   console.log(`Bettingcroc application listening on port ${port}`)
+})*/
+server.listen(port, err => {
+  if (err) console.log(err)
+  console.log("Server running on Port ", port)
 })
 
 app.get('/api/position/:address', (req, res) => {
+  console.log('GET /api/position/'+req.params.address)
+
   address = req.params.address.toLowerCase()
-  console.log(address)
+  //console.log(address)
   let position = users.get_Classement_address(address);
   if (position === undefined) {
     users.addUser(address);
     position = users.get_Classement_address(address);
-    console.log("position request " + position)
+    //console.log("position request " + position)
     res.send({ address: 'unknown', score: 'unknown', position: 'unknown' })
 
   }
@@ -59,13 +108,13 @@ app.get('/api/nonce/:address', async (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  console.log("nonce signed " + req.body.signedNonce)
-  console.log("address " + req.body.address)
+  //console.log("nonce signed " + req.body.signedNonce)
+  //console.log("address " + req.body.address)
   let nonce = req.session.nonce
-  console.log("nonce " + nonce)
-  console.log("signer : " + users.recover(nonce, req.body.signedNonce))
+  //console.log("nonce " + nonce)
+  //console.log("signer : " + users.recover(nonce, req.body.signedNonce))
   if (users.recover(nonce, req.body.signedNonce).toLowerCase() === req.body.address.toLowerCase()) {
-    console.log("logging in " + req.body.address)
+    //console.log("logging in " + req.body.address)
     req.session.logged = true
     req.session.address = users.recover(nonce, req.body.signedNonce).toLowerCase()
   }
@@ -86,7 +135,7 @@ app.get('/api/testLogin', (req, res) => {
 })
 app.post('/api/setUpPseudo/', (req, res) => {
   if (req.session.logged === true) {
-    console.log(req.body.newPseudo, " ", req.session.address)
+    //console.log(req.body.newPseudo, " ", req.session.address)
     users.setPseudo(req.body.newPseudo, req.session.address)
     res.status(200).send()
   }
@@ -98,14 +147,14 @@ app.post('/api/setUpPseudo/', (req, res) => {
 
 app.post('/api/sendFriendRequest/', (req, res) => {
   if (req.session.logged === true) {
-    console.log(req.body)
+   //console.log(req.body)
     if (req.body.head === "newFriend") {
       if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
         console.log("already friends")
         res.status(401).send()
       }
       else {
-        console.log(req.body, " from ", req.session.address)
+        //console.log(req.body, " from ", req.session.address)
         users.newFriendRequest(req.body, req.session.address)
         res.status(200).send()
       }
@@ -147,7 +196,7 @@ app.post('/api/sendFriendRequest/', (req, res) => {
 
 app.post('/api/answerRequest/', (req, res) => {
   if (req.session.logged === true) {
-    console.log(req.body, " from ", req.session.address)
+    //console.log(req.body, " from ", req.session.address)
     users.answerRequest(req.body, req.session.address)
     res.status(200).send()
   }
@@ -159,7 +208,7 @@ app.post('/api/answerRequest/', (req, res) => {
 
 app.post('/api/removeFriend/', (req, res) => { //
   if (req.session.logged === true) {
-    console.log(req.body, " from ", req.session.address)
+    //console.log(req.body, " from ", req.session.address)
     users.removeFriend(req.body, req.session.address)
     res.status(200).send()
   }
@@ -193,7 +242,7 @@ app.get('/api/lastbets', (req, res) => {
   res.send(apiServer.getTodayMatches())
 })
 app.get('/api/topBets', async (req, res) => {
-  console.log(topBets)
+  //console.log(topBets)
   res.send(topBets)
 })
 app.get('/api/infoMatch/:id', (req, res) => {
@@ -203,22 +252,23 @@ app.get('/api/classement', (req, res) => {
   res.send(apiServer.get10MaxScore())
 })
 app.get('/api/score/:address', (req, res) => {
+  console.log('GET /api/score/'+req.params.address)
   address = req.params.address.toLowerCase()
-  console.log(address)
+  //console.log(address)
   let position = users.get_Classement_address(address);
-  console.log(position)
+  //console.log(position)
   if (position === undefined) {
     users.addUser(address);
     position = users.get_Classement_address(address);
-    console.log("position request " + position)
+    //console.log("position request " + position)
     score = apiServer.getMyScore(req.params.address.toLowerCase())
-    console.log(score)
+    //console.log(score)
     res.send(score)
 
   }
   else {
     score = apiServer.getMyScore(req.params.address.toLowerCase())
-    console.log(score)
+    //console.log(score)
     res.send(score)
   }
 })
