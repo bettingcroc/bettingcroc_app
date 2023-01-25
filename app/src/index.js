@@ -38,7 +38,7 @@ import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 
 
 const APP_NAME = 'bettingcroc'
-const APP_LOGO_URL = 'http://localhost:3000/static/media/home.de3a12ee.png'
+const APP_LOGO_URL = 'https://testnet.bettingcroc.com/static/media/home.de3a12ee.png'
 const DEFAULT_ETH_JSONRPC_URL = `https://data-seed-prebsc-1-s3.binance.org:8545`
 const DEFAULT_CHAIN_ID = 97
 const coinbaseWallet = new CoinbaseWalletSDK({
