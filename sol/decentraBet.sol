@@ -13,7 +13,7 @@ contract decentraBet is Pures{
 
     IUSDT TetherContract;
     constructor(){
-        TetherContract=IUSDT(address(0x7ef95a0FEE0Dd31b22626fA2e10Ee6A223F8a684));
+        TetherContract=IUSDT(address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5));
     }
     uint256 decentraBetNumber;
     mapping(uint256=>decentraBetStruct) decentraBets;

@@ -475,9 +475,9 @@ function recupAllP2PWin()public{
 
 
     function constructor1() public {
-        TetherContract=IUSDT(address(0x7ef95a0FEE0Dd31b22626fA2e10Ee6A223F8a684));
+        TetherContract=IUSDT(address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5));
         MBTokenContract=IMBT(address(0x8bC9B949D39d0136ea98CF3AF5d770391e76d999));
-        USDTaddress=address(0x7ef95a0FEE0Dd31b22626fA2e10Ee6A223F8a684);
+        USDTaddress=address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5);
         MBTaddress=address(0x8bC9B949D39d0136ea98CF3AF5d770391e76d999);
         fees=6;
         lastBet=0;
