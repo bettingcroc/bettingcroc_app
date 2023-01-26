@@ -1554,7 +1554,7 @@ var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // ne
 
 
 //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-multiBetAddress= '0x356d98D7461362c6670c55038A1f76CB2Df98ad4';
+multiBetAddress= '0x33844f8042D7980C7060067562a11b14F278018e';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 
@@ -1763,4 +1763,4 @@ module.exports = {
   endBets:endBets,
   cancelBet:cancelBet
 };
-//0x356d98D7461362c6670c55038A1f76CB2Df98ad4
+//0x33844f8042D7980C7060067562a11b14F278018e

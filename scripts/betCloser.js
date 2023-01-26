@@ -12,7 +12,7 @@ const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
 var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
 
-multiBetAddress='0x356d98D7461362c6670c55038A1f76CB2Df98ad4';
+multiBetAddress='0x33844f8042D7980C7060067562a11b14F278018e';
 
 function decimalsConverter(numberToConvert){return Math.pow(numberToConvert,18)}
 function weiconvert(number){return BigInt(number*decimalsConverter(10));} // function to manage decimals of the token

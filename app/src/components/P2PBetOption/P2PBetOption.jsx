@@ -77,7 +77,7 @@ class P2PBetOption extends React.Component {
   }
   approveUSDT(amount) {
     this.props.usdtContract.methods
-      .approve("0x356d98D7461362c6670c55038A1f76CB2Df98ad4", weiconvert(amount))
+      .approve("0x33844f8042D7980C7060067562a11b14F278018e", weiconvert(amount))
       .send({ from: this.props.address })
       .once("receipt", (receipt) => {
         console.log("approve success");
@@ -97,7 +97,7 @@ class P2PBetOption extends React.Component {
             <p id="line1P2POption">P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
             <div className="friendInviterTrigger">
               <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
-              <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{betNumber:this.props.betNumber,title:this.props.optionsArray,p2pnumber:this.props.args}} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
+              <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
             </div>
 
           </div>
@@ -126,12 +126,12 @@ class P2PBetOption extends React.Component {
                   //this.betOnThisOption(this.props.amountToBet);
                 }}
               >
-                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1]}</p>
+                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
               </button>
             </div>
             <div id="line3P2POption">
               <p>Amount bettable : </p>
-              <p id="amountBettableP">{this.props.args === null ? null : this.props.args[2] + " USDT"} </p>
+              <p id="amountBettableP">{this.props.args !== null ? this.props.args[2] === "indispo" ? "Nothing :/" : this.props.args[2] + " USDT" : null} </p>
             </div>
 
           </div>

@@ -14,7 +14,7 @@ function httpGet(theUrl) {
 	return xmlHttp.responseText;
 }
 multiBetABI = JSON.parse(httpGet('/MultiBetMultiOptionsUSDTABI.txt'));
-multiBetAddress='0x356d98D7461362c6670c55038A1f76CB2Df98ad4';
+multiBetAddress='0x33844f8042D7980C7060067562a11b14F278018e';
 var multiBetContract;
 
 MBTokenABI = JSON.parse(httpGet('/MBTABI.txt'));

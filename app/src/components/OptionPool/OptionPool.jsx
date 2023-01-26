@@ -114,7 +114,7 @@ class OptionPool extends React.Component {
     console.log("unmount OptionPool "+this.props.team)
   }
   approveUSDT(amount) {
-    this.props.usdtContract.methods.approve("0x356d98D7461362c6670c55038A1f76CB2Df98ad4", weiconvert(amount)).send({ from: this.props.address })
+    this.props.usdtContract.methods.approve("0x33844f8042D7980C7060067562a11b14F278018e", weiconvert(amount)).send({ from: this.props.address })
       .once('receipt', (receipt) => {
         console.log("approve success")
       })
