@@ -35,7 +35,7 @@ import ConnectWc from "./components/ConnectWC/ConnectWC";
 import Connecter from "./components/Connecter/Connecter";
 import MyP2PBets from "./components/MyP2PBets/MyP2PBets";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
-
+import USDTGetter from "./components/USDTGetter/USDTGetter"
 
 const APP_NAME = 'bettingcroc'
 const APP_LOGO_URL = 'https://testnet.bettingcroc.com/static/media/home.de3a12ee.png'
@@ -136,6 +136,8 @@ class App extends Component {
     this.closeOverlay= this.closeOverlay.bind(this)
     this.setMainVue = this.setMainVue.bind(this);
   }
+
+  
   async loadBlockchainData() {
     const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
     if (web3.givenProvider) {
@@ -665,6 +667,7 @@ class App extends Component {
               <Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
               <Route path="/account" element={<Account mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
               <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
+              <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
               <Route path="/*" element={<p>error</p>}></Route>
             </Route>
 
