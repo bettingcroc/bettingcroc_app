@@ -152,6 +152,7 @@ async function createWinnersArray(arrayBetsToEnd) {
                     let scoreHome = JSON.parse(response.body).response[0].scores.home.total
                     let scoreAway = JSON.parse(response.body).response[0].scores.away.total
                     if (matchStatus === "FT" || matchStatus === "AOT") {
+                        model.update_score(betNumber,scoreHome,scoreAway)
                         if (scoreHome > scoreAway) {
                             winnerBetsToEnd.push(0);
                         }
