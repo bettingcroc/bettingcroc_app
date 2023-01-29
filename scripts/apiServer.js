@@ -1649,6 +1649,27 @@ function get_Country(betNumber) {
 	return null;
 }
 
+function get_ScoreHome(betNumber) {
+	let select = db.prepare(`SELECT scoreHome FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.scoreHome;
+
+	return null;
+}
+function get_ScoreAway(betNumber) {
+	let select = db.prepare(`SELECT scoreAway FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.scoreAway;
+
+	return null;
+}
+function get_Status(betNumber) {
+	let select = db.prepare(`SELECT status FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.status;
+
+	return null;
+}
 function get_League(betNumber) {
 	let select = db.prepare(`SELECT league FROM Bets WHERE betNumber = '${betNumber}'`);
 	let result = select.get();
@@ -1736,12 +1757,18 @@ function getMatchInfo(id) {
 	let type = get_Type(id)
 	let country = get_Country(id)
 	let league = get_League(id)
+	let status = get_Status(id)
+	let scoreHome = get_ScoreHome(id)
+	let scoreAway = get_ScoreAway(id)
 	let matchInfos = {
 		optionsArray: optionsArray,
 		date: date,
 		type: type,
 		country: country,
-		league: league
+		league: league,
+		status:status,
+		scoreHome:scoreHome,
+		scoreAway
 	}
 	return matchInfos
 }

@@ -519,6 +519,7 @@ class App extends Component {
                       <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? "titleActive" : "titleInactive"}>Rankings</p></Link>
                     </div>
                   </div>
+                  <button>Get my gains</button>
                   <div id="topRight">
 
                     {//this.state.defaultAccount === undefined ? 
