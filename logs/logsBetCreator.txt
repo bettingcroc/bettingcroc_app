@@ -154,3 +154,35 @@
 30/11/2022 16:39:40 Bet created n 217 1669860000 basketball USA NBA Denver Nuggets,Houston Rockets
 30/11/2022 16:39:40 Bet created n 218 1669863600 basketball USA NBA Sacramento Kings,Indiana Pacers
 30/11/2022 16:39:40 Bet created n 219 1669865400 basketball USA NBA Los Angeles Lakers,Portland Trail Blazers
+25/01/2023 19:17:51 Bet created n 1 1674779400 basketball USA NBA Boston Celtics,New York Knicks
+25/01/2023 19:17:51 Bet created n 2 1674779400 basketball USA NBA Brooklyn Nets,Detroit Pistons
+25/01/2023 19:17:51 Bet created n 5 1674788400 basketball USA NBA Phoenix Suns,Dallas Mavericks
+25/01/2023 19:17:51 Bet created n 3 1674779400 basketball USA NBA Charlotte Hornets,Chicago Bulls
+25/01/2023 19:17:51 Bet created n 6 1674790200 basketball USA NBA Los Angeles Clippers,San Antonio Spurs
+25/01/2023 19:17:51 Bet created n 4 1674781200 basketball USA NBA Houston Rockets,Cleveland Cavaliers
+26/01/2023 18:53:54 Bet created n 1 1674864000 basketball USA NBA Indiana Pacers,Milwaukee Bucks
+26/01/2023 18:53:54 Bet created n 2 1674865800 basketball USA NBA Minnesota Timberwolves,Memphis Grizzlies
+26/01/2023 18:53:54 Bet created n 3 1674867600 basketball USA NBA Miami Heat,Orlando Magic
+26/01/2023 18:53:54 Bet created n 4 1674867600 basketball USA NBA Oklahoma City Thunder,Cleveland Cavaliers
+26/01/2023 18:53:54 Bet created n 5 1674874800 basketball USA NBA Golden State Warriors,Toronto Raptors
+26/01/2023 18:53:54 Bet created n 6 1674936000 basketball USA NBA Philadelphia 76ers,Denver Nuggets
+26/01/2023 18:53:54 Bet created n 7 1674945000 basketball USA NBA Brooklyn Nets,New York Knicks
+27/01/2023 11:32:28 Bet created n 8 1674950400 basketball USA NBA Detroit Pistons,Houston Rockets
+27/01/2023 11:32:28 Bet created n 9 1674950400 basketball USA NBA Orlando Magic,Chicago Bulls
+27/01/2023 11:32:28 Bet created n 10 1674952200 basketball USA NBA Atlanta Hawks,Los Angeles Clippers
+27/01/2023 11:32:28 Bet created n 11 1674954000 basketball USA NBA Minnesota Timberwolves,Sacramento Kings
+27/01/2023 11:32:28 Bet created n 12 1674954000 basketball USA NBA New Orleans Pelicans,Washington Wizards
+27/01/2023 11:32:28 Bet created n 13 1674954000 basketball USA NBA San Antonio Spurs,Phoenix Suns
+27/01/2023 11:32:28 Bet created n 14 1674955800 basketball USA NBA Boston Celtics,Los Angeles Lakers
+27/01/2023 11:32:28 Bet created n 15 1674957600 basketball USA NBA Utah Jazz,Dallas Mavericks
+27/01/2023 11:32:28 Bet created n 16 1674961200 basketball USA NBA Portland Trail Blazers,Toronto Raptors
+27/01/2023 11:32:28 Bet created n 17 1675015200 basketball USA NBA Charlotte Hornets,Miami Heat
+27/01/2023 11:32:28 Bet created n 18 1675033200 basketball USA NBA Memphis Grizzlies,Indiana Pacers
+29/01/2023 19:11:17 Bet created n 19 1675123200 basketball USA NBA Philadelphia 76ers,Orlando Magic
+29/01/2023 19:11:17 Bet created n 20 1675125000 basketball USA NBA Brooklyn Nets,Los Angeles Lakers
+29/01/2023 19:11:17 Bet created n 21 1675126800 basketball USA NBA Minnesota Timberwolves,Sacramento Kings
+29/01/2023 19:11:17 Bet created n 22 1675126800 basketball USA NBA Oklahoma City Thunder,Golden State Warriors
+29/01/2023 19:11:17 Bet created n 23 1675126800 basketball USA NBA San Antonio Spurs,Washington Wizards
+29/01/2023 19:11:17 Bet created n 24 1675128600 basketball USA NBA Dallas Mavericks,Detroit Pistons
+29/01/2023 19:11:17 Bet created n 25 1675130400 basketball USA NBA Phoenix Suns,Toronto Raptors
+29/01/2023 19:11:17 Bet created n 26 1675134000 basketball USA NBA Portland Trail Blazers,Atlanta Hawks
