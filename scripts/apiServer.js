@@ -1720,10 +1720,9 @@ function getTodayMatches() {
 async function getTopBets() {
 	timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
-	//console.log(timeNow)
+	console.log(timeNow)
 	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
-	//arrayIndex.push({ betNumber: 15 })
-	//console.log(arrayIndex)
+	console.log(arrayIndex)
 	let matches = { matches: [] }
 	list = ''
 	opt = arrayIndex.length;
@@ -1737,8 +1736,8 @@ async function getTopBets() {
 			//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
 			await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
 				.then(function (result) {
-					//console.log(i)
-					//console.log(result)
+					console.log(i)
+					console.log(result)
 					match["moneyBetted"] = result
 				})
 			matches.matches.push(match)
@@ -1747,7 +1746,8 @@ async function getTopBets() {
 		console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 		return ({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 	}
-	catch (e) { //console.log(e);return "error" 
+	catch (e) { console.log(e);
+		//return "error" 
 	}
 
 }
