@@ -1543,48 +1543,21 @@ body {
 #option1P {
 
 
-  /* Titre */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 32px;
-
-  /* identical to box height, or 200% */
-
-  /* Primary/Dark Shade */
-
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  
 }
 
 #option2P {
 
 
 
-  /* Titre */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 32px;
-
-  /* identical to box height, or 200% */
-
-  /* Primary/Dark Shade */
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  
 }
 
 .optionDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 300px;
   height: 52px;
 
@@ -1661,8 +1634,23 @@ body {
 }
 
 .optionP {
-  position: relative;
-  top: 8px;
+  /* Titre */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+
+  /* identical to box height, or 200% */
+
+  /* Primary/Dark Shade */
+
+
+  margin: 0;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
 #buttonRefreshP2PFinderButton {
@@ -3112,5 +3100,14 @@ table.customTable thead {
 }
 
 #selectCreateNewP2P p {
+  margin: 0;
+}
+
+#scoreDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#scoreDiv p{
   margin: 0;
 }

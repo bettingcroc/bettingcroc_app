@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.c0a20717.chunk.css",
-    "main.js": "/static/js/main.b5b033ea.chunk.js",
-    "main.js.map": "/static/js/main.b5b033ea.chunk.js.map",
+    "main.css": "/static/css/main.0e85c044.chunk.css",
+    "main.js": "/static/js/main.01e50e9e.chunk.js",
+    "main.js.map": "/static/js/main.01e50e9e.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a55ac8a3.js",
     "runtime-main.js.map": "/static/js/runtime-main.a55ac8a3.js.map",
     "static/css/2.8a17276e.chunk.css": "/static/css/2.8a17276e.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.84edadea.chunk.js.map": "/static/js/2.84edadea.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.8a17276e.chunk.css.map": "/static/css/2.8a17276e.chunk.css.map",
-    "static/css/main.c0a20717.chunk.css.map": "/static/css/main.c0a20717.chunk.css.map",
+    "static/css/main.0e85c044.chunk.css.map": "/static/css/main.0e85c044.chunk.css.map",
     "static/js/2.84edadea.chunk.js.LICENSE.txt": "/static/js/2.84edadea.chunk.js.LICENSE.txt",
     "static/media/App.css": "/static/media/Roboto-Regular.fc2b5060.ttf",
     "static/media/bettingCrocTitle.a80d3b83.png": "/static/media/bettingCrocTitle.a80d3b83.png",
@@ -26,7 +26,7 @@
     "static/js/runtime-main.a55ac8a3.js",
     "static/css/2.8a17276e.chunk.css",
     "static/js/2.84edadea.chunk.js",
-    "static/css/main.c0a20717.chunk.css",
-    "static/js/main.b5b033ea.chunk.js"
+    "static/css/main.0e85c044.chunk.css",
+    "static/js/main.01e50e9e.chunk.js"
   ]
 }

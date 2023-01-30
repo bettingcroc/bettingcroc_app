@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
 var topBets = {};
 updateTopBets()
 function updateTopBets() {
-  //console.log("update")
+  console.log("updateTopBets")
   apiServer.getTopBets().then((result) => {
 
     if (result === "error") { setTimeout(updateTopBets, 60000) }

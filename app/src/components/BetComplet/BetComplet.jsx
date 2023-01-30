@@ -111,7 +111,10 @@ class BetComplet extends React.Component {
               date: data.date,
               type: data.type,
               country: data.country,
-              league: data.league
+              league: data.league,
+              status: data.status,
+              scoreHome: data.scoreHome,
+              scoreAway: data.scoreAway
             });
             let sizeBet = 0
             try { sizeBet = this.state.optionsArray.split(",").length }
@@ -159,7 +162,7 @@ class BetComplet extends React.Component {
         });
       });
     }
-    if (this.props.logged===true && prevProps.logged===false) {
+    if (this.props.logged === true && prevProps.logged === false) {
       let link = "https://testnet.bettingcroc.com/api/myfriends/"
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
@@ -192,7 +195,7 @@ class BetComplet extends React.Component {
             <div id="underNameBet">
               <div id="countryLeagueDate">
                 <p className="headerTitle">{this.state.country} / {this.state.league}</p>
-                <p className="headerTitle">{timeConverterDate(this.state.date)}</p>
+                <p className="headerTitle">{this.state.status === 0 ? timeConverterDate(this.state.date) : <p>chrono</p>}</p>
               </div>
               <div id="optionsSchedule">
                 <div id="option1" className="optionDiv">
@@ -200,9 +203,15 @@ class BetComplet extends React.Component {
                   <p id="option1P" className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[0]}</p>
 
                 </div>
-                <div id="schedule">
+                {this.state.status === 0 ? <div id="schedule">
                   <p id="scheduleP" className="scheduleTitle"> {timeConverterSchedule(this.state.date)}</p>
-                </div>
+                </div> :
+                  <div id="scoreDiv">
+                    <div id="schedule">
+                      <p id="scheduleP" className="scheduleTitle"> {this.state.scoreAway!==undefined?this.state.scoreHome + " - " + this.state.scoreAway:null}</p>
+                    </div>
+
+                  </div>}
                 <div id="option2" className="optionDiv">
                   <p id="option2P" className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[this.state.optionsArray.split(",").length - 1]}</p>
                 </div>
@@ -213,10 +222,10 @@ class BetComplet extends React.Component {
             <div id="optionsPool">
               <div id="gameResults">
                 <p id="gameResultsP">Game Results</p>
-                {this.props.logged?<div className="friendInviterTrigger">
+                {this.props.logged ? <div className="friendInviterTrigger">
                   <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
-                  <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="general" friends={this.state.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened} argsBet={{betNumber:this.props.betNumber,title:this.state.optionsArray}}></FriendInviter>
-                </div>:null}
+                  <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="general" friends={this.state.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened} argsBet={{ betNumber: this.props.betNumber, title: this.state.optionsArray }}></FriendInviter>
+                </div> : null}
               </div>
               <div id="optionsBox">
                 {this.state.optionsArray == null ? null : this.state.optionsArray.split(",").map((item, index) => {
@@ -234,7 +243,7 @@ class BetComplet extends React.Component {
 
           </div>
 
-          <P2PBetOption  logged={this.props.logged} socket={this.props.socket} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
+          <P2PBetOption logged={this.props.logged} socket={this.props.socket} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
         </div>
 
       </div>

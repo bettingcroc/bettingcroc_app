@@ -1700,10 +1700,10 @@ function get10MaxScore() {
 function getTodayMatches() {
 	timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
-	console.log(timeNow)
+	//console.log(timeNow)
 	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
 	//arrayIndex.push({ betNumber: 15 })
-	console.log(arrayIndex)
+	//console.log(arrayIndex)
 	let matches = { matches: [] }
 	opt = arrayIndex.length;
 	for (i = 0; i < opt; i++) {
@@ -1744,7 +1744,7 @@ async function getTopBets() {
 			matches.matches.push(match)
 		}
 		matches.matches.sort((a, b) => (BigInt(a.moneyBetted) > BigInt(b.moneyBetted) ? -1 : 1))
-		//console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
+		console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 		return ({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 	}
 	catch (e) { //console.log(e);return "error" 
