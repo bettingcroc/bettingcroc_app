@@ -3,6 +3,7 @@ import Authentification from "../Authentification/Authentification";
 import { Link, Outlet } from "react-router-dom";
 import MyFriends from "../MyFriends/MyFriends";
 import MyRequests from "../MyRequests/MyRequests";
+import MyBets from "../MyBets/MyBets";
 var __mounted;
 
 class Account extends React.Component {
@@ -20,7 +21,8 @@ class Account extends React.Component {
       logged: false,
       friends: undefined,
       messageAddFriend: null,
-      cssmessageAddFriend: null
+      cssmessageAddFriend: null,
+      myBets: null
     };
     this.setPseudoReact = this.setPseudoReact.bind(this);
     this.sendFriendRequestReact = this.sendFriendRequestReact.bind(this);
@@ -34,6 +36,23 @@ class Account extends React.Component {
         <p id="hiUser">
           Hi {this.state.loaded && this.state.dataPerso !== undefined ? this.state.dataPerso[0].pseudo : ""} !
         </p>
+        <div id="myBetsAccountDiv">
+          <p className="headerTitle accountP">My Bets</p>
+
+          {this.state.myBets !== null ? this.state.myBets.map(function (item) {
+            return (
+              <div key={item.id} className="myBetsAccountDiv2">
+                <Link to={"/bet/numBet?n=" + item.id}>
+                  <div className="myBetsAccountDiv3">
+                    <p className="">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
+                    <p className="">{timeConverterDate(item.date)}</p>
+                  </div>
+                </Link>
+              </div>
+            );
+          }) : null}
+
+        </div>
         <div id="friendsDiv">
           <p className="headerTitle accountP">Friends</p>
           <div id="friendAdder">
@@ -181,9 +200,26 @@ class Account extends React.Component {
     if (this.props.friendsUpdater !== prevProps.friendsUpdater) {
       this.updateFriends()
     }
+    if (this.props.address !== undefined && this.props.address !== prevProps.address && __mounted) {
+      try {
+        console.log(this.props.address);
+        fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
+          (res) => {
+            res.json().then((data) => {
+              console.log(data)
+
+              if (__mounted) {
+                this.setState({ myBets: data });
+              }
+            });
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
   }
-
-
 }
 
 async function setPseudo(newPseudo) {
@@ -261,3 +297,12 @@ async function testLogin() {
 }
 
 export default Account;
+function timeConverterDate(UNIX_timestamp) {
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var time = date + ' ' + month + ' ' + year;
+  return time;
+}

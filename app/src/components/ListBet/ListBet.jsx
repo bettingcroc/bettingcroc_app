@@ -75,7 +75,7 @@ class ListBet extends React.Component {
                 <div key={item.betNumber}>
                   <Link to={"/bet/numBet?n=" + item.betNumber} >
                     <div className="betLineListBets">
-                      <p>{item.name}</p>
+                      <p className="nameBetListBetsP">{item.name}</p>
                       <p>{item.date}</p>
                       <p>{item.type}</p>
                     </div>

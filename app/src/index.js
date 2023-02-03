@@ -36,6 +36,7 @@ import Connecter from "./components/Connecter/Connecter";
 import MyP2PBets from "./components/MyP2PBets/MyP2PBets";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import USDTGetter from "./components/USDTGetter/USDTGetter"
+import GetGains from "./components/GetGains/GetGains";
 
 const APP_NAME = 'bettingcroc'
 const APP_LOGO_URL = 'https://testnet.bettingcroc.com/static/media/home.de3a12ee.png'
@@ -519,7 +520,6 @@ class App extends Component {
                       <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? "titleActive" : "titleInactive"}>Rankings</p></Link>
                     </div>
                   </div>
-                  <button>Get my gains</button>
                   <div id="topRight">
 
                     {//this.state.defaultAccount === undefined ? 
@@ -614,13 +614,13 @@ class App extends Component {
                   <Outlet></Outlet>
                 </div>
                 <div id="rightBar">
-                  <div id="topRightBar">
+                  <div id={this.state.mainVue === "bet" ?"topRightBar":"topRightBarElse"}>
                     {this.state.mainVue === "bet" ? <div id="underTopRightBar">
                       <button onClick={this.goPanier} className="topRightButton" id="panierP"><div id={this.state.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
                       <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id={this.state.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
                       <button onClick={this.goMyP2PBets} className="topRightButton" id="myP2PBetsP"><div id={this.state.rightBar === "myP2PBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My P2P Bets</div></button>
 
-                    </div> : null}
+                    </div> : <p className="headerTitle">Hi young Crocodile !</p>}
                   </div>
                   <div id="superMidRightBar">
                     <div id="midRightBar">
@@ -632,7 +632,8 @@ class App extends Component {
                           : this.state.rightBar === "myBets" ?
                             <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
                             : <MyP2PBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyP2PBets>
-                        : null
+                        :                   <GetGains address={this.state.defaultAccount} betContract={this.state.multiBetContract}></GetGains>
+
                       }
 
                     </div>
@@ -666,7 +667,7 @@ class App extends Component {
               <Route path="/decentrabet" element={<DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
               <Route path="/rankings" element={<Classement mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} address={this.state.defaultAccount}></Classement>}></Route>
               <Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
-              <Route path="/account" element={<Account mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
+              <Route path="/account" element={<Account betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
               <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
               <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
               <Route path="/*" element={<p>error</p>}></Route>

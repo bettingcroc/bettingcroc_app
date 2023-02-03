@@ -846,6 +846,25 @@ export const MULTIBET_ABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "getTotalMoney",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "getUSDTaddress",
 		"outputs": [
@@ -891,45 +910,6 @@ export const MULTIBET_ABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "betNumber",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "optionAgainst",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "minToEnter",
-				"type": "uint256"
-			}
-		],
-		"name": "getorderBook",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -1228,6 +1208,26 @@ export const MULTIBET_ABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "proxiableUUID",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "recupAllGains",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1541,8 +1541,21 @@ export const MULTIBET_ABI = [
 		],
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newCode",
+				"type": "address"
+			}
+		],
+		"name": "updateCode",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
-];
+]
 export const USDT_ABI = [
   {
     inputs: [],

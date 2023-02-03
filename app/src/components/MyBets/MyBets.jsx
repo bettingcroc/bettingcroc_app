@@ -11,23 +11,47 @@ class MyBets extends React.Component {
   }
   componentDidMount() {
     __mounted = true;
+    if (this.props.address !== undefined) {
+      try {
+        console.log(this.props.address);
+        this.props.betContract.methods.seeMyBets(this.props.address).call().then(result=>{
+          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "GET" ,body:result}).then(
+            (res) => {
+              res.json().then((data) => {
+                console.log(data)
+  
+                if (__mounted) {
+                  this.setState({ myBets: data });
+                }
+              });
+            }
+          );
+        })
+        
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
   componentDidUpdate(prevProps) {
-    console.log("update");
+    console.log("update myBets");
     if (this.props.address !== undefined && this.props !== prevProps && __mounted) {
       try {
         console.log(this.props.address);
-        fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
-          (res) => {
-            res.json().then((data) => {
-              console.log(data)
-
-              if (__mounted) {
-                this.setState({ myBets: data });
-              }
-            });
-          }
-        );
+        this.props.betContract.methods.seeMyBets(this.props.address).call().then(result=>{
+          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "GET" ,body:result}).then(
+            (res) => {
+              res.json().then((data) => {
+                console.log(data)
+  
+                if (__mounted) {
+                  this.setState({ myBets: data });
+                }
+              });
+            }
+          );
+        })
+        
       } catch (error) {
         console.log(error);
       }
@@ -44,10 +68,13 @@ class MyBets extends React.Component {
           return (
             <div key={item.id} className="myBetDiv">
               <Link to={"/bet/numBet?n=" + item.id}>
-                <span className="myBetUnderDiv">
-                  <p className="lineMyBetsPTitle">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
+                <div className="myBetSuperDiv">
+                  <div className="myBetUnderDiv">
+                    <p className="lineMyBetsPTitle">{item.status===0? item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]:item.optionsArray.split(",")[0]+" "+item.scoreHome + " - " + item.scoreAway+" "+item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
                   <p className="lineMyBetsPDate">{timeConverterDate(item.date)}</p>
-                </span>
+                  </div>
+                  
+                </div>
               </Link>
             </div>
           );

@@ -1720,9 +1720,9 @@ function getTodayMatches() {
 async function getTopBets() {
 	timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
-	console.log(timeNow)
+	//console.log(timeNow)
 	arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
-	console.log(arrayIndex)
+	//console.log(arrayIndex)
 	let matches = { matches: [] }
 	list = ''
 	opt = arrayIndex.length;
@@ -1733,20 +1733,20 @@ async function getTopBets() {
 			match["name"] = get_Name(arrayIndex[i]["betNumber"])
 			match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
 			match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
-			//match["moneyBetted"] = await multiBetContract.methods.getTotalMoney(i).call()
 			await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
 				.then(function (result) {
-					console.log(i)
-					console.log(result)
+					//console.log(i)
+					//console.log(result)
 					match["moneyBetted"] = result
 				})
 			matches.matches.push(match)
 		}
 		matches.matches.sort((a, b) => (BigInt(a.moneyBetted) > BigInt(b.moneyBetted) ? -1 : 1))
-		console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
+		//console.log({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 		return ({ matches: [matches.matches[0], matches.matches[1], matches.matches[2]] })
 	}
-	catch (e) { console.log(e);
+	catch (e) {
+		console.log(e);
 		//return "error" 
 	}
 
@@ -1766,8 +1766,8 @@ function getMatchInfo(id) {
 		type: type,
 		country: country,
 		league: league,
-		status:status,
-		scoreHome:scoreHome,
+		status: status,
+		scoreHome: scoreHome,
 		scoreAway
 	}
 	return matchInfos
@@ -1779,19 +1779,28 @@ function getMyScore(address) {
 
 	return null;
 }
-async function getMyBets(address) {
-	let listMatches;
-	await multiBetContract.methods.seeMyBets(address).call()
-		.then(function (result) {
-			//console.log(result)
-			listMatches = result
-		}
-		)
+async function getMyBets(listMatches) {
 	toReturn = []
 	for (m in listMatches) {
 		//console.log(m)
 		toReturn.push(getMatchInfo(listMatches[m]))
 		toReturn[m].id = listMatches[m]
+	}
+	return toReturn
+}
+
+async function getMyRecentsBets(listMatches) {
+	toReturn = []
+	date = new Date
+	date = Math.ceil(date.getTime() / 1000) - 86400
+	console.log(date)
+	for (m in listMatches) {
+		matchInfos = getMatchInfo(listMatches[m])
+		console.log(matchInfos)
+		if (date <= matchInfos.date) {
+			toReturn.push(matchInfos)
+			toReturn[m].id = listMatches[m]
+		}
 	}
 	return toReturn
 }
@@ -1820,10 +1829,10 @@ async function getMyP2PBets(address) {
 		//console.log(m)
 		toReturn.push(getMatchInfo(listMatches[m]))
 		toReturn[m].id = listMatches[m]
-		await multiBetContract.methods.seeMyP2PBetsDetail(address,numBet).call()
-		.then((res)=>{
-			toReturn[m].p2pNum=res[compteur]
-		})
+		await multiBetContract.methods.seeMyP2PBetsDetail(address, numBet).call()
+			.then((res) => {
+				toReturn[m].p2pNum = res[compteur]
+			})
 	}
 	return toReturn
 }
@@ -1856,7 +1865,8 @@ module.exports = {
 	getTopBets: getTopBets,
 	getMyRequests: getMyRequests,
 	getMyFriends: getMyFriends,
-	getMyP2PBets: getMyP2PBets
+	getMyP2PBets: getMyP2PBets,
+	getMyRecentsBets: getMyRecentsBets
 }
 //getTopBets()
 //getMyBets("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0")
