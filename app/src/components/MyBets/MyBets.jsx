@@ -15,7 +15,7 @@ class MyBets extends React.Component {
       try {
         console.log(this.props.address);
         this.props.betContract.methods.seeMyBets(this.props.address).call().then(result=>{
-          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "GET" ,body:result}).then(
+          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "POST" ,body:result}).then(
             (res) => {
               res.json().then((data) => {
                 console.log(data)
@@ -39,7 +39,7 @@ class MyBets extends React.Component {
       try {
         console.log(this.props.address);
         this.props.betContract.methods.seeMyBets(this.props.address).call().then(result=>{
-          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "GET" ,body:result}).then(
+          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "POST" ,body:result}).then(
             (res) => {
               res.json().then((data) => {
                 console.log(data)

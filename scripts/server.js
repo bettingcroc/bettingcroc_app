@@ -274,11 +274,11 @@ app.get('/api/score/:address', (req, res) => {
 })
 
 
-app.get('/api/myBets', async (req, res) => {
+app.post('/api/myBets', async (req, res) => {
   res.send(await apiServer.getMyBets(req.body.listBets))
 })
 
-app.get('/api/myRecentsBets', async (req, res) => {
+app.post('/api/myRecentsBets', async (req, res) => {
   res.send(await apiServer.getMyRecentsBets(req.body.listBets))
 })
 
