@@ -195,7 +195,7 @@ class BetComplet extends React.Component {
             <div id="underNameBet">
               <div id="countryLeagueDate">
                 <p className="headerTitle">{this.state.country} / {this.state.league}</p>
-                <p className="headerTitle">{this.state.status === 0 ? timeConverterDate(this.state.date) : <p>chrono</p>}</p>
+                <p className="headerTitle">{this.state.status === 0 ? timeConverterDate(this.state.date) : "chrono"}</p>
               </div>
               <div id="optionsSchedule">
                 <div id="option1" className="optionDiv">

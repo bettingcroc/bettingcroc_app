@@ -166,7 +166,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                 unpaidBets[i]=myBets[msgsender][i];
             }
             else{
-                unpaidBets[i]=666;
+                unpaidBets[i]=0;
             }
         }
         return unpaidBets;
@@ -338,7 +338,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         uint256 rewardsTotal=0;
         for(uint i=0;i<myBets[msgsender].length; i++) {
             uint256 betNumberIterator=getMyBetsUnpaid(msgsender)[i];
-            if(betNumberIterator!=666){
+            if(betNumberIterator!=0){
                 uint256 toBePaid;
                 if(canceled[betNumberIterator]){
                     for(uint u=0;u<numberOfOptions[betNumberIterator];u++){
@@ -414,7 +414,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         uint256 rewardsTotal=0;
         for (uint i=0; i<myBets[msg.sender].length; i++) {
             uint256 betNumberIterator=getMyBetsUnpaid(msg.sender)[i];
-            if(betNumberIterator!=666){
+            if(betNumberIterator!=0){
                 payed[betNumberIterator].push(msg.sender);
                 uint256 toBePaid;
                 if(canceled[betNumberIterator]){
@@ -431,6 +431,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                     moneyInPool[betNumberIterator][Winner[betNumberIterator]]=moneyInPool[betNumberIterator][Winner[betNumberIterator]]-moneyBetted;
                     toBePaidWon=(moneyBetted*moneyLosedOnBet[betNumberIterator])/moneyInPoolBefore;  
                     toBePaid=toBePaidWon+moneyBetted;
+                    hasUserWon[msg.sender][betNumberIterator]=true;
                     moneyLosedOnBet[betNumberIterator]=moneyLosedOnBet[betNumberIterator]-toBePaidWon; 
                     score[msg.sender]+=moneyPoolLoser[betNumberIterator]*1000000000/moneyPoolWinner[betNumberIterator]; // decimales score
                 }
@@ -737,7 +738,9 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         recupAllWin(); 
         recupAllP2PWin();
     }
-    
+    mapping(address=>mapping(uint256=>bool)) hasUserWon;
+    mapping(address=>mapping(uint256=>mapping(uint256=>bool))) hasUserWonP2P;
+
 }
 
 

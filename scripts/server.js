@@ -275,7 +275,10 @@ app.get('/api/score/:address', (req, res) => {
 
 
 app.post('/api/myBets', async (req, res) => {
-  res.send(await apiServer.getMyBets(req.body.listBets))
+  console.log(req.body)
+  betsInfos=await apiServer.getMyBets(req.body.listBets)
+  console.log(betsInfos)
+  res.send(betsInfos)
 })
 
 app.post('/api/myRecentsBets', async (req, res) => {

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 var __mounted;
+
+//TODO pas de gains détectés mais W dans myBets
 class MyBets extends React.Component {
   constructor(props) {
     super(props);
@@ -9,17 +11,58 @@ class MyBets extends React.Component {
     };
     console.log("contrsuction");
   }
-  componentDidMount() {
+  async componentDidMount() {
     __mounted = true;
     if (this.props.address !== undefined) {
       try {
         console.log(this.props.address);
-        this.props.betContract.methods.seeMyBets(this.props.address).call().then(result=>{
-          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "POST" ,body:result}).then(
+        this.props.betContract.methods.seeMyBets(this.props.address).call().then(result => {
+          fetch("https://testnet.bettingcroc.com/api/mybets/", {
+            method: "POST"
+            , body: JSON.stringify({ listBets: result })
+            , headers: {
+              "Content-Type": "application/json",
+            }
+          }).then(
             (res) => {
-              res.json().then((data) => {
+              res.json().then(async (data) => {
+                console.log("data")
                 console.log(data)
-  
+
+                console.log("data")
+                for (let b in data) {
+                  let bet = data[b]
+                  if (bet.status === 0 || bet.status === 1) {
+                    bet=Object.assign(bet,{betState:"🕗"})
+                  }
+                  else if (bet.status === 2) {
+                    await this.props.betContract.methods.didIWinSmth(bet.id, this.props.address).call().then(
+                      async (res1) => {
+                        if (res1 === true) {
+                          bet=Object.assign(bet,{betState:"W"})
+
+                        }
+                        else {
+                          await this.props.betContract.methods.getHasUserWon(this.props.address, bet.id).call().then(
+                            (res2) => {
+                              if(res2===true){
+                                bet=Object.assign(bet,{betState:"W"})
+
+                              }
+                              else{
+                                bet=Object.assign(bet,{betState:"L"})
+                              }
+                          })
+                        }
+                      }
+                    )
+                  }
+                  else {
+                    console.log("canceled bet MyBets")
+                    bet=Object.assign(bet,{betState:"✖️"})
+                  }
+                  console.log(bet)
+                }
                 if (__mounted) {
                   this.setState({ myBets: data });
                 }
@@ -27,7 +70,7 @@ class MyBets extends React.Component {
             }
           );
         })
-        
+
       } catch (error) {
         console.log(error);
       }
@@ -38,12 +81,18 @@ class MyBets extends React.Component {
     if (this.props.address !== undefined && this.props !== prevProps && __mounted) {
       try {
         console.log(this.props.address);
-        this.props.betContract.methods.seeMyBets(this.props.address).call().then(result=>{
-          fetch("https://testnet.bettingcroc.com/api/mybets/", { method: "POST" ,body:result}).then(
+        this.props.betContract.methods.seeMyBets(this.props.address).call().then(result => {
+          fetch("https://testnet.bettingcroc.com/api/mybets/", {
+            method: "POST"
+            , body: JSON.stringify({ listBets: result })
+            , headers: {
+              "Content-Type": "application/json",
+            }
+          }).then(
             (res) => {
               res.json().then((data) => {
                 console.log(data)
-  
+
                 if (__mounted) {
                   this.setState({ myBets: data });
                 }
@@ -51,7 +100,7 @@ class MyBets extends React.Component {
             }
           );
         })
-        
+
       } catch (error) {
         console.log(error);
       }
@@ -65,15 +114,21 @@ class MyBets extends React.Component {
     return (
       <div className="myBetsDiv">
         {this.state.myBets.map(function (item) {
+          console.log(item)
+          console.log(item.scoreHome)
+          console.log(item.betState)
           return (
             <div key={item.id} className="myBetDiv">
               <Link to={"/bet/numBet?n=" + item.id}>
                 <div className="myBetSuperDiv">
                   <div className="myBetUnderDiv">
-                    <p className="lineMyBetsPTitle">{item.status===0? item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]:item.optionsArray.split(",")[0]+" "+item.scoreHome + " - " + item.scoreAway+" "+item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
-                  <p className="lineMyBetsPDate">{timeConverterDate(item.date)}</p>
+                    <p className="lineMyBetsPTitle">{item.status === 0 ? item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1] : item.optionsArray.split(",")[0] + " " + item.scoreHome + " - " + item.scoreAway + " " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
+                    <p className="lineMyBetsPDate">{timeConverterDate(item.date)}</p>
                   </div>
-                  
+                  <div className="myBetUnderDiv2">
+                    <p className="betStateP">{item.betState}</p>
+                  </div>
+
                 </div>
               </Link>
             </div>

@@ -1931,20 +1931,13 @@ body {
 }
 
 .myBetUnderDiv {
-  background-color: #737791;
-  border: solid;
-  border-width: 10px;
-  border-color: white;
-  border-radius: 20px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  width: 400px;
-  height: 80px;
-  font-size: 14px;
 }
 
-.myBetUnderDiv:hover {
-  background-color: #a7aabb;
+.myBetSuperDiv:hover {
+  background-color: #9294a1;
 
 }
 
@@ -3164,4 +3157,17 @@ table.customTable thead {
 .myBetSuperDiv{
   display: flex;
   flex-direction: column;
+  background-color: #737791;
+  border: solid;
+  border-width: 10px;
+  border-color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  height: 80px;
+  font-size: 14px;
+}
+.myBetSuperDiv p{
+  margin: 0;
 }
