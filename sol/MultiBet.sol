@@ -308,7 +308,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
     
     /////////////////////////////////// WINNER REWARDS//////////////////////////////////////////////////////////////
   
-    function didIWinSmth(uint256 betNumber,address msgsender) internal view returns(bool){
+    function didIWinSmth(uint256 betNumber,address msgsender) public view returns(bool){
         if(dead[betNumber]==false && canceled[betNumber]==false){return false;}
         if(canceled[betNumber]==true){
             for(uint i=0;i<numberOfOptions[betNumber];i++){
@@ -336,24 +336,10 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
 
     function toClaimTotal(address msgsender)public view returns(uint256){
         uint256 rewardsTotal=0;
-        for(uint i=0;i<myBets[msgsender].length; i++) {
-            uint256 betNumberIterator=getMyBetsUnpaid(msgsender)[i];
-            if(betNumberIterator!=0){
-                uint256 toBePaid;
-                if(canceled[betNumberIterator]){
-                    for(uint u=0;u<numberOfOptions[betNumberIterator];u++){
-                        toBePaid+=miseBettersOn[betNumberIterator][u][msg.sender];
-                    }
-                }
-                else{
-                    uint256 toBePaidWon;
-                    uint256 moneyBetted =miseBettersOn[betNumberIterator][Winner[betNumberIterator]][msg.sender];
-                    uint256 moneyInPoolBefore=moneyInPool[betNumberIterator][Winner[betNumberIterator]];
-                    toBePaidWon=(moneyBetted*moneyLosedOnBet[betNumberIterator])/moneyInPoolBefore;  
-                    toBePaid=toBePaidWon+moneyBetted;
-                }
-                rewardsTotal=rewardsTotal+toBePaid;
-            }
+        uint256[] memory myBetsArray=getMyBetsUnpaid(msgsender);
+        for(uint i=0;i<myBetsArray.length; i++) {
+            uint256 bet=myBetsArray[i];
+            rewardsTotal+=howMuchIWon(bet,msgsender);
         }
         return rewardsTotal;
     }// dynamic array : max => nombre total de paris d'un joueur => penser à vider la liste ou à l'archiver
@@ -738,9 +724,31 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         recupAllWin(); 
         recupAllP2PWin();
     }
+
     mapping(address=>mapping(uint256=>bool)) hasUserWon;
+
     mapping(address=>mapping(uint256=>mapping(uint256=>bool))) hasUserWonP2P;
 
+    function getHasUserWon (address msgsender,uint256 betNumber) view public returns (bool){
+        return hasUserWon[msgsender][betNumber];
+    }
+
+    function getHasUserWonP2P (address msgsender,uint256 betNumber, uint256 p2pBetNumber) view public returns (bool){
+        return hasUserWonP2P[msgsender][betNumber][p2pBetNumber];
+    }
+    function didIWinSmthP2P(uint256 betNumber,address msgsender,uint256 p2pNumber) public view returns(bool){
+        if((dead[betNumber]==false && canceled[betNumber]==false)||isInArrayAddress(msgsender,payedP2P[betNumber][p2pNumber])==true){return false;}
+        if(canceled[betNumber]==true){       
+            return isInArrayUint256(p2pNumber,seeMyP2PBetsDetail(msgsender,betNumber));
+        }
+        if(p2pBets[betNumber][p2pNumber].optionCreator==getWinner(betNumber) && p2pBets[betNumber][p2pNumber].creator==msgsender){
+            return true;
+        }
+        if(p2pBets[betNumber][p2pNumber].optionCreator!=getWinner(betNumber) && p2pBets[betNumber][p2pNumber].creator!=msgsender && isInArrayUint256(p2pNumber,seeMyP2PBetsDetail(msgsender,betNumber))){
+            return true;
+        }
+        return false;
+    }
 }
 
 

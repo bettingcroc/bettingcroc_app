@@ -658,6 +658,35 @@ export const MULTIBET_ABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betNumber",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "msgsender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "p2pNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "didIWinSmthP2P",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "ENDER_ROLE",
 		"outputs": [
@@ -755,11 +784,6 @@ export const MULTIBET_ABI = [
 				"internalType": "uint256",
 				"name": "betNumber",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "p2pBetNumber",
-				"type": "uint256"
 			}
 		],
 		"name": "getHasUserWon",
@@ -784,9 +808,14 @@ export const MULTIBET_ABI = [
 				"internalType": "uint256",
 				"name": "betNumber",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "p2pBetNumber",
+				"type": "uint256"
 			}
 		],
-		"name": "getHasUserWon",
+		"name": "getHasUserWonP2P",
 		"outputs": [
 			{
 				"internalType": "bool",

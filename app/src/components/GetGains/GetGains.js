@@ -38,6 +38,8 @@ componentDidUpdate(prevProps) {
   if ((prevProps.address !== this.props.address || prevProps.betContract !== this.props.betContract) && this.props.betContract !== undefined) {
     try {
       this.props.betContract.methods.toClaimTotal(this.props.address).call().then(result => {
+        console.log(result)
+        console.log("toClaimTotal "+this.props.address)
         this.setState({ gainsFromGeneral: parseFloat(result) / decimalsConverter(10) })
         this.props.betContract.methods.howMuchIWonP2P(this.props.address).call().then(result2 => {
           console.log(result+" "+result2+" ent")
@@ -80,7 +82,7 @@ getGains(){
 render() {
   return (
     <div>
-      <button onClick={this.getGains} id={this.state.won?"getGains":"getGainsLose"}>{this.state.won?"Get"+this.state.gains+" USDT !":"Waiting for some money"}</button>
+      <button onClick={this.getGains} id={this.state.won?"getGains":"getGainsLose"}>{this.state.won?"Get "+this.state.gains+" USDT !":"Waiting for some money"}</button>
     </div>
   );
 }

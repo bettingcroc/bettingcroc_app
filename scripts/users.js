@@ -1738,7 +1738,7 @@ function get_Classement_address(address) {
 	let select = db.prepare(`select position,score,pseudo from(select row_number() over (order by score desc) as position,address,score,pseudo from players )  where address='${address}'`);
 	let result = select.get();
 	if (result) return result;
-}//TODO réparer
+}
 
 function update_Pseudo(address, pseudo) {
 	db.prepare(`update players set pseudo='${pseudo}' where address='${address}'`).run();

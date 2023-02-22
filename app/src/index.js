@@ -151,10 +151,8 @@ class App extends Component {
     }
     const accounts = await web3.eth.getAccounts();
     this.setState({ defaultAccount: accounts[0] });
-    console.log("this.state.defaultAccount")
-    console.log(this.state.defaultAccount)
-    console.log("this.state.defaultAccount")
-    if (this.state.defaultAccount !== undefined) {
+
+    /*if (this.state.defaultAccount !== undefined) {
       const socket = io('https://testnet.bettingcroc.com')
       this.setState({ socket: socket })
       socket.on('connect', () => console.log("connected to server with " + socket.id))
@@ -183,13 +181,9 @@ class App extends Component {
       socket.on('connect_error', () => {
         setTimeout(() => socket.connect(), 5000)
       })
-      console.log("this.state.defaultAccount")
-      console.log(this.state.defaultAccount)
-
-      console.log("this.state.defaultAccount")
       socket.emit('joinRoom', this.state.defaultAccount.toLowerCase())
       socket.on('disconnect', () => console.log('server disconnected'))
-    }
+    }*/
 
 
     const multiBetContract = new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS);
@@ -244,7 +238,7 @@ class App extends Component {
     console.log("update index")
     if (window.ethereum) {
       if (window.ethereum.networkVersion != 97) {
-        console.log("bad chain : " + window.ethereum.networkVersion)
+        //console.log("bad chain : " + window.ethereum.networkVersion)
         //if (this.state.showPopup == false && this.state.switchChainPending == false) { this.togglePopup(); this.setState({ switchChainPending: true }); }
         //if (this.state.switchChainPending == false) { this.chainChanger(); this.setState({ switchChainPending: true }); }
       }
@@ -256,7 +250,6 @@ class App extends Component {
       window.ethereum.on('accountsChanged', () => {
         let url = "https://testnet.bettingcroc.com/logout";
 
-        console.log(url);
         let options = {
           method: "POST",
         };
@@ -276,14 +269,14 @@ class App extends Component {
   };
   connectWalletHandler = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
-      console.log("MetaMask Here!");
+      //console.log("MetaMask Here!");
 
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
           this.state.web3.setProvider(Web3.givenProvider)
           this.accountChangedHandler(result[0]);
-          console.log(result[0])
+          //console.log(result[0])
           this.setState({ connButtonText: "Wallet Connected" });
           //getAccountBalance(result[0]);
         })
@@ -302,9 +295,7 @@ class App extends Component {
       await provider.enable();
       this.state.web3.setProvider(provider)
       this.state.web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
-      console.log("provider2")
-      console.log(provider)
-      console.log("provider2")
+
     }
     catch (e) {
       provider = new WalletConnectProvider({
@@ -332,9 +323,6 @@ class App extends Component {
       });
     // Initialize a Web3 object
     this.state.web3.setProvider(ethereum)
-    console.log("web3CB.eth.getBlock()")
-    this.state.web3.eth.getBlock("latest").then(console.log);
-    console.log("web3CB.eth.getBlock()")
   }
   async logoutReact() {
     await logout()
@@ -346,28 +334,27 @@ class App extends Component {
     this.state.web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
     localStorage.clear();
 
-    //TODO Disconnect button
   }
   allowancesSetter() {
     try {
-      console.log(this.state.defaultAccount)
-      this.state.USDTContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => { this.setState({ usdtAllowed: parseFloat(result) / decimalsConverter(10) }); console.log("usdt allowed " + result) })
+      this.state.USDTContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => { this.setState({ usdtAllowed: parseFloat(result) / decimalsConverter(10) }); //console.log("usdt allowed " + result) 
+    })
     }
     catch (error) {
       //console.log(error)
       console.log("no wallet connected")
     }
     try {
-      console.log(this.state.defaultAccount)
-      this.state.mbtContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => { this.setState({ mbtAllowed: parseFloat(result) / decimalsConverter(10) }); console.log("mbt allowed " + result) })
+      this.state.mbtContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => { this.setState({ mbtAllowed: parseFloat(result) / decimalsConverter(10) });// console.log("mbt allowed " + result)
+     })
     }
     catch (error) {
       //console.log(error)
       console.log("no wallet connected")
     }
     try {
-      console.log(this.state.defaultAccount)
-      this.state.USDTContract.methods.balanceOf(this.state.defaultAccount).call().then((result) => { this.setState({ balanceUSDT: parseFloat(result) / decimalsConverter(10) }); console.log("usdt balance " + result) })
+      this.state.USDTContract.methods.balanceOf(this.state.defaultAccount).call().then((result) => { this.setState({ balanceUSDT: parseFloat(result) / decimalsConverter(10) }); //console.log("usdt balance " + result)
+     })
     }
     catch (error) {
       //console.log(error)

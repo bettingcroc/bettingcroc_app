@@ -806,7 +806,7 @@ body {
   flex-grow: 0;
 }
 
-#topRightBarElse{
+#topRightBarElse {
   width: 420px;
   height: 85px;
   display: flex;
@@ -1549,9 +1549,9 @@ body {
   display: none;
 }
 
-#option1P {}
+#optionPWinner {font-weight: bold;}
 
-#option2P {}
+#optionPLoser {}
 
 .optionDiv {
   display: flex;
@@ -3147,6 +3147,7 @@ table.customTable thead {
   border-radius: 10px;
   border: none;
 }
+
 #getGainsLose {
   background-color: #868686;
   color: black;
@@ -3154,7 +3155,8 @@ table.customTable thead {
   border-radius: 10px;
   border: none;
 }
-.myBetSuperDiv{
+
+.myBetSuperDiv {
   display: flex;
   flex-direction: column;
   background-color: #737791;
@@ -3168,6 +3170,12 @@ table.customTable thead {
   height: 80px;
   font-size: 14px;
 }
-.myBetSuperDiv p{
+
+.myBetSuperDiv p {
   margin: 0;
+}
+
+.betStateP {
+  width: fit-content;
+  padding-left: 10px;
 }

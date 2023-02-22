@@ -195,12 +195,12 @@ class BetComplet extends React.Component {
             <div id="underNameBet">
               <div id="countryLeagueDate">
                 <p className="headerTitle">{this.state.country} / {this.state.league}</p>
-                <p className="headerTitle">{this.state.status === 0 ? timeConverterDate(this.state.date) : "chrono"}</p>
+                <p className="headerTitle">{this.state.status === 0 ? timeConverterDate(this.state.date) : this.state.status === 2 ? null :"chrono"}</p>
               </div>
               <div id="optionsSchedule">
                 <div id="option1" className="optionDiv">
 
-                  <p id="option1P" className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[0]}</p>
+                  <p id={this.state.status===2 && this.state.scoreHome>this.state.scoreAway?"optionPWinner":"option1P"} className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[0]}</p>
 
                 </div>
                 {this.state.status === 0 ? <div id="schedule">
@@ -213,7 +213,7 @@ class BetComplet extends React.Component {
 
                   </div>}
                 <div id="option2" className="optionDiv">
-                  <p id="option2P" className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[this.state.optionsArray.split(",").length - 1]}</p>
+                  <p id={this.state.status===2 && this.state.scoreHome<this.state.scoreAway?"optionPWinner":"option2P"} className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[this.state.optionsArray.split(",").length - 1]}</p>
                 </div>
               </div>
             </div>
