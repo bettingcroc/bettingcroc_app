@@ -248,7 +248,7 @@ body {
   border-color: #F4F7F9;
 }
 
-.betComplet {
+.betCompletOpen {
   /* Frame 1000002782 */
 
   /* Auto layout */
@@ -262,7 +262,19 @@ body {
   top: 90px;
 
 }
+.betComplet {
+  /* Frame 1000002782 */
 
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+
+
+}
 #underLeftBar {
   /* Frame 1000002777 */
 
@@ -660,12 +672,24 @@ body {
   order: 3;
   flex-grow: 0;
 }
-
-#p2p2 {
+#p2p2Open {
   /* Todays Sales */
 
   width: 100%;
   height: 222px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+  margin-bottom: 30px;
+}
+#p2p2 {
+  /* Todays Sales */
+
+  width: calc(50% - 10px);;
+  height: 396px;
 
 
   /* Inside auto layout */
@@ -687,7 +711,7 @@ body {
   padding: 23px 31px;
   gap: 10px;
 
-  height: 222px;
+  height: 100%;
 
 
   background: #FFFFFF;
@@ -698,7 +722,6 @@ body {
 
 #p2pcreator {
   /* Todays Sales */
-
   width: calc(50% - 10px);
   height: 386px;
 
@@ -1549,7 +1572,7 @@ body {
   display: none;
 }
 
-#optionPWinner {font-weight: bold;}
+#optionPWinner {font-weight: normal;}
 
 #optionPLoser {}
 
@@ -1693,10 +1716,18 @@ body {
 .teamTitle {}
 
 .buttonTeamTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 30px;
   border-radius: 5px;
   background-color: #ECE572;
   border: none;
+  padding-left: 4px;
+  padding-right: 4px;
+  text-align: center;
+  width: 220px;
 }
 
 #superNewP2P {
@@ -2063,6 +2094,10 @@ a:hover {
 }
 
 #buttonCoteP2P {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 32px;
   width: 100px;
   border-radius: 5px;
@@ -3178,4 +3213,26 @@ table.customTable thead {
 .betStateP {
   width: fit-content;
   padding-left: 10px;
+}
+#optionWinner{
+  border-radius: 14px;
+  background-color: rgb(83, 155, 87, 0.3);
+}
+#superBetComplet{
+  display: flex;
+  flex-direction: column;
+}
+.buttonTeamTitleDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgb(236, 229, 114, 0.3);
+  border: none;
+  padding-left: 4px;
+  padding-right: 4px;
+  text-align: center;
+  width: 220px;
 }

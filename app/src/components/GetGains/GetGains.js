@@ -45,6 +45,8 @@ componentDidUpdate(prevProps) {
           console.log(result+" "+result2+" ent")
           this.setState({ gainsFromP2P: parseFloat(result2) / decimalsConverter(10) })
           this.setState({ gains: parseFloat(result) / decimalsConverter(10) + parseFloat(result2) / decimalsConverter(10) })
+          console.log("gains G "+this.state.gainsFromGeneral )
+          console.log("gains P "+this.state.gainsFromP2P )
           if(this.state.gains>0){
             this.setState({won:true})
           }

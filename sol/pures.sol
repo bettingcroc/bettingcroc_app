@@ -18,6 +18,16 @@ contract Pures{
         return false;
     }
     
+    function isInArrayArray(uint256[2] memory element, uint256[2][] memory list) public pure returns (bool) {
+        
+        for (uint i=0; i<list.length; i++) {
+            if (list[i][0]==element[0] && list[i][1]==element[1]){
+                return true;
+            }
+        }
+        return false;
+    }
+
     function isInArrayUint256(uint256 element, uint256[] memory list) public pure returns (bool) {
         
         for (uint i=0; i<list.length; i++) {

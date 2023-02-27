@@ -77,7 +77,7 @@ class P2PFinder extends React.Component {
                 }
               });
           } else {
-            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); this.props.setP2PdisplayArgs(["indispo", "indispo", "indispo"]) }
+            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); this.props.setP2PdisplayArgs([{6:this.state.selectedOption}, "indispo", "indispo"]) }
           }
         });
     } catch (error) {

@@ -75,6 +75,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
     mapping(uint256=>bool) dead;
     mapping(uint256=>bool) canceled;
     mapping(uint256 => mapping(uint256=> uint256)) moneyInPool;
+
     mapping(uint256 => mapping(uint256 => mapping (address => uint256))) miseBettersOn;
     mapping(uint256 => uint256) Winner;
     uint256 fees;
@@ -180,12 +181,12 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         }
         
     }
-    function getUSDTaddress()public view returns(address){
+    /*function getUSDTaddress()public view returns(address){
         return USDTaddress;
     }
     function getMBTaddress()public view returns(address){
         return MBTaddress;
-    }
+    }*/
     ///////////////////////////////////////// BET ON //////////////////////////////////////////
     function payMBToken (address winnerAddress,uint256 amount) internal {
         MBTokenContract.transfer(winnerAddress,amount);
@@ -251,6 +252,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         for (uint i=0; i<numberOfOptions[betNumber]; i++){
             uint256 feesPool;
             if(i!=poolWin){
+                moneyInPoolEnd[betNumber][i]=moneyInPool[betNumber][i];
                 feesPool=moneyInPool[betNumber][i]*fees/100;
                 feesBet=feesBet+feesPool;
                 moneyInPool[betNumber][i]=moneyInPool[betNumber][i]-feesPool;
@@ -275,6 +277,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                 for (uint u=0; u<numberOfOptions[betNumber]; u++){
                     uint256 feesPool;
                     if(u!=poolwinners[i]){
+                        moneyInPoolEnd[betNumber][u]=moneyInPool[betNumber][u];
                         feesPool=moneyInPool[betNumber][u]*fees/100;
                         feesBet=feesBet+feesPool;
                         moneyInPool[betNumber][u]=moneyInPool[betNumber][u]-feesPool;
@@ -558,37 +561,63 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
 
     function howMuchIWonP2P(address msgsender)public view returns(uint256){
         uint256 rewardsTotal=0;
+        uint256 lengthArray = seeMyP2PBets(msgsender).length;
+        uint256 indexArray=0;
+        uint256 zero=0;
+        uint256[2][] memory payedSimuler=new uint256[2][](lengthArray);
+        for(uint i=0;i<lengthArray;i++){
+            payedSimuler[i]=[zero,zero];
+        }
         for(uint i=0;i<myP2Pbets[msgsender].length;i++){
+            //bool userWon=false;
             uint256 betNum=myP2Pbets[msgsender][i];
             if(isDead(betNum)){
                 for(uint o=0;o<myP2PbetsDetails[msgsender][betNum].length;o++){
                     uint256 p2pNum=myP2PbetsDetails[msgsender][betNum][o];
-                    if(!isInArrayAddress(msgsender,payedP2P[betNum][p2pNum])){
-                        if(msgsender==p2pBets[betNum][p2pNum].creator && getWinner(betNum)==p2pBets[betNum][p2pNum].optionCreator){ // remplacer o par myP2PbetsDetails[msgsender][i][o]
+                    //if(!isInArrayArray([betNum,p2pNum],payedSimuler)){
+                    if(!isInArrayAddress(msgsender,payedP2P[betNum][p2pNum]) && !isInArrayArray([betNum,p2pNum],payedSimuler)){
+                        if(msgsender==p2pBets[betNum][p2pNum].creator && getWinner(betNum)==p2pBets[betNum][p2pNum].optionCreator){
+                            payedSimuler[indexArray]=[betNum,p2pNum];
+                            indexArray++;
                             uint256 toPay=p2pBets[betNum][p2pNum].cote-p2pBets[betNum][p2pNum].amountToEnter+p2pBets[betNum][p2pNum].amountBet;
                             rewardsTotal+=toPay;
+                            //userWon=true;
+                        }
+                        if(msgsender==p2pBets[betNum][p2pNum].creator && getWinner(betNum)!=p2pBets[betNum][p2pNum].optionCreator){
+                            payedSimuler[indexArray]=[betNum,p2pNum];
+                            indexArray++;
+                            uint256 toPay=(p2pBets[betNum][p2pNum].amountBet*p2pBets[betNum][p2pNum].amountToEnter)/p2pBets[betNum][p2pNum].cote;
+                            rewardsTotal+=toPay;
+                            //userWon=false;
                         }
                         if(amountBetted[betNum][p2pNum][msgsender]>0 && getWinner(betNum)!=p2pBets[betNum][p2pNum].optionCreator){
+                            payedSimuler[indexArray]=[betNum,p2pNum];
+                            indexArray++;
                             uint256 toPay=amountBetted[betNum][p2pNum][msgsender]*p2pBets[betNum][p2pNum].amountBet;
                             rewardsTotal+=toPay/p2pBets[betNum][p2pNum].cote+amountBetted[betNum][p2pNum][msgsender];
+                            //userWon=true;
                         }
                     }
-                }
+                }// dynamic array : max => nombre de p2p bets sur un pari
             }
             if(canceled[betNum]){
                 for(uint o=0;o<myP2PbetsDetails[msgsender][betNum].length;o++){
                     uint256 p2pNum=myP2PbetsDetails[msgsender][betNum][o];
-                    if(!isInArrayAddress(msgsender,payedP2P[betNum][p2pNum])){
+                    if(!isInArrayAddress(msgsender,payedP2P[betNum][p2pNum]) && !isInArrayArray([betNum,p2pNum],payedSimuler)){
                         if(msgsender==p2pBets[betNum][p2pNum].creator){
+                            payedSimuler[indexArray]=[betNum,p2pNum];
+                            indexArray++;
                             rewardsTotal+=p2pBets[betNum][p2pNum].amountBet;
                         }
                         if(amountBetted[betNum][p2pNum][msgsender]>0){
+                            payedSimuler[indexArray]=[betNum,p2pNum];
+                            indexArray++;
                             rewardsTotal+=amountBetted[betNum][p2pNum][msgsender];
                         }
                     }
-                }
+                }// dynamic array : max => nombre de p2p bets sur un pari
             }
-        }// dynamic array : max =>  nombre max de p2Pbet d'un joueur
+        }
         return rewardsTotal;
     }
 
@@ -641,71 +670,6 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         }// dynamic array : max => nombre max de p2p bets sur un bet
         return maxBet;
     }
-    /*function getorderBook(uint256 betNumber,uint256 optionAgainst,uint256 minToEnter)public view returns(uint256[] memory,uint256[] memory,uint256[] memory){
-        uint256[] memory maxCoteNums=new uint256[](5);
-        uint256[] memory maxCotes=new uint256[](5);
-        uint256[] memory volume=new uint256[](5);
-        for(uint i=0;i<5;i++){
-            maxCoteNums[i]=0;
-            volume[i]=0;
-            maxCotes[i]=0;
-        }
-        for(uint i=1;i<p2pBets[betNumber].length;i++){
-            if(
-                (10000*p2pBets[betNumber][i].amountBet)/p2pBets[betNumber][i].cote
-                >
-                (10000*p2pBets[betNumber][getLowerIndexMinimum(maxCotes)].amountBet)/p2pBets[betNumber][getLowerIndexMinimum(maxCotes)].cote
-                &&
-                p2pBets[betNumber][i].optionCreator==optionAgainst
-                &&
-                minToEnter<=p2pBets[betNumber][i].amountToEnter
-                &&
-                p2pBets[betNumber][i].amountToEnter>0
-            )
-            {
-                maxCotes[getLowerIndexMinimum(maxCotes)]=(10000*p2pBets[betNumber][i].amountBet)/p2pBets[betNumber][i].cote;
-            }
-        }
-        maxCotes=sort(maxCotes);
-        for(uint i=0;i<5;i++){
-            uint cote=maxCotes[i];
-            for(uint u=1;u<p2pBets[betNumber].length;u++){
-                if(
-                    (10000*p2pBets[betNumber][u].amountBet)/p2pBets[betNumber][u].cote==cote
-                    &&
-                    p2pBets[betNumber][u].optionCreator==optionAgainst
-                    &&
-                    minToEnter<=p2pBets[betNumber][u].amountToEnter
-                    &&
-                    p2pBets[betNumber][u].amountToEnter>0)
-                    {
-                    volume[i]++;
-                }
-            }
-        }
-        uint rempli=0;
-        for(uint i=0;i<5;i++){
-            uint cote=maxCotes[i];
-            for(uint u=1;u<p2pBets[betNumber].length;u++){
-                if(
-                    cote==(10000*p2pBets[betNumber][u].amountBet)/p2pBets[betNumber][u].cote
-                    &&
-                    p2pBets[betNumber][u].optionCreator==optionAgainst
-                    &&
-                    minToEnter<=p2pBets[betNumber][u].amountToEnter
-                    &&
-                    p2pBets[betNumber][u].amountToEnter>0
-                ){
-                    maxCoteNums[rempli]=u;
-                    rempli++;
-                }
-                if(rempli==5){
-                    break;
-                }
-            }
-        }
-        return (maxCoteNums,volume,maxCotes);
-    }*/
 
     function getScore(address msgsender) public view returns(uint256){
         return score[msgsender];
@@ -749,6 +713,12 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         }
         return false;
     }
+    mapping(uint256 => mapping(uint256=> uint256)) moneyInPoolEnd;
+    
+    function getMoneyInPoolEnd(uint256 betNumber,uint256 option)public view returns (uint256){
+        return moneyInPoolEnd[betNumber][option];
+    }
+
 }
 
 

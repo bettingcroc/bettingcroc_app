@@ -198,6 +198,8 @@ class App extends Component {
     this.accountChangedHandler(accounts[0])
     this.setState({ loading: false });
     this.setState({ balanceUSDT: null })
+    multiBetContract.methods.howMuchIWonP2P("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0").call().then(ew => {console.log(ew);console.log("index")})
+
   }
 
   togglePopup() {

@@ -15,54 +15,22 @@ class P2PBetOption extends React.Component {
       amountToBet: 0,
       betNumberP2P: null,
     };
-    this.searchCote = this.searchCote.bind(this);
-    //this.betOnThisOption = this.betOnThisOption.bind(this);
-    this.approveUSDT = this.approveUSDT.bind(this);
     this.openModalInviter = this.openModalInviter.bind(this)
     this.closeModalInviter = this.closeModalInviter.bind(this);
   }
   componentDidMount() {
+    console.log(this.props.status)
+
     __mounted = true;
-    this.searchCote(0);
+    //this.searchCote(0);
+  }
+  componentDidUpdate(){
+    console.log(this.props)
   }
   componentWillUnmount() {
     __mounted = false
   }
-  searchCote(minToEnter) {
-    try {
-      this.props.betContract.methods
-        .getMaxCote(this.props.betNumber, this.props.optionNumber, minToEnter)
-        .call()
-        .then((result) => {
-          if (parseInt(result) !== 0) {
-            this.props.betContract.methods
-              .seeP2PBet(this.props.betNumber, result)
-              .call()
-              .then((result2) => {
-                //console.log(result2)
-                if (__mounted) {
-                  this.setState({
-                    bestCote: parseFloat(
-                      1 + Object.values(result2)[2] / Object.values(result2)[3]
-                    ).toFixed(2),
-                  });
-                  this.setState({
-                    bettable: (
-                      parseFloat(Object.values(result2)[4]) /
-                      decimalsConverter(10)
-                    ).toFixed(2),
-                  });
-                  this.setState({ betNumberP2P: result });
-                }
-              });
-          } else {
-            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); }
-          }
-        });
-    } catch (error) {
-      //console.log(error);
-    }
-  }
+
   orderBook(minToEnter) {
     try {
       this.props.betContract.methods
@@ -75,14 +43,7 @@ class P2PBetOption extends React.Component {
       console.log(error);
     }
   }
-  approveUSDT(amount) {
-    this.props.usdtContract.methods
-      .approve("0x33844f8042D7980C7060067562a11b14F278018e", weiconvert(amount))
-      .send({ from: this.props.address })
-      .once("receipt", (receipt) => {
-        console.log("approve success");
-      });
-  }
+
   openModalInviter() {
     this.setState({ modalInviterOpened: true })
   }
@@ -91,20 +52,20 @@ class P2PBetOption extends React.Component {
   }
   render() {
     return (
-      <div id="p2p2">
+      <div id={this.props.status === 0 ? "p2p2Open" : "p2p2"}>
         <div id="myP2P">
           <div id="p2p2Box1">
             <p id="line1P2POption">P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
-            <div className="friendInviterTrigger">
+            {this.props.logged && this.props.status===0 ? <div className="friendInviterTrigger">
               <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
               <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
-            </div>
+            </div> : null}
 
           </div>
           <div id="p2p2Box2">
             <div id="line2P2POption">
               <p>Best cote : </p>
-              <button
+              {this.props.status === 0 ? <button
                 id="buttonCoteP2P"
                 className="button"
                 onClick={(event) => {
@@ -127,7 +88,9 @@ class P2PBetOption extends React.Component {
                 }}
               >
                 <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
-              </button>
+              </button> : <div id="buttonCoteP2P"
+                className="button">                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
+              </div>}
             </div>
             <div id="line3P2POption">
               <p>Amount bettable : </p>

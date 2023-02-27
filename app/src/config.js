@@ -906,6 +906,30 @@ export const MULTIBET_ABI = [
 				"internalType": "uint256",
 				"name": "betNumber",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "option",
+				"type": "uint256"
+			}
+		],
+		"name": "getMoneyInPoolEnd",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "betNumber",
+				"type": "uint256"
 			}
 		],
 		"name": "getMoneyLosedOnBet",
@@ -1323,6 +1347,30 @@ export const MULTIBET_ABI = [
 			}
 		],
 		"name": "isInArrayAddress",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256[2]",
+				"name": "element",
+				"type": "uint256[2]"
+			},
+			{
+				"internalType": "uint256[2][]",
+				"name": "list",
+				"type": "uint256[2][]"
+			}
+		],
+		"name": "isInArrayArray",
 		"outputs": [
 			{
 				"internalType": "bool",
