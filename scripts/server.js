@@ -252,7 +252,7 @@ app.get('/api/classement', (req, res) => {
   res.send(apiServer.get10MaxScore())
 })
 app.get('/api/score/:address', (req, res) => {
-  console.log('GET /api/score/'+req.params.address)
+  //console.log('GET /api/score/'+req.params.address)
   address = req.params.address.toLowerCase()
   //console.log(address)
   let position = users.get_Classement_address(address);

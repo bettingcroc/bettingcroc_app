@@ -152,7 +152,7 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts();
     this.setState({ defaultAccount: accounts[0] });
 
-    /*if (this.state.defaultAccount !== undefined) {
+    if (this.state.defaultAccount !== undefined) {
       const socket = io('https://testnet.bettingcroc.com')
       this.setState({ socket: socket })
       socket.on('connect', () => console.log("connected to server with " + socket.id))
@@ -183,7 +183,7 @@ class App extends Component {
       })
       socket.emit('joinRoom', this.state.defaultAccount.toLowerCase())
       socket.on('disconnect', () => console.log('server disconnected'))
-    }*/
+    }
 
 
     const multiBetContract = new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS);
