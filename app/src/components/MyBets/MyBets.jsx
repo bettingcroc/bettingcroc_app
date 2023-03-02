@@ -82,7 +82,7 @@ class MyBets extends React.Component {
   }
   componentDidUpdate(prevProps) {
     console.log("update myBets");
-    if (this.props.address !== undefined && this.props !== prevProps && __mounted) {
+    /*if (this.props.address !== undefined && this.props !== prevProps && __mounted) {
       try {
         this.props.betContract.methods.seeMyBets(this.props.address).call().then(result => {
           //console.log("call2")
@@ -109,7 +109,7 @@ class MyBets extends React.Component {
       } catch (error) {
         console.log(error);
       }
-    }
+    }*/
   }
   componentWillUnmount() {
     __mounted = false;
@@ -118,7 +118,7 @@ class MyBets extends React.Component {
   render() {
     return (
       <div className="myBetsDiv">
-        {this.state.myBets.map(function (item) {
+        {this.state.myBets.length===0?<div className="lds-dual-ring"></div>:this.state.myBets.map(function (item) {
           return (
             <div key={item.id} className="myBetDiv">
               <Link to={"/bet/numBet?n=" + item.id}>
@@ -153,6 +153,6 @@ function timeConverterDate(UNIX_timestamp) {
   var year = a.getFullYear();
   var month = a.getMonth();
   var date = a.getDate();
-  var time = date + '/' + month + '/' + year;
+  var time = date + '/' + (month+1) + '/' + year;
   return time;
 }

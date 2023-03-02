@@ -114,11 +114,15 @@ function run() {
             //console.log(receipt);
             console.log('tx ' + tx);
             tx++;
-
+            let newBets=[]
+            for(let e in receipt.events.newBetCreated)
+            {
+                newBets.push(receipt.events.newBetCreated[e].returnValues.betNumber)
+            }
             for (a = 0; a < JSON.parse(response.body).results; a++) {
               let nameHome = JSON.parse(response.body).response[a].teams.home.name;
               let nameAway = JSON.parse(response.body).response[a].teams.away.name;
-              let betNumber = model.get_MaxBet() + 1;
+              let betNumber = newBets[a]
               let timestamp;
               let nameBet;
               let country;

@@ -1978,6 +1978,7 @@ body {
   flex-direction: column;
   overflow: scroll;
   height: 505px;
+  align-items: center;
 }
 
 .lineMyBetsPTitle {
@@ -2623,6 +2624,7 @@ table.customTable thead {
 
 #accountDisplay {
   margin: 0;
+  height: fit-content;
 }
 
 #allowancesMain {
@@ -2639,6 +2641,7 @@ table.customTable thead {
   display: flex;
   flex-direction: row;
   gap: 10px;
+  align-items: center;
 }
 
 #hiUser {
@@ -3235,4 +3238,31 @@ table.customTable thead {
   padding-right: 4px;
   text-align: center;
   width: 220px;
+}
+.dateListBet{
+  font-weight: bold;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #000;
+  border-color: #000 transparent #000 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
