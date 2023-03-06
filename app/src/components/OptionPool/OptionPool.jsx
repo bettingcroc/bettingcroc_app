@@ -12,7 +12,6 @@ class OptionPool extends React.Component {
       loaded: false
     }
     //this.betOnThisOption = this.betOnThisOption.bind(this)
-    this.approveUSDT = this.approveUSDT.bind(this)
     this.setBet = this.setBet.bind(this)
   }
   componentDidMount() {
@@ -20,20 +19,36 @@ class OptionPool extends React.Component {
     console.log("mount OptionPool " + this.props.optionNumber)
     __mounted = true
     try {
-      this.props.betContract.methods
-        .getOptionMoney(this.props.betNumber, this.props.optionNumber)
-        .call()
-        .then((result) => {
-          //console.log(result)
-          try {
-            if (__mounted) { this.setState({ moneyInPool: result }); }
+      if (this.props.status !== 2) {
+        this.props.betContract.methods
+          .getOptionMoney(this.props.betNumber, this.props.optionNumber)
+          .call()
+          .then((result) => {
+            //console.log(result)
+            try {
+              if (__mounted && this.state.loaded === false) { this.setState({ moneyInPool: result }); }
 
-          } catch (error) { }
-        });
+            } catch (error) { }
+          });
+      }
+      else {
+        this.props.betContract.methods
+          .getMoneyInPoolEnd(this.props.betNumber, this.props.optionNumber)
+          .call()
+          .then((result) => {
+            //console.log(result)
+            try {
+              if (__mounted && this.state.loaded === false) { this.setState({ moneyInPool: result }); }
+
+            } catch (error) { }
+          });
+      }
+
+
     } catch (error) { }
     try {
       this.props.betContract.methods
-        .howMuchIGotOnAnOption(this.props.betNumber, this.props.optionNumber, this.props.address)
+        .getMiseBettersOnEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
         .call()
         .then((result) => {
           try {
@@ -75,6 +90,17 @@ class OptionPool extends React.Component {
 
       } catch (error) { }
       try {
+        this.props.betContract.methods
+          .getMiseBettersOnEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
+          .call()
+          .then((result) => {
+            try {
+              if (__mounted) { this.setState({ moneyIgot: result }); }
+  
+            } catch (error) { }
+          });
+      } catch (error) { }
+      /*try {
         if (this.props.status !== 2) {
           this.props.betContract.methods
             .getOptionMoney(this.props.betNumber, this.props.optionNumber)
@@ -99,21 +125,16 @@ class OptionPool extends React.Component {
               } catch (error) { }
             });
         }
-      } catch (error) { }
+      } catch (error) { }*/
       //console.log(prevProps.moneyInOtherPools !== this.props.moneyInOtherPools)
 
 
     }
+    console.log(this.props.address)
   }
   componentWillUnmount() {
     __mounted = false
     console.log("unmount OptionPool " + this.props.team)
-  }
-  approveUSDT(amount) {
-    this.props.usdtContract.methods.approve("0x33844f8042D7980C7060067562a11b14F278018e", weiconvert(amount)).send({ from: this.props.address })
-      .once('receipt', (receipt) => {
-        console.log("approve success")
-      })
   }
 
   setBet() {
@@ -138,7 +159,7 @@ class OptionPool extends React.Component {
           <p>To win : {this.props.moneyInOtherPools == null ? null : ((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))).toFixed(2)}</p>
           <p>Cote : {this.props.moneyInOtherPools == null ? null : (((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))) / parseFloat(this.props.amountToBet) + 1).toFixed(2)}</p>
         </div> : null}
-        <p>{parseFloat(this.state.moneyInPool) / decimalsConverter(10)} USDT (got {parseFloat(this.state.moneyIgot) / decimalsConverter(10)} USDT)</p>
+        <p>{parseFloat(this.state.moneyInPool) / decimalsConverter(10)} USDT {this.props.address!==undefined && this.state.moneyIgot>0?"(I betted "+parseFloat(this.state.moneyIgot) / decimalsConverter(10)+" USDT)":null}</p>
         {/*<input className="css-input" id="amountToBetOnOptionPool" type="number" value={this.state.amountToBet} onChange={e => this.setState({amountToBet: e.target.value})}></input>*/}
         {/*<button className="button" onClick={(event) => { this.approveUSDT(this.state.amountToBet) }}>APPROVE USDT</button>*/}
 

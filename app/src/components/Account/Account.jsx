@@ -22,7 +22,6 @@ class Account extends React.Component {
       friends: undefined,
       messageAddFriend: null,
       cssmessageAddFriend: null,
-      myBets: null
     };
     this.setPseudoReact = this.setPseudoReact.bind(this);
     this.sendFriendRequestReact = this.sendFriendRequestReact.bind(this);
@@ -39,13 +38,16 @@ class Account extends React.Component {
         <div id="myBetsAccountDiv">
           <p className="headerTitle accountP">My Bets</p>
 
-          {this.state.myBets !== null ? this.state.myBets.map(function (item) {
+          {this.props.myBets !== null ? this.props.myBets.map(function (item) {
+            console.log(item)
             return (
               <div key={item.id} className="myBetsAccountDiv2">
                 <Link to={"/bet/numBet?n=" + item.id}>
                   <div className="myBetsAccountDiv3">
                     <p className="">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
                     <p className="">{timeConverterDate(item.date)}</p>
+                    {item.mise.map((mise) => <p>{parseFloat(mise) / decimalsConverter(10)}</p>)}
+                    <p>{item.betState}</p>
                   </div>
                 </Link>
               </div>
@@ -56,7 +58,7 @@ class Account extends React.Component {
         <div id="friendsDiv">
           <p className="headerTitle accountP">Friends</p>
           <div id="friendAdder">
-            <input className="settingsInput" type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
+            <input placeholder="Type an address here" className="settingsInput" type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
             <button className='generalsButton settingsButton' onClick={(event) => { this.sendFriendRequestReact(this.state.newFriend) }}><p className="buttonP">Add friend</p></button>
           </div>
 
@@ -72,7 +74,7 @@ class Account extends React.Component {
           <p className="headerTitle accountP">Settings</p>
 
           <div id="changePseudoDiv">
-            <input className="settingsInput" type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
+            <input placeholder="Type your new pseudo here" className="settingsInput" type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
             <button className='generalsButton settingsButton' onClick={(event) => { this.setPseudoReact(this.state.newPseudo) }}><p className="buttonP" >Change Pseudo</p></button>
           </div>
         </div>
@@ -205,8 +207,10 @@ class Account extends React.Component {
         console.log(this.props.address);
         fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
           (res) => {
+            console.log(res.status)
             res.json().then((data) => {
               console.log(data)
+              console.log("mybets")
 
               if (__mounted) {
                 this.setState({ myBets: data });
@@ -305,4 +309,7 @@ function timeConverterDate(UNIX_timestamp) {
   var date = a.getDate();
   var time = date + ' ' + month + ' ' + year;
   return time;
+}
+function decimalsConverter(numberToConvert) {
+  return Math.pow(numberToConvert, 18)
 }

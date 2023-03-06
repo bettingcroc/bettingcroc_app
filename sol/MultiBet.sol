@@ -200,7 +200,9 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         require(option < numberOfOptions[betNumber],"invalidoption");
         TetherContract.transferFrom(msg.sender,address(this),amount);
         
+        miseBettersOnEnd[betNumber][option][msg.sender]=miseBettersOnEnd[betNumber][option][msg.sender]+amount;
         miseBettersOn[betNumber][option][msg.sender]=miseBettersOn[betNumber][option][msg.sender]+amount;
+
         moneyInPool[betNumber][option]=moneyInPool[betNumber][option]+amount;
         
         if(isInArrayUint256(betNumber,myBets[msg.sender])==false){
@@ -361,19 +363,21 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                             payedP2P[betNum][p2pNum].push(msg.sender);
                             uint256 toPay=p2pBets[betNum][p2pNum].cote-p2pBets[betNum][p2pNum].amountToEnter+p2pBets[betNum][p2pNum].amountBet;
                             rewardsTotal+=toPay;
+                            hasUserWonP2P[msg.sender][betNum][p2pNum]=true;
                             //userWon=true;
                         }
                         if(msg.sender==p2pBets[betNum][p2pNum].creator && getWinner(betNum)!=p2pBets[betNum][p2pNum].optionCreator){
                             payedP2P[betNum][p2pNum].push(msg.sender);
                             uint256 toPay=(p2pBets[betNum][p2pNum].amountBet*p2pBets[betNum][p2pNum].amountToEnter)/p2pBets[betNum][p2pNum].cote;
                             rewardsTotal+=toPay;
-                            //userWon=false;
+                            hasUserWonP2P[msg.sender][betNum][p2pNum]=false;
+
                         }
                         if(amountBetted[betNum][p2pNum][msg.sender]>0 && getWinner(betNum)!=p2pBets[betNum][p2pNum].optionCreator){
                             payedP2P[betNum][p2pNum].push(msg.sender);
                             uint256 toPay=amountBetted[betNum][p2pNum][msg.sender]*p2pBets[betNum][p2pNum].amountBet;
                             rewardsTotal+=toPay/p2pBets[betNum][p2pNum].cote+amountBetted[betNum][p2pNum][msg.sender];
-                            //userWon=true;
+                            hasUserWonP2P[msg.sender][betNum][p2pNum]=true;
                         }
                     }
                 }// dynamic array : max => nombre de p2p bets sur un pari
@@ -415,12 +419,12 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                 else{
                     uint256 toBePaidWon;
                     uint256 moneyBetted =miseBettersOn[betNumberIterator][Winner[betNumberIterator]][msg.sender];
+                    if(moneyBetted>0){hasUserWon[msg.sender][betNumberIterator]=true;}
                     miseBettersOn[betNumberIterator][Winner[betNumberIterator]][msg.sender]=0;
                     uint256 moneyInPoolBefore=moneyInPool[betNumberIterator][Winner[betNumberIterator]];
                     moneyInPool[betNumberIterator][Winner[betNumberIterator]]=moneyInPool[betNumberIterator][Winner[betNumberIterator]]-moneyBetted;
                     toBePaidWon=(moneyBetted*moneyLosedOnBet[betNumberIterator])/moneyInPoolBefore;  
                     toBePaid=toBePaidWon+moneyBetted;
-                    hasUserWon[msg.sender][betNumberIterator]=true;
                     moneyLosedOnBet[betNumberIterator]=moneyLosedOnBet[betNumberIterator]-toBePaidWon; 
                     score[msg.sender]+=moneyPoolLoser[betNumberIterator]*1000000000/moneyPoolWinner[betNumberIterator]; // decimales score
                 }
@@ -718,7 +722,11 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
     function getMoneyInPoolEnd(uint256 betNumber,uint256 option)public view returns (uint256){
         return moneyInPoolEnd[betNumber][option];
     }
-
+    mapping(uint256 => mapping(uint256=> mapping(address=>uint256))) miseBettersOnEnd;
+    function getMiseBettersOnEnd(uint256 betNumber,uint256 option, address msgsender) public view returns(uint256){
+        return miseBettersOnEnd[betNumber][option][msgsender];
+    }
+    function getBetInfos(uint256 betNumber) public view returns(uint256,uint256)
 }
 
 

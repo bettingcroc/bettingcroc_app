@@ -2,86 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 var __mounted;
 
-//TODO pas de gains détectés mais W dans myBets
 class MyBets extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      myBets: [],
-    };
     console.log("contrsuction");
   }
   async componentDidMount() {
     __mounted = true;
     if (this.props.address !== undefined) {
-      try {
-        this.props.betContract.methods.seeMyBets(this.props.address).call().then(result => {
-
-          fetch("https://testnet.bettingcroc.com/api/mybets/", {
-            method: "POST"
-            , body: JSON.stringify({ listBets: result })
-            , headers: {
-              "Content-Type": "application/json",
-            }
-          }).then(
-            (res) => {
-              res.json().then(async (data) => {
-
-                for (let b in data) {
-                  let bet = data[b]
-                  if (bet.status === 0 || bet.status === 1) {
-                    bet=Object.assign(bet,{betState:"🕗"})
-                  }
-                  else if (bet.status === 2) {
-                    try
-                    {await this.props.betContract.methods.didIWinSmth(bet.id, this.props.address).call().then(
-                      async (res1) => {
-                        //console.log("call3")
-                        if (res1 === true) {
-                          bet=Object.assign(bet,{betState:"W"})
-
-                        }
-                        else {
-                          await this.props.betContract.methods.getHasUserWon(this.props.address, bet.id).call().then(
-                            (res2) => {
-                              //console.log("call4")
-
-                              if(res2===true){
-                                bet=Object.assign(bet,{betState:"W"})
-
-                              }
-                              else{
-                                bet=Object.assign(bet,{betState:"L"})
-                              }
-                          })
-                        }
-                      }
-                    )}
-                    catch(e){
-                      console.log(e)
-                    }
-                  }
-                  else {
-                    console.log("canceled bet MyBets")
-                    bet=Object.assign(bet,{betState:"✖️"})
-                  }
-                  //console.log(bet)
-                }
-                if (__mounted) {
-                  this.setState({ myBets: data });
-                }
-              });
-            }
-          );
-        })
-
-      } catch (error) {
-        console.log(error);
-      }
+      this.props.setMyBets()
     }
   }
   componentDidUpdate(prevProps) {
     console.log("update myBets");
+    this.props.setMyBets()
     /*if (this.props.address !== undefined && this.props !== prevProps && __mounted) {
       try {
         this.props.betContract.methods.seeMyBets(this.props.address).call().then(result => {
@@ -118,7 +52,7 @@ class MyBets extends React.Component {
   render() {
     return (
       <div className="myBetsDiv">
-        {this.state.myBets.length===0?<div className="lds-dual-ring"></div>:this.state.myBets.map(function (item) {
+        {this.props.myBets.length === 0 ? <div className="lds-dual-ring"></div> : this.props.myBets.map(function (item) {
           return (
             <div key={item.id} className="myBetDiv">
               <Link to={"/bet/numBet?n=" + item.id}>
@@ -153,6 +87,6 @@ function timeConverterDate(UNIX_timestamp) {
   var year = a.getFullYear();
   var month = a.getMonth();
   var date = a.getDate();
-  var time = date + '/' + (month+1) + '/' + year;
+  var time = date + '/' + (month + 1) + '/' + year;
   return time;
 }

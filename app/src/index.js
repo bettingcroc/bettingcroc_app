@@ -108,7 +108,8 @@ class App extends Component {
       vueRightBar: "betMaker",
       logged: false,
       overlayClass: "inactiveOverlay",
-      mainVue: null
+      mainVue: null,
+      myBets: []
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this)
     this.loadBlockchainData()
@@ -134,11 +135,12 @@ class App extends Component {
     this.logoutReact = this.logoutReact.bind(this)
     this.setLogged = this.setLogged.bind(this)
     this.switchOverlayMode = this.switchOverlayMode.bind(this);
-    this.closeOverlay= this.closeOverlay.bind(this)
+    this.closeOverlay = this.closeOverlay.bind(this)
     this.setMainVue = this.setMainVue.bind(this);
+    this.setMyBets = this.setMyBets.bind(this);
   }
 
-  
+
   async loadBlockchainData() {
     const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
     if (web3.givenProvider) {
@@ -160,21 +162,21 @@ class App extends Component {
       socket.on('ReceivedFriendRequest', (from) => {
         console.log("ReceivedFriendRequest from" + from)
         this.setState({
-          requestUpdater:Math.random()
+          requestUpdater: Math.random()
         })
       })
 
       socket.on('ReceivedBetInvitation', (from) => {
         console.log("ReceivedBetInvitation from" + from)
         this.setState({
-          requestUpdater:Math.random()
+          requestUpdater: Math.random()
         })
       })
 
       socket.on('newFriendAcceptedToSender', (from) => {
         console.log("newFriendAcceptedToSender from" + from)
         this.setState({
-          friendsUpdater:Math.random()
+          friendsUpdater: Math.random()
         })
       })
 
@@ -198,8 +200,10 @@ class App extends Component {
     this.accountChangedHandler(accounts[0])
     this.setState({ loading: false });
     this.setState({ balanceUSDT: null })
-    multiBetContract.methods.howMuchIWonP2P("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0").call().then(ew => {console.log(ew);console.log("index")})
-
+    multiBetContract.methods.howMuchIWonP2P("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0").call().then(ew => { console.log(ew); console.log("index") })
+    if (this.state.defaultAccount !== undefined) {
+      this.setMyBets()
+    }
   }
 
   togglePopup() {
@@ -339,24 +343,27 @@ class App extends Component {
   }
   allowancesSetter() {
     try {
-      this.state.USDTContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => { this.setState({ usdtAllowed: parseFloat(result) / decimalsConverter(10) }); //console.log("usdt allowed " + result) 
-    })
+      this.state.USDTContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => {
+        this.setState({ usdtAllowed: parseFloat(result) / decimalsConverter(10) }); //console.log("usdt allowed " + result) 
+      })
     }
     catch (error) {
       //console.log(error)
       console.log("no wallet connected")
     }
     try {
-      this.state.mbtContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => { this.setState({ mbtAllowed: parseFloat(result) / decimalsConverter(10) });// console.log("mbt allowed " + result)
-     })
+      this.state.mbtContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => {
+        this.setState({ mbtAllowed: parseFloat(result) / decimalsConverter(10) });// console.log("mbt allowed " + result)
+      })
     }
     catch (error) {
       //console.log(error)
       console.log("no wallet connected")
     }
     try {
-      this.state.USDTContract.methods.balanceOf(this.state.defaultAccount).call().then((result) => { this.setState({ balanceUSDT: parseFloat(result) / decimalsConverter(10) }); //console.log("usdt balance " + result)
-     })
+      this.state.USDTContract.methods.balanceOf(this.state.defaultAccount).call().then((result) => {
+        this.setState({ balanceUSDT: parseFloat(result) / decimalsConverter(10) }); //console.log("usdt balance " + result)
+      })
     }
     catch (error) {
       //console.log(error)
@@ -398,7 +405,7 @@ class App extends Component {
   switchOverlayMode() {
     this.state.overlayClass === "inactiveOverlay" ? this.setState({ overlayClass: "overlayActive" }) : this.setState({ overlayClass: "inactiveOverlay" })
   }
-  closeOverlay(){
+  closeOverlay() {
     this.setState({ overlayClass: "inactiveOverlay" })
   }
   approve() {
@@ -408,6 +415,91 @@ class App extends Component {
     if (this.state.typeBet === 2) {
       this.approveUSDT(this.state.betArgs.amountToBet)
       this.approveMBT(this.state.betArgs.amountToBet)
+    }
+  }
+  setMyBets() {
+    try {
+      this.state.multiBetContract.methods.seeMyBets(this.state.defaultAccount).call().then(result => {
+
+        fetch("https://testnet.bettingcroc.com/api/mybets/", {
+          method: "POST"
+          , body: JSON.stringify({ listBets: result })
+          , headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(
+          (res) => {
+            res.json().then(async (data) => {
+
+              for (let b in data) {
+                let bet = data[b]
+                if (bet.status === 0 || bet.status === 1) {
+                  bet = Object.assign(bet, { betState: "🕗" })
+                }
+                else if (bet.status === 2) {
+                  try {
+                    await this.state.multiBetContract.methods.didIWinSmth(bet.id, this.state.defaultAccount).call().then(
+                      async (res1) => {
+                        //console.log("call3")
+                        if (res1 === true) {
+                          bet = Object.assign(bet, { betState: "W" })
+
+                        }
+                        else {
+                          await this.state.multiBetContract.methods.getHasUserWon(this.state.defaultAccount, bet.id).call().then(
+                            (res2) => {
+                              //console.log("call4")
+
+                              if (res2 === true) {
+                                bet = Object.assign(bet, { betState: "W" })
+
+                              }
+                              else {
+                                bet = Object.assign(bet, { betState: "L" })
+                              }
+                            })
+                        }
+                      }
+                    )
+
+
+
+                  }
+                  catch (e) {
+                    console.log(e)
+                  }
+                }
+
+                else {
+                  console.log("canceled bet MyBets")
+                  bet = Object.assign(bet, { betState: "✖️" })
+                }
+                await this.state.multiBetContract.methods.getNumberOfOptions(bet.id).call().then(async options => {
+                  let mises = []
+                  for (let o = 0; o < options; o++) {
+                    await this.state.multiBetContract.methods.getMiseBettersOnEnd(bet.id, o, this.state.defaultAccount).call().then(mise => {
+                      console.log(bet.id)
+                      mises.push(mise)
+                      console.log(mise)
+                    }
+
+                    )
+                  }
+                  bet = Object.assign(bet, { mise: mises })
+                }
+                );
+                //console.log(bet)
+              }
+
+              this.setState({ myBets: data })
+
+            });
+          }
+        );
+      })
+
+    } catch (error) {
+      console.log(error);
     }
   }
   approveUSDT(amount) {
@@ -603,7 +695,7 @@ class App extends Component {
                   <Outlet></Outlet>
                 </div>
                 <div id="rightBar">
-                  <div id={this.state.mainVue === "bet" ?"topRightBar":"topRightBarElse"}>
+                  <div id={this.state.mainVue === "bet" ? "topRightBar" : "topRightBarElse"}>
                     {this.state.mainVue === "bet" ? <div id="underTopRightBar">
                       <button onClick={this.goPanier} className="topRightButton" id="panierP"><div id={this.state.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
                       <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id={this.state.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
@@ -619,9 +711,9 @@ class App extends Component {
                           this.state.typeBet === 0 ? null
                             : <BetMaker setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetMaker>
                           : this.state.rightBar === "myBets" ?
-                            <MyBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
+                            <MyBets setMyBets={this.setMyBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>
                             : <MyP2PBets betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyP2PBets>
-                        :                   <GetGains address={this.state.defaultAccount} betContract={this.state.multiBetContract}></GetGains>
+                        : <GetGains address={this.state.defaultAccount} betContract={this.state.multiBetContract}></GetGains>
 
                       }
 
@@ -655,8 +747,8 @@ class App extends Component {
               <Route path="/bet/:betNum" element={<Bet mainVueSetter={this.setMainVue} socket={this.state.socket} logged={this.state.logged} betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet}></Bet>} />
               <Route path="/decentrabet" element={<DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>} />
               <Route path="/rankings" element={<Classement mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} address={this.state.defaultAccount}></Classement>}></Route>
-              <Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>
-              <Route path="/account" element={<Account betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
+              {/*<Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>*/}
+              <Route path="/account" element={<Account myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
               <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
               <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
               <Route path="/*" element={<p>error</p>}></Route>
