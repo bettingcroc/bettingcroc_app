@@ -3170,8 +3170,18 @@ table.customTable thead {
 .myBetsAccountDiv3 {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   color: black;
+  align-items: center;
+  padding: 6px;
+  border-radius: 8px;
+
+}
+.myBetsAccountDiv3:hover{
+  background-color: #d1d1d1;
+}
+.myBetsAccountDiv3 p{
+  margin: 0;
 }
 
 .myBetsAccountDiv2 {
@@ -3265,4 +3275,14 @@ table.customTable thead {
   100% {
     transform: rotate(360deg);
   }
+}
+.titleBetAccount{
+  width: 35%;
+}
+.dateBetAccount{
+  width: 10%;
+}
+.stateBetAccount{
+  position: absolute;
+  right: 37px;
 }

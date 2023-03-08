@@ -44,10 +44,10 @@ class Account extends React.Component {
               <div key={item.id} className="myBetsAccountDiv2">
                 <Link to={"/bet/numBet?n=" + item.id}>
                   <div className="myBetsAccountDiv3">
-                    <p className="">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
-                    <p className="">{timeConverterDate(item.date)}</p>
-                    {item.mise.map((mise) => <p>{parseFloat(mise) / decimalsConverter(10)}</p>)}
-                    <p>{item.betState}</p>
+                    <p className="titleBetAccount">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
+                    <p className="dateBetAccount">{timeConverterDate(item.date)}</p>
+                    {item.mise.map((mise,index) => {if(mise!=0) {return <p key={index} className="miseBetAccount">{parseFloat(mise) / decimalsConverter(10)+" USDT on "+item.optionsArray.split(",")[index]}</p> }else return null})}
+                    <p className="stateBetAccount">{item.betState}</p>
                   </div>
                 </Link>
               </div>
