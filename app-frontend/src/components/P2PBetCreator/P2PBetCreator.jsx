@@ -9,7 +9,7 @@ class P2PBetCreator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      amountToBet: undefined,
+      amountToBet: 1,
       cote: undefined,
       P2PBetCreatorSwitcher: "Public",
       selectedOption: 0,
@@ -19,10 +19,9 @@ class P2PBetCreator extends React.Component {
       modal: "collapse"
     };
     this.switchButton = this.switchButton.bind(this);
-    this.approveUSDT = this.approveUSDT.bind(this);
-    this.approveMBT = this.approveMBT.bind(this);
-    this.createP2PBet = this.createP2PBet.bind(this);
-    this.seeP2PBets = this.seeP2PBets.bind(this);
+
+    //this.createP2PBet = this.createP2PBet.bind(this);
+    //this.seeP2PBets = this.seeP2PBets.bind(this);
     this.changeClass = this.changeClass.bind(this);
     this.setModal = this.setModal.bind(this);
     this.setSelectedOption = this.setSelectedOption.bind(this);
@@ -34,7 +33,9 @@ class P2PBetCreator extends React.Component {
     __mounted = true
   }
   componentDidUpdate(prevProps) {
+    console.log("update P2P Creator "+ this.props.amountToBet)
     if (prevProps !== this.props && __mounted) {
+
       this.setState({ amountToBet: this.props.amountToBet })
     }
   }
@@ -45,23 +46,7 @@ class P2PBetCreator extends React.Component {
       this.setState({ P2PBetCreatorSwitcher: "Public" });
     }
   }
-  approveUSDT(amount) {
-    this.props.usdtContract.methods
-      .approve("0x33844f8042D7980C7060067562a11b14F278018e", weiconvert(amount))
-      .send({ from: this.props.address })
-      .once("receipt", (receipt) => {
-        console.log("approve success");
-      });
-  }
-  approveMBT(amount) {
-    this.props.mbtContract.methods
-      .approve("0x33844f8042D7980C7060067562a11b14F278018e", weiconvert(amount))
-      .send({ from: this.props.address })
-      .once("receipt", (receipt) => {
-        console.log("approve success");
-      });
-  }
-  createP2PBet(amount, cote, option, authorized) {
+  /*createP2PBet(amount, cote, option, authorized) {
 
     if (authorized === undefined) {
       authorized = [];
@@ -86,8 +71,8 @@ class P2PBetCreator extends React.Component {
       });
 
 
-  }
-  seeP2PBets() {
+  }*/
+  /*seeP2PBets() {
     try {
       this.props.betContract.methods.seeP2PBets(this.props.betNumber).call()
         .then(console.log)
@@ -95,7 +80,7 @@ class P2PBetCreator extends React.Component {
     catch (error) {
       console.log(error)
     }
-  }
+  }*/
   changeClass() {
     this.setState({ class: null })
   }
@@ -216,5 +201,7 @@ function decimalsConverter(numberToConvert) {
   return Math.pow(numberToConvert, 18);
 }
 function weiconvert(number) {
+  console.log(number)
+  console.log(typeof number)
   return BigInt(number * decimalsConverter(10));
 }

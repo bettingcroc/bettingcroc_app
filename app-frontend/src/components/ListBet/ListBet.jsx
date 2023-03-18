@@ -28,7 +28,7 @@ class ListBet extends React.Component {
         for (let m = 0; m < data.matches.length; m++) {
           let arr = data.matches[m].date.split(' ')
           let d = arr[0] + " " + arr[1] + " " + arr[2]
-          console.log(arr)
+          //console.log(arr)
           if (!dates.includes(d)) {
 
             dates.push(d)

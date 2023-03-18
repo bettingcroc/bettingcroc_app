@@ -102,7 +102,7 @@ class OptionPool extends React.Component {
       } catch (error) { }
 
     }
-    console.log(this.props.address)
+    //console.log(this.props.address)
   }
   componentWillUnmount() {
     __mounted = false

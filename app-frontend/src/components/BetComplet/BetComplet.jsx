@@ -50,7 +50,7 @@ class BetComplet extends React.Component {
                 .call()
                 .then((result) => {
                   moneyInPoolsLet[i] += 1
-                  console.log("money in pool " + i + " " + result)
+                  //console.log("money in pool " + i + " " + result)
                   try {
                     if (__mounted) {
                       for (let a = 0; a < sizeBet; a++) {

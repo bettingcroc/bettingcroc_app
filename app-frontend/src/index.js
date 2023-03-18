@@ -243,7 +243,7 @@ class App extends Component {
 
   }
   componentDidUpdate() {
-    console.log("update index")
+    //console.log("update index")
     if (window.ethereum) {
       if (window.ethereum.networkVersion != 97) {
         //console.log("bad chain : " + window.ethereum.networkVersion)
@@ -485,7 +485,7 @@ class App extends Component {
                   bet = Object.assign(bet, { mise: mises })
                 }
                 );
-                console.log(bet)
+                //console.log(bet)
               }
               this.setState({ myBets: data })
             });
@@ -510,7 +510,7 @@ class App extends Component {
         }).then(
           (res) => {
             res.json().then(async (data) => {
-              console.log(data)
+              //console.log(data)
               let listP2PBets = []
               for (let n = 0; n < result.length; n++) {
 
@@ -550,24 +550,24 @@ class App extends Component {
                   })
                 })
                 await this.state.multiBetContract.methods.getNumberOfOptions(data[n].id).call().then(async options => {
-                  console.log(options)
+                  //console.log(options)
                   let mises = []
                   for(let ind=0;ind<options;ind++){
                     mises.push(0)
                   }
                   //mises[1]="ezww"
-                  console.log(mises)
+                  //console.log(mises)
 
                   let optionCreator=0
                   await this.state.multiBetContract.methods.seeP2PBet(data[n].id, data[n].p2pNum).call().then(p2pBet => {
                     //console.log(bet.id)
-                    console.log(data[n].id, data[n].p2pNum)
+                    //console.log(data[n].id, data[n].p2pNum)
                     optionCreator=parseInt(Object.values(p2pBet)[6])
-                    console.log(optionCreator)
+                    //console.log(optionCreator)
                     if(Object.values(p2pBet)[1].toLowerCase()===this.state.defaultAccount.toLowerCase()){
                       mises[optionCreator]=Object.values(p2pBet)[2]
-                      console.log(Object.values(p2pBet)[2])
-                      console.log(mises)
+                      //console.log(Object.values(p2pBet)[2])
+                      //console.log(mises)
                     }
                     else{mises[optionCreator]=0}
                     //console.log(mise)
@@ -584,7 +584,7 @@ class App extends Component {
                       )
                   }
                   data[n] = Object.assign(data[n], { mise: mises })
-                  console.log(data[n])
+                  //console.log(data[n])
                 }
                 );
               }
