@@ -204,7 +204,8 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         miseBettersOn[betNumber][option][msg.sender]=miseBettersOn[betNumber][option][msg.sender]+amount;
 
         moneyInPool[betNumber][option]=moneyInPool[betNumber][option]+amount;
-        
+        moneyInPoolEnd[betNumber][option]=moneyInPool[betNumber][option]+amount;
+
         if(isInArrayUint256(betNumber,myBets[msg.sender])==false){
             myBets[msg.sender].push(betNumber);
         }
@@ -254,7 +255,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
         for (uint i=0; i<numberOfOptions[betNumber]; i++){
             uint256 feesPool;
             if(i!=poolWin){
-                moneyInPoolEnd[betNumber][i]=moneyInPool[betNumber][i];
+                //moneyInPoolEnd[betNumber][i]=moneyInPool[betNumber][i];
                 feesPool=moneyInPool[betNumber][i]*fees/100;
                 feesBet=feesBet+feesPool;
                 moneyInPool[betNumber][i]=moneyInPool[betNumber][i]-feesPool;
@@ -279,7 +280,7 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
                 for (uint u=0; u<numberOfOptions[betNumber]; u++){
                     uint256 feesPool;
                     if(u!=poolwinners[i]){
-                        moneyInPoolEnd[betNumber][u]=moneyInPool[betNumber][u];
+                        //moneyInPoolEnd[betNumber][u]=moneyInPool[betNumber][u];
                         feesPool=moneyInPool[betNumber][u]*fees/100;
                         feesBet=feesBet+feesPool;
                         moneyInPool[betNumber][u]=moneyInPool[betNumber][u]-feesPool;
@@ -726,7 +727,6 @@ contract MultiBetUSDTMultiOptions is Pures,AccessControl{
     function getMiseBettersOnEnd(uint256 betNumber,uint256 option, address msgsender) public view returns(uint256){
         return miseBettersOnEnd[betNumber][option][msgsender];
     }
-    function getBetInfos(uint256 betNumber) public view returns(uint256,uint256)
 }
 
 
