@@ -45,7 +45,7 @@ function run() {
     multiBetContract = new web3.eth.Contract(JSON.parse(multiBetABI), multiBetAddress);
     var day = 0;
 
-    var dayParams = 2;
+    var dayParams = 1;
 
     leagueFootIDs = {
       "PremierLeague": 39,
@@ -159,6 +159,9 @@ function run() {
           })
           .on('error', function (error, receipt) {
             console.log("e ", error);
+            if(e.code===-32000){
+              setTimeout(async function(){await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type)},60000)
+            }
             if (type === 'basketball') { console.log("error tx basketball") }
             if (type === 'football') { console.log("error tx football") }
             //console.log(error," ",receipt);

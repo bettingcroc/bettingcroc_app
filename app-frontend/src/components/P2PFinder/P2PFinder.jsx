@@ -143,9 +143,10 @@ class P2PFinder extends React.Component {
         <div id="underp2pfinder">
           <div id="titleP2pFinder">
 
-            <p id="findp2pP">Find P2P</p>
+            <p id="findp2pP">Find a P2P</p>
 
           </div>
+          <p className='lineModalFriendInviterP'>against</p>
           <div id="inputP2pFinder">
             <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
               <div id="superinputLine1P2PFinder">
@@ -165,7 +166,7 @@ class P2PFinder extends React.Component {
                 </div>
               </div>
             </ClickAwayListener>
-<p id='minToBetP'> Search by minimum amount :</p>
+<p id='minToBetP'> search by minimum amount :</p>
             <div id="inputLine2P2PFinder">
               <div id="inputAmountP2PFinder"><input
                 className="css-input"

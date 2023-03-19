@@ -46,41 +46,6 @@ class P2PBetCreator extends React.Component {
       this.setState({ P2PBetCreatorSwitcher: "Public" });
     }
   }
-  /*createP2PBet(amount, cote, option, authorized) {
-
-    if (authorized === undefined) {
-      authorized = [];
-    }
-    else {
-      authorized = authorized.split(',')
-    }
-    console.log(amount, cote, option, authorized);
-    let amountToEnter = (cote - 1) * amount;
-    amountToEnter = weiconvert(parseFloat(amountToEnter.toPrecision(7)));
-    this.props.betContract.methods
-      .createP2PBet(
-        weiconvert(amount),
-        amountToEnter,
-        this.props.betNumber,
-        option,
-        authorized
-      )
-      .send({ from: this.props.address })
-      .once("receipt", (receipt) => {
-        console.log("new bet Created");
-      });
-
-
-  }*/
-  /*seeP2PBets() {
-    try {
-      this.props.betContract.methods.seeP2PBets(this.props.betNumber).call()
-        .then(console.log)
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }*/
   changeClass() {
     this.setState({ class: null })
   }
