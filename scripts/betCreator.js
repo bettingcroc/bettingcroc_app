@@ -159,7 +159,7 @@ function run() {
           })
           .on('error', function (error, receipt) {
             console.log("e ", error);
-            if(e.code===-32000){
+            if(error.code===-32000){
               setTimeout(async function(){await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type)},60000)
             }
             if (type === 'basketball') { console.log("error tx basketball") }
