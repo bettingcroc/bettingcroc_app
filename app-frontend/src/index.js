@@ -726,55 +726,55 @@ class App extends Component {
                     </div>
                     <div id="popular">
                       <p className="titleLeftBar">Popular</p>
-                      <Link to="/basketball">
+                      <a className="leftBarA" href="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Basketball</p></div>
-                      </Link>
-                      <Link to="/football">
+                      </a>
+                      <a className="leftBarA" href="/football">
                         <div className="optionsLeftBar">
                           <img src={footballImage} alt="footballImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Football</p>
                         </div>
-                      </Link>
-                      <Link to="/finance">
+                      </a>
+                      <a className="leftBarA" href="/finance">
                         <div className="optionsLeftBar">
                           <img src={financeImage} alt="financeImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Finance</p>
                         </div>
-                      </Link>
-                      <Link to="/tennis">
+                      </a>
+                      <a className="leftBarA" href="/tennis">
                         <div className="optionsLeftBar">
                           <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Tennis</p>
                         </div>
-                      </Link>
+                      </a>
                     </div>
                     <div id="categories">
                       <p className="titleLeftBar">All categories</p>
-                      <Link to="/basketball">
+                      <a className="leftBarA" href="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Basketball</p></div>
-                      </Link>
-                      <Link to="/football">
+                      </a>
+                      <a className="leftBarA" href="/football">
                         <div className="optionsLeftBar">
                           <img src={footballImage} alt="footballImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Football</p>
                         </div>
-                      </Link>
-                      <Link to="/finance">
+                      </a>
+                      <a className="leftBarA" href="/finance">
                         <div className="optionsLeftBar">
                           <img src={financeImage} alt="financeImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Finance</p>
                         </div>
-                      </Link>
-                      <Link to="/tennis">
+                      </a>
+                      <a className="leftBarA" href="/tennis">
                         <div className="optionsLeftBar">
                           <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Tennis</p>
                         </div>
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -830,8 +830,8 @@ class App extends Component {
                       <p id="gainsP2">{this.state.betArgs === null ? null : this.state.betArgs === null ? null : this.state.betArgs.toWin + " USDT"} </p>
                     </div>
                   </div>
-                  <button id="buttonApprover" onClick={(event) => { this.approve() }}><div id="approveButton"><p id="approveP">APPROVE</p></div></button>
-                  <button id="buttonBetter" onClick={(event) => { this.betFunction(this.state.betArgs) }}><div id="betButton"><p id="betP">BET</p></div></button>
+                  <button id="buttonApprover" onClick={(event) => { this.approve() }}><p id="approveP">APPROVE</p></button>
+                  <button id="buttonBetter" onClick={(event) => { this.betFunction(this.state.betArgs) }}><p id="betP">BET</p></button>
                 </div> : null}
 
               </div>}

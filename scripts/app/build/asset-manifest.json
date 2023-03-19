@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.0e3c0932.chunk.css",
-    "main.js": "/static/js/main.137b93a6.chunk.js",
-    "main.js.map": "/static/js/main.137b93a6.chunk.js.map",
+    "main.css": "/static/css/main.58d22cef.chunk.css",
+    "main.js": "/static/js/main.34ffdb40.chunk.js",
+    "main.js.map": "/static/js/main.34ffdb40.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a55ac8a3.js",
     "runtime-main.js.map": "/static/js/runtime-main.a55ac8a3.js.map",
     "static/css/2.8a17276e.chunk.css": "/static/css/2.8a17276e.chunk.css",
-    "static/js/2.f3f6fb69.chunk.js": "/static/js/2.f3f6fb69.chunk.js",
-    "static/js/2.f3f6fb69.chunk.js.map": "/static/js/2.f3f6fb69.chunk.js.map",
+    "static/js/2.4dc57610.chunk.js": "/static/js/2.4dc57610.chunk.js",
+    "static/js/2.4dc57610.chunk.js.map": "/static/js/2.4dc57610.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.8a17276e.chunk.css.map": "/static/css/2.8a17276e.chunk.css.map",
-    "static/css/main.0e3c0932.chunk.css.map": "/static/css/main.0e3c0932.chunk.css.map",
-    "static/js/2.f3f6fb69.chunk.js.LICENSE.txt": "/static/js/2.f3f6fb69.chunk.js.LICENSE.txt",
+    "static/css/main.58d22cef.chunk.css.map": "/static/css/main.58d22cef.chunk.css.map",
+    "static/js/2.4dc57610.chunk.js.LICENSE.txt": "/static/js/2.4dc57610.chunk.js.LICENSE.txt",
     "static/media/App.css": "/static/media/Roboto-Regular.fc2b5060.ttf",
     "static/media/bettingCrocTitle.a80d3b83.png": "/static/media/bettingCrocTitle.a80d3b83.png",
     "static/media/bettingCrocTransparent.3e8bea4e.png": "/static/media/bettingCrocTransparent.3e8bea4e.png",
@@ -25,8 +25,8 @@
   "entrypoints": [
     "static/js/runtime-main.a55ac8a3.js",
     "static/css/2.8a17276e.chunk.css",
-    "static/js/2.f3f6fb69.chunk.js",
-    "static/css/main.0e3c0932.chunk.css",
-    "static/js/main.137b93a6.chunk.js"
+    "static/js/2.4dc57610.chunk.js",
+    "static/css/main.58d22cef.chunk.css",
+    "static/js/main.34ffdb40.chunk.js"
   ]
 }

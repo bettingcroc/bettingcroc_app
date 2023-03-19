@@ -73,8 +73,8 @@ class ListBet extends React.Component {
           {this.state.topMatches.map(function (item, index) {
             if (item) {
               return (
-                <Link key={item.betNumber} to={"/bet/numBet?n=" + item.betNumber} >
-                  <div id={"topBetsBox" + (index + 1)} key={item.betNumber}>
+                <a className="topBetsBox" key={item.betNumber} href={"/bet/numBet?n=" + item.betNumber} >
+                  <div  id={"topBetsBox" + (index + 1)} key={item.betNumber}>
                     <div className="topBetsMiniBox1"><p>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
                     <div className="topBetsMiniBox2">
                       <div className="topBetsMiniMiniBox1"><p>{item.type}</p></div>
@@ -84,7 +84,7 @@ class ListBet extends React.Component {
                       </div>
                     </div>
                   </div>
-                </Link>
+                </a>
               )
             }
           })}
