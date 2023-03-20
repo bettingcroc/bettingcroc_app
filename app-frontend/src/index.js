@@ -500,7 +500,7 @@ class App extends Component {
   setMyP2PBets(){
     try {
       this.state.multiBetContract.methods.seeMyP2PBets(this.state.defaultAccount).call().then(async result => {
-        //console.log(result)
+        console.log(result)
         fetch("https://testnet.bettingcroc.com/api/mybets/", {
           method: "POST"
           , body: JSON.stringify({ listBets: result })
@@ -510,8 +510,8 @@ class App extends Component {
         }).then(
           (res) => {
             res.json().then(async (data) => {
-              //console.log(data)
-              let listP2PBets = []
+              console.log(data)
+              //let listP2PBets = []
               for (let n = 0; n < result.length; n++) {
 
                 await new Promise(next => {
@@ -519,19 +519,28 @@ class App extends Component {
                     //console.log(result2)
                     for (let n2 = 0; n2 < result2.length; n2++) {
                       //console.log(n2)
-                      listP2PBets.push(result2[n2])
+                      //listP2PBets.push(result2[n2])
+                      let betLet=data[n]
+                      betLet.p2pNum=result2[n2]
+                      //listP2PBets.push(betLet)
+                      console.log(n," ",result[n]," ",result2[n2])
                     }
                     next()
                   })
                 })
               }
-              for (let n = 0; n < result.length; n++) {
+              //console.log(listP2PBets)
+
+              /*for (let n = 0; n < result.length; n++) {
                 data[n].p2pNum = listP2PBets[n]
-              }
+              }*/
+              console.log(data)
               for (let n = 0; n < data.length; n++) {
                 await new Promise(next => {
+                  console.log(n,data[n].id, this.state.defaultAccount, data[n].p2pNum)
                   this.state.multiBetContract.methods.didIWinSmthP2P(data[n].id, this.state.defaultAccount, data[n].p2pNum).call().then(async result3 => {
                     //console.log(result3)
+                    console.log(result3)
                     if (result3 === true) {
                       data[n].betState = "W"
                     }

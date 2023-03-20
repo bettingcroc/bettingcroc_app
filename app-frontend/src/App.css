@@ -1175,7 +1175,7 @@ body {
   padding: 23px 31px;
   gap: 10px;
 
-  width: 21.875%;
+  width: 100%;
   height: 220px;
 
   /* Bleu */
@@ -1945,7 +1945,9 @@ body {
   background-color: transparent;
 }
 
-.myBetDiv {}
+.myBetDiv {
+  width: 100%;
+}
 
 #superMidRightBar {
   width: 100%;
@@ -1954,7 +1956,7 @@ body {
   position: relative;
   top: 15px;
 }
-
+#midRightBar{width: 90%;}
 .myBetDiv a {
   border-radius: 5px;
   width: 370px;
@@ -1974,7 +1976,7 @@ body {
 }
 
 .myBetsDiv {
-  width: 400px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow: scroll;
@@ -2165,7 +2167,7 @@ a:hover {
 
   width: 100%;
   height: 434px;
-
+  justify-content: space-between;
 
   /* Inside auto layout */
   flex: none;
@@ -3229,7 +3231,7 @@ table.customTable thead {
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
-  width: 400px;
+  width: 100%;
   height: 80px;
   font-size: 14px;
 }
