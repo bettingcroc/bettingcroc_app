@@ -50,7 +50,7 @@ class Connecter extends React.Component {
     return (
       <div >
         {this.state.connected === true ?
-          <div id="connecterConnected"><p id="accountDisplay">{this.props.defaultAccount}</p><button className='generalsButton' onClick={this.props.disconnect}><p className="buttonP">Disconnect</p></button></div>
+          <div id="connecterConnected"><p id="accountDisplay">{this.props.defaultAccount.substring(0,5)+"..."+this.props.defaultAccount.substring(39)}</p><button className='generalsButton' onClick={this.props.disconnect}><p className="buttonP">Disconnect</p></button></div>
           :
           this.state.modalState === "closed" ?
             <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> :

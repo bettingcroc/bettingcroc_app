@@ -81,7 +81,7 @@ getGains(){
 }
 render() {
   return (
-    <div>
+    <div id="getGainsDiv">
       <button onClick={this.getGains} id={this.state.won?"getGains":"getGainsLose"}>{this.state.won?"Get "+this.state.gains+" USDT !":"Waiting for some money"}</button>
     </div>
   );

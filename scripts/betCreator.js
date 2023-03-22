@@ -45,7 +45,7 @@ function run() {
     multiBetContract = new web3.eth.Contract(JSON.parse(multiBetABI), multiBetAddress);
     var day = 0;
 
-    var dayParams = 2;
+    var dayParams = 1;
 
     leagueFootIDs = {
       "PremierLeague": 39,

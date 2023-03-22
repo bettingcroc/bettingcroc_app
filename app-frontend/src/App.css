@@ -1037,7 +1037,7 @@ body {
   padding: 0px;
   gap: 10px;
 
-  width: 370px;
+  width: 100%;
   height: 32px;
 
 
@@ -1059,7 +1059,7 @@ body {
   padding: 0px;
   gap: 10px;
 
-  width: 370px;
+  width: 100%;
   height: 32px;
 
 
@@ -1956,7 +1956,11 @@ body {
   position: relative;
   top: 15px;
 }
-#midRightBar{width: 90%;}
+
+#midRightBar {
+  width: 90%;
+}
+
 .myBetDiv a {
   border-radius: 5px;
   width: 370px;
@@ -2233,9 +2237,11 @@ body {
   background: #F4F7F9;
   ;
 }
-.topBetsBox{
+
+.topBetsBox {
   width: calc(100% / 3 - 20px);
 }
+
 #topBetsBox1 {
   /* Today Sales */
 
@@ -3336,9 +3342,10 @@ table.customTable thead {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  
+
 }
-.linkMyBetsDiv{
+
+.linkMyBetsDiv {
   width: 100%;
   padding: 23px 30px;
   gap: 10px;
@@ -3347,17 +3354,20 @@ table.customTable thead {
   border-radius: 20px;
   height: 50px;
 }
-#divMyBetsAccountButtons{
+
+#divMyBetsAccountButtons {
   display: flex;
   flex-direction: row;
-  gap: 20px ;
+  gap: 20px;
 
 }
-.accountButton{
+
+.accountButton {
   background-color: transparent;
   border: none;
 }
-.accountBetsTypeActive{
+
+.accountBetsTypeActive {
   height: 32px;
 
   /* H1 */
@@ -3378,7 +3388,8 @@ table.customTable thead {
   order: 0;
   flex-grow: 0;
 }
-.accountBetsTypeInctive{
+
+.accountBetsTypeInctive {
   height: 32px;
 
   /* H1 */
@@ -3399,12 +3410,20 @@ table.customTable thead {
   order: 0;
   flex-grow: 0;
 }
-#inputAmountP2PFinder{
+
+#inputAmountP2PFinder {
   width: 80%;
 }
-#inputIdP2PFinder{
+
+#inputIdP2PFinder {
   width: 80%;
 }
-.leftBarA{
+
+.leftBarA {
   width: 100%;
+}
+
+#getGainsDiv {
+  display: flex;
+  justify-content: center;
 }
