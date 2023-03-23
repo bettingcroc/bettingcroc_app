@@ -56,6 +56,8 @@ componentDidUpdate(prevProps) {
     }
     catch (e) { console.log(e) }
   }
+
+
 }
 getGains(){ 
   //console.log(this.state.gainsFromGeneral+" "+this.state.gainsFromP2P)
@@ -82,7 +84,7 @@ getGains(){
 render() {
   return (
     <div id="getGainsDiv">
-      <button onClick={this.getGains} id={this.state.won?"getGains":"getGainsLose"}>{this.state.won?"Get "+this.state.gains+" USDT !":"Waiting for some money"}</button>
+      {this.props.address===undefined?null:<button onClick={this.getGains} id={this.state.won?"getGains":"getGainsLose"}>{this.state.won?"Get "+this.state.gains+" USDT !":"Waiting for some money"}</button>}
     </div>
   );
 }

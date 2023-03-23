@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import bettingCrocImage from "./bettingCrocTransparent.png"
 var _mounted
 class ListBet extends React.Component {
@@ -73,7 +73,7 @@ class ListBet extends React.Component {
           {this.state.topMatches.map(function (item, index) {
             if (item) {
               return (
-                <a className="topBetsBox" key={item.betNumber} href={"/bet/numBet?n=" + item.betNumber} >
+                <Link className="topBetsBox" key={item.betNumber} to={"/bet/numBet?n=" + item.betNumber} >
                   <div  id={"topBetsBox" + (index + 1)} key={item.betNumber}>
                     <div className="topBetsMiniBox1"><p>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
                     <div className="topBetsMiniBox2">
@@ -84,7 +84,7 @@ class ListBet extends React.Component {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               )
             }
           })}

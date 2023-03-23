@@ -33,6 +33,7 @@ class Connecter extends React.Component {
     this.closeModal()
   }
   componentDidUpdate(prevProps) {
+
     if (prevProps.defaultAccount !== this.props.defaultAccount) {
       if (this.props.defaultAccount !== undefined && this.props.defaultAccount !== "") {
         this.setState({ connected: true })
@@ -49,7 +50,7 @@ class Connecter extends React.Component {
   render() {
     return (
       <div >
-        {this.state.connected === true ?
+        {this.state.connected === true  && this.props.defaultAccount!==undefined ?
           <div id="connecterConnected"><p id="accountDisplay">{this.props.defaultAccount.substring(0,5)+"..."+this.props.defaultAccount.substring(39)}</p><button className='generalsButton' onClick={this.props.disconnect}><p className="buttonP">Disconnect</p></button></div>
           :
           this.state.modalState === "closed" ?

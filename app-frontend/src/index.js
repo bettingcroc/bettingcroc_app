@@ -341,7 +341,7 @@ class App extends Component {
     this.setState({ defaultAccount: undefined })
     this.state.web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
     localStorage.clear();
-
+    this.setState({myBets:[],myP2PBets:[]})
   }
   allowancesSetter() {
     try {
@@ -383,7 +383,7 @@ class App extends Component {
   }
   setTypeBet(newTypeBet) {
     this.setState({ typeBet: newTypeBet })
-    console.log(this.state.typeBet)
+    //console.log(this.state.typeBet)
     if (newTypeBet !== 0) { this.goPanier() }
   }
   setBetArgs(newBetArgs) {
@@ -420,6 +420,7 @@ class App extends Component {
     }
   }
   setMyBets() {
+    let disconnectedFunction = false
     try {
       this.state.multiBetContract.methods.seeMyBets(this.state.defaultAccount).call().then(result => {
 
@@ -447,24 +448,29 @@ class App extends Component {
                           bet = Object.assign(bet, { betState: "W" })
                         }
                         else {
-                          await this.state.multiBetContract.methods.getHasUserWon(this.state.defaultAccount, bet.id).call().then(
-                            (res2) => {
-                              //console.log("call4")
+                          try {
+                            await this.state.multiBetContract.methods.getHasUserWon(this.state.defaultAccount, bet.id).call().then(
+                              (res2) => {
+                                //console.log("call4")
 
-                              if (res2 === true) {
-                                bet = Object.assign(bet, { betState: "W" })
+                                if (res2 === true) {
+                                  bet = Object.assign(bet, { betState: "W" })
 
-                              }
-                              else {
-                                bet = Object.assign(bet, { betState: "L" })
-                              }
-                            })
+                                }
+                                else {
+                                  bet = Object.assign(bet, { betState: "L" })
+                                }
+                              })
+                          }
+                          catch (error) { //console.log(error); 
+                            disconnectedFunction = true; return }
                         }
                       }
                     )
                   }
                   catch (e) {
-                    console.log(e)
+                    //console.log(e)
+                      ; disconnectedFunction = true;
                   }
                 }
                 else {
@@ -474,33 +480,42 @@ class App extends Component {
                 await this.state.multiBetContract.methods.getNumberOfOptions(bet.id).call().then(async options => {
                   let mises = []
                   for (let o = 0; o < options; o++) {
-                    await this.state.multiBetContract.methods.getMiseBettersOnEnd(bet.id, o, this.state.defaultAccount).call().then(mise => {
-                      //console.log(bet.id)
-                      mises.push(mise)
-                      //console.log(mise)
-                    }
+                    try {
+                      await this.state.multiBetContract.methods.getMiseBettersOnEnd(bet.id, o, this.state.defaultAccount).call().then(mise => {
+                        //console.log(bet.id)
+                        mises.push(mise)
+                        //console.log(mise)
+                      }
 
-                    )
+                      )
+                    }
+                    catch (error) { //console.log(error);
+                       disconnectedFunction = true; return }
                   }
                   bet = Object.assign(bet, { mise: mises })
                 }
                 );
                 //console.log(bet)
               }
-              this.setState({ myBets: data })
+              
+              if (disconnectedFunction === false) { this.setState({ myBets: data }) }
+              
             });
           }
         );
       })
 
     } catch (error) {
-      console.log(error);
+      //console.log(error);
+      disconnectedFunction = true;
+      return
     }
   }
-  setMyP2PBets(){
+  setMyP2PBets() {
+    let disconnectedFunction = false
     try {
       this.state.multiBetContract.methods.seeMyP2PBets(this.state.defaultAccount).call().then(async result => {
-        console.log(result)
+        //console.log(result)
         fetch("https://testnet.bettingcroc.com/api/mybets/", {
           method: "POST"
           , body: JSON.stringify({ listBets: result })
@@ -510,23 +525,27 @@ class App extends Component {
         }).then(
           (res) => {
             res.json().then(async (data) => {
-              console.log(data)
+              //console.log(data)
               //let listP2PBets = []
               for (let n = 0; n < result.length; n++) {
 
                 await new Promise(next => {
-                  this.state.multiBetContract.methods.seeMyP2PBetsDetail(this.state.defaultAccount, result[n]).call().then(result2 => {
-                    //console.log(result2)
-                    for (let n2 = 0; n2 < result2.length; n2++) {
-                      //console.log(n2)
-                      //listP2PBets.push(result2[n2])
-                      let betLet=data[n]
-                      betLet.p2pNum=result2[n2]
-                      //listP2PBets.push(betLet)
-                      console.log(n," ",result[n]," ",result2[n2])
-                    }
-                    next()
-                  })
+                  try {
+                    this.state.multiBetContract.methods.seeMyP2PBetsDetail(this.state.defaultAccount, result[n]).call().then(result2 => {
+                      //console.log(result2)
+                      for (let n2 = 0; n2 < result2.length; n2++) {
+                        //console.log(n2)
+                        //listP2PBets.push(result2[n2])
+                        let betLet = data[n]
+                        betLet.p2pNum = result2[n2]
+                        //listP2PBets.push(betLet)
+                        //console.log(n, " ", result[n], " ", result2[n2])
+                      }
+                      next()
+                    })
+                  }
+                  catch (error) { //console.log(error);
+                     disconnectedFunction = true; return; }
                 })
               }
               //console.log(listP2PBets)
@@ -534,70 +553,98 @@ class App extends Component {
               /*for (let n = 0; n < result.length; n++) {
                 data[n].p2pNum = listP2PBets[n]
               }*/
-              console.log(data)
+              //console.log(data)
               for (let n = 0; n < data.length; n++) {
                 await new Promise(next => {
-                  console.log(n,data[n].id, this.state.defaultAccount, data[n].p2pNum)
-                  this.state.multiBetContract.methods.didIWinSmthP2P(data[n].id, this.state.defaultAccount, data[n].p2pNum).call().then(async result3 => {
-                    //console.log(result3)
-                    console.log(result3)
-                    if (result3 === true) {
-                      data[n].betState = "W"
-                    }
-                    else {
-                      this.state.multiBetContract.methods.didIWinSmthP2P(data[n].id, this.state.defaultAccount, data[n].p2pNum).call().then(result4 => {
-                        if (result4 === true) {
-                          data[n].betState = "W"
-                        }
-                        else {
-                          data[n].betState = "L"
+                  try {
+                    //console.log(n, data[n].id, this.state.defaultAccount, data[n].p2pNum)
+                    this.state.multiBetContract.methods.didIWinSmthP2P(data[n].id, this.state.defaultAccount, data[n].p2pNum).call().then(async result3 => {
+                      //console.log(result3)
+                      //console.log(result3)
+                      if (result3 === true) {
+                        data[n].betState = "W"
+                      }
+                      else {
+                        try {
+                          this.state.multiBetContract.methods.didIWinSmthP2P(data[n].id, this.state.defaultAccount, data[n].p2pNum).call().then(result4 => {
+                            if (result4 === true) {
+                              data[n].betState = "W"
+                            }
+                            else {
+                              data[n].betState = "L"
 
+                            }
+                          })
                         }
-                      })
-                    }
-                    next()
-                  })
+                        catch (error) {
+                          //console.log(error);
+                           disconnectedFunction = true; return
+                        }
+                      }
+                      next()
+                    })
+                  }
+                  catch (error) { //console.log(error);
+                     disconnectedFunction = true; return }
+
+
                 })
                 await this.state.multiBetContract.methods.getNumberOfOptions(data[n].id).call().then(async options => {
                   //console.log(options)
                   let mises = []
-                  for(let ind=0;ind<options;ind++){
+                  for (let ind = 0; ind < options; ind++) {
                     mises.push(0)
                   }
                   //mises[1]="ezww"
                   //console.log(mises)
 
-                  let optionCreator=0
-                  await this.state.multiBetContract.methods.seeP2PBet(data[n].id, data[n].p2pNum).call().then(p2pBet => {
-                    //console.log(bet.id)
-                    //console.log(data[n].id, data[n].p2pNum)
-                    optionCreator=parseInt(Object.values(p2pBet)[6])
-                    //console.log(optionCreator)
-                    if(Object.values(p2pBet)[1].toLowerCase()===this.state.defaultAccount.toLowerCase()){
-                      mises[optionCreator]=Object.values(p2pBet)[2]
-                      //console.log(Object.values(p2pBet)[2])
-                      //console.log(mises)
+                  let optionCreator = 0
+                  try {
+                    await this.state.multiBetContract.methods.seeP2PBet(data[n].id, data[n].p2pNum).call().then(p2pBet => {
+                      //console.log(bet.id)
+                      //console.log(data[n].id, data[n].p2pNum)
+                      optionCreator = parseInt(Object.values(p2pBet)[6])
+                      //console.log(optionCreator)
+                      if (Object.values(p2pBet)[1].toLowerCase() === this.state.defaultAccount.toLowerCase()) {
+                        mises[optionCreator] = Object.values(p2pBet)[2]
+                        //console.log(Object.values(p2pBet)[2])
+                        //console.log(mises)
+                      }
+                      else { mises[optionCreator] = 0 }
+                      //console.log(mise)
                     }
-                    else{mises[optionCreator]=0}
-                    //console.log(mise)
-                  }
 
-                  )
+                    )
+                  }
+                  catch (error) {
+                    //console.log(error); 
+                    disconnectedFunction = true;
+                    return
+                  }
                   for (let o = 0; o < options; o++) {
-                    if(o===optionCreator){break}
+                    if (o === optionCreator) { break }
                     //console.log(data[n].id, data[n].p2pNum,this.state.defaultAccount)
-                    await this.state.multiBetContract.methods.getAmountBetted(data[n].id, data[n].p2pNum,this.state.defaultAccount).call().then(amountBetted=>
-                      {
-                        mises[o]=amountBetted
+                    try {
+                      await this.state.multiBetContract.methods.getAmountBetted(data[n].id, data[n].p2pNum, this.state.defaultAccount).call().then(amountBetted => {
+                        mises[o] = amountBetted
                       }
                       )
+                    }
+                    catch (error) {
+                      //console.log(error);
+                       disconnectedFunction = true;
+                      return
+                    }
                   }
                   data[n] = Object.assign(data[n], { mise: mises })
                   //console.log(data[n])
                 }
                 );
               }
-              this.setState({ myP2PBets: data });
+              if (disconnectedFunction === false) {
+                this.setState({ myP2PBets: data });
+              } //console.log("data setted ")
+              //console.log(data)
 
             });
           }
@@ -605,7 +652,8 @@ class App extends Component {
       })
 
     } catch (error) {
-      console.log(error);
+      //console.log(error);
+      disconnectedFunction = true;
     }
   }
   approveUSDT(amount) {
@@ -659,7 +707,7 @@ class App extends Component {
           console.log("bet success");
         });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
   createP2PBet(amount, cote, option, authorized) {
@@ -735,55 +783,55 @@ class App extends Component {
                     </div>
                     <div id="popular">
                       <p className="titleLeftBar">Popular</p>
-                      <a className="leftBarA" href="/basketball">
+                      <Link className="leftBarA" href="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Basketball</p></div>
-                      </a>
-                      <a className="leftBarA" href="/football">
+                      </Link>
+                      <Link className="leftBarA" href="/football">
                         <div className="optionsLeftBar">
                           <img src={footballImage} alt="footballImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Football</p>
                         </div>
-                      </a>
-                      <a className="leftBarA" href="/finance">
+                      </Link>
+                      <Link className="leftBarA" href="/finance">
                         <div className="optionsLeftBar">
                           <img src={financeImage} alt="financeImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Finance</p>
                         </div>
-                      </a>
-                      <a className="leftBarA" href="/tennis">
+                      </Link>
+                      <Link className="leftBarA" href="/tennis">
                         <div className="optionsLeftBar">
                           <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Tennis</p>
                         </div>
-                      </a>
+                      </Link>
                     </div>
                     <div id="categories">
                       <p className="titleLeftBar">All categories</p>
-                      <a className="leftBarA" href="/basketball">
+                      <Link className="leftBarA" href="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Basketball</p></div>
-                      </a>
-                      <a className="leftBarA" href="/football">
+                      </Link>
+                      <Link className="leftBarA" href="/football">
                         <div className="optionsLeftBar">
                           <img src={footballImage} alt="footballImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Football</p>
                         </div>
-                      </a>
-                      <a className="leftBarA" href="/finance">
+                      </Link>
+                      <Link className="leftBarA" href="/finance">
                         <div className="optionsLeftBar">
                           <img src={financeImage} alt="financeImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Finance</p>
                         </div>
-                      </a>
-                      <a className="leftBarA" href="/tennis">
+                      </Link>
+                      <Link className="leftBarA" href="/tennis">
                         <div className="optionsLeftBar">
                           <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Tennis</p>
                         </div>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -852,12 +900,12 @@ class App extends Component {
               <Route path="/finance" element={<ComingSoon ></ComingSoon>} />
               <Route path="/bet/:betNum" element={<Bet mainVueSetter={this.setMainVue} socket={this.state.socket} logged={this.state.logged} betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet}></Bet>} />
               <Route path="/decentrabet" element={
-              //<DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>
-              <ComingSoon></ComingSoon>
+                //<DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>
+                <ComingSoon></ComingSoon>
               } />
               <Route path="/rankings" element={<Classement mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} address={this.state.defaultAccount}></Classement>}></Route>
               {/*<Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>*/}
-              <Route path="/account" element={<Account  myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
+              <Route path="/account" element={<Account myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
               <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
               <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
               <Route path="/*" element={<p>error</p>}></Route>

@@ -217,7 +217,9 @@ body {
   z-index: 50;
   width: 18%;
   height: calc(100% - 70px);
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
   left: 0px;
   top: 70px;
   background: #FFFFFF;
@@ -2044,10 +2046,6 @@ a:hover {
 #cross {
   width: 27px;
   height: 27px;
-  padding: 0;
-  position: relative;
-  bottom: 1px;
-  right: 4px;
 }
 
 #crossButton {
@@ -2056,6 +2054,11 @@ a:hover {
   background-color: white;
   border: transparent;
   border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 #line1P2POption {
@@ -3184,7 +3187,8 @@ table.customTable thead {
   gap: 10px;
 
 
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
 }
 
@@ -3326,7 +3330,8 @@ table.customTable thead {
   width: 50%;
   display: flex;
   flex-direction: row;
-  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: auto;
   gap: 5px;
 }
 

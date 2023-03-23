@@ -38,9 +38,9 @@ class Account extends React.Component {
           Hi {this.state.loaded && this.state.dataPerso !== undefined ? this.state.dataPerso[0].pseudo : ""} !
         </p>
         {/*<div id="linkMyBets">
-            <a className="superLinkMyBetsDiv" href="/mybets">
+            <Link className="superLinkMyBetsDiv" href="/mybets">
               <div className="linkMyBetsDiv"></div>
-            </a>
+            </Link>
           <div className="superLinkMyBetsDiv">
 
             <Link>
@@ -153,6 +153,9 @@ class Account extends React.Component {
       else { this.setState({ logged: false }); this.props.setLogged(false) }
     })
     if(this.props.myBets.length!==0){
+      console.log(this.props.myBets)
+      console.log("EEEEEEEEEEE")
+
       this.setState({betsToDisplay:this.props.myBets})
     }
   }
@@ -222,7 +225,7 @@ class Account extends React.Component {
     if (this.props.friendsUpdater !== prevProps.friendsUpdater) {
       this.updateFriends()
     }
-    if (this.props.address !== undefined && this.props.address !== prevProps.address && __mounted) {
+    /*if (this.props.address !== undefined && this.props.address !== prevProps.address && __mounted) {
       try {
         console.log(this.props.address);
         fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
@@ -241,9 +244,11 @@ class Account extends React.Component {
       } catch (error) {
         console.log(error);
       }
-    }
+    }*/
 
-    if(prevProps.myBets.length===0 && this.props.myBets.length!==0){
+    if((prevProps.myBets.length===0 && this.props.myBets.length!==0) || (prevProps.myBets.length!==0 && this.props.myBets.length===0)){
+      console.log(this.props.myBets)
+      console.log("EEEEEEEEEEE")
       this.setState({betsToDisplay:this.props.myBets})
     }
   }
