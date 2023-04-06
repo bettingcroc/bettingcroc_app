@@ -1,14 +1,14 @@
 const express = require('express')
 const logger = require('./logger.js')
-
 const model = require('./model')
 var cors = require('cors')
 const users = require('./users')
 const apiServer = require('./apiServer')
 const app = express()
+var useragent = require('express-useragent');
 const port = process.env.PORT || 4000;
 const session = require('express-session')
-
+app.use(useragent.express());
 const socketIo = require("socket.io")
 const http = require("http")
 const server = http.createServer(app)
@@ -103,11 +103,15 @@ app.get('/api/position/:address', (req, res) => {
 
 
 app.get('/api/nonce/:address', async (req, res) => {
+  console.log('GET /api/nonce/'+req.params.address)
+
   req.session.nonce = users.newNonce(req.params.address)
   res.send({ 'nonce': req.session.nonce })
 })
 
 app.post('/login', (req, res) => {
+  console.log('POST /login')
+
   //console.log("nonce signed " + req.body.signedNonce)
   //console.log("address " + req.body.address)
   let nonce = req.session.nonce
@@ -126,14 +130,20 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/logout', (req, res) => {
+  console.log('POST /logout')
+
   req.session.logged = false
   req.session.address = undefined
   res.send("ok")
 })
 app.get('/api/testLogin', (req, res) => {
+  console.log('GET /testLogin')
+
   res.send({ isLogged: req.session.logged })
 })
 app.post('/api/setUpPseudo/', (req, res) => {
+  console.log('POST /api/setUpPseudo/')
+
   if (req.session.logged === true) {
     //console.log(req.body.newPseudo, " ", req.session.address)
     users.setPseudo(req.body.newPseudo, req.session.address)
@@ -146,6 +156,8 @@ app.post('/api/setUpPseudo/', (req, res) => {
 })
 
 app.post('/api/sendFriendRequest/', (req, res) => {
+  console.log('POST /api/sendFriendRequest/')
+
   if (req.session.logged === true) {
    //console.log(req.body)
     if (req.body.head === "newFriend") {
@@ -170,23 +182,6 @@ app.post('/api/sendFriendRequest/', (req, res) => {
       }
 
     }
-    /*else {
-      logger.blue(req.body.head === "newFriend")
-      logger.blue(req.body.head)
-      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
-        console.log(req.body, " from ", req.session.address)
-        users.newFriendRequest(req.body, req.session.address)
-        res.status(200).send()
-      }
-      else {
-        console.log("not friends")
-        res.status(401).send()
-      }
-    }
-    /*
-    /*console.log(req.body, " from ", req.session.address)
-    users.newFriendRequest(req.body, req.session.address)
-    res.status(200).send()*/
   }
   else {
     console.log("not logged")
@@ -195,6 +190,8 @@ app.post('/api/sendFriendRequest/', (req, res) => {
 })
 
 app.post('/api/answerRequest/', (req, res) => {
+  console.log('POST /api/answerRequest/')
+
   if (req.session.logged === true) {
     //console.log(req.body, " from ", req.session.address)
     users.answerRequest(req.body, req.session.address)
@@ -207,6 +204,8 @@ app.post('/api/answerRequest/', (req, res) => {
 })
 
 app.post('/api/removeFriend/', (req, res) => { //
+  console.log('POST /api/removeFriend/')
+
   if (req.session.logged === true) {
     //console.log(req.body, " from ", req.session.address)
     users.removeFriend(req.body, req.session.address)
@@ -219,6 +218,8 @@ app.post('/api/removeFriend/', (req, res) => { //
 })
 
 app.get('/api/myrequests', (req, res) => {
+  console.log('GET /api/myrequests/')
+
   if (req.session.logged === true) {
     res.send(apiServer.getMyRequests(req.session.address))
   }
@@ -229,6 +230,8 @@ app.get('/api/myrequests', (req, res) => {
 })
 
 app.get('/api/myfriends', (req, res) => {
+  console.log('GET /api/myfriends/')
+
   if (req.session.logged === true) {
     res.send(apiServer.getMyFriends(req.session.address))
   }
@@ -239,19 +242,28 @@ app.get('/api/myfriends', (req, res) => {
 })
 
 app.get('/api/lastbets', (req, res) => {
+  console.log('GET /api/lastbets/')
+
   res.send(apiServer.getTodayMatches())
 })
 app.get('/api/topBets', async (req, res) => {
+  console.log('GET /api/topBets/')
+
   //console.log(topBets)
   res.send(topBets)
 })
 app.get('/api/infoMatch/:id', (req, res) => {
+  console.log('GET /api/infoMatch/'+req.params.id)
+
   res.send(apiServer.getMatchInfo(req.params.id))
 })
 app.get('/api/classement', (req, res) => {
+  console.log('GET /api/classement')
+
   res.send(apiServer.get10MaxScore())
 })
 app.get('/api/score/:address', (req, res) => {
+  console.log('GET /api/score/'+req.params.address)
   //console.log('GET /api/score/'+req.params.address)
   address = req.params.address.toLowerCase()
   //console.log(address)
@@ -275,6 +287,7 @@ app.get('/api/score/:address', (req, res) => {
 
 
 app.post('/api/myBets', async (req, res) => {
+  console.log('POST /api/myBets')
   console.log(req.body)
   betsInfos=await apiServer.getMyBets(req.body.listBets)
   console.log(betsInfos)
@@ -282,10 +295,14 @@ app.post('/api/myBets', async (req, res) => {
 })
 
 app.post('/api/myRecentsBets', async (req, res) => {
+  console.log('POST /api/myRecentsBets')
+
   res.send(await apiServer.getMyRecentsBets(req.body.listBets))
 })
 
 app.get('/api/myP2PBets/:address', async (req, res) => {
+  console.log('GET /api/myP2PBets/'+req.params.address)
+
   res.send(await apiServer.getMyP2PBets(req.params.address))
 })
 
@@ -293,11 +310,19 @@ app.get('/api/myP2PBets/:address', async (req, res) => {
 app.use(express.static("./app/build/"))
 
 app.get('/static/:dir/:file', (req, res) => {
+  console.log('GET /static/'+ req.params.dir + "/" + req.params.file)
+
   res.sendFile(__dirname + "/app/build/static/" + req.params.dir + "/" + req.params.file)
 })
 
 
 
 app.get('/*', (req, res) => {
+  logger.red('GET /')
+  console.log(req.useragent.isMobile)
+  if(req.useragent.isMobile){
+    res.sendFile(__dirname + "/app/mobile.html")
+  }
   res.sendFile(__dirname + "/app/build/index.html");
 });
+
