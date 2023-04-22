@@ -422,7 +422,7 @@ class App extends Component {
   setMyBets() {
     let disconnectedFunction = false
     try {
-      this.state.multiBetContract.methods.seeMyBets(this.state.defaultAccount).call().then(result => {
+      this.state.multiBetContract.methods.getMyBetsUser(this.state.defaultAccount).call().then(result => {
 
         fetch("https://testnet.bettingcroc.com/api/mybets/", {
           method: "POST"
@@ -441,7 +441,7 @@ class App extends Component {
                 }
                 else if (bet.status === 2) {
                   try {
-                    await this.state.multiBetContract.methods.didIWinSmth(bet.id, this.state.defaultAccount).call().then(
+                    await this.state.multiBetContract.methods.getHasUserWon(bet.id, this.state.defaultAccount).call().then(
                       async (res1) => {
                         //console.log("call3")
                         if (res1 === true) {
@@ -477,7 +477,7 @@ class App extends Component {
                   console.log("canceled bet MyBets")
                   bet = Object.assign(bet, { betState: "✖️" })
                 }
-                await this.state.multiBetContract.methods.getNumberOfOptions(bet.id).call().then(async options => {
+                await this.state.multiBetContract.methods.getBetOptions(bet.id).call().then(async options => {
                   let mises = []
                   for (let o = 0; o < options; o++) {
                     try {
@@ -558,7 +558,7 @@ class App extends Component {
                 await new Promise(next => {
                   try {
                     //console.log(n, data[n].id, this.state.defaultAccount, data[n].p2pNum)
-                    this.state.multiBetContract.methods.didIWinSmthP2P(data[n].id, this.state.defaultAccount, data[n].p2pNum).call().then(async result3 => {
+                    this.state.multiBetContract.methods.getHasUserWonP2P( this.state.defaultAccount,data[n].id, data[n].p2pNum).call().then(async result3 => {
                       //console.log(result3)
                       //console.log(result3)
                       if (result3 === true) {
@@ -566,7 +566,7 @@ class App extends Component {
                       }
                       else {
                         try {
-                          this.state.multiBetContract.methods.didIWinSmthP2P(data[n].id, this.state.defaultAccount, data[n].p2pNum).call().then(result4 => {
+                          this.state.multiBetContract.methods.getHasUserWonP2P( this.state.defaultAccount, data[n].id,data[n].p2pNum).call().then(result4 => {
                             if (result4 === true) {
                               data[n].betState = "W"
                             }
@@ -589,7 +589,7 @@ class App extends Component {
 
 
                 })
-                await this.state.multiBetContract.methods.getNumberOfOptions(data[n].id).call().then(async options => {
+                await this.state.multiBetContract.methods.getBetOptions(data[n].id).call().then(async options => {
                   //console.log(options)
                   let mises = []
                   for (let ind = 0; ind < options; ind++) {
@@ -657,14 +657,14 @@ class App extends Component {
     }
   }
   approveUSDT(amount) {
-    this.state.USDTContract.methods.approve("0x33844f8042D7980C7060067562a11b14F278018e", amount).send({ from: this.state.defaultAccount })
+    this.state.USDTContract.methods.approve("0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d", amount).send({ from: this.state.defaultAccount })
       .once('receipt', (receipt) => {
         console.log("approve success")
       })
   }
   approveMBT(amount) {
     this.state.mbtContract.methods
-      .approve("0x33844f8042D7980C7060067562a11b14F278018e", amount)
+      .approve("0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d", amount)
       .send({ from: this.state.defaultAccount })
       .once("receipt", (receipt) => {
         console.log("approve success");

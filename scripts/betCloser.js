@@ -11,9 +11,9 @@ const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40
 const HDWalletProvider= require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
-var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
+var multiBetABI = fs.readFileSync('/MultiBetABI.txt').toString();
 
-multiBetAddress='0x33844f8042D7980C7060067562a11b14F278018e';
+multiBetAddress='0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
 
 function decimalsConverter(numberToConvert){return Math.pow(numberToConvert,18)}
 function weiconvert(number){return BigInt(number*decimalsConverter(10));} // function to manage decimals of the token

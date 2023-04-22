@@ -13,9 +13,9 @@ function run() {
     const HDWalletProvider = require('@truffle/hdwallet-provider');
     const fs = require('fs');
     const { Contract } = require('web3-eth-contract');
-    var multiBetABI = fs.readFileSync('../public/MultiBetMultiOptionsUSDTABI.txt').toString();
+    var multiBetABI = fs.readFileSync('/MultiBetABI.txt').toString();
     var tx = 0;
-    multiBetAddress = '0x33844f8042D7980C7060067562a11b14F278018e';
+    multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
 
     timestampTest = new Date();
     var FirstDay = Math.round((timestampTest.getTime() + 0000000) / 1000);

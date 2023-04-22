@@ -46,7 +46,7 @@ class BetComplet extends React.Component {
           for (let i = 0; i < sizeBet; i++) {
             try {
               this.props.betContract.methods
-                .getOptionMoney(this.props.betNumber, i)
+                .getAmountInPool(this.props.betNumber, i)
                 .call()
                 .then((result) => {
                   moneyInPoolsLet[i] += 1
@@ -130,7 +130,7 @@ class BetComplet extends React.Component {
               for (let i = 0; i < sizeBet; i++) {
                 try {
                   this.props.betContract.methods
-                    .getOptionMoney(this.props.betNumber, i)
+                    .getAmountInPool(this.props.betNumber, i)
                     .call()
                     .then((result) => {
                       moneyInPoolsLet[i] += 1

@@ -1100,7 +1100,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
 
     mapping(uint256 => mapping(uint256 => uint256)) amountInPoolEnd;
 
-    function getamountInPoolEnd(
+    function getAmountInPoolEnd(
         uint256 betNumber,
         uint256 option
     ) public view returns (uint256) {
@@ -1109,7 +1109,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
 
     mapping(uint256 => mapping(uint256 => mapping(address => uint256))) amountInPoolFromUserEnd;
 
-    function getamountInPoolFromUserEnd(
+    function getAmountInPoolFromUserEnd(
         uint256 betNumber,
         uint256 option,
         address msgsender

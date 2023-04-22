@@ -21,7 +21,7 @@ class OptionPool extends React.Component {
     try {
       if (this.props.status !== 2) {
         this.props.betContract.methods
-          .getOptionMoney(this.props.betNumber, this.props.optionNumber)
+          .getAmountInPool(this.props.betNumber, this.props.optionNumber)
           .call()
           .then((result) => {
             //console.log(result)
@@ -64,7 +64,7 @@ class OptionPool extends React.Component {
       try {
         if (this.props.status !== 2) {
           this.props.betContract.methods
-            .getOptionMoney(this.props.betNumber, this.props.optionNumber)
+            .getAmountInPool(this.props.betNumber, this.props.optionNumber)
             .call()
             .then((result) => {
               //console.log(result)
