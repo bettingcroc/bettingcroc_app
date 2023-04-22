@@ -16,9 +16,9 @@ class GetGains extends React.Component {
   componentDidMount() {
     if (this.props.address !== undefined && this.props.betContract !== undefined) {
       try {
-        this.props.betContract.methods.toClaimTotal(this.props.address).call().then(result => {
+        this.props.betContract.methods.totalMoneyWonFromUser(this.props.address).call().then(result => {
           this.setState({ gainsFromGeneral: parseFloat(result) / decimalsConverter(10) })
-          this.props.betContract.methods.howMuchIWonP2P(this.props.address).call().then(result2 => {
+          this.props.betContract.methods.totalMoneyWonFromUserP2P(this.props.address).call().then(result2 => {
             this.setState({ gainsFromP2P: parseFloat(result2) / decimalsConverter(10) })
             this.setState({ gains: parseFloat(result) / decimalsConverter(10) + parseFloat(result2) / decimalsConverter(10) })
             if(this.state.gains>0){
@@ -37,10 +37,10 @@ class GetGains extends React.Component {
 componentDidUpdate(prevProps) {
   if ((prevProps.address !== this.props.address || prevProps.betContract !== this.props.betContract) && this.props.betContract !== undefined) {
     try {
-      this.props.betContract.methods.toClaimTotal(this.props.address).call().then(result => {
+      this.props.betContract.methods.totalMoneyWonFromUser(this.props.address).call().then(result => {
 
         this.setState({ gainsFromGeneral: parseFloat(result) / decimalsConverter(10) })
-        this.props.betContract.methods.howMuchIWonP2P(this.props.address).call().then(result2 => {
+        this.props.betContract.methods.totalMoneyWonFromUserP2P(this.props.address).call().then(result2 => {
           this.setState({ gainsFromP2P: parseFloat(result2) / decimalsConverter(10) })
           this.setState({ gains: parseFloat(result) / decimalsConverter(10) + parseFloat(result2) / decimalsConverter(10) })
           //console.log("gains G "+this.state.gainsFromGeneral )
