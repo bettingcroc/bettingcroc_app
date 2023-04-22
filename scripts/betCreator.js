@@ -13,7 +13,7 @@ function run() {
     const HDWalletProvider = require('@truffle/hdwallet-provider');
     const fs = require('fs');
     const { Contract } = require('web3-eth-contract');
-    var multiBetABI = fs.readFileSync('/MultiBetABI.txt').toString();
+    var multiBetABI = fs.readFileSync('./MultiBetABI.txt').toString();
     var tx = 0;
     multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
 
