@@ -144,16 +144,23 @@ class App extends Component {
 
 
   async loadBlockchainData() {
+    console.log("loadingBlockchainData")
     const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
     if (web3.givenProvider) {
       web3.setProvider(Web3.givenProvider)
     }
-    if (localStorage.getItem("walletconnect") !== null) {
+    else if (localStorage.getItem("walletconnect") !== null) {
       await provider.enable();
       web3.setProvider(provider)
       web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
     }
+    else {
+      this.connectCoinBase()
+    }
+    console.log("accounts1")
     const accounts = await web3.eth.getAccounts();
+    console.log("accounts2")
+
     this.setState({ defaultAccount: accounts[0] });
 
     if (this.state.defaultAccount !== undefined) {
@@ -189,7 +196,7 @@ class App extends Component {
       socket.on('disconnect', () => console.log('server disconnected'))
     }
 
-
+    console.log("here")
     const multiBetContract = new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS);
     const USDTContract = new web3.eth.Contract(USDT_ABI, USDT_ADDRESS);
     const mbtContract = new web3.eth.Contract(MBT_ABI, MBT_ADDRESS);
@@ -199,6 +206,7 @@ class App extends Component {
     this.setState({ mbtContract });
     this.setState({ decentrabetContract });
     this.setState({ web3 })
+    console.log(this.state.web3)
     this.accountChangedHandler(accounts[0])
     this.setState({ loading: false });
     this.setState({ balanceUSDT: null })
@@ -330,6 +338,7 @@ class App extends Component {
         this.setState({ errorMessage: error.message });
       });
     // Initialize a Web3 object
+    console.log(this.state.web3)
     this.state.web3.setProvider(ethereum)
   }
   async logoutReact() {

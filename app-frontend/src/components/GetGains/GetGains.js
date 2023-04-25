@@ -62,19 +62,19 @@ componentDidUpdate(prevProps) {
 getGains(){ 
   //console.log(this.state.gainsFromGeneral+" "+this.state.gainsFromP2P)
   if(this.state.gainsFromGeneral>0 && this.state.gainsFromP2P>0){
-    this.props.betContract.methods.recupAllGains().send({ from: this.props.address })
+    this.props.betContract.methods.claimTotalMoney().send({ from: this.props.address })
     .once('receipt', (receipt) => {
       console.log("all gains recupered success")
     })
   }
   else if(this.state.gainsFromGeneral>0 && this.state.gainsFromP2P===0){
-    this.props.betContract.methods.recupAllWin().send({ from: this.props.address })
+    this.props.betContract.methods.claimMoney().send({ from: this.props.address })
     .once('receipt', (receipt) => {
       console.log("all gains from general recupered success")
     })
   }
   else if(this.state.gainsFromGeneral===0 && this.state.gainsFromP2P>0){
-    this.props.betContract.methods.recupAllP2PWin().send({ from: this.props.address })
+    this.props.betContract.methods.claimMoneyFromP2P().send({ from: this.props.address })
     .once('receipt', (receipt) => {
       console.log("all gains from P2P recupered success")
     })
