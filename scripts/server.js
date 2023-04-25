@@ -5,10 +5,8 @@ var cors = require('cors')
 const users = require('./users')
 const apiServer = require('./apiServer')
 const app = express()
-var useragent = require('express-useragent');
 const port = process.env.PORT || 4000;
 const session = require('express-session')
-app.use(useragent.express());
 const socketIo = require("socket.io")
 const http = require("http")
 const server = http.createServer(app)
@@ -319,10 +317,6 @@ app.get('/static/:dir/:file', (req, res) => {
 
 app.get('/*', (req, res) => {
   logger.red('GET /')
-  console.log(req.useragent.isMobile)
-  if(req.useragent.isMobile){
-    res.sendFile(__dirname + "/app/mobile.html")
-  }
   res.sendFile(__dirname + "/app/build/index.html");
 });
 
