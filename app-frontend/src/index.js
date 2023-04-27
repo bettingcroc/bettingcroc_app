@@ -113,7 +113,6 @@ class App extends Component {
       myP2PBets: []
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this)
-    this.loadBlockchainData()
     this.allowancesSetter = this.allowancesSetter.bind(this)
     this.togglePopup = this.togglePopup.bind(this)
     this.goPanier = this.goPanier.bind(this)
@@ -146,6 +145,8 @@ class App extends Component {
   async loadBlockchainData() {
     console.log("loadingBlockchainData")
     const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
+    this.setState({ web3 })
+
     if (web3.givenProvider) {
       web3.setProvider(Web3.givenProvider)
     }
@@ -155,8 +156,26 @@ class App extends Component {
       web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
     }
     else {
-      this.connectCoinBase()
+      try
+      {ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
+        web3.setProvider(Web3.givenProvider)
+        this.accountChangedHandler(result[0]);
+        console.log(result[0])
+        //this.setState({ connButtonText: "Wallet Connected" });
+        //getAccountBalance(result[0]);
+      })
+        .catch((error) => {
+          //this.setState({ errorMessage: error.message });
+        });
+      // Initialize a Web3 object
+      //console.log(this.state.web3)
+      web3.setProvider(ethereum)}
+      catch(e){
+
+      }
     }
+    web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
+
     console.log("accounts1")
     const accounts = await web3.eth.getAccounts();
     console.log("accounts2")
@@ -205,7 +224,7 @@ class App extends Component {
     this.setState({ USDTContract });
     this.setState({ mbtContract });
     this.setState({ decentrabetContract });
-    this.setState({ web3 })
+    //this.setState({ web3 })
     console.log(this.state.web3)
     this.accountChangedHandler(accounts[0])
     this.setState({ loading: false });
@@ -248,6 +267,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    this.loadBlockchainData()
 
   }
   componentDidUpdate() {
@@ -280,6 +300,7 @@ class App extends Component {
 
   }
   accountChangedHandler = (newAccount) => {
+    console.log("setting account to "+newAccount)
     this.setState({ defaultAccount: newAccount });
     this.allowancesSetter()
   };
@@ -329,8 +350,9 @@ class App extends Component {
 
     ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
       this.state.web3.setProvider(Web3.givenProvider)
-      this.accountChangedHandler(result[0]);
       console.log(result[0])
+
+      this.accountChangedHandler(result[0]);
       this.setState({ connButtonText: "Wallet Connected" });
       //getAccountBalance(result[0]);
     })
