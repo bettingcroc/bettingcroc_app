@@ -248,7 +248,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
     ) public view returns (uint256[] memory) {
         uint256[] memory unpaidBets = new uint[](myBetsUser[msgsender].length);
         for (uint i = 0; i < myBetsUser[msgsender].length; i++) {
-            if (getHasUserWon( msgsender,myBetsUser[msgsender][i])) {
+            if (getHasUserWon(msgsender, myBetsUser[msgsender][i])) {
                 unpaidBets[i] = myBetsUser[msgsender][i];
             } else {
                 unpaidBets[i] = 0;
@@ -325,45 +325,14 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
 
     /////////////////////////////////// BETS ADMINISTRATION//////////////////////////////////////////////////////////////
 
-    /*function closeBet(uint256 betNumber) public onlyRole(CREATOR_ROLE) {
-        closed[betNumber] = true;
-        emit betClosed(betNumber);
-    }*/
-
     function closeBets(
         uint256[] memory betsToClose
     ) public onlyRole(CREATOR_ROLE) {
         for (uint i = 0; i < betsToClose.length; i++) {
             closed[betsToClose[i]] = true;
+            emit betClosed(betNumber);
         }
     } // dynamic array : max => mathcs qui demarrent en simultané
-
-    /*function endBet(
-        uint256 betNumber,
-        uint256 poolWin
-    ) public onlyRole(ENDER_ROLE) {
-        require(closed[betNumber], "betopen");
-        require(poolWin <= betOptions[betNumber], "invalidwinner");
-        dead[betNumber] = true;
-        winner[betNumber] = poolWin;
-        uint256 feesBet = 0;
-        for (uint i = 0; i < betOptions[betNumber]; i++) {
-            uint256 feesPool;
-            if (i != poolWin) {
-                //amountInPoolEnd[betNumber][i]=amountInPool[betNumber][i];
-                feesPool = (amountInPool[betNumber][i] * feesRate) / 100;
-                feesBet = feesBet + feesPool;
-                amountInPool[betNumber][i] =
-                    amountInPool[betNumber][i] -
-                    feesPool;
-            }
-        }
-        amountToClaimForOwner = amountToClaimForOwner + feesBet;
-        amountLosedOnBet[betNumber] = moneyLosed(betNumber);
-        amountPoolWinner[betNumber] = amountInPool[betNumber][poolWin];
-        amountPoolLoser[betNumber] = moneyLosed(betNumber);
-        emit betDead(betNumber, poolWin);
-    }*/
 
     function endBets(
         uint256[] memory betNumbers,
@@ -387,7 +356,9 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                     uint256 feesPool;
                     if (u != poolwinners[i]) {
                         //amountInPoolEnd[betNumber][u]=amountInPool[betNumber][u];
-                        feesPool = (amountInPool[betNumber][u] * feesRate) / 100;
+                        feesPool =
+                            (amountInPool[betNumber][u] * feesRate) /
+                            100;
                         feesBet = feesBet + feesPool;
                         amountInPool[betNumber][u] =
                             amountInPool[betNumber][u] -
@@ -426,7 +397,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         uint256 betNumber,
         address msgsender
     ) public view returns (uint256) {
-        if (!getHasUserWon( msgsender,betNumber)) {
+        if (!getHasUserWon(msgsender, betNumber)) {
             return 0;
         }
         if (canceled[betNumber] == true) {
@@ -654,10 +625,10 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         amountToClaimForOwner = 0;
         _setupRole(CREATOR_ROLE, msg.sender);
         string[] memory a1 = new string[](1);
-        a1[0]="0";
+        a1[0] = "0";
         uint256[] memory a2 = new uint256[](2);
-        a2[0]=0;
-        createNewBets(a1, a2,1);
+        a2[0] = 0;
+        createNewBets(a1, a2, 1);
         renounceRole(CREATOR_ROLE, msg.sender);
         _setupRole(
             CREATOR_ROLE,
@@ -677,20 +648,6 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         ); //privateKey 0x61267dc1bbbb7e8d83e7e737d5e5e42d16d83f0cd471df71f1d65fc936820a5d
         //0x473be604
     }
-
-    /*function createNewBet(
-        string memory name,
-        uint256 optionsNumber
-    ) public onlyRole(CREATOR_ROLE) {
-        require(getBetNameToBetNumber[name] == 0, "one bet already exist");
-        getBetNumberToBetName[lastBetNumber] = name;
-        getBetNameToBetNumber[name] = lastBetNumber;
-        betOptions[lastBetNumber] = optionsNumber;
-        emit newBetCreated(lastBetNumber, name);
-        address[] memory array;
-        createP2PBet(0, 1, lastBetNumber, 0, array);
-        lastBetNumber = lastBetNumber + 1;
-    }*/
 
     function createNewBets(
         string[] memory names,
@@ -1046,7 +1003,8 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
             return
                 amountInPoolFromUser[betNumber][winner[betNumber]][msgsender] !=
                 0 &&
-                isInArrayAddress(msgsender, addressPayedOnBets[betNumber]) == false;
+                isInArrayAddress(msgsender, addressPayedOnBets[betNumber]) ==
+                false;
         }
     }
 
@@ -1096,7 +1054,6 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
             return false;
         }
     }
-
 
     mapping(uint256 => mapping(uint256 => uint256)) amountInPoolEnd;
 

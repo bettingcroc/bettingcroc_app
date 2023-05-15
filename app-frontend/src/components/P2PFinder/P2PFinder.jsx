@@ -28,7 +28,7 @@ class P2PFinder extends React.Component {
   }
   componentWillUnmount() {
     __mounted = false
-    console.log("unmount P2P finder")
+    //console.log("unmount P2P finder")
   }
   componentDidUpdate(prevProps) {
     if (this.props.id !== undefined && prevProps !== this.props && this.props.betContract !== undefined && (this.state.loaded === false || this.props.id !== prevProps.id)) {

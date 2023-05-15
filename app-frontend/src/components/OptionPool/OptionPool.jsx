@@ -16,7 +16,7 @@ class OptionPool extends React.Component {
   }
   componentDidMount() {
     //console.log("address"+this.props.address)
-    console.log("mount OptionPool " + this.props.optionNumber)
+    //console.log("mount OptionPool " + this.props.optionNumber)
     __mounted = true
     try {
       if (this.props.status !== 2) {
@@ -59,7 +59,7 @@ class OptionPool extends React.Component {
     } catch (error) { }
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log("update OptionPool")
+    //console.log("update OptionPool")
     if (prevProps !== this.props && __mounted) {
       try {
         if (this.props.status !== 2) {
@@ -106,7 +106,7 @@ class OptionPool extends React.Component {
   }
   componentWillUnmount() {
     __mounted = false
-    console.log("unmount OptionPool " + this.props.team)
+    //console.log("unmount OptionPool " + this.props.team)
   }
 
   setBet() {

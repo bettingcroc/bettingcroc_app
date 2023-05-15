@@ -29,11 +29,11 @@ class P2PBetCreator extends React.Component {
   }
   componentDidMount() {
     this.setState({ authorized: undefined });
-    console.log(this.state.authorized);
+    //console.log(this.state.authorized);
     __mounted = true
   }
   componentDidUpdate(prevProps) {
-    console.log("update P2P Creator "+ this.props.amountToBet)
+    //console.log("update P2P Creator "+ this.props.amountToBet)
     if (prevProps !== this.props && __mounted) {
 
       this.setState({ amountToBet: this.props.amountToBet })

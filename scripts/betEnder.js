@@ -1,43 +1,29 @@
 const logger = require('./logger.js')
-
-console.log("///////////////////////////////START////////////////////////////////");
 const model = require('./model.js');
 const Web3 = require('web3');
 const request = require("request");
-const { promisify } = require('util');
 const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
 //const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
-const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
-//var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const { Contract } = require('web3-eth-contract');
-var multiBetABI = fs.readFileSync('./MultiBetABI.txt').toString();
-
-multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
-
-keyPublic = '0x1deecf77dD59A35c9f68cf507d79DDbd8524fa65';
-keyPrivate = '8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2835ce6714fb';
+const multiBetABI = fs.readFileSync('./MultiBetABI.txt').toString();
+const multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
+const keyPublic = '0x1deecf77dD59A35c9f68cf507d79DDbd8524fa65';
+const keyPrivate = '8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2835ce6714fb';
 
 
-async function main() {
-    setTimeout(main, 60000);
-    /*date1=new Date().getTime()-163000000;
-    date2=new Date().getTime()-158000000;
-    console.log(new Date(date1).toLocaleDateString()," ",new Date(date1).toLocaleTimeString()," ",new Date(date2).toLocaleDateString()," ",new Date(date2).toLocaleTimeString())
-    date1=Math.floor(date1/1000);
-    date2=Math.floor(date2/1000);*/
+async function betEnder() {
+    setTimeout(betEnder, 60000);
     resultDB = model.get_betClosed();
-    betsToEnd = [];
-    //winnerBetsToEnd=[];
+    betsClosed = [];
     for (i = 0; i < resultDB.length; i++) {
-        betsToEnd.push(resultDB[i]["betNumber"]);
+        betsClosed.push(resultDB[i]["betNumber"]);
     }
-    //console.log(betsToEnd)
     timeNow = new Date();
     dateNow = new Date().toLocaleDateString();
-    if (betsToEnd.length > 0) {
-        createWinnersArray(betsToEnd)
+    if (betsClosed.length > 0) {
+        createWinnersArray(betsClosed)
             .then((result) => {
                 if (result[0].length > 0) {
                     //logger.blue(result)
@@ -67,7 +53,7 @@ async function main() {
     }
 }
 
-main();
+betEnder();
 
 async function endBetOnChain(betsToEnd, winnerBetsToEnd) {
     const provider = new HDWalletProvider(keyPrivate, NODE_URL_BSCTESTNET);
@@ -95,11 +81,11 @@ async function endBetOnChain(betsToEnd, winnerBetsToEnd) {
         })
 }
 
-async function createWinnersArray(arrayBetsToEnd) {
+async function createWinnersArray(betsClosed) {
     betsToEnd = [];
     winnerBetsToEnd = [];
-    for (i = 0; i < arrayBetsToEnd.length; i++) {
-        let betNumber = arrayBetsToEnd[i]
+    for (i = 0; i < betsClosed.length; i++) {
+        let betNumber = betsClosed[i]
         if (model.get_Type(betNumber) == 'football') {
             var optionsFoot = {
                 'method': 'GET',

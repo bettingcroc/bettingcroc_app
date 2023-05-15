@@ -10,30 +10,39 @@ const session = require('express-session')
 const socketIo = require("socket.io")
 const http = require("http")
 const server = http.createServer(app)
+
 const io = socketIo(server, {
     cors: {
-        origin: "https://testnet.bettingcroc.com"
+        origin: "http://localhost:4000"
     }
 }) //in case server and client run on different urls
+
 io.on("connection", (socket) => {
     console.log("client connected: ", socket.id)
-    socket.on("joinRoom",(address)=>{
-      console.log(address)
-      console.log(socket.id+" joined room "+address)
-      socket.join(address)
+    socket.on("joinRoom",(nameRoom)=>{
+      console.log(socket.id+" joined room "+nameRoom)
+      socket.join(nameRoom)
     })
+
+    socket.on("leaveRoom",(nameRoom)=>{
+      console.log(socket.id+" left room "+nameRoom)
+      socket.leave(nameRoom)
+    })
+
     socket.on("sendFriendRequest",(args)=>{
       //console.log("socket")
-      console.log("sendFriendRequest : "+args.toAddress+" from "+args.fromAddress)
+      console.log("sendFriendRequest : "+args.toAddress.toLowerCase()+" from "+args.fromAddress)
       io.to(args.toAddress.toLowerCase()).emit("ReceivedFriendRequest",args.fromAddress)
       //console.log("socket")
     })
+
     socket.on("newFriendAccepted",(args)=>{
       //console.log("socket")
       console.log("newFriendAccepted : "+args.toAddress+" from "+args.fromAddress)
       io.to(args.toAddress.toLowerCase()).emit("newFriendAcceptedToSender",args.fromAddress)
       //console.log("socket")
     })
+
     socket.on("sendBetInvitation",(args)=>{
       //console.log("socket")
       console.log("sendBetInvitation : "+args.toAddress+" from "+args.fromAddress)
@@ -41,7 +50,10 @@ io.on("connection", (socket) => {
       //console.log("socket")
     })
 
-    socket.join("clock-room")
+    socket.on("update_score",(updates)=>{
+      console.log("update_score : "+updates.betNumber)
+      io.to("scoreBet"+updates.betNumber).emit("scoreBetReception",[updates.scoreHome,updates.scoreAway])
+    })
 
     socket.on("disconnect", (reason) => {
         console.log(reason)
@@ -52,7 +64,7 @@ io.on("connection", (socket) => {
 var topBets = {};
 updateTopBets()
 function updateTopBets() {
-  console.log("updateTopBets")
+  //console.log("updateTopBets")
   apiServer.getTopBets().then((result) => {
 
     if (result === "error") { setTimeout(updateTopBets, 60000) }
@@ -285,10 +297,10 @@ app.get('/api/score/:address', (req, res) => {
 
 
 app.post('/api/myBets', async (req, res) => {
-  console.log('POST /api/myBets')
-  console.log(req.body)
+  //console.log('POST /api/myBets')
+  //console.log(req.body)
   betsInfos=await apiServer.getMyBets(req.body.listBets)
-  console.log(betsInfos)
+  //console.log(betsInfos)
   res.send(betsInfos)
 })
 

@@ -24,7 +24,7 @@ class BetComplet extends React.Component {
       p2pdisplayArgs: null,
       friends: null
     };
-    fetch("https://testnet.bettingcroc.com/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
+    fetch("http://localhost:4000/api/infoMatch/" + props.betNumber, { method: "GET" }).then((res) => {
       res.json().then((data) => {
         this.setState({
           optionsArray: data.optionsArray,
@@ -82,29 +82,36 @@ class BetComplet extends React.Component {
     this.closeModalInviter = this.closeModalInviter.bind(this);
   }
   componentDidMount() {
-    console.log(this.props.status)
+    //console.log(this.props.status)
     __mounted = true
     __moneyCalculated = 0;
-    console.log("mount BetComplet")
+    //console.log("mount BetComplet")
     if (this.props.logged) {
-      let link = "https://testnet.bettingcroc.com/api/myfriends/"
+      let link = "http://localhost:4000/api/myfriends/"
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
-          console.log(data)
+          //console.log(data)
           this.setState({ friends: data });
         });
       });
     }
+    this.props.joinBetRoom(this.props.betNumber)
+
+    this.props.socket.on('scoreBetReception', (update) => {
+      //console.log("scoreBetReception : " + update)
+      this.setState({scoreHome:update[0]})
+      this.setState({scoreAway:update[1]})
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.betNumber !== this.props.betNumber) {
       __moneyCalculated = 0;
     }
-    console.log("update betComplet")
+    //console.log("update betComplet")
 
     if (this.props !== prevProps) {
-      fetch("https://testnet.bettingcroc.com/api/infoMatch/" + this.props.betNumber, { method: "GET" }).then((res) => {
+      fetch("http://localhost:4000/api/infoMatch/" + this.props.betNumber, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           if (__mounted) {
             this.setState({
@@ -134,7 +141,7 @@ class BetComplet extends React.Component {
                     .call()
                     .then((result) => {
                       moneyInPoolsLet[i] += 1
-                      console.log("money in pool " + i + " " + result)
+                      //console.log("money in pool " + i + " " + result)
                       try {
                         if (__mounted) {
                           for (let a = 0; a < sizeBet; a++) {
@@ -146,17 +153,17 @@ class BetComplet extends React.Component {
                 } catch (error) { }
               }
               try {
-                console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet[0])
+                //console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet[0])
                 if (moneyInPoolsLet[0] === -1) {
                 }
                 else {
-                  console.log(moneyInPoolsLet)
+                  //console.log(moneyInPoolsLet)
                   this.setState({ moneyInPools: moneyInPoolsLet })
-                  console.log("setting " + this.state.moneyInPools)
+                  //console.log("setting " + this.state.moneyInPools)
                 }
-                console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet)
+                //console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet)
                 this.setState({ moneyInPools: moneyInPoolsLet })
-                console.log("setting " + this.state.moneyInPools)
+                //console.log("setting " + this.state.moneyInPools)
               } catch (error) { }
             }
           }
@@ -164,7 +171,7 @@ class BetComplet extends React.Component {
       });
     }
     if (this.props.logged === true && prevProps.logged === false) {
-      let link = "https://testnet.bettingcroc.com/api/myfriends/"
+      let link = "http://localhost:4000/api/myfriends/"
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           console.log(data)
@@ -172,11 +179,16 @@ class BetComplet extends React.Component {
         });
       });
     }
+
+    
+
   }
 
   componentWillUnmount() {
     __mounted = false
-    console.log("unmount betComplet")
+    //console.log("unmount betComplet")
+    this.props.leaveBetRoom(this.props.betNumber)
+
   }
   setP2PdisplayArgs(newArgs) {
     this.setState({ p2pdisplayArgs: newArgs })

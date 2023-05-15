@@ -1608,6 +1608,8 @@ multiBetABI = [
 	}
   ]
 
+
+  
 const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
 //const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet";
@@ -1620,20 +1622,10 @@ multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 
-const READ_OPTIONS = { encoding: 'UTF-8' };
-const BET_URL = './html/componsantes/betPagePattern.html';
-const POOL_BOX_URL = './html/componsantes/poolBox.html';
-const INDEX_URL = './html/componsantes/index.html';
-const P2P_BOX = './html/componsantes/p2pOptionsBox.html';
-
 let Sqlite = require('better-sqlite3');
-const e = require('cors');
 
 let db = new Sqlite('db.sqlite');
 db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, status INTEGER, type TEXT, country TEXT, league TEXT, idAPI INTEGER, scoreHome INTEGER, scoreAway INTEGER)').run();
-
-
-
 
 
 
@@ -1654,16 +1646,7 @@ function add_bet(betNumber, option, list, date, type, country, league, idAPI) {
 	}
 }
 
-function update_score(betNumber, scoreHome, scoreAway) {
-	try {
-		let update = db.prepare(`update  Bets set scoreHome='${scoreHome}' , scoreAway='${scoreAway}' where betNumber=` + betNumber)
-		update.run()
-	}
-	catch (e) {
-		console.log("error update_score")
-		console.log(e)
-	}
-}
+
 
 function get_Name(betNumber) {
 	//console.log("betNumber to print",betNumber);
@@ -1708,11 +1691,9 @@ function get_BetBetween2dates(date1, date2) {
 	if (result) return result;
 }
 
-function get_betClosed() {
-	let select = db.prepare(`select betNumber from bets where status=1`);
-	let result = select.all();
-	if (result) return result;
-}
+
+
+
 
 function get_Type(betNumber) {
 	let select = db.prepare(`SELECT type FROM Bets WHERE betNumber = '${betNumber}'`);
@@ -1734,6 +1715,10 @@ function get_CLosestDatesByType(date, type) {
 	if (result) return result;
 	return null;
 }
+
+
+
+
 
 function get_Country(betNumber) {
 	let select = db.prepare(`SELECT country FROM Bets WHERE betNumber = '${betNumber}'`);
@@ -1838,10 +1823,8 @@ module.exports = {
 	get_League: get_League,
 	get_CLosestDatesByTypeAndLeague: get_CLosestDatesByTypeAndLeague,
 	closeBets: closeBets,
-	get_betClosed: get_betClosed,
 	endBets: endBets,
 	cancelBet: cancelBet,
-	update_score: update_score,
-	sqlToInject:sqlToInject
+	sqlToInject:sqlToInject,
 };
 //0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d

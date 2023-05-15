@@ -39,7 +39,7 @@ import USDTGetter from "./components/USDTGetter/USDTGetter"
 import GetGains from "./components/GetGains/GetGains";
 
 const APP_NAME = 'bettingcroc'
-const APP_LOGO_URL = 'https://testnet.bettingcroc.com/static/media/home.de3a12ee.png'
+const APP_LOGO_URL = 'http://localhost:4000/static/media/home.de3a12ee.png'
 const DEFAULT_ETH_JSONRPC_URL = `https://data-seed-prebsc-1-s3.binance.org:8545`
 const DEFAULT_CHAIN_ID = 97
 const coinbaseWallet = new CoinbaseWalletSDK({
@@ -48,6 +48,7 @@ const coinbaseWallet = new CoinbaseWalletSDK({
   darkMode: false
 })
 const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
+const socket = io('http://localhost:4000')
 //const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
 
 // Initialize a Web3 object
@@ -110,7 +111,8 @@ class App extends Component {
       overlayClass: "inactiveOverlay",
       mainVue: null,
       myBets: [],
-      myP2PBets: []
+      myP2PBets: [],
+      socket: socket
     };
     this.accountChangedHandler = this.accountChangedHandler.bind(this)
     this.allowancesSetter = this.allowancesSetter.bind(this)
@@ -139,6 +141,43 @@ class App extends Component {
     this.setMainVue = this.setMainVue.bind(this);
     this.setMyBets = this.setMyBets.bind(this);
     this.setMyP2PBets = this.setMyP2PBets.bind(this);
+    this.joinBetRoom = this.joinBetRoom.bind(this)
+    this.leaveBetRoom = this.leaveBetRoom.bind(this)
+
+    socket.on('connect', () => {
+      console.log("connected to server with " + socket.id); if (this.state.defaultAccount !== undefined) { socket.emit('joinRoom', this.state.defaultAccount.toLowerCase()) }
+    })
+
+    socket.on('ReceivedFriendRequest', (from) => {
+      console.log("ReceivedFriendRequest from" + from)
+      this.setState({
+        requestUpdater: Math.random()
+      })
+    })
+
+    socket.on('ReceivedBetInvitation', (from) => {
+      console.log("ReceivedBetInvitation from" + from)
+      this.setState({
+        requestUpdater: Math.random()
+      })
+    })
+
+    socket.on('newFriendAcceptedToSender', (from) => {
+      console.log("newFriendAcceptedToSender from" + from)
+      this.setState({
+        friendsUpdater: Math.random()
+      })
+    })
+
+    socket.on('connect_error', () => {
+      setTimeout(() => socket.connect(), 5000)
+    })
+    if (this.state.defaultAccount !== undefined) {
+      socket.emit('joinRoom', this.state.defaultAccount.toLowerCase())
+    }
+    socket.on('disconnect', () => console.log('server disconnected'))
+    console.log("socket init")
+
   }
 
 
@@ -146,76 +185,44 @@ class App extends Component {
     console.log("loadingBlockchainData")
     const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
     this.setState({ web3 })
-
-    if (web3.givenProvider) {
-      web3.setProvider(Web3.givenProvider)
-    }
-    else if (localStorage.getItem("walletconnect") !== null) {
-      await provider.enable();
-      web3.setProvider(provider)
-      web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
-    }
-    else {
-      try
-      {ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
+    let walletType = localStorage.getItem("walletType")
+    if (walletType === "Metamask") {
+      if (web3.givenProvider) {
         web3.setProvider(Web3.givenProvider)
-        this.accountChangedHandler(result[0]);
-        console.log(result[0])
-        //this.setState({ connButtonText: "Wallet Connected" });
-        //getAccountBalance(result[0]);
-      })
-        .catch((error) => {
-          //this.setState({ errorMessage: error.message });
-        });
-      // Initialize a Web3 object
-      //console.log(this.state.web3)
-      web3.setProvider(ethereum)}
-      catch(e){
+      }
+    }
+    else if (walletType === "WC") {
+      if (localStorage.getItem("walletconnect") !== null) {
+        await provider.enable();
+        web3.setProvider(provider)
+        web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
+      }
+    }
+    else if (walletType === "Coinbase") {
+      try {
+        ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
+          web3.setProvider(Web3.givenProvider)
+          this.accountChangedHandler(result[0]);
+          console.log(result[0])
+          //this.setState({ connButtonText: "Wallet Connected" });
+          //getAccountBalance(result[0]);
+        })
+          .catch((error) => {
+            //this.setState({ errorMessage: error.message });
+          });
+        // Initialize a Web3 object
+        //console.log(this.state.web3)
+        web3.setProvider(ethereum)
+      }
+      catch (e) {
 
       }
     }
-    web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
+    //web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
 
-    console.log("accounts1")
     const accounts = await web3.eth.getAccounts();
-    console.log("accounts2")
 
     this.setState({ defaultAccount: accounts[0] });
-
-    if (this.state.defaultAccount !== undefined) {
-      const socket = io('https://testnet.bettingcroc.com')
-      this.setState({ socket: socket })
-      socket.on('connect', () => console.log("connected to server with " + socket.id))
-
-      socket.on('ReceivedFriendRequest', (from) => {
-        console.log("ReceivedFriendRequest from" + from)
-        this.setState({
-          requestUpdater: Math.random()
-        })
-      })
-
-      socket.on('ReceivedBetInvitation', (from) => {
-        console.log("ReceivedBetInvitation from" + from)
-        this.setState({
-          requestUpdater: Math.random()
-        })
-      })
-
-      socket.on('newFriendAcceptedToSender', (from) => {
-        console.log("newFriendAcceptedToSender from" + from)
-        this.setState({
-          friendsUpdater: Math.random()
-        })
-      })
-
-      socket.on('connect_error', () => {
-        setTimeout(() => socket.connect(), 5000)
-      })
-      socket.emit('joinRoom', this.state.defaultAccount.toLowerCase())
-      socket.on('disconnect', () => console.log('server disconnected'))
-    }
-
-    console.log("here")
     const multiBetContract = new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS);
     const USDTContract = new web3.eth.Contract(USDT_ABI, USDT_ADDRESS);
     const mbtContract = new web3.eth.Contract(MBT_ABI, MBT_ADDRESS);
@@ -225,7 +232,6 @@ class App extends Component {
     this.setState({ mbtContract });
     this.setState({ decentrabetContract });
     //this.setState({ web3 })
-    console.log(this.state.web3)
     this.accountChangedHandler(accounts[0])
     this.setState({ loading: false });
     this.setState({ balanceUSDT: null })
@@ -233,6 +239,7 @@ class App extends Component {
       this.setMyBets()
       this.setMyP2PBets()
     }
+    //console.log(localStorage)
   }
 
   togglePopup() {
@@ -284,7 +291,7 @@ class App extends Component {
         window.location.reload();
       })
       window.ethereum.on('accountsChanged', () => {
-        let url = "https://testnet.bettingcroc.com/logout";
+        let url = "http://localhost:4000/logout";
 
         let options = {
           method: "POST",
@@ -300,9 +307,10 @@ class App extends Component {
 
   }
   accountChangedHandler = (newAccount) => {
-    console.log("setting account to "+newAccount)
+    console.log("setting account to " + newAccount)
     this.setState({ defaultAccount: newAccount });
     this.allowancesSetter()
+    if (this.state.defaultAccount !== undefined) { socket.emit('joinRoom', this.state.defaultAccount.toLowerCase()) }
   };
   connectWalletHandler = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
@@ -314,8 +322,10 @@ class App extends Component {
           this.state.web3.setProvider(Web3.givenProvider)
           this.accountChangedHandler(result[0]);
           //console.log(result[0])
-          this.setState({ connButtonText: "Wallet Connected" });
+          //this.setState({ connButtonText: "Wallet Connected" });
           //getAccountBalance(result[0]);
+          localStorage.setItem("walletType", "Metamask")
+
         })
         .catch((error) => {
           this.setState({ errorMessage: error.message });
@@ -332,7 +342,7 @@ class App extends Component {
       await provider.enable();
       this.state.web3.setProvider(provider)
       this.state.web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
-
+      localStorage.setItem("walletType", "WC")
     }
     catch (e) {
       provider = new WalletConnectProvider({
@@ -354,6 +364,8 @@ class App extends Component {
 
       this.accountChangedHandler(result[0]);
       this.setState({ connButtonText: "Wallet Connected" });
+      localStorage.setItem("walletType", "Coinbase")
+
       //getAccountBalance(result[0]);
     })
       .catch((error) => {
@@ -372,7 +384,7 @@ class App extends Component {
     this.setState({ defaultAccount: undefined })
     this.state.web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
     localStorage.clear();
-    this.setState({myBets:[],myP2PBets:[]})
+    this.setState({ myBets: [], myP2PBets: [] })
   }
   allowancesSetter() {
     try {
@@ -382,7 +394,7 @@ class App extends Component {
     }
     catch (error) {
       //console.log(error)
-      console.log("no wallet connected")
+      //console.log("no wallet connected")
     }
     try {
       this.state.mbtContract.methods.allowance(this.state.defaultAccount, MULTIBET_ADDRESS).call().then((result) => {
@@ -391,7 +403,7 @@ class App extends Component {
     }
     catch (error) {
       //console.log(error)
-      console.log("no wallet connected")
+      //console.log("no wallet connected")
     }
     try {
       this.state.USDTContract.methods.balanceOf(this.state.defaultAccount).call().then((result) => {
@@ -400,7 +412,7 @@ class App extends Component {
     }
     catch (error) {
       //console.log(error)
-      console.log("no wallet connected")
+      //console.log("no wallet connected")
     }
   }
   goMyBets() {
@@ -455,7 +467,7 @@ class App extends Component {
     try {
       this.state.multiBetContract.methods.getMyBetsUser(this.state.defaultAccount).call().then(result => {
 
-        fetch("https://testnet.bettingcroc.com/api/mybets/", {
+        fetch("http://localhost:4000/api/mybets/", {
           method: "POST"
           , body: JSON.stringify({ listBets: result })
           , headers: {
@@ -494,14 +506,15 @@ class App extends Component {
                               })
                           }
                           catch (error) { //console.log(error); 
-                            disconnectedFunction = true; return }
+                            disconnectedFunction = true; return
+                          }
                         }
                       }
                     )
                   }
                   catch (e) {
                     //console.log(e)
-                      ; disconnectedFunction = true;
+                    ; disconnectedFunction = true;
                   }
                 }
                 else {
@@ -521,16 +534,17 @@ class App extends Component {
                       )
                     }
                     catch (error) { //console.log(error);
-                       disconnectedFunction = true; return }
+                      disconnectedFunction = true; return
+                    }
                   }
                   bet = Object.assign(bet, { mise: mises })
                 }
                 );
                 //console.log(bet)
               }
-              
+
               if (disconnectedFunction === false) { this.setState({ myBets: data }) }
-              
+
             });
           }
         );
@@ -547,7 +561,7 @@ class App extends Component {
     try {
       this.state.multiBetContract.methods.seeMyP2PBets(this.state.defaultAccount).call().then(async result => {
         //console.log(result)
-        fetch("https://testnet.bettingcroc.com/api/mybets/", {
+        fetch("http://localhost:4000/api/mybets/", {
           method: "POST"
           , body: JSON.stringify({ listBets: result })
           , headers: {
@@ -576,7 +590,8 @@ class App extends Component {
                     })
                   }
                   catch (error) { //console.log(error);
-                     disconnectedFunction = true; return; }
+                    disconnectedFunction = true; return;
+                  }
                 })
               }
               //console.log(listP2PBets)
@@ -589,7 +604,7 @@ class App extends Component {
                 await new Promise(next => {
                   try {
                     //console.log(n, data[n].id, this.state.defaultAccount, data[n].p2pNum)
-                    this.state.multiBetContract.methods.getHasUserWonP2P( this.state.defaultAccount,data[n].id, data[n].p2pNum).call().then(async result3 => {
+                    this.state.multiBetContract.methods.getHasUserWonP2P(this.state.defaultAccount, data[n].id, data[n].p2pNum).call().then(async result3 => {
                       //console.log(result3)
                       //console.log(result3)
                       if (result3 === true) {
@@ -597,7 +612,7 @@ class App extends Component {
                       }
                       else {
                         try {
-                          this.state.multiBetContract.methods.getHasUserWonP2P( this.state.defaultAccount, data[n].id,data[n].p2pNum).call().then(result4 => {
+                          this.state.multiBetContract.methods.getHasUserWonP2P(this.state.defaultAccount, data[n].id, data[n].p2pNum).call().then(result4 => {
                             if (result4 === true) {
                               data[n].betState = "W"
                             }
@@ -609,14 +624,15 @@ class App extends Component {
                         }
                         catch (error) {
                           //console.log(error);
-                           disconnectedFunction = true; return
+                          disconnectedFunction = true; return
                         }
                       }
                       next()
                     })
                   }
                   catch (error) { //console.log(error);
-                     disconnectedFunction = true; return }
+                    disconnectedFunction = true; return
+                  }
 
 
                 })
@@ -663,7 +679,7 @@ class App extends Component {
                     }
                     catch (error) {
                       //console.log(error);
-                       disconnectedFunction = true;
+                      disconnectedFunction = true;
                       return
                     }
                   }
@@ -701,7 +717,7 @@ class App extends Component {
         console.log("approve success");
       });
   }
-  betFunction(args) {
+  betFunction() {
     console.log("bet")
     if (this.state.typeBet === 1) {
       this.betOnThisOption(this.state.betArgs.amountToBet)
@@ -763,6 +779,14 @@ class App extends Component {
       .once("receipt", (receipt) => {
         console.log("new bet Created");
       });
+  }
+  joinBetRoom(betNumber) {
+    this.state.socket.emit('joinRoom', "scoreBet" + betNumber)
+    console.log("joinRoom " + "scoreBet" + betNumber)
+  }
+  leaveBetRoom(betNumber) {
+    this.state.socket.emit('leaveRoom', "scoreBet" + betNumber)
+    console.log("leaveRoom " + "scoreBet" + betNumber)
   }
   render() {
     return (
@@ -929,7 +953,7 @@ class App extends Component {
               <Route path="/football" element={<ComingSoon ></ComingSoon>} />
               <Route path="/tennis" element={<ComingSoon ></ComingSoon>} />
               <Route path="/finance" element={<ComingSoon ></ComingSoon>} />
-              <Route path="/bet/:betNum" element={<Bet mainVueSetter={this.setMainVue} socket={this.state.socket} logged={this.state.logged} betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet}></Bet>} />
+              <Route path="/bet/:betNum" element={<Bet mainVueSetter={this.setMainVue} socket={this.state.socket} logged={this.state.logged} betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet} joinBetRoom={this.joinBetRoom} leaveBetRoom={this.leaveBetRoom}></Bet>} />
               <Route path="/decentrabet" element={
                 <DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>
                 //<ComingSoon></ComingSoon>
@@ -963,7 +987,7 @@ function decimalsConverter(numberToConvert) {
 }
 function weiconvert(number) { return BigInt(number * decimalsConverter(10)); }
 async function logout() {
-  let url = "https://testnet.bettingcroc.com/logout";
+  let url = "http://localhost:4000/logout";
 
   //console.log(url);
   let options = {

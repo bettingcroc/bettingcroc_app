@@ -1795,7 +1795,7 @@ async function getTopBets() {
 			match["name"] = get_Name(arrayIndex[i]["betNumber"])
 			match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
 			match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
-			await multiBetContract.methods.getTotalMoney(arrayIndex[i]["betNumber"]).call()
+			await multiBetContract.methods.getTotalMoneyBet(arrayIndex[i]["betNumber"]).call()
 				.then(function (result) {
 					//console.log(i)
 					//console.log(result)

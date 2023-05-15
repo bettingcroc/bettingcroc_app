@@ -19,13 +19,13 @@ class P2PBetOption extends React.Component {
     this.closeModalInviter = this.closeModalInviter.bind(this);
   }
   componentDidMount() {
-    console.log(this.props.status)
+    //console.log(this.props.status)
 
     __mounted = true;
     //this.searchCote(0);
   }
   componentDidUpdate(){
-    console.log(this.props)
+    //console.log(this.props)
   }
   componentWillUnmount() {
     __mounted = false

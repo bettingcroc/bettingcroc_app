@@ -5,20 +5,20 @@ function run() {
     logger.high("--------------------------------------------------------------------------------------------------------------------------------------------------------------------");
     const model = require('./model.js')
     const request = require("request");
-    var https = require('follow-redirects').https;
+    //var https = require('follow-redirects').https;
     const Web3 = require('web3');
     const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
     //const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
     const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
     const HDWalletProvider = require('@truffle/hdwallet-provider');
     const fs = require('fs');
-    const { Contract } = require('web3-eth-contract');
+    //const { Contract } = require('web3-eth-contract');
     var multiBetABI = fs.readFileSync('./MultiBetABI.txt').toString();
     var tx = 0;
     multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
 
     timestampTest = new Date();
-    var FirstDay = Math.round((timestampTest.getTime() + 0000000) / 1000);
+    var FirstDay = Math.round((timestampTest.getTime() ) / 1000);
 
     function decimalsConverter(numberToConvert) {
       return Math.pow(numberToConvert, 18)
@@ -45,7 +45,7 @@ function run() {
     multiBetContract = new web3.eth.Contract(JSON.parse(multiBetABI), multiBetAddress);
     var day = 0;
 
-    var dayParams = 2;
+    var dayParams = 0;
 
     leagueFootIDs = {
       "PremierLeague": 39,
@@ -106,12 +106,14 @@ function run() {
     async function betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) {
       console.log("///////////////////// INTERACTION BLOCKCHAIN " + type + "////////////////////");
       //console.log(listNames);
+      console.log(listNames, listOptions, numberOfBets)
+
       try {
         await multiBetContract.methods
           .createNewBets(listNames, listOptions, numberOfBets)
           .send({ from: keyPublic })
           .on('receipt', function (receipt) {
-            //console.log(receipt);
+            console.log(receipt);
             console.log('tx ' + tx);
             tx++;
             let newBets=[]
