@@ -1,10 +1,7 @@
 html,
-body {
-  height: 100%;
-}
 
-#root,
-#bettingcroc {
+
+#root {
   height: 100%;
 }
 
@@ -19,10 +16,30 @@ body {
 }
 
 #bettingcroc {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  height: 100%;
 
   /* Background */
   background: #F4F7F9;
+}
+
+#bettingcrocDark {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  /* Background */
+  background: #232323;
+}
+
+#secondBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 70px;
 }
 
 #topBar {
@@ -48,6 +65,31 @@ body {
   border: solid;
   border-width: 1px;
   border-color: #F4F7F9;
+}
+
+#topBarDark {
+  /* top bar */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 28px;
+  isolation: isolate;
+
+  position: fixed;
+  z-index: 80;
+  width: 100%;
+  height: 70px;
+  left: 0px;
+  top: 0px;
+
+  /* Blanc */
+  background: #181818;
+  border: solid;
+  border-width: 1px;
+  border-color: #424242;
 }
 
 #bettingCrocTitle {
@@ -213,14 +255,12 @@ body {
 
 #leftBar {
 
-  position: fixed;
+  position: sticky;
   z-index: 50;
   width: 18%;
-  height: calc(100% - 70px);
+  height: calc(100vh - 70px);
   overflow-x: hidden;
   overflow-y: auto;
-  
-  left: 0px;
   top: 70px;
   background: #FFFFFF;
   border: solid;
@@ -228,26 +268,64 @@ body {
   border-color: #F4F7F9;
 }
 
+#leftBarDark {
+
+  position: sticky;
+  z-index: 50;
+  width: 18%;
+  height: calc(100vh - 70px);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  left: 0px;
+  top: 70px;
+  background: #181818;
+  border: solid;
+  border-width: 1px;
+  border-color: #424242;
+}
+
 #rightBar {
+  position: sticky;
 
   /* Auto layout */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-
+  height: calc(100vh - 70px);
   position: fixed;
   z-index: 40;
   width: 21.875%;
-  height: 100%;
   right: 0px;
   top: 70px;
 
-  /* Blanc */
   background: #FFFFFF;
   border: solid;
   border-width: 1px;
   border-color: #F4F7F9;
+}
+
+#rightBarDark {
+  position: sticky;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  height: calc(100vh - 70px);
+  position: fixed;
+  z-index: 40;
+  width: 21.875%;
+  right: 0px;
+  top: 70px;
+
+  /* Blanc */
+  background: #181818;
+  border: solid;
+  border-width: 1px;
+  border-color: #424242;
 }
 
 .betCompletOpen {
@@ -279,21 +357,6 @@ body {
 
 }
 
-#underLeftBar {
-  /* Frame 1000002777 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
-  gap: 50px;
-
-  position: absolute;
-  left: 12.26%;
-  right: 14.7%;
-
-}
 
 .connectButton {
   width: 200px;
@@ -317,9 +380,6 @@ body {
   flex: none;
   order: 0;
   flex-grow: 0;
-  position: absolute;
-  left: 12.26%;
-  right: 14.7%;
   margin-top: 20px;
 
 }
@@ -507,17 +567,9 @@ body {
 
 #mainVue {
 
-  /* Frame 1000002782 */
-
-  /* Auto layout */
-
-  position: absolute;
-  left: calc(18% + 35.5px);
-  right: calc(21.875% + 35.5px);
-  top: 100px;
-  bottom: 0px;
-
-
+  
+  width: 61.25%;
+  padding: 25px;
 }
 
 #optionsBox {
@@ -861,7 +913,7 @@ body {
 }
 
 #activeRightBar {
-  color: #151D48;
+  color: #539B57;
 
 }
 
@@ -2236,10 +2288,7 @@ a:hover {
   color: red;
 }
 
-body {
-  background: #F4F7F9;
-  ;
-}
+
 
 .topBetsBox {
   width: calc(100% / 3 - 20px);
@@ -2448,48 +2497,13 @@ body {
   height: 230px;
 }
 
-#landingComponent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
 
-}
 
-#landingLineDiv1 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 50%;
-}
 
-#landingLineDiv2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 50%;
 
-}
 
-.landingSquare {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-color: #539B57;
-  border-radius: 18px;
-}
 
-.landingP {
-  color: white;
-  font-size: 40px;
-}
 
-.linkLanding {
-  width: 47.5%;
-  height: 90%;
-  border-radius: 18px;
-}
 
 #connecterDiv {
   display: flex;
@@ -2771,6 +2785,7 @@ table.customTable thead {
 .buttonP {
   color: white;
   margin: 0;
+  font-size: 16px;
 }
 
 .accountContainer {
@@ -2780,10 +2795,7 @@ table.customTable thead {
   width: 100%;
 }
 
-#overlay {
-  height: 100%;
-
-}
+#overlay {}
 
 #overlayTop {
   position: fixed;
@@ -2796,6 +2808,8 @@ table.customTable thead {
 }
 
 .overlayActive {
+  height: 100%;
+
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 70;
@@ -3290,7 +3304,7 @@ table.customTable thead {
   height: 80px;
 }
 
-.lds-dual-ring:after {
+/*.lds-dual-ring:after {
   content: " ";
   display: block;
   width: 64px;
@@ -3300,7 +3314,7 @@ table.customTable thead {
   border: 6px solid #000;
   border-color: #000 transparent #000 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
-}
+}*/
 
 @keyframes lds-dual-ring {
   0% {
@@ -3431,4 +3445,35 @@ table.customTable thead {
 #getGainsDiv {
   display: flex;
   justify-content: center;
+}
+
+@media screen and (max-width: 550px) {
+  #bettingCrocTitle {
+    visibility: collapse;
+  }
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  font-family: 'Roboto';
+
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  vertical-align: middle;
+}
+
+.topRightButton:hover {
+  cursor: pointer;
 }

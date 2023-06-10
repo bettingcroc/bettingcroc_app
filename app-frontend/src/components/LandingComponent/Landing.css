@@ -1,0 +1,42 @@
+.landingSquare {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #539B57;
+    border-radius: 18px;
+}
+
+#landingLineDiv1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50%;
+}
+
+#landingLineDiv2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50%;
+
+}
+
+.landingP {
+    color: white;
+    font-size: 40px;
+}
+
+.linkLanding {
+    width: 47.5%;
+    height: 90%;
+    border-radius: 18px;
+}
+
+#landingComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+}
