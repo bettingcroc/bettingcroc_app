@@ -45,7 +45,10 @@ const coinbaseWallet = new CoinbaseWalletSDK({
 })
 const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
 const socket = io('http://localhost:4000')
-
+const cssIdentifiers = {
+  "light":{"titleActive":"blackP"},
+  "dark":{"titleActive":"whiteP"}
+}
 
 //  Create WalletConnect Provider
 var provider = new WalletConnectProvider({
@@ -797,9 +800,9 @@ class App extends Component {
                     </Link>
                   </div>
                   <div id="links">
-                    <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? "titleActive" : "titleInactive"}>List Bets</p></Link>
-                    <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? "titleActive" : "titleInactive"}>Decentrabet</p></Link>
-                    <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? "titleActive" : "titleInactive"}>Rankings</p></Link>
+                    <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>List Bets</p></Link>
+                    <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
+                    <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
                   </div>
                 </div>
                 <div id="topRight">
@@ -901,7 +904,7 @@ class App extends Component {
                       <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id={this.state.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
                       <button onClick={this.goMyP2PBets} className="topRightButton" id="myP2PBetsP"><div id={this.state.rightBar === "myP2PBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My P2P Bets</div></button>
 
-                    </div> : <p className="headerTitle">Hi young Crocodile !</p>}
+                    </div> : <p className={this.state.theme == "light" ?"headerTitle" : "headerTitleDark"}>Hi young Crocodile !</p>}
                   </div>
                   <div id="superMidRightBar">
                     <div id="midRightBar">
@@ -948,12 +951,12 @@ class App extends Component {
             <Route path="/finance" element={<ComingSoon ></ComingSoon>} />
             <Route path="/bet/:betNum" element={<Bet mainVueSetter={this.setMainVue} socket={this.state.socket} logged={this.state.logged} betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet} joinBetRoom={this.joinBetRoom} leaveBetRoom={this.leaveBetRoom}></Bet>} />
             <Route path="/decentrabet" element={
-              <DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount}></DecentraBet>
+              <DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} theme={this.state.theme}></DecentraBet>
               //<ComingSoon></ComingSoon>
             } />
             <Route path="/rankings" element={<Classement mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} address={this.state.defaultAccount}></Classement>}></Route>
             {/*<Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>*/}
-            <Route path="/account" element={<Account myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged}></Account>}></Route>
+            <Route path="/account" element={<Account myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged} theme={this.state.theme}></Account>}></Route>
             <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
             <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
             <Route path="/*" element={<p>error</p>}></Route>
@@ -989,3 +992,4 @@ async function logout() {
     console.log("logged out");
   });
 }
+

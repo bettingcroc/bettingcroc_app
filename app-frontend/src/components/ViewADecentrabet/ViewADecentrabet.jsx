@@ -54,8 +54,8 @@ class ViewADecentrabet extends React.Component {
   }
   render() {
     return (
-      <div className="viewADecentraBet">
-        <p className="headerTitle">Find a Decentrabet</p>
+      <div className={this.props.theme =="light" ? "viewADecentraBet":"viewADecentraBetDark"}>
+        <p className={this.props.theme == "light" ?"headerTitle" : "headerTitleDark"}>Find a Decentrabet</p>
         <div id="line1viewADecentraBet" className="lineviewADecentraBet">
           <input
             id="inputidBetToView"

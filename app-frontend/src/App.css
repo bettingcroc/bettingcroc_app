@@ -38,7 +38,6 @@ html,
 #secondBox {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   margin-top: 70px;
 }
 
@@ -193,8 +192,8 @@ html,
   color: #737791;
 }
 
-.titleActive {
-  color: #151D48;
+.blackP {
+  color: #000000;
 }
 
 #decentraBetTitle {
@@ -568,7 +567,7 @@ html,
 #mainVue {
 
   
-  width: 61.25%;
+  width: 60.25%;
   padding: 25px;
 }
 
@@ -1657,6 +1656,28 @@ html,
 
   /* Primary/Dark Shade */
   color: #05004E;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.headerTitleDark {
+  height: 32px;
+
+  /* H1 */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 32px;
+
+  /* identical to box height, or 160% */
+
+  /* Primary/Dark Shade */
+  color: #CDCDCD;
 
 
   /* Inside auto layout */
@@ -2845,6 +2866,23 @@ table.customTable thead {
   flex: none;
   order: 0;
 }
+.viewADecentraBetDark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 30px;
+  gap: 30px;
+
+  width: 100%;
+
+  background: #181818;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+}
 
 .DecentraBetCreator {
   display: flex;
@@ -3476,4 +3514,8 @@ img {
 
 .topRightButton:hover {
   cursor: pointer;
+}
+
+.whiteP{
+  color: white;
 }

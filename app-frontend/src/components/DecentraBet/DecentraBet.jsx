@@ -11,7 +11,7 @@ class DecentraBet extends React.Component {
   render(){
     return(
       <div className="mainContentDecentraBet">
-        <ViewADecentrabet decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address}></ViewADecentrabet>
+        <ViewADecentrabet decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address} theme={this.props.theme}></ViewADecentrabet>
         <DecentraBetCreator decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address}></DecentraBetCreator> 
    
       </div>

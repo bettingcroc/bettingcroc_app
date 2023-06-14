@@ -74,7 +74,7 @@ class Account extends React.Component {
 
         </div>
         <div id="friendsDiv">
-          <p className="headerTitle accountP">Friends</p>
+          <p className={this.props.theme == "light" ?"headerTitle accountP" : "headerTitleDark accountP"} >Friends</p>
           <div id="friendAdder">
             <input placeholder="Type an address here" className="settingsInput" type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
             <button className='generalsButton settingsButton' onClick={(event) => { this.sendFriendRequestReact(this.state.newFriend) }}><p className="buttonP">Add friend</p></button>
@@ -84,12 +84,12 @@ class Account extends React.Component {
           <MyFriends updateFriends={this.updateFriends} myFriends={this.state.friends} address={this.props.address} logged={this.props.logged} setFriendsList={this.setFriendsList}></MyFriends>
         </div>
         <div id="requestSuperDiv">
-          <p className="headerTitle accountP">Notifications</p>
+          <p className={this.props.theme == "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
 
           <MyRequests socket={this.props.socket} updateRequests={this.updateRequests} requests={this.state.requests} updateFriends={this.updateFriends} address={this.props.address} logged={this.props.logged}></MyRequests>
         </div>
         <div id="settingsAccount">
-          <p className="headerTitle accountP">Settings</p>
+          <p className={this.props.theme == "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>
 
           <div id="changePseudoDiv">
             <input placeholder="Type your new pseudo here" className="settingsInput" type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
