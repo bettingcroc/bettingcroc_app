@@ -235,7 +235,7 @@ class BetComplet extends React.Component {
           <div id="superOptionPool">
             <div id="optionsPool">
               <div id="gameResults">
-                <p id="gameResultsP">Game Results</p>
+                <p className={this.props.theme == "light" ?"blackP" : "whiteP"} id="gameResultsP">Game Results</p>
                 {this.props.logged && this.state.status===0 ? <div className="friendInviterTrigger">
                   <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
                   <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="general" friends={this.state.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened} argsBet={{ betNumber: this.props.betNumber, title: this.state.optionsArray }}></FriendInviter>

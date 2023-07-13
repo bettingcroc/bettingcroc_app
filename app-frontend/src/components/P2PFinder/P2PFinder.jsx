@@ -143,7 +143,7 @@ class P2PFinder extends React.Component {
         <div id="underp2pfinder">
           <div id="titleP2pFinder">
 
-            <p id="findp2pP">Find a P2P</p>
+            <p className={this.props.theme == "light" ?"blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
 
           </div>
           <p className='lineModalFriendInviterP'>against</p>

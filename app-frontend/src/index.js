@@ -46,8 +46,8 @@ const coinbaseWallet = new CoinbaseWalletSDK({
 const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
 const socket = io('http://localhost:4000')
 const cssIdentifiers = {
-  "light":{"titleActive":"blackP"},
-  "dark":{"titleActive":"whiteP"}
+  "light": { "titleActive": "blackP" },
+  "dark": { "titleActive": "whiteP" }
 }
 
 //  Create WalletConnect Provider
@@ -78,6 +78,10 @@ class Popup extends React.Component {
 class App extends Component {
   constructor(props) {
     super(props);
+    let theme = "light"
+    if (localStorage.getItem("theme") === "dark") {
+      theme = "dark"
+    }
     this.state = {
       //account: "",
       taskCount: 0,
@@ -102,8 +106,11 @@ class App extends Component {
       myBets: [],
       myP2PBets: [],
       socket: socket,
-      theme: "light"
+      theme: theme
     };
+
+
+
     this.accountChangedHandler = this.accountChangedHandler.bind(this)
     this.allowancesSetter = this.allowancesSetter.bind(this)
     this.togglePopup = this.togglePopup.bind(this)
@@ -454,8 +461,13 @@ class App extends Component {
   switchTheme() {
     if (this.state.theme === "light") {
       this.setState({ "theme": "dark" })
+      localStorage.setItem("theme", "dark")
+
     }
-    else { this.setState({ "theme": "light" }) }
+    else {
+      this.setState({ "theme": "light" })
+      localStorage.setItem("theme", "light")
+    }
   }
   setMyBets() {
     let disconnectedFunction = false
@@ -790,7 +802,7 @@ class App extends Component {
         <Routes>
           <Route path="/" element={
             <div id={this.state.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
-              <div id={this.state.theme === "light" ? "topBar" : "topBarDark"}>
+              <div id="topBar" className={this.state.theme === "light" ? "whiteDiv" : "blackDiv"}>
                 <div id="topLeft">
                   <div id="logo">
                     <Link to="/">
@@ -807,6 +819,7 @@ class App extends Component {
                 </div>
                 <div id="topRight">
                   <button onClick={this.switchTheme}>Switch theme</button>
+
                   {//this.state.defaultAccount === undefined ? 
                   }
                   <Connecter closeOverlay={this.closeOverlay} switchOverlayMode={this.switchOverlayMode} disconnect={this.disconnect} connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText} connectWalletConnectHandler={this.connectWalletConnect} connectCoinBaseHandler={this.connectCoinBase}></Connecter>
@@ -827,13 +840,13 @@ class App extends Component {
 
               </div>
               <div id="secondBox">
-                <div id={this.state.theme === "light" ? "leftBar" : "leftBarDark"}>
+                <div id="leftBar" className={this.state.theme === "light" ? "whiteDiv" : "blackDiv"}>
                   <div id="under2leftBar">
                     {/*<div id="searchBar">
                       <input type="text"></input>
                 </div>*/}
                     <div id="popular">
-                      <p className="titleLeftBar">Popular</p>
+                      <p id="titleLeftBar" className={this.state.theme == "light" ? "blackP" : "whiteP"}>Popular</p>
                       <Link className="leftBarA" href="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
@@ -859,7 +872,7 @@ class App extends Component {
                       </Link>
                     </div>
                     <div id="categories">
-                      <p className="titleLeftBar">All categories</p>
+                      <p id="titleLeftBar" className={this.state.theme == "light" ? "blackP" : "whiteP"}>All categories</p>
                       <Link className="leftBarA" href="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
@@ -904,7 +917,7 @@ class App extends Component {
                       <button onClick={this.goMyBets} className="topRightButton" id="myBetsP"><div id={this.state.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
                       <button onClick={this.goMyP2PBets} className="topRightButton" id="myP2PBetsP"><div id={this.state.rightBar === "myP2PBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My P2P Bets</div></button>
 
-                    </div> : <p className={this.state.theme == "light" ?"headerTitle" : "headerTitleDark"}>Hi young Crocodile !</p>}
+                    </div> : <p className={this.state.theme == "light" ? "headerTitle" : "headerTitleDark"}>Hi young Crocodile !</p>}
                   </div>
                   <div id="superMidRightBar">
                     <div id="midRightBar">
@@ -956,7 +969,7 @@ class App extends Component {
             } />
             <Route path="/rankings" element={<Classement mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} address={this.state.defaultAccount}></Classement>}></Route>
             {/*<Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>*/}
-            <Route path="/account" element={<Account myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged} theme={this.state.theme}></Account>}></Route>
+            <Route path="/account" element={<Account myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged} theme={this.state.theme} switchTheme={this.switchTheme} ></Account>}></Route>
             <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
             <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
             <Route path="/*" element={<p>error</p>}></Route>

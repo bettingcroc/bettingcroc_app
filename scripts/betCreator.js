@@ -55,7 +55,8 @@ function run() {
     leagueBasketIDs = {
       "NBA": 12,
       "LNB": 2,
-      "GLeague": 20
+      "GLeague": 20,
+      "NBASL":17
     }
 
     function getOptions(paramsDate, sport, league) {
@@ -83,6 +84,9 @@ function run() {
       if (sport === 'basketball') {
         if (league === 'NBA') {
           idLeague = leagueBasketIDs.NBA;
+        }
+        if (league === 'NBASL') {
+          idLeague = leagueBasketIDs.NBASL;
         }
         if (league === 'GLeague') {
           idLeague = leagueBasketIDs.GLeague;
@@ -183,7 +187,7 @@ function run() {
       //sports=["basketball","basketball","basketball"];
       //leagues=["LaLiga","Serie A"];
       //sports=["football","football"];
-      leagues = ["NBA"]
+      leagues = ["NBASL"]
       sports = ["basketball"]
       params = dateIterator(dayParams);
       logger.cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + params + " !!!!!!!!!!!!!!!!!!!!!!!!");

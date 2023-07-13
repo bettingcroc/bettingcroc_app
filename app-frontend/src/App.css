@@ -1,9 +1,6 @@
-html,
-
-
-#root {
+/*#root {
   height: 100%;
-}
+}*/
 
 @font-face {
   font-family: 'Roboto';
@@ -13,6 +10,26 @@ html,
 @font-face {
   font-family: 'Poppins';
   src: local('MyFont'), url(./Poppins-Regular.ttf)
+}
+
+.blackP {
+  color: #05004E;
+}
+
+.whiteP {
+  color: #CDCDCD;
+
+}
+
+.blackDiv {
+  background-color: #000000;
+  border-color: #424242;
+
+}
+
+.whiteDiv {
+  background: #FFFFFF;
+  border-color: #F4F7F9;
 }
 
 #bettingcroc {
@@ -60,36 +77,11 @@ html,
   top: 0px;
 
   /* Blanc */
-  background: #FFFFFF;
-  border: solid;
+  border-style: solid;
   border-width: 1px;
-  border-color: #F4F7F9;
 }
 
-#topBarDark {
-  /* top bar */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 28px;
-  isolation: isolate;
-
-  position: fixed;
-  z-index: 80;
-  width: 100%;
-  height: 70px;
-  left: 0px;
-  top: 0px;
-
-  /* Blanc */
-  background: #181818;
-  border: solid;
-  border-width: 1px;
-  border-color: #424242;
-}
 
 #bettingCrocTitle {
   width: 169px;
@@ -192,9 +184,7 @@ html,
   color: #737791;
 }
 
-.blackP {
-  color: #000000;
-}
+
 
 #decentraBetTitle {
   height: 25px;
@@ -261,28 +251,13 @@ html,
   overflow-x: hidden;
   overflow-y: auto;
   top: 70px;
-  background: #FFFFFF;
-  border: solid;
+  border-style: solid;
   border-width: 1px;
-  border-color: #F4F7F9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-#leftBarDark {
-
-  position: sticky;
-  z-index: 50;
-  width: 18%;
-  height: calc(100vh - 70px);
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  left: 0px;
-  top: 70px;
-  background: #181818;
-  border: solid;
-  border-width: 1px;
-  border-color: #424242;
-}
 
 #rightBar {
   position: sticky;
@@ -380,7 +355,6 @@ html,
   order: 0;
   flex-grow: 0;
   margin-top: 20px;
-
 }
 
 #categories {
@@ -566,7 +540,7 @@ html,
 
 #mainVue {
 
-  
+
   width: 60.25%;
   padding: 25px;
 }
@@ -673,7 +647,6 @@ html,
   /* identical to box height, or 160% */
 
   /* Primary/Dark Shade */
-  color: #05004E;
 
 
   /* Inside auto layout */
@@ -681,6 +654,7 @@ html,
   order: 0;
   flex-grow: 0;
 }
+
 
 #nameBet {
   width: 100%;
@@ -1427,11 +1401,6 @@ html,
   font-size: 20px;
   line-height: 32px;
 
-  /* identical to box height, or 160% */
-
-  /* Primary/Dark Shade */
-  color: #05004E;
-
 
   /* Inside auto layout */
   flex: none;
@@ -1558,7 +1527,6 @@ html,
   /* identical to box height, or 160% */
 
   /* Primary/Dark Shade */
-  color: #05004E;
 
 
   /* Inside auto layout */
@@ -1637,9 +1605,13 @@ html,
   align-items: center;
   width: 300px;
   height: 52px;
-
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 0;
   text-align: center;
-  color: #05004E;
 }
 
 .headerTitle {
@@ -1732,25 +1704,7 @@ html,
   top: 9px;
 }
 
-.optionP {
-  /* Titre */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 32px;
-
-  /* identical to box height, or 200% */
-
-  /* Primary/Dark Shade */
-
-
-  margin: 0;
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
+.optionP {}
 
 #buttonRefreshP2PFinderButton {
   width: 50px;
@@ -2450,20 +2404,14 @@ a:hover {
   width: 990px;
 }
 
-.titleLeftBar {
+#titleLeftBar {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
   line-height: 32px;
 
-  /* identical to box height, or 160% */
 
-  /* Primary/Dark Shade */
-  color: #05004E;
-
-
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -2740,7 +2688,6 @@ table.customTable thead {
   min-height: 190px;
 
 
-  background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
@@ -2757,7 +2704,6 @@ table.customTable thead {
   min-height: 190px;
 
 
-  background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
@@ -2784,8 +2730,6 @@ table.customTable thead {
 
   min-height: 190px;
 
-
-  background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
@@ -2866,6 +2810,7 @@ table.customTable thead {
   flex: none;
   order: 0;
 }
+
 .viewADecentraBetDark {
   display: flex;
   flex-direction: column;
@@ -2895,6 +2840,21 @@ table.customTable thead {
 
 
   background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
+.DecentraBetCreatorDark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 30px;
+  gap: 30px;
+
+  width: 100%;
+
+
+  background: #000000;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 }
@@ -3224,7 +3184,6 @@ table.customTable thead {
   min-height: 190px;
 
 
-  background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
@@ -3424,7 +3383,7 @@ table.customTable thead {
   border: none;
 }
 
-.accountBetsTypeActive {
+#accountBetsTypeActive {
   height: 32px;
 
   /* H1 */
@@ -3434,19 +3393,12 @@ table.customTable thead {
   font-size: 20px;
   line-height: 32px;
 
-  /* identical to box height, or 160% */
-
-  /* Primary/Dark Shade */
-  color: #05004E;
-
-
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
 }
 
-.accountBetsTypeInctive {
+#accountBetsTypeInactive {
   height: 32px;
 
   /* H1 */
@@ -3456,13 +3408,7 @@ table.customTable thead {
   font-size: 20px;
   line-height: 32px;
 
-  /* identical to box height, or 160% */
 
-  /* Primary/Dark Shade */
-  color: #05004E;
-
-
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -3514,8 +3460,4 @@ img {
 
 .topRightButton:hover {
   cursor: pointer;
-}
-
-.whiteP{
-  color: white;
 }

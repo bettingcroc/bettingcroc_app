@@ -52,7 +52,7 @@ class DecentraBetCreator extends React.Component {
   }
   render() {
     return (
-      <div className="DecentraBetCreator">
+      <div className={this.props.theme == "light" ?"DecentraBetCreator" : "DecentraBetCreatorDark"}>
         <p className={this.props.theme == "light" ?"headerTitle" : "headerTitleDark"}>Create a Decentrabet</p>
         <input
           type="text"

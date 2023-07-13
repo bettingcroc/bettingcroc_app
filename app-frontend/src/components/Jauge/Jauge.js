@@ -11,7 +11,7 @@ class Jauge extends React.Component {
       <div id="superStakeJauge">
         <div id="stakeJauge">
           <div id="stakeTitle">
-            <p id="stakeTitleP">Stake</p>
+            <p className={this.props.theme == "light" ?"blackP" : "whiteP"} id="stakeTitleP">Stake</p>
 
             {/*<div id="underStakeTitle">
                       <div id="under2StakeTitle">
