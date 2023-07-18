@@ -1617,7 +1617,7 @@ const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; /
   var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
   
   //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-  multiBetAddress = "0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d";
+  multiBetAddress = "0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5";
   multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
   const model = require("./model.js");
   //console.log(model.get_MaxBet())

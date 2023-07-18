@@ -34,7 +34,7 @@ class Account extends React.Component {
   render() {
     return (
       <div className="mainContentAccount">
-        <p className={this.props.theme == "light" ?"blackP" : "whiteP"} id="hiUser">
+        <p className={this.props.theme == "light" ?"blackP" : "lightGreyP"} id="hiUser">
           Hi {this.state.loaded && this.state.dataPerso !== undefined ? this.state.dataPerso[0].pseudo : ""} !
         </p>
         {/*<div id="linkMyBets">
@@ -50,12 +50,11 @@ class Account extends React.Component {
     </div>*/}
         <div id="myBetsAccountDiv" className={this.props.theme == "light" ?"whiteDiv" : "blackDiv"}>
           <div id="divMyBetsAccountButtons">
-            <button onClick={(e) => { this.setState({ betsType: "default" }); this.setState({ betsToDisplay: this.props.myBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme == "light" ?"blackP" : "whiteP"}  id={this.state.betsType === "default" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My Bets</p></button>
-            <button onClick={(e) => { this.setState({ betsType: "p2p" }); this.setState({ betsToDisplay: this.props.myP2PBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme == "light" ?"blackP" : "whiteP"}  id={this.state.betsType === "p2p" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My P2P Bets</p></button>
+            <button onClick={(e) => { this.setState({ betsType: "default" }); this.setState({ betsToDisplay: this.props.myBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "default" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My Bets</p></button>
+            <button onClick={(e) => { this.setState({ betsType: "p2p" }); this.setState({ betsToDisplay: this.props.myP2PBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "p2p" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My P2P Bets</p></button>
           </div>
           <div id="superMyBetsAccountDiv2">
             {this.state.betsToDisplay.map(function (item, index) {
-              console.log(item)
               return (
                 <div key={index} className="myBetsAccountDiv2">
                   <Link to={"/bet/numBet?n=" + item.id}>

@@ -1618,7 +1618,7 @@ var web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // ne
 
 
 //multiBetAddress='0xD5F51022d66382c3f432Ed2d0bc4cE18647f85a5'; Polygon
-multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
+multiBetAddress = '0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5';
 multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 

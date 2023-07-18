@@ -7,7 +7,7 @@ function run() {
     const request = require("request");
     //var https = require('follow-redirects').https;
     const Web3 = require('web3');
-    const NODE_URL_BSCTESTNET = "https://data-seed-prebsc-1-s1.binance.org:8545/"; //url of bsc testnet node
+    const NODE_URL_BSCTESTNET = "https://endpoints.omniatech.io/v1/bsc/testnet/public"; //url of bsc testnet node
     //const NODE_URL_BSCTESTNET = "https://rpc.ankr.com/bsc_testnet_chapel";
     const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
     const HDWalletProvider = require('@truffle/hdwallet-provider');
@@ -15,7 +15,7 @@ function run() {
     //const { Contract } = require('web3-eth-contract');
     var multiBetABI = fs.readFileSync('./MultiBetABI.txt').toString();
     var tx = 0;
-    multiBetAddress = '0x99E3AC652BaB8F1b2Ff2b25d58862f1854C6689d';
+    multiBetAddress = '0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5';
 
     timestampTest = new Date();
     var FirstDay = Math.round((timestampTest.getTime() ) / 1000);
@@ -97,7 +97,7 @@ function run() {
         return {
           'method': 'GET',
           'url': 'https://v1.basketball.api-sports.io/games',
-          qs: { date: paramsDate, league: idLeague, season: '2022-2023' },
+          qs: { date: paramsDate, league: idLeague, season: '2023' },
           'headers': {
             'x-rapidapi-host': 'v1.basketball.api-sports.io',
             'x-rapidapi-key': '1b8bea4eb9795ae6f10a338ffe214f5d' //achille zgiw api

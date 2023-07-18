@@ -202,10 +202,10 @@ class BetComplet extends React.Component {
   render() {
     return (
       <div id="superBetComplet">
-        {this.state.status === 0 ? <Jauge balanceUSDT={this.props.balanceUSDT} amountToBet={this.props.amountToBet} setAmountBet={this.props.setAmountBet}></Jauge> : null}
+        {this.state.status === 0 ? <Jauge balanceUSDT={this.props.balanceUSDT} amountToBet={this.props.amountToBet} setAmountBet={this.props.setAmountBet} theme={this.props.theme}></Jauge> : null}
         <div className={this.state.status === 0 ? "betCompletOpen" : "betComplet"}>
           <div id="nameBet">
-            <div id="underNameBet">
+            <div id="underNameBet" className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
               <div id="countryLeagueDate">
                 <p className={this.props.theme == "light" ?"headerTitle" : "headerTitleDark"}>{this.state.country} / {this.state.league}</p>
                 <p className={this.props.theme == "light" ?"headerTitle" : "headerTitleDark"}>{this.state.status === 0 ? timeConverterDate(this.state.date) : this.state.status === 2 ? null : "chrono"}</p>
@@ -213,7 +213,7 @@ class BetComplet extends React.Component {
               <div id="optionsSchedule">
                 <div id={this.state.status === 2 && this.state.scoreHome > this.state.scoreAway ? "optionWinner" : "option1"} className="optionDiv">
 
-                  <p id={this.state.status === 2 && this.state.scoreHome > this.state.scoreAway ? "optionPWinner" : "option1P"} className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[0]}</p>
+                  <p id={this.state.status === 2 && this.state.scoreHome > this.state.scoreAway ? "optionPWinner" : "option1P"} className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[0]}</p>
 
                 </div>
                 {this.state.status === 0 ? <div id="schedule">
@@ -227,13 +227,13 @@ class BetComplet extends React.Component {
                   </div>}
                 <div id={this.state.status === 2 && this.state.scoreHome < this.state.scoreAway ? "optionWinner" : "option2"} className="optionDiv">
 
-                  <p id={this.state.status === 2 && this.state.scoreHome < this.state.scoreAway ? "optionPWinner" : "option2P"} className="optionP">{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[this.state.optionsArray.split(",").length - 1]}</p>
+                  <p id={this.state.status === 2 && this.state.scoreHome < this.state.scoreAway ? "optionPWinner" : "option2P"} className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[this.state.optionsArray.split(",").length - 1]}</p>
                 </div>
               </div>
             </div>
           </div>
           <div id="superOptionPool">
-            <div id="optionsPool">
+            <div id="optionsPool" className={this.props.theme == "light" ?"whiteDiv" : "blackDiv"}>
               <div id="gameResults">
                 <p className={this.props.theme == "light" ?"blackP" : "whiteP"} id="gameResultsP">Game Results</p>
                 {this.props.logged && this.state.status===0 ? <div className="friendInviterTrigger">
@@ -243,22 +243,22 @@ class BetComplet extends React.Component {
               </div>
               <div id="optionsBox">
                 {this.state.optionsArray == null ? null : this.state.optionsArray.split(",").map((item, index) => {
-                  return <OptionPool key={item} team={item} status={this.state.status} moneyInOtherPools={this.state.moneyInPools === null ? null : this.state.moneyInPools} betNumber={this.props.betNumber} optionNumber={index} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} betName={this.state.optionsArray}></OptionPool>
+                  return <OptionPool key={item} team={item} status={this.state.status} moneyInOtherPools={this.state.moneyInPools === null ? null : this.state.moneyInPools} betNumber={this.props.betNumber} optionNumber={index} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} betName={this.state.optionsArray} theme={this.props.theme}></OptionPool>
                 })}
               </div>
             </div>
           </div>
 
           <div id="p2p1" style={this.state.status!==0?{marginBottom:"30px"}:null}>
-            <P2PFinder id={this.props.p2pLink !== undefined ? this.props.p2pLink : undefined} optionsArray={this.state.optionsArray} betContract={this.props.betContract} betNumber={this.props.betNumber} setP2PdisplayArgs={this.setP2PdisplayArgs}></P2PFinder>
+            <P2PFinder id={this.props.p2pLink !== undefined ? this.props.p2pLink : undefined} optionsArray={this.state.optionsArray} betContract={this.props.betContract} betNumber={this.props.betNumber} setP2PdisplayArgs={this.setP2PdisplayArgs} theme={this.props.theme}></P2PFinder>
 
-            {this.state.status === 0 ? <P2PBetCreator status={this.state.status} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} mbtContract={this.props.mbtContract} optionsArray={this.state.optionsArray} betNumber={this.props.betNumber} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} ></P2PBetCreator>
-              : <P2PBetOption status={this.state.status} logged={this.props.logged} socket={this.props.socket} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
+            {this.state.status === 0 ? <P2PBetCreator status={this.state.status} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} mbtContract={this.props.mbtContract} optionsArray={this.state.optionsArray} betNumber={this.props.betNumber} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} theme={this.props.theme} ></P2PBetCreator>
+              : <P2PBetOption status={this.state.status} logged={this.props.logged} socket={this.props.socket} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} theme={this.props.theme}></P2PBetOption>
             }
 
           </div>
 
-          {this.state.status === 0 ? <P2PBetOption status={this.state.status} logged={this.props.logged} socket={this.props.socket} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs}></P2PBetOption>
+          {this.state.status === 0 ? <P2PBetOption status={this.state.status} logged={this.props.logged} socket={this.props.socket} friends={this.state.friends} args={this.state.p2pdisplayArgs} betNumber={this.props.betNumber} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} optionsArray={this.state.optionsArray} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} theme={this.props.theme}></P2PBetOption>
             : null}
         </div>
 

@@ -24,7 +24,7 @@ class P2PBetOption extends React.Component {
     __mounted = true;
     //this.searchCote(0);
   }
-  componentDidUpdate(){
+  componentDidUpdate() {
     //console.log(this.props)
   }
   componentWillUnmount() {
@@ -52,56 +52,55 @@ class P2PBetOption extends React.Component {
   }
   render() {
     return (
-      <div id={this.props.status === 0 ? "p2p2Open" : "p2p2"}>
-        <div id="myP2P">
-          <div id="p2p2Box1">
-            <p id="line1P2POption">P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
-            {this.props.logged && this.props.status===0 ? <div className="friendInviterTrigger">
-              <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
-              <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
-            </div> : null}
+      <div id={this.props.status === 0 ? "p2p2Open" : "p2p2"} className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
+        <div id="p2p2Box1">
+          <p id="line1P2POption" className={this.props.theme == "light" ? "blackP" : "whiteP"}>P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
+          {this.props.logged && this.props.status === 0 ? <div className="friendInviterTrigger">
+            <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
+            <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
+          </div> : null}
 
-          </div>
-          <div id="p2p2Box2">
-            <div id="line2P2POption">
-              <p>Best cote : </p>
-              {this.props.status === 0 ? <button
-                id="buttonCoteP2P"
-                className="button"
-                onClick={(event) => {
-                  if (this.props.args !== null) {
-                    this.props.setTypeBet(3)
-                    this.props.setBetArgs({
-                      betNumber: this.props.betNumber,
-                      betName: this.props.optionsArray,
-                      amountToBet: weiconvert(this.props.amountToBet),
-                      cote: this.props.args[1],
-                      optionName: this.props.optionsArray.split(",")[this.props.args[0]['6']],
-                      toWin: this.props.amountToBet * this.props.args[1],
-                      betNumberP2P: this.props.args[0]['0']
+        </div>
+        <div id="p2p2Box2">
+          <div id="line2P2POption">
+            <p className={this.props.theme == "light" ? "blackP" : "whiteP"}>Best cote : </p>
+            {this.props.status === 0 ? <button
+              id="buttonCoteP2P"
+              className="button"
+              onClick={(event) => {
+                if (this.props.args !== null) {
+                  this.props.setTypeBet(3)
+                  this.props.setBetArgs({
+                    betNumber: this.props.betNumber,
+                    betName: this.props.optionsArray,
+                    amountToBet: weiconvert(this.props.amountToBet),
+                    cote: this.props.args[1],
+                    optionName: this.props.optionsArray.split(",")[this.props.args[0]['6']],
+                    toWin: this.props.amountToBet * this.props.args[1],
+                    betNumberP2P: this.props.args[0]['0']
 
-                    }
-                    )
                   }
+                  )
+                }
 
-                  //this.betOnThisOption(this.props.amountToBet);
-                }}
-              >
-                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
-              </button> : <div id="buttonCoteP2P"
-                className="button">                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
-              </div>}
-            </div>
-            <div id="line3P2POption">
-              <p>Amount bettable : </p>
-              <p id="amountBettableP">{this.props.args !== null ? this.props.args[2] === "indispo" ? "Nothing :/" : this.props.args[2] + " USDT" : null} </p>
-            </div>
-
+                //this.betOnThisOption(this.props.amountToBet);
+              }}
+            >
+              <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
+            </button> : <div id="buttonCoteP2P"
+              className="button">                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
+            </div>}
+          </div>
+          <div id="line3P2POption">
+            <p className={this.props.theme == "light" ? "blackP" : "whiteP"}>Amount bettable : </p>
+            <p id="amountBettableP">{this.props.args !== null ? this.props.args[2] === "indispo" ? "Nothing :/" : this.props.args[2] + " USDT" : null} </p>
           </div>
 
+        </div>
 
 
-          {/*<button
+
+        {/*<button
             className="button"
             onClick={(event) => {
               this.orderBook(weiconvert(this.state.minBet));
@@ -109,7 +108,6 @@ class P2PBetOption extends React.Component {
           >
             orderBook
           </button>*/}
-        </div>
       </div>
     );
   }

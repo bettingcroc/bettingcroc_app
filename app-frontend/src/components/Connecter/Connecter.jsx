@@ -4,6 +4,7 @@ import ConnectButton from '../ConnectButton/ConnectButton';
 import ConnectWc from '../ConnectWC/ConnectWC';
 import ConnectCb from '../ConnectCB/ConnectCB';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Authentification from "../Authentification/Authentification";
 
 class Connecter extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Connecter extends React.Component {
     this.props.closeOverlay()
 
   }
-  handleClickAwayEvent(){
+  handleClickAwayEvent() {
     this.closeModal()
   }
   componentDidUpdate(prevProps) {
@@ -50,8 +51,15 @@ class Connecter extends React.Component {
   render() {
     return (
       <div >
-        {this.state.connected === true  && this.props.defaultAccount!==undefined ?
-          <div id="connecterConnected"><p id="accountDisplay">{this.props.defaultAccount.substring(0,5)+"..."+this.props.defaultAccount.substring(39)}</p><button className='generalsButton' onClick={this.props.disconnect}><p className="buttonP">Disconnect</p></button></div>
+        {this.state.connected === true && this.props.defaultAccount !== undefined ?
+          <div id="connecterConnected">
+            <p id="accountDisplay">{this.props.defaultAccount.substring(0, 5) + "..." + this.props.defaultAccount.substring(39)}</p>
+            <Authentification web3={this.props.web3} address={this.props.defaultAccount} setLogged={this.props.setLogged} logged={this.props.logged}></Authentification>
+
+            <button className='generalsButton' onClick={this.props.disconnect}>
+              <p className="buttonP">Disconnect</p>
+            </button>
+          </div>
           :
           this.state.modalState === "closed" ?
             <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> :

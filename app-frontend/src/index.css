@@ -1,0 +1,21 @@
+#hamburgerImg {
+    width: 50px;
+}
+
+#hamburger {
+    display: none;
+}
+@media screen and (max-width: 550px) {
+    #hamburger {
+      display: block;
+    }
+    #links{
+        display: none;
+    }
+    #bettingcroctitle{
+        display: none;
+    }
+    #switchThemeHome{
+        display: none;
+    }
+}

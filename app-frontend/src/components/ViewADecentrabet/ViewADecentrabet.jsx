@@ -70,24 +70,24 @@ class ViewADecentrabet extends React.Component {
             Find bet
           </button>
           <div id="divStateDecentraBet">       
-               <p id="decentraStateP" className={this.props.theme == "light" ?"blackP" : "whiteP"}>State:{this.state.stateBet}</p>
+               <p id="decentraStateP" className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>State:{this.state.stateBet}</p>
           </div>
         </div>
 
         <div id="line2viewADecentraBet" className="lineviewADecentraBet">
-          <p className={this.props.theme == "light" ?"blackP" : "whiteP"}>Bet n° {this.state.idBetToView}</p>
+          <p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>Bet n° {this.state.idBetToView}</p>
 
         </div>
         <div id="blockviewADecentraBet" className="lineviewADecentraBet">
           <div id="line3viewADecentraBet" className="lineviewADecentraBetColumn">
-            <p className={this.props.theme == "light" ?"blackP" : "whiteP"}>Amount to Bet : {this.state.amountToBet} USDT </p>
+            <p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>Amount to Bet : {this.state.amountToBet} USDT </p>
             <button className="buttonViewDecentraBet" onClick={(event) => { this.approveUSDT(this.state.amountToBet) }}>Approve USDT</button>
 
             <button className="buttonViewDecentraBet" onClick={this.joinBet}>Join Bet</button>
           </div>
 
           <div id="line4viewADecentraBet" className="lineviewADecentraBetColumn">
-            <p className={this.props.theme == "light" ?"blackP" : "whiteP"}>I'm the oracle !</p>
+            <p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>I'm the oracle !</p>
             <input
               id="addressWinnerDecentraBet"
               type="text"

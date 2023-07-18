@@ -57,7 +57,7 @@ class P2PBetCreator extends React.Component {
       this.setState({ modal: "collapse" })
     }
   }
-  handleClickAwayEvent(){
+  handleClickAwayEvent() {
     this.setState({ modal: "collapse" })
   }
   setSelectedOption(option) {
@@ -65,97 +65,95 @@ class P2PBetCreator extends React.Component {
   }
   render() {
     return (
-      <div id="p2pcreator">
+      <div id="p2pcreator" className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
 
 
-        <div id="underp2pcreator">
-          <div id="superNewP2P">
+        <div id="superNewP2P">
 
-            <p id="newP2PP">New P2P</p>
+          <p id="newP2PP" className={this.props.theme == "light" ? "blackP" : "whiteP"}>New P2P</p>
 
-          </div>
-          <div id="inputsP2P">
-            <input
-              className="css-input"
-              placeholder="cote"
-              id="cote"
-              type="number"
-              min="1.01"
-              value={this.state.cote || ""}
-              onChange={(e) => this.setState({ cote: e.target.value })}
-            ></input>
-            <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
+        </div>
+        <div id="inputsP2P">
+          <input
+            className="css-input"
+            placeholder="cote"
+            id="cote"
+            type="number"
+            min="1.01"
+            value={this.state.cote || ""}
+            onChange={(e) => this.setState({ cote: e.target.value })}
+          ></input>
+          <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
 
-              <div id="superinputLine1P2PFinder">
-                <div id="selectCreateNewP2P" onClick={this.setModal}>
-                  <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
-                </div>
-                <div id="modalinputLine1P2PFinder" className={this.state.modal}>
-                  {this.props.optionsArray == null
-                    ? null
-                    : this.props.optionsArray.split(",").map((item, index) => {
-                      return (
-                        <div key={index} className="lineModalP2PFinder" onClick={() => { this.setSelectedOption(index); this.setModal() }}>
-                          <p>{item}</p>
-                        </div>
-                      );
-                    })}
-                </div>
+            <div id="superinputLine1P2PFinder">
+              <div id="selectCreateNewP2P" onClick={this.setModal}>
+                <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
               </div>
-            </ClickAwayListener>
-            <div id="authorizedDiv">
-              <button id="publicSwitchButton" className="button" onClick={this.switchButton}>
-                {this.state.P2PBetCreatorSwitcher}
-              </button>
-              <input
-                type="text"
-                className={
-                  this.state.P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
-                }
-                id="adressAuthorizedInput"
-                value={this.state.authorized || ''}
-                onChange={(e) => { this.setState({ authorized: e.target.value }); console.log(this.state.authorized) }}
-              ></input>
+              <div id="modalinputLine1P2PFinder" className={this.state.modal}>
+                {this.props.optionsArray == null
+                  ? null
+                  : this.props.optionsArray.split(",").map((item, index) => {
+                    return (
+                      <div key={index} className="lineModalP2PFinder" onClick={() => { this.setSelectedOption(index); this.setModal() }}>
+                        <p>{item}</p>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
-            <button className="button"
-              id="buttonCreateP2Pbutton"
-              onClick={(event) => {
-                if (this.state.cote <= 1 || this.state.cote === null || this.state.cote === undefined) {
-                  this.setState({ error: "Cote must be > 1 !" }); this.setState({ class: "horizontal-shake" }); setTimeout(this.changeClass, 1000);
-                }
-                else {
-                  this.setState({ error: null })
-                  console.log(this.state.selectedOption);
-                  this.props.setTypeBet(2)
-                  this.props.setBetArgs({
-                    betNumber: this.props.betNumber,
-                    betName: this.props.optionsArray,
-                    amountToBet: weiconvert(this.state.amountToBet),
-                    cote: this.state.cote,
-                    selectedOption: this.state.selectedOption,
-                    authorized: this.state.authorized,
-                    optionName: this.props.optionsArray.split(",")[this.state.selectedOption],
-                    toWin: this.state.amountToBet * this.state.cote
-                  })
-
-                }
-              }}
-            >
-              <p id="buttonCreateP2PP">Create bet</p>
+          </ClickAwayListener>
+          <div id="authorizedDiv">
+            <button id="publicSwitchButton" className="button" onClick={this.switchButton}>
+              {this.state.P2PBetCreatorSwitcher}
             </button>
-            <div id="errorCoteDiv"><p id="errorP" className={this.state.class}>{this.state.error}</p></div>
-            {/*<h3>
+            <input
+              type="text"
+              className={
+                this.state.P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
+              }
+              id="adressAuthorizedInput"
+              value={this.state.authorized || ''}
+              onChange={(e) => { this.setState({ authorized: e.target.value }); console.log(this.state.authorized) }}
+            ></input>
+          </div>
+          <button className="button"
+            id="buttonCreateP2Pbutton"
+            onClick={(event) => {
+              if (this.state.cote <= 1 || this.state.cote === null || this.state.cote === undefined) {
+                this.setState({ error: "Cote must be > 1 !" }); this.setState({ class: "horizontal-shake" }); setTimeout(this.changeClass, 1000);
+              }
+              else {
+                this.setState({ error: null })
+                console.log(this.state.selectedOption);
+                this.props.setTypeBet(2)
+                this.props.setBetArgs({
+                  betNumber: this.props.betNumber,
+                  betName: this.props.optionsArray,
+                  amountToBet: weiconvert(this.state.amountToBet),
+                  cote: this.state.cote,
+                  selectedOption: this.state.selectedOption,
+                  authorized: this.state.authorized,
+                  optionName: this.props.optionsArray.split(",")[this.state.selectedOption],
+                  toWin: this.state.amountToBet * this.state.cote
+                })
+
+              }
+            }}
+          >
+            <p id="buttonCreateP2PP">Create bet</p>
+          </button>
+          <div id="errorCoteDiv"><p id="errorP" className={this.state.class}>{this.state.error}</p></div>
+          {/*<h3>
               will cost you {this.state.amountToBet} USDT and{" "}
               {this.state.amountToBet} MBT
               </h3>*/}
-          </div>
-
-
-
-
-
-          {/*<button className="button" onClick={this.seeP2PBets}>seeP2PBets</button>*/}
         </div>
+
+
+
+
+
+        {/*<button className="button" onClick={this.seeP2PBets}>seeP2PBets</button>*/}
       </div>
     );
   }

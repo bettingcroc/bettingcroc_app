@@ -77,7 +77,7 @@ class P2PFinder extends React.Component {
                 }
               });
           } else {
-            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); this.props.setP2PdisplayArgs([{6:this.state.selectedOption}, "indispo", "indispo"]) }
+            if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); this.props.setP2PdisplayArgs([{ 6: this.state.selectedOption }, "indispo", "indispo"]) }
           }
         });
     } catch (error) {
@@ -134,69 +134,68 @@ class P2PFinder extends React.Component {
   setSelectedOption(option) {
     this.setState({ selectedOption: option })
   }
-  handleClickAwayEvent(){
+  handleClickAwayEvent() {
     this.setState({ modal: "collapse" })
   }
   render() {
     return (
-      <div id="p2pfinder">
-        <div id="underp2pfinder">
-          <div id="titleP2pFinder">
 
-            <p className={this.props.theme == "light" ?"blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
+      <div id="p2pfinder" className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
+        <div id="titleP2pFinder">
 
-          </div>
-          <p className='lineModalFriendInviterP'>against</p>
-          <div id="inputP2pFinder">
-            <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
-              <div id="superinputLine1P2PFinder">
-                <div id="inputLine1P2PFinder" onClick={this.setModal}>
-                  <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
-                </div>
-                <div id="modalinputLine1P2PFinder" className={this.state.modal}>
-                  {this.props.optionsArray == null
-                    ? null
-                    : this.props.optionsArray.split(",").map((item, index) => {
-                      return (
-                        <div key={index} className="lineModalP2PFinder" onClick={() => { this.setSelectedOption(index); this.setModal() }}>
-                          <p>{item}</p>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            </ClickAwayListener>
-<p id='minToBetP'> search by minimum amount :</p>
-            <div id="inputLine2P2PFinder">
-              <div id="inputAmountP2PFinder"><input
-                className="css-input"
-                id="minBet"
-                type="number"
-                min="0"
-                value={this.state.minBet}
-                onChange={(e) => this.setState({ minBet: e.target.value })}
-              ></input></div>
-              <button id="buttonRefreshP2PFinderButton" className={this.state.modeSearch === "minToBet" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { this.setState({ modeSearch: "minToBet" }) }}></button>
-            </div>
-            <p id='orP'>or search by bet id :</p>
-            <div id="inputLine3P2PFinder">
-              <div id="inputIdP2PFinder"><input
-                className="css-input"
-                id="minBet"
-                type="number"
-                min="0"
-                value={this.state.id}
-                onChange={(e) => this.setState({ id: e.target.value })}
-              ></input></div>
-              <button id="buttonRefreshP2PFinderButton" className={this.state.modeSearch === "byId" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { this.setState({ modeSearch: "byId" }) }}></button>
-
-            </div>
-
-            <button id="buttonSearchP2P" onClick={(event) => { this.state.modeSearch === "minToBet" ? this.searchCote(weiconvert(this.state.minBet)) : this.searchById(this.state.id) }}><p id="searchP">Search !</p></button>
-
-          </div>
+          <p className={this.props.theme == "light" ? "blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
 
         </div>
+        <p className={this.props.theme == "light" ? "blackP" : "whiteP"}>against</p>
+        <div id="inputP2pFinder">
+          <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
+            <div id="superinputLine1P2PFinder">
+              <div id="inputLine1P2PFinder" onClick={this.setModal}>
+                <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
+              </div>
+              <div id="modalinputLine1P2PFinder" className={this.state.modal}>
+                {this.props.optionsArray == null
+                  ? null
+                  : this.props.optionsArray.split(",").map((item, index) => {
+                    return (
+                      <div key={index} className="lineModalP2PFinder" onClick={() => { this.setSelectedOption(index); this.setModal() }}>
+                        <p>{item}</p>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </ClickAwayListener>
+          <p id='minToBetP' className={this.props.theme == "light" ? "blackP" : "whiteP"}> search by minimum amount :</p>
+          <div id="inputLine2P2PFinder">
+            <div id="inputAmountP2PFinder"><input
+              className="css-input"
+              id="minBet"
+              type="number"
+              min="0"
+              value={this.state.minBet}
+              onChange={(e) => this.setState({ minBet: e.target.value })}
+            ></input></div>
+            <button id="buttonRefreshP2PFinderButton" className={this.state.modeSearch === "minToBet" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { this.setState({ modeSearch: "minToBet" }) }}></button>
+          </div>
+          <p id='orP' className={this.props.theme == "light" ? "blackP" : "whiteP"}>or search by bet id :</p>
+          <div id="inputLine3P2PFinder">
+            <div id="inputIdP2PFinder"><input
+              className="css-input"
+              id="minBet"
+              type="number"
+              min="0"
+              value={this.state.id}
+              onChange={(e) => this.setState({ id: e.target.value })}
+            ></input></div>
+            <button id="buttonRefreshP2PFinderButton" className={this.state.modeSearch === "byId" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { this.setState({ modeSearch: "byId" }) }}></button>
+
+          </div>
+
+          <button id="buttonSearchP2P" onClick={(event) => { this.state.modeSearch === "minToBet" ? this.searchCote(weiconvert(this.state.minBet)) : this.searchById(this.state.id) }}><p id="searchP">Search !</p></button>
+
+        </div>
+
       </div>
     );
   }

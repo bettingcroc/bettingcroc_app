@@ -208,3 +208,12 @@
 11/05/2023 20:52:52 Bet created n 53 1686526200 basketball USA NBA Philadelphia 76ers,Boston Celtics
 11/05/2023 20:55:40 Bet created n 54 1686526200 basketball USA NBA Philadelphia 76ers,Boston Celtics
 11/05/2023 20:55:40 Bet created n 55 1686535200 basketball USA NBA Phoenix Suns,Denver Nuggets
+15/07/2023 14:31:25 Bet created n 1 1689381000 basketball USA NBA - Las Vegas Summer League Denver Nuggets,Miami Heat
+15/07/2023 14:31:25 Bet created n 5 1689445800 basketball USA NBA - Las Vegas Summer League Minnesota Timberwolves,Charlotte Hornets
+15/07/2023 14:31:25 Bet created n 6 1689447600 basketball USA NBA - Las Vegas Summer League Toronto Raptors,Golden State Warriors
+15/07/2023 14:31:25 Bet created n 7 1689453000 basketball USA NBA - Las Vegas Summer League Sacramento Kings,Milwaukee Bucks
+15/07/2023 14:31:25 Bet created n 8 1689454800 basketball USA NBA - Las Vegas Summer League Chicago Bulls,Washington Wizards
+15/07/2023 14:31:25 Bet created n 9 1689460200 basketball USA NBA - Las Vegas Summer League Orlando Magic,Boston Celtics
+15/07/2023 14:31:25 Bet created n 2 1689382800 basketball USA NBA - Las Vegas Summer League Detroit Pistons,San Antonio Spurs
+15/07/2023 14:31:25 Bet created n 3 1689388200 basketball USA NBA - Las Vegas Summer League Phoenix Suns,Utah Jazz
+15/07/2023 14:31:25 Bet created n 4 1689390000 basketball USA NBA - Las Vegas Summer League Los Angeles Lakers,Memphis Grizzlies

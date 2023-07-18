@@ -16,8 +16,13 @@
   color: #05004E;
 }
 
-.whiteP {
+.lightGreyP {
   color: #CDCDCD;
+
+}
+
+.whiteP {
+  color: #ffffff;
 
 }
 
@@ -122,10 +127,9 @@
   flex-direction: row;
   align-items: center;
   padding: 0px;
-  gap: 130px;
   height: 56px;
-  width: 46%;
-
+  width: 38%;
+  justify-content: space-between;
   /* Inside auto layout */
   flex: none;
   order: 0;
@@ -140,8 +144,8 @@
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
-  gap: 53px;
-
+  justify-content: space-between;
+  width: 50%;
   height: 25px;
 
 
@@ -151,9 +155,7 @@
   flex-grow: 0;
 }
 
-.listBets p {
-  color: black;
-}
+
 
 .listBets .betLineListBets p:hover {
   color: #737791;
@@ -312,9 +314,6 @@
   padding: 0px;
   gap: 20px;
 
-  position: relative;
-  top: 90px;
-
 }
 
 .betComplet {
@@ -414,7 +413,6 @@
   height: 90px;
 
 
-  background: #FFFFFF;
 }
 
 #superStakeJauge {
@@ -428,18 +426,15 @@
   align-items: flex-start;
   gap: 10px;
 
-  position: fixed;
+  position: sticky;
   z-index: 45;
   height: 100px;
-  left: 18%;
   top: 70px;
-
-  right: 21.875%;
-  background: #FFFFFF;
   justify-content: center;
   border: solid;
-  border-width: 1px;
-  border-color: #F4F7F9;
+  border-width: 2px;
+  border-color: #539B57;
+  border-radius: 20px;
 }
 
 
@@ -590,13 +585,8 @@
   padding: 23px 31px;
   gap: 30px;
 
-  position: absolute;
   width: 100%;
   height: 220px;
-  left: 0px;
-  top: 210px;
-
-  background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
@@ -675,7 +665,6 @@
   height: 190px;
 
 
-  background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
@@ -712,6 +701,21 @@
   order: 4;
   flex-grow: 0;
   margin-bottom: 30px;
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 31px;
+  gap: 10px;
+
+  height: 100%;
+
+
+  border: 1px solid #F8F9FA;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
 }
 
 #p2p2 {
@@ -727,11 +731,6 @@
   order: 4;
   flex-grow: 0;
   margin-bottom: 30px;
-}
-
-#myP2P {
-  /* Today Sales */
-
   box-sizing: border-box;
 
   /* Auto layout */
@@ -744,40 +743,35 @@
   height: 100%;
 
 
-  background: #FFFFFF;
   border: 1px solid #F8F9FA;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 }
 
-#p2pcreator {
-  /* Todays Sales */
-  width: calc(50% - 10px);
+#myP2P {
+  /* Today Sales */
 
-
-  order: 1;
 
 }
 
-#underp2pcreator {
-  /* Today Sales */
-
-  /* Auto layout */
+#p2pcreator {
+  /* Todays Sales */
+  width: calc(50% - 10px);
+  order: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 23px 30px;
   gap: 10px;
-
-
-
-  background: #FFFFFF;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 }
 
-#underp2pfinder {
+
+
+#p2pfinder {
   /* Today Sales */
+  width: calc(50% - 10px);
 
   /* Auto layout */
   display: flex;
@@ -789,22 +783,10 @@
 
   width: 100%;
 
-  background: #FFFFFF;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 }
 
-#p2pfinder {
-  /* Todays Sales */
-  width: calc(50% - 10px);
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
 
 
 #countryLeagueDate {
@@ -1649,7 +1631,7 @@
   /* identical to box height, or 160% */
 
   /* Primary/Dark Shade */
-  color: #CDCDCD;
+  color: #ffffff;
 
 
   /* Inside auto layout */
@@ -1704,7 +1686,6 @@
   top: 9px;
 }
 
-.optionP {}
 
 #buttonRefreshP2PFinderButton {
   width: 50px;
@@ -1837,7 +1818,6 @@
   /* identical to box height, or 160% */
 
   /* Primary/Dark Shade */
-  color: #05004E;
   margin-bottom: 20px;
 }
 
@@ -2098,13 +2078,6 @@ a:hover {
   font-size: 20px;
   line-height: 32px;
 
-  /* identical to box height, or 160% */
-
-  /* Primary/Dark Shade */
-  color: #05004E;
-
-
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -2125,7 +2098,6 @@ a:hover {
 
 #p2p2Box2 {
   width: 100%;
-  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -2214,19 +2186,21 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
   gap: 10px;
 
   width: 100%;
 
-
-
-  /* Inside auto layout */
-  flex: none;
   order: 2;
   align-self: stretch;
   flex-grow: 0;
+  padding: 23px 30px;
+
+
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+
 }
+
 
 #errorCoteDiv {
   order: 4;
@@ -2281,7 +2255,6 @@ a:hover {
 
   height: 434px;
 
-  background: #FFFFFF;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 
@@ -2304,7 +2277,6 @@ a:hover {
 
   height: 434px;
 
-  background: #FFFFFF;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 
@@ -2327,7 +2299,6 @@ a:hover {
 
   height: 434px;
 
-  background: #FFFFFF;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 
@@ -2338,24 +2309,7 @@ a:hover {
   flex-grow: 0;
 }
 
-#underBox3ListBets {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 30px;
-  gap: 10px;
 
-  width: 100%;
-
-  background: #FFFFFF;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
 
 .topBetsMiniBox1 {
   /* Mask group */
@@ -3168,7 +3122,7 @@ table.customTable thead {
   margin: 0;
 }
 
-.nameBetListBetsP {
+#nameBetListBetsP {
   width: 50%;
 }
 
@@ -3274,6 +3228,7 @@ table.customTable thead {
 #superBetComplet {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .buttonTeamTitleDiv {
@@ -3291,7 +3246,7 @@ table.customTable thead {
   width: 220px;
 }
 
-.dateListBet {
+#dateListBet {
   font-weight: bold;
 }
 
@@ -3460,4 +3415,10 @@ img {
 
 .topRightButton:hover {
   cursor: pointer;
+}
+
+#boxDateBox3listBets {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
