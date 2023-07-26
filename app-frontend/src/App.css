@@ -263,46 +263,18 @@
 
 #rightBar {
   position: sticky;
-
-  /* Auto layout */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
+  justify-content: space-between;
   height: calc(100vh - 70px);
-  position: fixed;
   z-index: 40;
   width: 21.875%;
-  right: 0px;
   top: 70px;
-
-  background: #FFFFFF;
-  border: solid;
+  border-style: solid;
   border-width: 1px;
-  border-color: #F4F7F9;
 }
 
-#rightBarDark {
-  position: sticky;
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  height: calc(100vh - 70px);
-  position: fixed;
-  z-index: 40;
-  width: 21.875%;
-  right: 0px;
-  top: 70px;
-
-  /* Blanc */
-  background: #181818;
-  border: solid;
-  border-width: 1px;
-  border-color: #424242;
-}
 
 .betCompletOpen {
   /* Frame 1000002782 */
@@ -534,7 +506,7 @@
 }
 
 #mainVue {
-
+  min-height: calc(100vh - 70px);
 
   width: 60.25%;
   padding: 25px;
@@ -916,23 +888,15 @@
 }
 
 #bottomRightBar {
-  /* Frame 1000002774 */
-
-  /* Auto layout */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 30px 25px;
   gap: 10px;
   z-index: 50;
-  position: fixed;
-  width: 21.875%;
   height: 220px;
-  right: 0px;
-  bottom: 0px;
-
-  /* Bloc noir */
   background: #373F51;
+  width: 100%;
 }
 
 #underBottomRightBar {
@@ -1962,8 +1926,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  position: relative;
-  top: 15px;
 }
 
 #midRightBar {
@@ -1993,7 +1955,6 @@
   display: flex;
   flex-direction: column;
   overflow: scroll;
-  height: 505px;
   align-items: center;
 }
 
@@ -2416,8 +2377,7 @@ a:hover {
 }
 
 #bettingCrocImage {
-  /*width: calc(100% - 137px);*/
-  height: 230px;
+  width: calc(100% - 137px);
 }
 
 
@@ -3386,11 +3346,7 @@ table.customTable thead {
   justify-content: center;
 }
 
-@media screen and (max-width: 550px) {
-  #bettingCrocTitle {
-    visibility: collapse;
-  }
-}
+
 
 *,
 ::before,
@@ -3422,3 +3378,6 @@ img {
   flex-direction: column;
   gap: 20px;
 }
+/**{
+  border: 1px red solid;
+}*/

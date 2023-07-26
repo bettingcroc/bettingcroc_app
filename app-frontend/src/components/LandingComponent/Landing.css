@@ -25,6 +25,8 @@
 .landingP {
     color: white;
     font-size: 40px;
+    max-width: 40vw;
+    overflow: hidden;
 }
 
 .linkLanding {

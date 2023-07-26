@@ -76,7 +76,7 @@ class Connecter extends React.Component {
                   <div>
                     <ConnectWc connectWalletHandler={this.props.connectWalletConnectHandler}></ConnectWc>
                   </div>
-                  <div>
+                  <div id='metamaskConnecterDiv'>
                     <ConnectButton connectWalletHandler={this.props.connectWalletHandler} defaultAccount={this.props.defaultAccount} errorMessage={this.props.errorMessage} connButtonText={this.props.connButtonText}></ConnectButton>
                   </div>
                   <div>

@@ -106,7 +106,8 @@ class App extends Component {
       myBets: [],
       myP2PBets: [],
       socket: socket,
-      theme: theme
+      theme: theme,
+      menuMobile: "menuHidden"
     };
 
 
@@ -141,6 +142,7 @@ class App extends Component {
     this.joinBetRoom = this.joinBetRoom.bind(this)
     this.leaveBetRoom = this.leaveBetRoom.bind(this)
     this.switchTheme = this.switchTheme.bind(this)
+    this.menuMobile = this.menuMobile.bind(this)
     socket.on('connect', () => {
       console.log("connected to server with " + socket.id); if (this.state.defaultAccount !== undefined) { socket.emit('joinRoom', this.state.defaultAccount.toLowerCase()) }
     })
@@ -795,6 +797,11 @@ class App extends Component {
     this.state.socket.emit('leaveRoom', "scoreBet" + betNumber)
     console.log("leaveRoom " + "scoreBet" + betNumber)
   }
+  menuMobile() {
+    if (this.state.menuMobile !== "menu") { this.setState({ menuMobile: "menu" }) } else {
+      this.setState({ menuMobile: "menuHidden" })
+    }
+  }
   render() {
     return (
 
@@ -831,8 +838,7 @@ class App extends Component {
                       <p>usdt allowed: {this.state.usdtAllowed}</p>
                       <p> mbt allowed: {this.state.mbtAllowed}</p>
                   </div>*/}
-                  <Link to="/account"><img className="accountLogo" src={accountImage} alt="accountImage"></img></Link>
-                  <button id="hamburger"><img id="hamburgerImg" src={hamburgerImage} alt="hamburgerImage"></img></button>
+                  <Link to="/account" id="accountLink"><img className="accountLogo" src={accountImage} alt="accountImage"></img></Link>
                 </div>
 
 
@@ -845,24 +851,24 @@ class App extends Component {
                 </div>*/}
                     <div id="popular">
                       <p id="titleLeftBar" className={this.state.theme == "light" ? "blackP" : "lightGreyP"}>Popular</p>
-                      <Link className="leftBarA" href="/basketball">
+                      <Link className="leftBarA" to="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Basketball</p></div>
                       </Link>
-                      <Link className="leftBarA" href="/football">
+                      <Link className="leftBarA" to="/football">
                         <div className="optionsLeftBar">
                           <img src={footballImage} alt="footballImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Football</p>
                         </div>
                       </Link>
-                      <Link className="leftBarA" href="/finance">
+                      <Link className="leftBarA" to="/finance">
                         <div className="optionsLeftBar">
                           <img src={financeImage} alt="financeImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Finance</p>
                         </div>
                       </Link>
-                      <Link className="leftBarA" href="/tennis">
+                      <Link className="leftBarA" to="/tennis">
                         <div className="optionsLeftBar">
                           <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Tennis</p>
@@ -871,24 +877,24 @@ class App extends Component {
                     </div>
                     <div id="categories">
                       <p id="titleLeftBar" className={this.state.theme == "light" ? "blackP" : "lightGreyP"}>All categories</p>
-                      <Link className="leftBarA" href="/basketball">
+                      <Link className="leftBarA" to="/basketball">
                         <div className="optionsLeftBar">
                           <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Basketball</p></div>
                       </Link>
-                      <Link className="leftBarA" href="/football">
+                      <Link className="leftBarA" to="/football">
                         <div className="optionsLeftBar">
                           <img src={footballImage} alt="footballImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Football</p>
                         </div>
                       </Link>
-                      <Link className="leftBarA" href="/finance">
+                      <Link className="leftBarA" to="/finance">
                         <div className="optionsLeftBar">
                           <img src={financeImage} alt="financeImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Finance</p>
                         </div>
                       </Link>
-                      <Link className="leftBarA" href="/tennis">
+                      <Link className="leftBarA" to="/tennis">
                         <div className="optionsLeftBar">
                           <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
                           <p className="optionsLeftBarP">Tennis</p>
@@ -908,7 +914,7 @@ class App extends Component {
                   }
                   <Outlet></Outlet>
                 </div>
-                <div id={this.state.theme === "light" ? "rightBar" : "rightBarDark"}>
+                <div id="rightBar" className={this.state.theme === "light" ? "whiteDiv" : "blackDiv"}>
                   <div id={this.state.mainVue === "bet" ? "topRightBar" : "topRightBarElse"}>
                     {this.state.mainVue === "bet" ? <div id="underTopRightBar">
                       <button onClick={this.goPanier} className="topRightButton" id="panierP"><div id={this.state.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
@@ -933,26 +939,63 @@ class App extends Component {
 
                     </div>
                   </div>
-
+                  {this.state.mainVue === "bet" ? <div id="bottomRightBar">
+                    <div id="underBottomRightBar">
+                      <div id="inputLine">
+                        <p id="inputP">Input</p>
+                        <p id="inputP2">{this.state.betArgs === null ? null : parseFloat(this.state.betArgs.amountToBet) / decimalsConverter(10) + " USDT"}</p>
+                      </div>
+                      <div id="gainsLine">
+                        <p id="gainsP">Gains</p>
+                        <p id="gainsP2">{this.state.betArgs === null ? null : this.state.betArgs === null ? null : this.state.betArgs.toWin + " USDT"} </p>
+                      </div>
+                    </div>
+                    <button id="buttonApprover" onClick={(event) => { this.approve() }}><p id="approveP">APPROVE</p></button>
+                    <button id="buttonBetter" onClick={(event) => { this.betFunction(this.state.betArgs) }}><p id="betP">BET</p></button>
+                  </div> : null}
                 </div>
 
-                {this.state.mainVue === "bet" ? <div id="bottomRightBar">
-                  <div id="underBottomRightBar">
-                    <div id="inputLine">
-                      <p id="inputP">Input</p>
-                      <p id="inputP2">{this.state.betArgs === null ? null : parseFloat(this.state.betArgs.amountToBet) / decimalsConverter(10) + " USDT"}</p>
-                    </div>
-                    <div id="gainsLine">
-                      <p id="gainsP">Gains</p>
-                      <p id="gainsP2">{this.state.betArgs === null ? null : this.state.betArgs === null ? null : this.state.betArgs.toWin + " USDT"} </p>
-                    </div>
-                  </div>
-                  <button id="buttonApprover" onClick={(event) => { this.approve() }}><p id="approveP">APPROVE</p></button>
-                  <button id="buttonBetter" onClick={(event) => { this.betFunction(this.state.betArgs) }}><p id="betP">BET</p></button>
-                </div> : null}
+
               </div>
               <div id="overlay" className={this.state.overlayClass}></div>
               <div id="overlayTop" className={this.state.overlayClass}></div>
+              <div id="mobileBottomBar" className={this.state.theme === "light" ? "whiteDiv" : "blackDiv"}>
+                <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>List Bets</p></Link>
+                <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
+                <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
+                <button id="hamburger" onClick={this.menuMobile}><img id="hamburgerImg" src={hamburgerImage} alt="hamburgerImage"></img></button>
+
+              </div>
+              <div id="menuMobile" className={this.state.theme === "light" ? "whiteDiv " +this.state.menuMobile : "blackDiv "+this.state.menuMobile}>
+                <Link to="/account" id=""><img className="accountLogo" src={accountImage} alt="accountImage"></img></Link>
+                <button id="switchThemeHomeMobile" onClick={this.switchTheme}>Switch theme</button>
+
+                <Link className="leftBarA" to="/basketball">
+                  <div className="bottomBarLink">
+                    <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
+                    <p>Basketball</p>
+                  </div>
+                </Link>
+                <Link className="leftBarA" to="/football">
+                  <div className="bottomBarLink">
+                    <img src={footballImage} alt="footballImage" className="logoImage"></img>
+                    <p>Football</p>
+                  </div>
+                </Link>
+                <Link className="leftBarA" to="/finance">
+                  <div className="bottomBarLink">
+                    <img src={financeImage} alt="financeImage" className="logoImage"></img>
+                    <p>Finance</p>
+                  </div>
+                </Link>
+                <Link className="leftBarA" to="/tennis">
+                  <div className="bottomBarLink">
+                    <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
+                    <p>Tennis</p>
+                  </div>
+                </Link>
+              </div>
+
             </div>}
           >
             <Route path="/" element={<LandingComponent mainVueSetter={this.setMainVue} vueSetter={this.setTopVue}></LandingComponent>} />

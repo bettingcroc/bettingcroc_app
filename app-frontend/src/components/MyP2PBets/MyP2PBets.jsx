@@ -28,7 +28,7 @@ class MyP2PBets extends React.Component {
   render() {
     return (
       <div className="myBetsDiv">
-        {this.props.myBets.length===0?<div className="lds-dual-ring"></div>:this.props.myBets.map(function (item, index) {
+        {this.props.myBets.length===0?null:this.props.myBets.map(function (item, index) {
           console.log(item)
           return (
             <div key={index} className="myBetDiv">

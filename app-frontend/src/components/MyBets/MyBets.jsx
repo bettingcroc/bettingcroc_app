@@ -25,7 +25,7 @@ class MyBets extends React.Component {
   render() {
     return (
       <div className="myBetsDiv">
-        {this.props.myBets.length === 0 ? <div className="lds-dual-ring"></div> : this.props.myBets.map(function (item) {
+        {this.props.myBets.length === 0 ? null : this.props.myBets.map(function (item) {
           return (
             <div key={item.id} className="myBetDiv">
               <Link to={"/bet/numBet?n=" + item.id}>
