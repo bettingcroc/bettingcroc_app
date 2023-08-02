@@ -3,7 +3,7 @@ const Sqlite = require('better-sqlite3');
 
 let db = new Sqlite('db.sqlite');
 
-const socket = io('http://localhost:4000')
+const socket = io('https://testnet.bettingcroc.com')
 socket.on('connect', () => console.log("connected to server with " + socket.id))
 
 

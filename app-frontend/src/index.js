@@ -33,9 +33,11 @@ import MyP2PBets from "./components/MyP2PBets/MyP2PBets";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import USDTGetter from "./components/USDTGetter/USDTGetter"
 import GetGains from "./components/GetGains/GetGains";
+import BetterMobile from "./components/BetterMobile/BetterMobile";
+
 
 const APP_NAME = 'bettingcroc'
-const APP_LOGO_URL = 'http://localhost:4000/static/media/home.de3a12ee.png'
+const APP_LOGO_URL = 'https://testnet.bettingcroc.com/static/media/home.de3a12ee.png'
 const DEFAULT_ETH_JSONRPC_URL = `https://data-seed-prebsc-1-s3.binance.org:8545`
 const DEFAULT_CHAIN_ID = 97
 const coinbaseWallet = new CoinbaseWalletSDK({
@@ -44,7 +46,7 @@ const coinbaseWallet = new CoinbaseWalletSDK({
   darkMode: false
 })
 const ethereum = coinbaseWallet.makeWeb3Provider(DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID)
-const socket = io('http://localhost:4000')
+const socket = io('https://testnet.bettingcroc.com')
 const cssIdentifiers = {
   "light": { "titleActive": "blackP" },
   "dark": { "titleActive": "lightGreyP" }
@@ -78,6 +80,7 @@ class Popup extends React.Component {
 class App extends Component {
   constructor(props) {
     super(props);
+    console.log("React version " + React.version)
     let theme = "light"
     if (localStorage.getItem("theme") === "dark") {
       theme = "dark"
@@ -289,7 +292,7 @@ class App extends Component {
         window.location.reload();
       })
       window.ethereum.on('accountsChanged', () => {
-        let url = "http://localhost:4000/logout";
+        let url = "https://testnet.bettingcroc.com/logout";
 
         let options = {
           method: "POST",
@@ -476,7 +479,7 @@ class App extends Component {
     try {
       this.state.multiBetContract.methods.getMyBetsUser(this.state.defaultAccount).call().then(result => {
 
-        fetch("http://localhost:4000/api/mybets/", {
+        fetch("https://testnet.bettingcroc.com/api/mybets/", {
           method: "POST"
           , body: JSON.stringify({ listBets: result })
           , headers: {
@@ -570,7 +573,7 @@ class App extends Component {
     try {
       this.state.multiBetContract.methods.seeMyP2PBets(this.state.defaultAccount).call().then(async result => {
         //console.log(result)
-        fetch("http://localhost:4000/api/mybets/", {
+        fetch("https://testnet.bettingcroc.com/api/mybets/", {
           method: "POST"
           , body: JSON.stringify({ listBets: result })
           , headers: {
@@ -819,7 +822,7 @@ class App extends Component {
                     </Link>
                   </div>
                   <div id="links">
-                    <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>List Bets</p></Link>
+                    <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Sport Bets</p></Link>
                     <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
                     <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
                   </div>
@@ -829,7 +832,7 @@ class App extends Component {
 
                   {//this.state.defaultAccount === undefined ? 
                   }
-                  <Connecter closeOverlay={this.closeOverlay} switchOverlayMode={this.switchOverlayMode} disconnect={this.disconnect} connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText} connectWalletConnectHandler={this.connectWalletConnect} connectCoinBaseHandler={this.connectCoinBase} web3={this.state.web3} logged={this.state.logged} setLogged={this.setLogged}></Connecter>
+                  <Connecter overlayClass={this.state.overlayClass} closeOverlay={this.closeOverlay} switchOverlayMode={this.switchOverlayMode} disconnect={this.disconnect} connectWalletHandler={this.connectWalletHandler} defaultAccount={this.state.defaultAccount} errorMessage={this.state.errorMessage} connButtonText={this.state.connButtonText} connectWalletConnectHandler={this.connectWalletConnect} connectCoinBaseHandler={this.connectCoinBase} web3={this.state.web3} logged={this.state.logged} setLogged={this.setLogged}></Connecter>
                   {// : <p id="accountDisplay">{this.state.defaultAccount}</p>
                   }
 
@@ -957,16 +960,16 @@ class App extends Component {
 
 
               </div>
-              <div id="overlay" className={this.state.overlayClass}></div>
-              <div id="overlayTop" className={this.state.overlayClass}></div>
+              {this.state.rightBar === "betMaker" ?
+                this.state.typeBet === 0 ? null : <BetterMobile setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetterMobile> : null}
               <div id="mobileBottomBar" className={this.state.theme === "light" ? "whiteDiv" : "blackDiv"}>
-                <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>List Bets</p></Link>
+                <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Sport Bets</p></Link>
                 <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
                 <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
                 <button id="hamburger" onClick={this.menuMobile}><img id="hamburgerImg" src={hamburgerImage} alt="hamburgerImage"></img></button>
 
               </div>
-              <div id="menuMobile" className={this.state.theme === "light" ? "whiteDiv " +this.state.menuMobile : "blackDiv "+this.state.menuMobile}>
+              <div id="menuMobile" className={this.state.theme === "light" ? "whiteDiv " + this.state.menuMobile : "blackDiv " + this.state.menuMobile}>
                 <Link to="/account" id=""><img className="accountLogo" src={accountImage} alt="accountImage"></img></Link>
                 <button id="switchThemeHomeMobile" onClick={this.switchTheme}>Switch theme</button>
 
@@ -1036,7 +1039,7 @@ function decimalsConverter(numberToConvert) {
 }
 function weiconvert(number) { return BigInt(number * decimalsConverter(10)); }
 async function logout() {
-  let url = "http://localhost:4000/logout";
+  let url = "https://testnet.bettingcroc.com/logout";
 
   //console.log(url);
   let options = {

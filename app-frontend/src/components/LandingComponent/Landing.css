@@ -42,3 +42,27 @@
     height: 100%;
 
 }
+
+@media screen and (max-width: 550px) {
+    #landingLineDiv1 {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #landingLineDiv2 {
+        flex-direction: column;
+        gap: 20px;
+
+    }
+
+    .linkLanding {
+        width: 100%;
+    }
+    .landingP{
+        max-width: initial;
+    }
+    #landingComponent{
+        gap: 20px;
+
+    }
+}

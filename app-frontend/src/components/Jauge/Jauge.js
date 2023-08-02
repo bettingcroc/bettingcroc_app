@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import "./Jauge.css"
 
 class Jauge extends React.Component {
   constructor(props) {

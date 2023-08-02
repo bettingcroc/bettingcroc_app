@@ -125,7 +125,7 @@ class OptionPool extends React.Component {
     return (
       <div className="optionPool">
         {this.props.status === 0 ?
-          <button className="buttonTeamTitle" onClick={(event) => { this.setBet(); }}><p className='teamTitle'>{this.props.team}</p></button> :
+          <button className="buttonTeamTitle" onClick={(event) => { this.setBet(event); }}><p className='teamTitle'>{this.props.team}</p></button> :
           <div className="buttonTeamTitleDiv"><p className='teamTitle'>{this.props.team}</p></div>}
         {this.props.status === 0 ? <div>
           <p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>To win : {this.props.moneyInOtherPools == null ? null : ((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))).toFixed(2)}</p>

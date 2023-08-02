@@ -17,7 +17,7 @@ class LandingComponent extends React.Component {
         <div id="landingLineDiv1">
           <Link to="/basketball" className='linkLanding'>
             <div className="landingSquare" id="landingDivListBets">
-              <p className="landingP">List Bets</p>
+              <p className="landingP">Sport Bets</p>
             </div>
           </Link>
           <Link to="/decentrabet" className='linkLanding'>

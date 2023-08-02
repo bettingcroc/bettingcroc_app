@@ -63,7 +63,7 @@ async function getNonce(address) {
   console.log("trying request nonce");
   let toReturn = "ewe"
   if (__mounted && address !== "") {
-    let url = "http://localhost:4000/api/nonce/" + address;
+    let url = "https://testnet.bettingcroc.com/api/nonce/" + address;
     //console.log(url);
     let options = { method: "GET" };
     await new Promise(next => {
@@ -102,7 +102,7 @@ async function requestLogin(nonce, web3, address) {
   let signedNonce = await signNonce(nonce, web3, address);
   console.log("trying login request with " + signedNonce);
   if (__mounted && address !== "") {
-    let url = "http://localhost:4000/login";
+    let url = "https://testnet.bettingcroc.com/login";
     let bodyToSend = JSON.stringify({
       signedNonce: signedNonce,
       address: address,
@@ -127,7 +127,7 @@ async function requestLogin(nonce, web3, address) {
 }
 async function testLogin() {
   if (__mounted) {
-    let url = "http://localhost:4000/api/testlogin";
+    let url = "https://testnet.bettingcroc.com/api/testlogin";
     let options = {
       method: "GET",
     };
@@ -149,7 +149,7 @@ async function testLogin() {
 }
 async function logout() {
   if (__mounted) {
-    let url = "http://localhost:4000/logout";
+    let url = "https://testnet.bettingcroc.com/logout";
 
     console.log(url);
     let options = {

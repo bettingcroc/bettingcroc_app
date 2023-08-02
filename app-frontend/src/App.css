@@ -369,84 +369,7 @@
 
 
 
-#stakeJauge {
-  /* Today Sales */
 
-  box-sizing: border-box;
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-
-  width: 95%;
-  z-index: 50;
-  height: 90px;
-
-
-}
-
-#superStakeJauge {
-  /* Today Sales */
-
-  box-sizing: border-box;
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 10px;
-
-  position: sticky;
-  z-index: 45;
-  height: 100px;
-  top: 70px;
-  justify-content: center;
-  border: solid;
-  border-width: 2px;
-  border-color: #539B57;
-  border-radius: 20px;
-}
-
-
-#stakeBox {
-  /* Frame 1000002771 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 40px;
-
-  height: 56px;
-
-  width: 100%;
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-#jaugeDiv {
-  /* Frame 1000002770 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-
-  width: 70%;
-  height: 56px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 1;
-}
 
 #enterStakeButton {
   /* Button get pro */
@@ -472,26 +395,7 @@
   flex-grow: 0;
 }
 
-#graduation {
-  /* Frame 1000002769 */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 162px;
-
-  height: 24px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
 
 #range {
 
@@ -582,8 +486,6 @@
   align-items: flex-start;
   justify-content: space-between;
   padding: 0px;
-
-  width: 1022px;
   height: 32px;
 
 
@@ -622,44 +524,9 @@
   width: 100%;
 }
 
-#underNameBet {
-  /* Today Sales */
-
-  box-sizing: border-box;
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 31px;
-  gap: 10px;
-
-  height: 190px;
 
 
-  border: 1px solid #F8F9FA;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
 
-#p2p1 {
-  /* Frame 1000002764 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 20px;
-
-  width: 100%;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-}
 
 #p2p2Open {
   /* Todays Sales */
@@ -724,19 +591,6 @@
   /* Today Sales */
 
 
-}
-
-#p2pcreator {
-  /* Todays Sales */
-  width: calc(50% - 10px);
-  order: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 30px;
-  gap: 10px;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
 }
 
 
@@ -1544,21 +1398,7 @@
 
 #optionPLoser {}
 
-.optionDiv {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 52px;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 32px;
-  margin: 0;
-  text-align: center;
-}
+
 
 .headerTitle {
   height: 32px;
@@ -1604,51 +1444,7 @@
   flex-grow: 0;
 }
 
-#schedule {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 10px;
 
-  width: 121px;
-  height: 52px;
-  display: flex;
-  justify-content: center;
-
-  /* Gris clair */
-  background: #F4F7F9;
-  border-radius: 14px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-#scheduleP {
-
-
-
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 26px;
-  line-height: 32px;
-
-  /* identical to box height, or 123% */
-
-  /* Texte gris */
-  color: #737791;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  text-align: center;
-  position: relative;
-  top: 9px;
-}
 
 
 #buttonRefreshP2PFinderButton {
@@ -1690,20 +1486,7 @@
 
 .teamTitle {}
 
-.buttonTeamTitle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  border-radius: 5px;
-  background-color: #ECE572;
-  border: none;
-  padding-left: 4px;
-  padding-right: 4px;
-  text-align: center;
-  width: 220px;
-}
+
 
 #superNewP2P {
   /* Frame 1000002744 */
@@ -1797,26 +1580,6 @@
 
 
 
-#inputsP2P {
-  /* Frame 1000002763 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 16px;
-
-  width: 100%;
-  height: 248px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-}
 
 #buttonCreateP2P {
   /* Button get pro */
@@ -1881,27 +1644,8 @@
   color: white;
 }
 
-#adressAuthorizedInput {
-  width: 360px;
-  height: 50px;
-  border-radius: 10px;
-  border: solid;
-  border-top-width: medium;
-  border-right-width: medium;
-  border-bottom-width: medium;
-  border-left-width: medium;
-  border-width: 0px;
-  background: #F4F7F9;
-  padding: 12px 20px;
-}
 
-#authorizedDiv {
-  order: 2;
-  width: 472px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
+
 
 .topRightDiv {
   width: 100%;
@@ -2674,26 +2418,7 @@ table.customTable thead {
   width: 100%;
 }
 
-#overlay {}
 
-#overlayTop {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 70px;
-  z-index: 90;
-
-
-}
-
-.overlayActive {
-  height: 100%;
-
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 70;
-  position: fixed;
-}
 
 #closeConnecter {
   width: 30px;
@@ -2768,7 +2493,7 @@ table.customTable thead {
   width: 100%;
 
 
-  background: #000000;
+  background: #181818;
   box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
   border-radius: 20px;
 }
@@ -2786,7 +2511,7 @@ table.customTable thead {
 .lineviewADecentraBetColumn {
   display: flex;
   flex-direction: column;
-  height: 200px;
+  gap: 20px;
   justify-content: space-between;
 }
 
@@ -2830,7 +2555,7 @@ table.customTable thead {
 }
 
 .buttonViewDecentraBet {
-  height: 50px;
+  padding: 17px;
   width: 203px;
   border-radius: 8px;
   border: none;
@@ -3191,20 +2916,7 @@ table.customTable thead {
   gap: 20px;
 }
 
-.buttonTeamTitleDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  border-radius: 5px;
-  background-color: rgb(236, 229, 114, 0.3);
-  border: none;
-  padding-left: 4px;
-  padding-right: 4px;
-  text-align: center;
-  width: 220px;
-}
+
 
 #dateListBet {
   font-weight: bold;
@@ -3378,6 +3090,7 @@ img {
   flex-direction: column;
   gap: 20px;
 }
-/**{
+
+/* {
   border: 1px red solid;
 }*/

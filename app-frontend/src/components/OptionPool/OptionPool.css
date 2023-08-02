@@ -1,0 +1,36 @@
+.buttonTeamTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #ECE572;
+    border: none;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+    width: 220px;
+  }
+  .buttonTeamTitleDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(236, 229, 114, 0.3);
+    border: none;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: center;
+    width: 220px;
+  }
+@media screen and (max-width: 550px) {
+    .buttonTeamTitle {
+        width: unset;
+    }
+    .buttonTeamTitleDiv {
+        width: unset;
+    }
+}

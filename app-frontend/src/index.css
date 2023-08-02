@@ -41,7 +41,7 @@
     display: none;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1080px) {
     #hamburger {
         display: block;
     }
@@ -102,7 +102,7 @@
     }
 
     .bottomBarLink {
-        align-items: flex-start;
+        align-items: center;
         height: fit-content;
     }
 
@@ -120,10 +120,13 @@
     #metamaskConnecterDiv {
         display: none;
     }
+
 }
 
 @media screen and (max-width: 550px) {
     #bettingCrocTitle {
         display: none;
     }
+
+
 }

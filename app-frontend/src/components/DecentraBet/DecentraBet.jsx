@@ -1,6 +1,8 @@
 import React from 'react';
 import DecentraBetCreator from '../DecentraBetCreator/DecentraBetCreator';
 import ViewADecentrabet from '../ViewADecentrabet/ViewADecentrabet';
+import "./DecentraBet.css"
+
 
 class DecentraBet extends React.Component {
   constructor(props){

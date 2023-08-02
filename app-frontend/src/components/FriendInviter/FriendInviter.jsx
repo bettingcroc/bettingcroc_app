@@ -137,7 +137,7 @@ function addressReducer(address) {
 
 async function sendBetInvitation(address, message, argsBet,typeBet) {
   if (__mounted) {
-    let url = "http://localhost:4000/api/sendFriendRequest/";
+    let url = "https://testnet.bettingcroc.com/api/sendFriendRequest/";
     let bodyToSend = JSON.stringify({
       "head": "betInvitation",
       "address": address,

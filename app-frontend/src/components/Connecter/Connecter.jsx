@@ -5,6 +5,8 @@ import ConnectWc from '../ConnectWC/ConnectWC';
 import ConnectCb from '../ConnectCB/ConnectCB';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Authentification from "../Authentification/Authentification";
+import "./Connecter.css"
+
 
 class Connecter extends React.Component {
   constructor(props) {
@@ -62,7 +64,7 @@ class Connecter extends React.Component {
           </div>
           :
           this.state.modalState === "closed" ?
-            <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> :
+            <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> :<div>
             <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
 
               <div id="connecterDiv">
@@ -87,6 +89,9 @@ class Connecter extends React.Component {
 
               </div>
             </ClickAwayListener>
+            <div id="overlay" className={this.props.overlayClass}></div>
+
+            </div>
         }
 
       </div>

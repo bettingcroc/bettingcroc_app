@@ -129,7 +129,7 @@ class Account extends React.Component {
         this.setState({ logged: true });
         this.props.setLogged(true);
         if (this.props.logged) {
-          let link2 = "http://localhost:4000/api/myrequests"
+          let link2 = "https://testnet.bettingcroc.com/api/myrequests"
           console.log(link2)
           fetch(link2, { method: "GET" }).then((res) => {
             res.json().then((data) => {
@@ -137,7 +137,7 @@ class Account extends React.Component {
               if (this.state.requests === undefined) { this.setState({ requests: data }); }
             });
           });
-          let link3 = "http://localhost:4000/api/myfriends/"
+          let link3 = "https://testnet.bettingcroc.com/api/myfriends/"
           console.log(link3)
           fetch(link3, { method: "GET" }).then((res) => {
             res.json().then((data) => {
@@ -164,7 +164,7 @@ class Account extends React.Component {
   }
   updateRequests() {
     console.log("update requests")
-    let link2 = "http://localhost:4000/api/myrequests"
+    let link2 = "https://testnet.bettingcroc.com/api/myrequests"
     fetch(link2, { method: "GET" }).then((res) => {
       if (res.status === 200) {
         res.json().then((data) => {
@@ -176,7 +176,7 @@ class Account extends React.Component {
   }
   updateFriends() {
     console.log("updateFriends")
-    let link = "http://localhost:4000/api/myfriends/"
+    let link = "https://testnet.bettingcroc.com/api/myfriends/"
     fetch(link, { method: "GET" }).then((res) => {
       res.json().then((data) => {
         console.log(data)
@@ -186,7 +186,7 @@ class Account extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if ((prevProps.address !== this.props.address && this.state.dataPersoloaded === false && this.props.address !== undefined)) {
-      let link = "http://localhost:4000/api/score/" + this.props.address.toLowerCase();
+      let link = "https://testnet.bettingcroc.com/api/score/" + this.props.address.toLowerCase();
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           if (this.state.dataPersoloaded !== true) { this.setState({ dataPerso: data, loaded: true }); }
@@ -198,7 +198,7 @@ class Account extends React.Component {
 
 
       if (this.props.logged) {
-        let link2 = "http://localhost:4000/api/myrequests"
+        let link2 = "https://testnet.bettingcroc.com/api/myrequests"
         console.log(link2)
         fetch(link2, { method: "GET" }).then((res) => {
           res.json().then((data) => {
@@ -206,7 +206,7 @@ class Account extends React.Component {
             if (this.state.requests === undefined) { this.setState({ requests: data }); }
           });
         });
-        let link3 = "http://localhost:4000/api/myfriends/"
+        let link3 = "https://testnet.bettingcroc.com/api/myfriends/"
         console.log(link3)
         fetch(link3, { method: "GET" }).then((res) => {
           res.json().then((data) => {
@@ -228,7 +228,7 @@ class Account extends React.Component {
     /*if (this.props.address !== undefined && this.props.address !== prevProps.address && __mounted) {
       try {
         console.log(this.props.address);
-        fetch("http://localhost:4000/api/mybets/" + this.props.address, { method: "GET" }).then(
+        fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
           (res) => {
             console.log(res.status)
             res.json().then((data) => {
@@ -256,7 +256,7 @@ class Account extends React.Component {
 
 async function setPseudo(newPseudo) {
   if (__mounted) {
-    let url = "http://localhost:4000/api/setUpPseudo/";
+    let url = "https://testnet.bettingcroc.com/api/setUpPseudo/";
     let bodyToSend = JSON.stringify({
       "newPseudo": newPseudo,
     });
@@ -280,7 +280,7 @@ async function setPseudo(newPseudo) {
 
 async function sendFriendRequest(newFriend) {
   if (__mounted) {
-    let url = "http://localhost:4000/api/sendFriendRequest/";
+    let url = "https://testnet.bettingcroc.com/api/sendFriendRequest/";
     let bodyToSend = JSON.stringify({
       "head": "newFriend",
       "newFriend": newFriend,
@@ -305,7 +305,7 @@ async function sendFriendRequest(newFriend) {
 
 async function testLogin() {
   if (__mounted) {
-    let url = "http://localhost:4000/api/testlogin";
+    let url = "https://testnet.bettingcroc.com/api/testlogin";
 
     console.log(url);
     let options = {

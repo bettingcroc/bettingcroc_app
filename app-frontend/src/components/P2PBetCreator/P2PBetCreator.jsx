@@ -3,6 +3,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import "./P2PBetCreator.css"
+
 
 var __mounted;
 class P2PBetCreator extends React.Component {

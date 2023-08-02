@@ -52,21 +52,23 @@ class DecentraBetCreator extends React.Component {
   }
   render() {
     return (
-      <div className={this.props.theme == "light" ?"DecentraBetCreator" : "DecentraBetCreatorDark"}>
-        <p className={this.props.theme == "light" ?"headerTitle" : "headerTitleDark"}>Create a Decentrabet</p>
-        <input
-          type="text"
-          className="inputDecentraBet"
-          placeholder="oracle"
-          onChange={(e) => this.setState({ oracle: e.target.value })}
-        />
-        <input
-          className="inputDecentraBet"
-          placeholder="amountToBet"
-          type="number"
-          value={this.state.amountToBet || ""}
-          onChange={(e) => this.setState({ amountToBet: e.target.value })}
-        />
+      <div className={this.props.theme == "light" ? "DecentraBetCreator" : "DecentraBetCreatorDark"}>
+        <p className={this.props.theme == "light" ? "headerTitle" : "headerTitleDark"}>Create a Decentrabet</p>
+        <div id="line3createADecentraBet1">
+          <input
+            type="text"
+            className="inputDecentraBet"
+            placeholder="oracle"
+            onChange={(e) => this.setState({ oracle: e.target.value })}
+          />
+          <input
+            className="inputDecentraBet"
+            placeholder="amountToBet"
+            type="number"
+            value={this.state.amountToBet || ""}
+            onChange={(e) => this.setState({ amountToBet: e.target.value })}
+          />
+        </div>
         <div id="line3createADecentraBet">
           <button className="buttonViewDecentraBet" onClick={this.switchButton}>
             {this.state.P2PBetCreatorSwitcher}
@@ -75,6 +77,7 @@ class DecentraBetCreator extends React.Component {
             this.state.P2PBetCreatorSwitcher === "public" ?
               <div id="divDecentraBetPublic"><input
                 className="inputDecentraBet"
+                id="inputPlayersNumber"
                 value={this.state.playersNumber || ""}
                 onChange={(e) => {
                   this.setState({ playersNumber: e.target.value });

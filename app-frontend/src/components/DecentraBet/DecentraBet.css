@@ -1,0 +1,81 @@
+#line3viewADecentraBet2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#line3createADecentraBet1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+@media screen and (max-width: 1080px) {
+    .buttonViewDecentraBet {
+        width: fit-content;
+    }
+
+    .inputDecentraBet {
+        width: fit-content;
+    }
+
+    #addressWinnerDecentraBet {
+        width: fit-content;
+    }
+
+    #inputidBetToView {
+        width: fit-content;
+
+    }
+
+}
+
+@media screen and (max-width: 610px) {
+
+    #blockviewADecentraBet {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #line1viewADecentraBet {
+        flex-direction: column;
+    }
+
+    #line3createADecentraBet {
+        flex-direction: column;
+    }
+
+    #divDecentraBetPublic {
+        gap: unset;
+        justify-content: space-between;
+    }
+
+    #inputPlayersNumber {
+        width: 70%;
+    }
+
+    #line3viewADecentraBet {
+        width: 100%;
+        height: unset;
+    }
+
+    #line3viewADecentraBet2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #line4viewADecentraBet {
+        width: 100%;
+    }
+    .inputDecentraBet {
+        width: 100%;
+    }
+    #line3createADecentraBet1{
+        flex-direction: column;
+        width: 100%;
+    }
+    .lineviewADecentraBetColumn{
+        height: unset;
+        gap: 20px;
+    }
+}
