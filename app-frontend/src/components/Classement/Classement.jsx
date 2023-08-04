@@ -1,4 +1,6 @@
 import React from "react";
+import "./Classement.css"
+
 
 class Classement extends React.Component {
   constructor(props) {
@@ -60,7 +62,7 @@ class Classement extends React.Component {
       <table className="customTable">
         <thead>
           <tr>
-            <th>Player's address</th>
+            <th id="addressRankingColumn">Player's address</th>
             <th>Pseudo</th>
             <th>Score</th>
             <th>Rank</th>
@@ -71,17 +73,17 @@ class Classement extends React.Component {
             //console.log("item "+index)
 
             //console.log(item)
-            if(item===null){return null}
+            if (item === null) { return null }
             return <tr key={index}>
-              <td>{item.address}</td>
+              <td className="addressRankingCell">{item.address}</td>
               <td>{item.pseudo}</td>
               <td>{item.score}</td>
               <td>{index + 1}</td>
             </tr>
           })}
-          {this.state.loaded===false?null:<tr>
+          {this.state.loaded === false ? null : <tr>
             <td>{this.state.address}</td>
-            <td>{this.state.loaded && this.state.dataPerso[0].pseudo !==undefined ? this.state.dataPerso[0].pseudo : ""}</td>
+            <td>{this.state.loaded && this.state.dataPerso[0].pseudo !== undefined ? this.state.dataPerso[0].pseudo : ""}</td>
             <td>{this.state.loaded ? this.state.dataPerso[0].score : ""}</td>
             <td>{this.state.loaded ? this.state.dataPerso[0].position : ""}</td>
           </tr>}

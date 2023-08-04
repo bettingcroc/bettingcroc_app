@@ -48,11 +48,9 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 10px;
-
-    position: sticky;
-    z-index: 45;
     height: 100px;
-    top: 70px;
+
+
     justify-content: center;
     border: solid;
     border-width: 2px;
@@ -60,6 +58,11 @@
     border-radius: 20px;
 }
 
+#blurJauge {
+    position: sticky;
+    z-index: 45;
+    top: 70px;
+}
 
 
 #jaugeDiv {

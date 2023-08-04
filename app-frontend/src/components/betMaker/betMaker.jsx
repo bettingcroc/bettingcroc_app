@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cross from './cross.png'
+import "./betMaker.css"
+
 
 class BetMaker extends React.Component {
   constructor(props) {

@@ -741,38 +741,7 @@
   flex-grow: 0;
 }
 
-#bottomRightBar {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 30px 25px;
-  gap: 10px;
-  z-index: 50;
-  height: 220px;
-  background: #373F51;
-  width: 100%;
-}
 
-#underBottomRightBar {
-  /* Frame 1000002773 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 10px;
-
-  width: calc(21.875%-50px);
-  height: 74px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
 
 #betButton {
   /* Button get pro */
@@ -800,30 +769,7 @@
   bottom: 3px
 }
 
-#buttonBetter {
-  /* Button get pro */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  width: calc(100%-50px);
-  height: 40px;
-
-  /* Vert */
-  background: #539B57;
-  border-radius: 8px;
-  border: none;
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-
-}
 
 #approveButton {
 
@@ -853,168 +799,6 @@
 
 }
 
-#inputLine {
-  /* Frame 1000002785 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 10px;
-
-  width: 100%;
-  height: 32px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
-
-#gainsLine {
-  /* Frame 1000002786 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 10px;
-
-  width: 100%;
-  height: 32px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-}
-
-#inputP {
-  /* Input */
-
-  width: 37px;
-  height: 32px;
-
-  /* Titre */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 32px;
-
-  /* identical to box height, or 200% */
-
-  /* Gris clair */
-  color: #F4F7F9;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-#inputP2 {
-  /* 100$ */
-
-
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 140%;
-
-  /* or 25px */
-
-  /* Gris clair */
-  color: #F4F7F9;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-#gainsP {
-  /* Gains */
-
-  width: 41px;
-  height: 32px;
-
-  /* Titre */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 32px;
-
-  /* identical to box height, or 200% */
-
-  /* Gris clair */
-  color: #F4F7F9;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-#gainsP2 {
-  /* 110$ */
-
-
-
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 140%;
-
-  /* or 25px */
-
-  /* Gris clair */
-  color: #F4F7F9;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-#betMaker {
-  /* Today Sales */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 31px;
-  gap: 10px;
-
-  width: 100%;
-  height: 220px;
-
-  /* Bleu */
-  background: #539B57;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-  justify-content: space-around;
-}
 
 #line1 {
   display: flex;
@@ -1031,29 +815,7 @@
 
 }
 
-#buttonApprover {
-  /* Button get pro */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  width: calc(100%-50px);
-  height: 40px;
-
-  /* Vert */
-  background: #539B57;
-  border-radius: 8px;
-  border: none;
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-}
 
 #approveP {
   font-family: 'Poppins';
@@ -1718,17 +1480,7 @@ a:hover {
 
 }
 
-#betMakerLine1P {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-}
 
-#betMaker p {
-  margin: 0;
-  color: white;
-}
 
 #line2 p {
 
@@ -2130,32 +1882,6 @@ a:hover {
 
 
 
-
-
-#connecterDiv {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  position: absolute;
-  top: 300%;
-  left: 50%;
-  transform: translate(-50%);
-  border: solid;
-  border-width: 1px;
-  border-color: white;
-  width: 800px;
-  height: 300px;
-  background-color: #539B57;
-  z-index: 90;
-  margin-left: -300px;
-  border-radius: 20px;
-  margin: 0;
-}
-
-#connecterDiv p {
-  color: white;
-}
-
 #metamaskImage {
   width: 80px;
 }
@@ -2169,24 +1895,6 @@ a:hover {
 }
 
 
-#line1Modal {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#line2Modal {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-
-#chooseYourProvider {
-  width: 100%;
-  text-align: center;
-  margin: 0;
-  font-size: 40px;
-}
 
 .buttonTransparent {
   background-color: transparent;

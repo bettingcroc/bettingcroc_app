@@ -34,7 +34,7 @@ import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import USDTGetter from "./components/USDTGetter/USDTGetter"
 import GetGains from "./components/GetGains/GetGains";
 import BetterMobile from "./components/BetterMobile/BetterMobile";
-
+import BetterBottomRight from "./components/BetterBottomRight/BetterBottomRight";
 
 const APP_NAME = 'bettingcroc'
 const APP_LOGO_URL = 'https://testnet.bettingcroc.com/static/media/home.de3a12ee.png'
@@ -421,6 +421,9 @@ class App extends Component {
   }
   goPanier() {
     this.setState({ rightBar: "betMaker" })
+    if (window.innerWidth < 1080) {
+
+    }
   }
   goMyP2PBets() {
     this.setState({ rightBar: "myP2PBets" })
@@ -440,7 +443,11 @@ class App extends Component {
     this.setState({ vueTopBar: newVue })
   }
   setMainVue(newVue) {
-    this.setState({ mainVue: newVue })
+    if (newVue) {
+      this.setState({ mainVue: newVue })
+    } 
+    this.setState({ menuMobile: "menuHidden" })
+
   }
   setVueRightBar(newVue) {
     this.setState({ vueRightBar: newVue })
@@ -942,26 +949,16 @@ class App extends Component {
 
                     </div>
                   </div>
-                  {this.state.mainVue === "bet" ? <div id="bottomRightBar">
-                    <div id="underBottomRightBar">
-                      <div id="inputLine">
-                        <p id="inputP">Input</p>
-                        <p id="inputP2">{this.state.betArgs === null ? null : parseFloat(this.state.betArgs.amountToBet) / decimalsConverter(10) + " USDT"}</p>
-                      </div>
-                      <div id="gainsLine">
-                        <p id="gainsP">Gains</p>
-                        <p id="gainsP2">{this.state.betArgs === null ? null : this.state.betArgs === null ? null : this.state.betArgs.toWin + " USDT"} </p>
-                      </div>
-                    </div>
-                    <button id="buttonApprover" onClick={(event) => { this.approve() }}><p id="approveP">APPROVE</p></button>
-                    <button id="buttonBetter" onClick={(event) => { this.betFunction(this.state.betArgs) }}><p id="betP">BET</p></button>
-                  </div> : null}
+                  {this.state.mainVue === "bet" ? <BetterBottomRight betArgs={this.state.betArgs} approve={this.approve} betFunction={this.betFunction}></BetterBottomRight> : null}
                 </div>
 
 
               </div>
               {this.state.rightBar === "betMaker" ?
-                this.state.typeBet === 0 ? null : <BetterMobile setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet}></BetterMobile> : null}
+                this.state.typeBet === 0 ?
+                  null :
+                  <BetterMobile setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet} approve={this.approve} betFunction={this.betFunction}></BetterMobile>
+                : null}
               <div id="mobileBottomBar" className={this.state.theme === "light" ? "whiteDiv" : "blackDiv"}>
                 <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Sport Bets</p></Link>
                 <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
@@ -1003,9 +1000,9 @@ class App extends Component {
           >
             <Route path="/" element={<LandingComponent mainVueSetter={this.setMainVue} vueSetter={this.setTopVue}></LandingComponent>} />
             <Route path="/basketball" element={<ListBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} theme={this.state.theme}></ListBet>} />
-            <Route path="/football" element={<ComingSoon ></ComingSoon>} />
-            <Route path="/tennis" element={<ComingSoon ></ComingSoon>} />
-            <Route path="/finance" element={<ComingSoon ></ComingSoon>} />
+            <Route path="/football" element={<ComingSoon mainVueSetter={this.setMainVue}></ComingSoon>} />
+            <Route path="/tennis" element={<ComingSoon mainVueSetter={this.setMainVue}></ComingSoon>} />
+            <Route path="/finance" element={<ComingSoon mainVueSetter={this.setMainVue}></ComingSoon>} />
             <Route path="/bet/:betNum" element={<Bet mainVueSetter={this.setMainVue} socket={this.state.socket} logged={this.state.logged} betContract={this.state.multiBetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} mbtContract={this.state.mbtContract} amountToBet={this.state.amountToBet} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} balanceUSDT={this.state.balanceUSDT} setAmountBet={this.setAmountBet} joinBetRoom={this.joinBetRoom} leaveBetRoom={this.leaveBetRoom} theme={this.state.theme}></Bet>} />
             <Route path="/decentrabet" element={
               <DecentraBet mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} decentrabetContract={this.state.decentrabetContract} usdtContract={this.state.USDTContract} address={this.state.defaultAccount} theme={this.state.theme}></DecentraBet>
@@ -1014,7 +1011,7 @@ class App extends Component {
             <Route path="/rankings" element={<Classement mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} address={this.state.defaultAccount}></Classement>}></Route>
             {/*<Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>*/}
             <Route path="/account" element={<Account myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged} theme={this.state.theme} switchTheme={this.switchTheme} ></Account>}></Route>
-            <Route path="/docs" element={<ComingSoon></ComingSoon>}></Route>
+            <Route path="/docs" element={<ComingSoon mainVueSetter={this.setMainVue}></ComingSoon>}></Route>
             <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
             <Route path="/*" element={<p>error</p>}></Route>
           </Route>

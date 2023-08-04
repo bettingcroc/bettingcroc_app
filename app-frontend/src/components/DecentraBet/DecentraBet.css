@@ -29,7 +29,7 @@
 
 }
 
-@media screen and (max-width: 610px) {
+@media screen and (max-width: 550px) {
 
     #blockviewADecentraBet {
         flex-direction: column;

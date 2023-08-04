@@ -1,6 +1,8 @@
-.inactiveOverlay {display: none;}
+.inactiveOverlay {
+  display: none;
+}
 
-.overlayActive { 
+.overlayActive {
   display: unset;
   height: 100vh;
 
@@ -10,4 +12,71 @@
   position: fixed;
   left: 0px;
   top: 0px;
+}
+
+#line1Modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#line2Modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#chooseYourProvider {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  font-size: 40px;
+}
+
+
+#connecterDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  top: 300%;
+  left: 50%;
+  transform: translate(-50%);
+  border: solid;
+  border-width: 1px;
+  border-color: white;
+  width: 800px;
+  height: 300px;
+  background-color: #539B57;
+  z-index: 90;
+  margin-left: -300px;
+  border-radius: 20px;
+  margin: 0;
+}
+
+#connecterDiv p {
+  color: white;
+}
+
+@media screen and (max-width: 1080px) {
+  #line1Modal {
+    margin-top: 40px
+  }
+
+  ;
+
+  .connectButton {
+    width: fit-content;
+  }
+
+  #connecterDiv {
+    width: 95%;
+    height: initial;
+    gap: 20px;
+    padding: 20px 0px;
+  }
+
+  #metamaskConnecterDiv {
+    display: none;
+  }
 }

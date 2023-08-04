@@ -26,10 +26,12 @@ class Connecter extends React.Component {
   openModal() {
     this.setState({ modalState: "open" })
     this.props.switchOverlayMode()
+    document.body.style.overflow = 'hidden';
   }
   closeModal() {
     this.setState({ modalState: "closed" })
     this.props.closeOverlay()
+    document.body.style.overflow = '';
 
   }
   handleClickAwayEvent() {
@@ -50,6 +52,10 @@ class Connecter extends React.Component {
       }
     }
   }
+  componentWillUnmount() {
+    document.body.style.overflow = '';
+
+  }
   render() {
     return (
       <div >
@@ -64,32 +70,32 @@ class Connecter extends React.Component {
           </div>
           :
           this.state.modalState === "closed" ?
-            <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> :<div>
-            <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
+            <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> : <div>
+              <ClickAwayListener onClickAway={this.handleClickAwayEvent} touchEvent={false}>
 
-              <div id="connecterDiv">
+                <div id="connecterDiv">
 
-                <div id="line1Modal">
-                  <p id="chooseYourProvider">Choose your provider !</p>
+                  <div id="line1Modal">
+                    <p id="chooseYourProvider">Choose your provider !</p>
+                  </div>
+
+                  <div id="line2Modal">
+
+                    <div>
+                      <ConnectWc connectWalletHandler={this.props.connectWalletConnectHandler}></ConnectWc>
+                    </div>
+                    <div id='metamaskConnecterDiv'>
+                      <ConnectButton connectWalletHandler={this.props.connectWalletHandler} defaultAccount={this.props.defaultAccount} errorMessage={this.props.errorMessage} connButtonText={this.props.connButtonText}></ConnectButton>
+                    </div>
+                    <div>
+                      <ConnectCb connectWalletHandler={this.props.connectCoinBaseHandler}></ConnectCb>
+                    </div>
+                  </div>
+                  <button id="closeConnecter" onClick={this.closeModal}>X</button>
+
                 </div>
-
-                <div id="line2Modal">
-
-                  <div>
-                    <ConnectWc connectWalletHandler={this.props.connectWalletConnectHandler}></ConnectWc>
-                  </div>
-                  <div id='metamaskConnecterDiv'>
-                    <ConnectButton connectWalletHandler={this.props.connectWalletHandler} defaultAccount={this.props.defaultAccount} errorMessage={this.props.errorMessage} connButtonText={this.props.connButtonText}></ConnectButton>
-                  </div>
-                  <div>
-                    <ConnectCb connectWalletHandler={this.props.connectCoinBaseHandler}></ConnectCb>
-                  </div>
-                </div>
-                <button id="closeConnecter" onClick={this.closeModal}>X</button>
-
-              </div>
-            </ClickAwayListener>
-            <div id="overlay" className={this.props.overlayClass}></div>
+              </ClickAwayListener>
+              <div id="overlay" className={this.props.overlayClass}></div>
 
             </div>
         }

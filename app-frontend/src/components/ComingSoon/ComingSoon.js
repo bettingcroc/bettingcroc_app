@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 
 
 class ComingSoon extends React.Component {
+  constructor(props){
+    super(props)
+    this.props.mainVueSetter(false)
+  }
+  componentDidUpdate(){
+  }
   render() {
     return (
       <div>

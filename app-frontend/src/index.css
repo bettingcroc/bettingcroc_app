@@ -1,5 +1,6 @@
 #hamburgerImg {
     width: 50px;
+    border: none;
 }
 
 #hamburger {
@@ -72,6 +73,8 @@
 
     #mobileBottomBar {
         display: flex;
+        z-index: 150;
+
     }
 
     #mainVue {
@@ -106,20 +109,7 @@
         height: fit-content;
     }
 
-    .connectButton {
-        width: fit-content;
-    }
-
-    #connecterDiv {
-        width: 95%;
-        height: initial;
-        gap: 20px;
-        padding: 20px 0px;
-    }
-
-    #metamaskConnecterDiv {
-        display: none;
-    }
+    
 
 }
 
