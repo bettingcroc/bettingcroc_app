@@ -96,6 +96,9 @@ function run() {
         if (league === 'LNB') {
           idLeague = leagueBasketIDs.LNB;
         }
+        if (league === 'WNBA') {
+          idLeague = leagueBasketIDs.WNBA;
+        }
         return {
           'method': 'GET',
           'url': 'https://v1.basketball.api-sports.io/games',
