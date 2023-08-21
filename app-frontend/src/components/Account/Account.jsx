@@ -4,12 +4,16 @@ import { Link, Outlet } from "react-router-dom";
 import MyFriends from "../MyFriends/MyFriends";
 import MyRequests from "../MyRequests/MyRequests";
 import MyBets from "../MyBets/MyBets";
+import "./Account.css"
+
+
 var __mounted;
 
 class Account extends React.Component {
   constructor(props) {
 
     super(props);
+    //this.props.closeMenuMobile()
     this.state = {
       dataPersoloaded: false,
       loaded: false,

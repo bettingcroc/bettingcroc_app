@@ -12,6 +12,7 @@ function run() {
     const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
     const HDWalletProvider = require('@truffle/hdwallet-provider');
     const fs = require('fs');
+    const DELAY = 120000//86400000
     //const { Contract } = require('web3-eth-contract');
     var multiBetABI = fs.readFileSync('./MultiBetABI.txt').toString();
     var tx = 0;
@@ -56,7 +57,8 @@ function run() {
       "NBA": 12,
       "LNB": 2,
       "GLeague": 20,
-      "NBASL":17
+      "NBASL":17,
+      "WNBA":13
     }
 
     function getOptions(paramsDate, sport, league) {
@@ -187,13 +189,13 @@ function run() {
       //sports=["basketball","basketball","basketball"];
       //leagues=["LaLiga","Serie A"];
       //sports=["football","football"];
-      leagues = ["NBASL"]
+      leagues = ["WNBA"]
       sports = ["basketball"]
       params = dateIterator(dayParams);
       logger.cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + params + " !!!!!!!!!!!!!!!!!!!!!!!!");
       //console.log(params);
       dayParams = dayParams + 1;
-      setTimeout(betCreator, 86400000);
+      setTimeout(betCreator, DELAY);
 
       for (i = 0; i < leagues.length; i++) {
         logger.magenta("-------------------- new request -----------------------");

@@ -6,6 +6,7 @@ class BetterBottomRight extends React.Component {
   constructor(props) {
     super(props)
   }
+
   render() {
     return (
       <div id="bottomRightBar">
@@ -19,10 +20,10 @@ class BetterBottomRight extends React.Component {
             <p id="gainsP2">{this.props.betArgs === null ? null : this.props.betArgs === null ? null : this.props.betArgs.toWin + " USDT"} </p>
           </div>
         </div>
-        <div id='buttonsBottomRightBar'>
+        {this.props.address === undefined ? <p id="noAdressPBottomRight">Connect your wallet to start betting !</p> : <div id='buttonsBottomRightBar'>
           <button id="buttonApprover" onClick={(event) => { this.props.approve() }}><p id="approveP">APPROVE</p></button>
           <button id="buttonBetter" onClick={(event) => { this.props.betFunction(this.props.betArgs) }}><p id="betP">BET</p></button>
-        </div>
+        </div>}
 
       </div>
     );

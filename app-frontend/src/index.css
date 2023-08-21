@@ -17,6 +17,7 @@
     border-top-color: #424242;
     bottom: 0px;
     justify-content: space-between;
+    padding-left: 5px;
 }
 
 .bottomBarLink {
@@ -109,6 +110,9 @@
         height: fit-content;
     }
 
+    .linkMobileBottomBar{display: flex;
+    flex-direction: column;
+    justify-content: center;}
     
 
 }
@@ -117,6 +121,8 @@
     #bettingCrocTitle {
         display: none;
     }
-
+    #topBar {
+        padding: 10px;
+    }
 
 }

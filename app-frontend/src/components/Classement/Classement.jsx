@@ -82,7 +82,6 @@ class Classement extends React.Component {
             </tr>
           })}
           {this.state.loaded === false ? null : <tr>
-            <td>{this.state.address}</td>
             <td>{this.state.loaded && this.state.dataPerso[0].pseudo !== undefined ? this.state.dataPerso[0].pseudo : ""}</td>
             <td>{this.state.loaded ? this.state.dataPerso[0].score : ""}</td>
             <td>{this.state.loaded ? this.state.dataPerso[0].position : ""}</td>

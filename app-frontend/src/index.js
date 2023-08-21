@@ -27,7 +27,7 @@ import Account from "./components/Account/Account";
 import BetMaker from "./components/betMaker/betMaker";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
 import LandingComponent from "./components/LandingComponent/LandingComponent"
-import WalletConnectProvider from "@walletconnect/web3-provider";
+import { EthereumProvider } from '@walletconnect/ethereum-provider'
 import Connecter from "./components/Connecter/Connecter";
 import MyP2PBets from "./components/MyP2PBets/MyP2PBets";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
@@ -38,7 +38,7 @@ import BetterBottomRight from "./components/BetterBottomRight/BetterBottomRight"
 
 const APP_NAME = 'bettingcroc'
 const APP_LOGO_URL = 'https://testnet.bettingcroc.com/static/media/home.de3a12ee.png'
-const DEFAULT_ETH_JSONRPC_URL = `https://data-seed-prebsc-1-s3.binance.org:8545`
+const DEFAULT_ETH_JSONRPC_URL = "https://data-seed-prebsc-2-s1.bnbchain.org:8545"
 const DEFAULT_CHAIN_ID = 97
 const coinbaseWallet = new CoinbaseWalletSDK({
   appName: APP_NAME,
@@ -52,14 +52,7 @@ const cssIdentifiers = {
   "dark": { "titleActive": "lightGreyP" }
 }
 
-//  Create WalletConnect Provider
-var provider = new WalletConnectProvider({
-  infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
-  rpc: {
-    97: "https://rpc.ankr.com/bsc_testnet_chapel"
-    // ...
-  },
-});
+var provider;
 
 
 
@@ -146,6 +139,7 @@ class App extends Component {
     this.leaveBetRoom = this.leaveBetRoom.bind(this)
     this.switchTheme = this.switchTheme.bind(this)
     this.menuMobile = this.menuMobile.bind(this)
+    this.closeMenuMobile = this.closeMenuMobile.bind(this)
     socket.on('connect', () => {
       console.log("connected to server with " + socket.id); if (this.state.defaultAccount !== undefined) { socket.emit('joinRoom', this.state.defaultAccount.toLowerCase()) }
     })
@@ -184,16 +178,28 @@ class App extends Component {
 
 
   async loadBlockchainData() {
-    const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545");
+    const web3 = new Web3(DEFAULT_ETH_JSONRPC_URL);
     this.setState({ web3 })
     let walletType = localStorage.getItem("walletType")
+    console.log("wallet connected is " + walletType)
     if (walletType === "Metamask") {
       if (web3.givenProvider) {
         web3.setProvider(Web3.givenProvider)
       }
     }
     else if (walletType === "WC") {
-      if (localStorage.getItem("walletconnect") !== null) {
+      if (localStorage.getItem("WCM_VERSION") !== null) {
+        //  Create WalletConnect Provider
+        provider = await EthereumProvider.init({
+          projectId: "ad6d1b7dc7e99024e7432f55a7c68f0c",
+          infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
+          chains: [97],
+          rpcMap: {
+            97: "https://rpc.ankr.com/bsc_testnet_chapel"
+            // ...
+          },
+          showQrModal: true
+        });
         await provider.enable();
         web3.setProvider(provider)
         web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
@@ -219,7 +225,7 @@ class App extends Component {
 
       }
     }
-    //web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
+    //web3.setProvider(DEFAULT_ETH_JSONRPC_URL)
 
     const accounts = await web3.eth.getAccounts();
 
@@ -265,8 +271,7 @@ class App extends Component {
               chainName: 'BSC Testnet',
               chainId: Web3.utils.toHex(chainId),
               nativeCurrency: { name: 'BSC Testnet', decimals: 18, symbol: 'BNB' },
-              //rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/']
-              rpcUrls: ['https://rpc.ankr.com/bsc_testnet_chapel']
+              rpcUrls: [DEFAULT_ETH_JSONRPC_URL]
 
             }
           ]
@@ -340,19 +345,29 @@ class App extends Component {
   };
   connectWalletConnect = async () => {
     try {
-      await provider.enable();
-      this.state.web3.setProvider(provider)
-      this.state.web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
-      localStorage.setItem("walletType", "WC")
-    }
-    catch (e) {
-      provider = new WalletConnectProvider({
+      console.log("trying connectWalletConnect()")
+      provider = await EthereumProvider.init({
+        projectId: "ad6d1b7dc7e99024e7432f55a7c68f0c",
         infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
-        rpc: {
+        chains: [97],
+        rpcMap: {
           97: "https://rpc.ankr.com/bsc_testnet_chapel"
           // ...
         },
+        showQrModal: true
       });
+      await provider.enable();
+      this.state.web3.setProvider(provider)
+      console.log("res1")
+
+      this.state.web3.eth.getAccounts().then((res) => { this.accountChangedHandler(res[0]) })
+      console.log("res2")
+      localStorage.setItem("walletType", "WC")
+    }
+    catch (e) {
+      console.log("trying wc")
+      
+      console.log("success")
     }
   }
   connectCoinBase = async () => {
@@ -383,7 +398,7 @@ class App extends Component {
     this.logoutReact()
     console.log("disconnecting wallet")
     this.setState({ defaultAccount: undefined })
-    this.state.web3.setProvider("https://data-seed-prebsc-1-s1.binance.org:8545")
+    this.state.web3.setProvider(DEFAULT_ETH_JSONRPC_URL)
     localStorage.clear();
     this.setState({ myBets: [], myP2PBets: [] })
   }
@@ -445,9 +460,11 @@ class App extends Component {
   setMainVue(newVue) {
     if (newVue) {
       this.setState({ mainVue: newVue })
-    } 
+      this.closeMenuMobile()
+    }
+  }
+  closeMenuMobile() {
     this.setState({ menuMobile: "menuHidden" })
-
   }
   setVueRightBar(newVue) {
     this.setState({ vueRightBar: newVue })
@@ -809,7 +826,7 @@ class App extends Component {
   }
   menuMobile() {
     if (this.state.menuMobile !== "menu") { this.setState({ menuMobile: "menu" }) } else {
-      this.setState({ menuMobile: "menuHidden" })
+      this.closeMenuMobile()
     }
   }
   render() {
@@ -949,7 +966,7 @@ class App extends Component {
 
                     </div>
                   </div>
-                  {this.state.mainVue === "bet" ? <BetterBottomRight betArgs={this.state.betArgs} approve={this.approve} betFunction={this.betFunction}></BetterBottomRight> : null}
+                  {this.state.mainVue === "bet" ? <BetterBottomRight address={this.state.defaultAccount} betArgs={this.state.betArgs} approve={this.approve} betFunction={this.betFunction}></BetterBottomRight> : null}
                 </div>
 
 
@@ -957,42 +974,42 @@ class App extends Component {
               {this.state.rightBar === "betMaker" ?
                 this.state.typeBet === 0 ?
                   null :
-                  <BetterMobile setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet} approve={this.approve} betFunction={this.betFunction}></BetterMobile>
+                  <BetterMobile address={this.state.defaultAccount} setTypeBet={this.setTypeBet} setBetArgs={this.setBetArgs} betArgs={this.state.betArgs} typeBet={this.state.typeBet} approve={this.approve} betFunction={this.betFunction}></BetterMobile>
                 : null}
               <div id="mobileBottomBar" className={this.state.theme === "light" ? "whiteDiv" : "blackDiv"}>
-                <Link to="/basketball"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Sport Bets</p></Link>
-                <Link to="/decentrabet"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
-                <Link to="/rankings"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
-                <button id="hamburger" onClick={this.menuMobile}><img id="hamburgerImg" src={hamburgerImage} alt="hamburgerImage"></img></button>
+                <Link to="/basketball" className="linkMobileBottomBar"><p id="listBetsTitle" className={this.state.vueTopBar === "listBets" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Sport Bets</p></Link>
+                <Link to="/decentrabet" className="linkMobileBottomBar"><p id="decentraBetTitle" className={this.state.vueTopBar === "decentraBet" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
+                <Link to="/rankings" className="linkMobileBottomBar"><p id="rankingsTitle" className={this.state.vueTopBar === "rankings" ? cssIdentifiers[this.state.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
+                <button className="buttonTransparent" id="hamburger" onClick={this.menuMobile}><img id="hamburgerImg" src={hamburgerImage} alt="hamburgerImage"></img></button>
 
               </div>
               <div id="menuMobile" className={this.state.theme === "light" ? "whiteDiv " + this.state.menuMobile : "blackDiv " + this.state.menuMobile}>
-                <Link to="/account" id=""><img className="accountLogo" src={accountImage} alt="accountImage"></img></Link>
+                <Link to="/account" id=""><button className="buttonTransparent" onClick={this.closeMenuMobile}><img className="accountLogo" src={accountImage} alt="accountImage"></img></button></Link>
                 <button id="switchThemeHomeMobile" onClick={this.switchTheme}>Switch theme</button>
 
-                <Link className="leftBarA" to="/basketball">
+                <Link className="leftBarA" to="/basketball"><button className="buttonTransparent" onClick={this.closeMenuMobile}>
                   <div className="bottomBarLink">
                     <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                     <p>Basketball</p>
-                  </div>
+                  </div></button>
                 </Link>
-                <Link className="leftBarA" to="/football">
+                <Link className="leftBarA" to="/football"><button className="buttonTransparent" onClick={this.closeMenuMobile}>
                   <div className="bottomBarLink">
                     <img src={footballImage} alt="footballImage" className="logoImage"></img>
                     <p>Football</p>
-                  </div>
+                  </div></button>
                 </Link>
-                <Link className="leftBarA" to="/finance">
+                <Link className="leftBarA" to="/finance"><button className="buttonTransparent" onClick={this.closeMenuMobile}>
                   <div className="bottomBarLink">
                     <img src={financeImage} alt="financeImage" className="logoImage"></img>
                     <p>Finance</p>
-                  </div>
+                  </div></button>
                 </Link>
-                <Link className="leftBarA" to="/tennis">
+                <Link className="leftBarA" to="/tennis"><button className="buttonTransparent" onClick={this.closeMenuMobile}>
                   <div className="bottomBarLink">
                     <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
                     <p>Tennis</p>
-                  </div>
+                  </div></button>
                 </Link>
               </div>
 
@@ -1010,7 +1027,7 @@ class App extends Component {
             } />
             <Route path="/rankings" element={<Classement mainVueSetter={this.setMainVue} vueSetter={this.setTopVue} address={this.state.defaultAccount}></Classement>}></Route>
             {/*<Route path="/mybets" element={<MyBets mainVueSetter={this.setMainVue} betContract={this.state.multiBetContract} address={this.state.defaultAccount}></MyBets>}></Route>*/}
-            <Route path="/account" element={<Account myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged} theme={this.state.theme} switchTheme={this.switchTheme} ></Account>}></Route>
+            <Route path="/account" element={<Account closeMenuMobile={this.closeMenuMobile} myP2PBets={this.state.myP2PBets} myBets={this.state.myBets} betContract={this.state.multiBetContract} mainVueSetter={this.setMainVue} requestUpdater={this.state.requestUpdater} friendsUpdater={this.state.friendsUpdater} socket={this.state.socket} setLogged={this.setLogged} web3={this.state.web3} address={this.state.defaultAccount} logged={this.state.logged} theme={this.state.theme} switchTheme={this.switchTheme} ></Account>}></Route>
             <Route path="/docs" element={<ComingSoon mainVueSetter={this.setMainVue}></ComingSoon>}></Route>
             <Route path="/getusdt" element={<USDTGetter web3={this.state.web3} address={this.state.defaultAccount}></USDTGetter>}></Route>
             <Route path="/*" element={<p>error</p>}></Route>
