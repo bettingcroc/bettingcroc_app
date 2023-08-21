@@ -1805,6 +1805,14 @@ function sqlToInject(){
 
 }
 
+function getTable(table){
+	let select = db.prepare(`select * from `+table);
+	let result = select.all();
+	if (result) return result;
+	return result;
+}
+
+
 module.exports = {
 	add_bet: add_bet,
 	get_Name: get_Name,
@@ -1826,5 +1834,6 @@ module.exports = {
 	endBets: endBets,
 	cancelBet: cancelBet,
 	sqlToInject:sqlToInject,
+	getTable:getTable
 };
 //0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5
