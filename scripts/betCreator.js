@@ -206,7 +206,7 @@ function run() {
         let sport = sports[i];
         console.log(league, " ", sport, " ", i);
         let options = getOptions(params, sport, league);
-        console.log(options)
+        //console.log(options)
         /*if(sport==='football'){
           await new Promise(next =>{request(options, async function (error, response) {
             console.log(JSON.parse(response.body))

@@ -324,8 +324,16 @@ app.get('/static/:dir/:file', (req, res) => {
 
   res.sendFile(__dirname + "/app/build/static/" + req.params.dir + "/" + req.params.file)
 })
+app.get('/swagger/static/:dir/:file', (req, res) => {
+  console.log('GET /static/'+ req.params.dir + "/" + req.params.file)
 
+  res.sendFile(__dirname + "/swagger/build/static/" + req.params.dir + "/" + req.params.file)
+})
 
+app.get('/swagger', (req, res) => {
+  logger.red('GET /')
+  res.sendFile(__dirname + "/swagger/build/index.html");
+});
 
 app.get('/*', (req, res) => {
   logger.red('GET /')
