@@ -48,7 +48,7 @@ class OptionPool extends React.Component {
     } catch (error) { }
     try {
       this.props.betContract.methods
-        .getMiseBettersOnEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
+        .getAmountInPoolFromUserEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
         .call()
         .then((result) => {
           try {
@@ -91,7 +91,7 @@ class OptionPool extends React.Component {
       } catch (error) { }
       try {
         this.props.betContract.methods
-          .getMiseBettersOnEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
+          .getAmountInPoolFromUserEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
           .call()
           .then((result) => {
             try {

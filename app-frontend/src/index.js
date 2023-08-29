@@ -499,6 +499,7 @@ class App extends Component {
     }
   }
   setMyBets() {
+    console.log("asking bets")
     let disconnectedFunction = false
     try {
       this.state.multiBetContract.methods.getMyBetsUser(this.state.defaultAccount).call().then(result => {
@@ -512,7 +513,7 @@ class App extends Component {
         }).then(
           (res) => {
             res.json().then(async (data) => {
-
+              console.log(data)
               for (let b in data) {
                 let bet = data[b]
                 if (bet.status === 0 || bet.status === 1) {
@@ -549,7 +550,7 @@ class App extends Component {
                     )
                   }
                   catch (e) {
-                    //console.log(e)
+                    console.log(e)
                     ; disconnectedFunction = true;
                   }
                 }
@@ -561,7 +562,7 @@ class App extends Component {
                   let mises = []
                   for (let o = 0; o < options; o++) {
                     try {
-                      await this.state.multiBetContract.methods.getMiseBettersOnEnd(bet.id, o, this.state.defaultAccount).call().then(mise => {
+                      await this.state.multiBetContract.methods.getAmountInPoolFromUserEnd(bet.id, o, this.state.defaultAccount).call().then(mise => {
                         //console.log(bet.id)
                         mises.push(mise)
                         //console.log(mise)
@@ -569,14 +570,15 @@ class App extends Component {
 
                       )
                     }
-                    catch (error) { //console.log(error);
+                    catch (error) { 
+                      console.log(error);
                       disconnectedFunction = true; return
                     }
                   }
                   bet = Object.assign(bet, { mise: mises })
                 }
                 );
-                //console.log(bet)
+                console.log(bet)
               }
 
               if (disconnectedFunction === false) { this.setState({ myBets: data }) }
@@ -587,7 +589,7 @@ class App extends Component {
       })
 
     } catch (error) {
-      //console.log(error);
+      console.log(error);
       disconnectedFunction = true;
       return
     }

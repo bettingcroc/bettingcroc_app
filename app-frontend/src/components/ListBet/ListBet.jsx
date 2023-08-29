@@ -1,6 +1,9 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import bettingCrocImage from "./bettingCrocTransparent.png"
+import "./ListBet.css"
+
+
 var _mounted
 class ListBet extends React.Component {
   constructor(props) {
