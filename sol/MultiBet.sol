@@ -57,7 +57,7 @@ contract Proxiable {
         require(
             bytes32(
                 0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7
-            ) == Proxiable(newAddress).proxiableUUID(),
+            ) === Proxiable(newAddress).proxiableUUID(),
             "Not compatible"
         );
         assembly {
@@ -216,7 +216,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         address msgsender
     ) public view returns (uint256) {
         uint256 percentage;
-        if (amountInPool[betNumber][option] == 0) {
+        if (amountInPool[betNumber][option] === 0) {
             return 0;
         }
         percentage =
@@ -280,8 +280,8 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
     }
 
     function betOn(uint256 betNumber, uint256 option, uint256 amount) public {
-        require(closed[betNumber] == false, "betclosed");
-        require(dead[betNumber] == false, "betdead");
+        require(closed[betNumber] === false, "betclosed");
+        require(dead[betNumber] === false, "betdead");
         require(amount != 0, "amount<0");
         require(option < betOptions[betNumber], "invalidoption");
         TetherContract.transferFrom(msg.sender, address(this), amount);
@@ -300,7 +300,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
             amountInPool[betNumber][option] +
             amount;
 
-        if (isInArrayUint256(betNumber, myBetsUser[msg.sender]) == false) {
+        if (isInArrayUint256(betNumber, myBetsUser[msg.sender]) === false) {
             myBetsUser[msg.sender].push(betNumber);
         }
 
@@ -312,7 +312,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                 divisor = divisor + amountInPool[betNumber][i];
             }
         }
-        if (divisor == 0) {
+        if (divisor === 0) {
             earnedFinal = amount * 20;
         } else if (divisor / earnedMBT > 100) {
             earnedFinal = amount * 100;
@@ -339,13 +339,13 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         uint256[] memory poolwinners
     ) public onlyRole(ENDER_ROLE) {
         require(
-            betNumbers.length == poolwinners.length,
+            betNumbers.length === poolwinners.length,
             "notsameamountbetswinners"
         );
         for (uint i = 0; i < betNumbers.length; i++) {
             uint256 betNumber = betNumbers[i];
             if (
-                closed[betNumber] == true &&
+                closed[betNumber] === true &&
                 poolwinners[i] < betOptions[betNumber]
             ) {
                 //end bet
@@ -400,7 +400,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         if (!getHasUserWon(msgsender, betNumber)) {
             return 0;
         }
-        if (canceled[betNumber] == true) {
+        if (canceled[betNumber] === true) {
             uint256 toRefund;
             for (uint i = 0; i < betOptions[betNumber]; i++) {
                 toRefund += amountInPoolFromUser[betNumber][i][msgsender];
@@ -447,7 +447,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                         )
                     ) {
                         if (
-                            msg.sender == p2pBets[betNum][p2pNum].creator &&
+                            msg.sender === p2pBets[betNum][p2pNum].creator &&
                             getWinner(betNum) ==
                             p2pBets[betNum][p2pNum].optionCreator
                         ) {
@@ -460,7 +460,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                             //userWon=true;
                         }
                         if (
-                            msg.sender == p2pBets[betNum][p2pNum].creator &&
+                            msg.sender === p2pBets[betNum][p2pNum].creator &&
                             getWinner(betNum) !=
                             p2pBets[betNum][p2pNum].optionCreator
                         ) {
@@ -509,7 +509,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                             addressesPayedP2P[betNum][p2pNum]
                         )
                     ) {
-                        if (msg.sender == p2pBets[betNum][p2pNum].creator) {
+                        if (msg.sender === p2pBets[betNum][p2pNum].creator) {
                             addressesPayedP2P[betNum][p2pNum].push(msg.sender);
                             rewardsTotal += p2pBets[betNum][p2pNum].amountBet;
                         }
@@ -655,7 +655,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         uint256 numberOfBetsToAdd
     ) public onlyRole(CREATOR_ROLE) {
         for (uint i = 0; i < numberOfBetsToAdd; i++) {
-            require(betNameToBetNumber[names[i]] == 0, "bet already exist");
+            require(betNameToBetNumber[names[i]] === 0, "bet already exist");
             betNumberToBetName[lastBetNumber] = names[i];
             betNameToBetNumber[names[i]] = lastBetNumber;
             betOptions[lastBetNumber] = optionsNumbers[i];
@@ -790,7 +790,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                         ) && !isInArrayArray([betNum, p2pNum], payedSimuler)
                     ) {
                         if (
-                            msgsender == p2pBets[betNum][p2pNum].creator &&
+                            msgsender === p2pBets[betNum][p2pNum].creator &&
                             getWinner(betNum) ==
                             p2pBets[betNum][p2pNum].optionCreator
                         ) {
@@ -803,7 +803,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                             //userWon=true;
                         }
                         if (
-                            msgsender == p2pBets[betNum][p2pNum].creator &&
+                            msgsender === p2pBets[betNum][p2pNum].creator &&
                             getWinner(betNum) !=
                             p2pBets[betNum][p2pNum].optionCreator
                         ) {
@@ -850,7 +850,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                             addressesPayedP2P[betNum][p2pNum]
                         ) && !isInArrayArray([betNum, p2pNum], payedSimuler)
                     ) {
-                        if (msgsender == p2pBets[betNum][p2pNum].creator) {
+                        if (msgsender === p2pBets[betNum][p2pNum].creator) {
                             payedSimuler[indexArray] = [betNum, p2pNum];
                             indexArray++;
                             rewardsTotal += p2pBets[betNum][p2pNum].amountBet;
@@ -951,7 +951,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
                     p2pBets[betNumber][i].cote >
                 (10000 * p2pBets[betNumber][maxBet].amountBet) /
                     p2pBets[betNumber][maxBet].cote &&
-                p2pBets[betNumber][i].optionCreator == optionAgainst &&
+                p2pBets[betNumber][i].optionCreator === optionAgainst &&
                 minToEnter <= p2pBets[betNumber][i].amountToEnter &&
                 p2pBets[betNumber][i].amountToEnter > 0
             ) {
@@ -986,13 +986,13 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         address msgsender,
         uint256 betNumber
     ) public view returns (bool) {
-        if (hasUserWon[msgsender][betNumber] == true) {
+        if (hasUserWon[msgsender][betNumber] === true) {
             return true;
         } else {
-            if (dead[betNumber] == false && canceled[betNumber] == false) {
+            if (dead[betNumber] === false && canceled[betNumber] === false) {
                 return false;
             }
-            if (canceled[betNumber] == true) {
+            if (canceled[betNumber] === true) {
                 for (uint i = 0; i < betOptions[betNumber]; i++) {
                     if (amountInPoolFromUser[betNumber][i][msgsender] > 0) {
                         return true;
@@ -1013,11 +1013,11 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         uint256 betNumber,
         uint256 p2pNumber
     ) public view returns (bool) {
-        if (hasUserWonP2P[msgsender][betNumber][p2pNumber] == true) {
+        if (hasUserWonP2P[msgsender][betNumber][p2pNumber] === true) {
             return true;
         } else {
             if (
-                (dead[betNumber] == false && canceled[betNumber] == false) ||
+                (dead[betNumber] === false && canceled[betNumber] === false) ||
                 isInArrayAddress(
                     msgsender,
                     addressesPayedP2P[betNumber][p2pNumber]
@@ -1026,7 +1026,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
             ) {
                 return false;
             }
-            if (canceled[betNumber] == true) {
+            if (canceled[betNumber] === true) {
                 return
                     isInArrayUint256(
                         p2pNumber,
@@ -1036,7 +1036,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
             if (
                 p2pBets[betNumber][p2pNumber].optionCreator ==
                 getWinner(betNumber) &&
-                p2pBets[betNumber][p2pNumber].creator == msgsender
+                p2pBets[betNumber][p2pNumber].creator === msgsender
             ) {
                 return true;
             }

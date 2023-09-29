@@ -54,8 +54,8 @@ class ViewADecentrabet extends React.Component {
   }
   render() {
     return (
-      <div className={this.props.theme == "light" ? "viewADecentraBet" : "viewADecentraBetDark"}>
-        <p className={this.props.theme == "light" ? "headerTitle" : "headerTitleDark"}>Find a Decentrabet</p>
+      <div className={this.props.theme === "light" ? "viewADecentraBet" : "viewADecentraBetDark"}>
+        <p className={this.props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Find a Decentrabet</p>
         <div id="line1viewADecentraBet" className="lineviewADecentraBet">
           <input
             id="inputidBetToView"
@@ -70,17 +70,17 @@ class ViewADecentrabet extends React.Component {
             Find bet
           </button>
           <div id="divStateDecentraBet">
-            <p id="decentraStateP" className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>State:{this.state.stateBet}</p>
+            <p id="decentraStateP" className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>State:{this.state.stateBet}</p>
           </div>
         </div>
 
         <div id="line2viewADecentraBet" className="lineviewADecentraBet">
-          <p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>Bet n° {this.state.idBetToView}</p>
+          <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>Bet n° {this.state.idBetToView}</p>
 
         </div>
         <div id="blockviewADecentraBet" className="lineviewADecentraBet">
           <div id="line3viewADecentraBet" className="lineviewADecentraBetColumn">
-            <p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>Amount to Bet : {this.state.amountToBet} USDT </p>
+            <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>Amount to Bet : {this.state.amountToBet} USDT </p>
             <div id="line3viewADecentraBet2">
               <button className="buttonViewDecentraBet" onClick={(event) => { this.approveUSDT(this.state.amountToBet) }}>Approve USDT</button>
 
@@ -89,7 +89,7 @@ class ViewADecentrabet extends React.Component {
           </div>
 
           <div id="line4viewADecentraBet" className="lineviewADecentraBetColumn">
-            <p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>I'm the oracle !</p>
+            <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>I'm the oracle !</p>
             <input
               id="addressWinnerDecentraBet"
               type="text"

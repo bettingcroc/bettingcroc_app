@@ -207,15 +207,15 @@ class BetComplet extends React.Component {
         {this.state.status === 0 ? <Jauge balanceUSDT={this.props.balanceUSDT} amountToBet={this.props.amountToBet} setAmountBet={this.props.setAmountBet} theme={this.props.theme}></Jauge> : null}
         <div className={this.state.status === 0 ? "betCompletOpen" : "betComplet"}>
           <div id="nameBet">
-            <div id="underNameBet" className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
+            <div id="underNameBet" className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
               <div id="countryLeagueDate">
-                <p className={this.props.theme == "light" ?"headerTitle" : "headerTitleDark"}>{this.state.country} / {this.state.league}</p>
-                <p className={this.props.theme == "light" ?"headerTitle" : "headerTitleDark"}>{this.state.status === 0 ? timeConverterDate(this.state.date) : this.state.status === 2 ? null : "chrono"}</p>
+                <p className={this.props.theme === "light" ?"headerTitle" : "headerTitleDark"}>{this.state.country} / {this.state.league}</p>
+                <p className={this.props.theme === "light" ?"headerTitle" : "headerTitleDark"}>{this.state.status === 0 ? timeConverterDate(this.state.date) : this.state.status === 2 ? null : "chrono"}</p>
               </div>
               <div id="optionsSchedule">
                 <div id={this.state.status === 2 && this.state.scoreHome > this.state.scoreAway ? "optionWinner" : "option1"} className="optionDiv">
 
-                  <p id={this.state.status === 2 && this.state.scoreHome > this.state.scoreAway ? "optionPWinner" : "option1P"} className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[0]}</p>
+                  <p id={this.state.status === 2 && this.state.scoreHome > this.state.scoreAway ? "optionPWinner" : "option1P"} className={this.props.theme === "light" ?"blackP" : "lightGreyP"}>{this.state.optionsArray === null ? null : this.state.optionsArray.split(",")[0]}</p>
 
                 </div>
                 {this.state.status === 0 ? <div id="schedule">
@@ -229,22 +229,22 @@ class BetComplet extends React.Component {
                   </div>}
                 <div id={this.state.status === 2 && this.state.scoreHome < this.state.scoreAway ? "optionWinner" : "option2"} className="optionDiv">
 
-                  <p id={this.state.status === 2 && this.state.scoreHome < this.state.scoreAway ? "optionPWinner" : "option2P"} className={this.props.theme == "light" ?"blackP" : "lightGreyP"}>{this.state.optionsArray == null ? null : this.state.optionsArray.split(",")[this.state.optionsArray.split(",").length - 1]}</p>
+                  <p id={this.state.status === 2 && this.state.scoreHome < this.state.scoreAway ? "optionPWinner" : "option2P"} className={this.props.theme === "light" ?"blackP" : "lightGreyP"}>{this.state.optionsArray === null ? null : this.state.optionsArray.split(",")[this.state.optionsArray.split(",").length - 1]}</p>
                 </div>
               </div>
             </div>
           </div>
           <div id="superOptionPool">
-            <div id="optionsPool" className={this.props.theme == "light" ?"whiteDiv" : "blackDiv"}>
+            <div id="optionsPool" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
               <div id="gameResults">
-                <p className={this.props.theme == "light" ?"blackP" : "whiteP"} id="gameResultsP">Game Results</p>
+                <p className={this.props.theme === "light" ?"blackP" : "whiteP"} id="gameResultsP">Game Results</p>
                 {this.props.logged && this.state.status===0 ? <div className="friendInviterTrigger">
                   <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
                   <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="general" friends={this.state.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened} argsBet={{ betNumber: this.props.betNumber, title: this.state.optionsArray }}></FriendInviter>
                 </div> : null}
               </div>
               <div id="optionsBox">
-                {this.state.optionsArray == null ? null : this.state.optionsArray.split(",").map((item, index) => {
+                {this.state.optionsArray === null ? null : this.state.optionsArray.split(",").map((item, index) => {
                   return <OptionPool key={item} team={item} status={this.state.status} moneyInOtherPools={this.state.moneyInPools === null ? null : this.state.moneyInPools} betNumber={this.props.betNumber} optionNumber={index} betContract={this.props.betContract} usdtContract={this.props.usdtContract} address={this.props.address} amountToBet={this.props.amountToBet} setTypeBet={this.props.setTypeBet} setBetArgs={this.props.setBetArgs} betName={this.state.optionsArray} theme={this.props.theme}></OptionPool>
                 })}
               </div>

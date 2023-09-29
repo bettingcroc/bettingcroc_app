@@ -201,7 +201,7 @@ contract Bet is Owner{
     
     
     function compareStrings(string memory a, string memory b) public pure returns (bool) {
-        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+        return (keccak256(abi.encodePacked((a))) === keccak256(abi.encodePacked((b))));
     }
     
     function isInArray(address element, address[] memory list) public pure returns (bool) {

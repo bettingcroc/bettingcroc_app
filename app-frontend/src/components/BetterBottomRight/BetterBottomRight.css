@@ -213,6 +213,23 @@
 }
 
 #noAdressPBottomRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    width: calc(100%-50px);
+    height: 40px;
+
+    /* Vert */
+    background: #539B57;
+    border-radius: 8px;
+    border: none;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
     color: white;
 }
 

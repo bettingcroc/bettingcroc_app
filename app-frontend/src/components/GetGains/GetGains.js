@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import "./GetGains.css"
 
 class GetGains extends React.Component {
   constructor(props) {
@@ -35,9 +35,8 @@ class GetGains extends React.Component {
 
   }
   componentDidUpdate(prevProps) {
-    //console.log("from getGains "+this.props.address)
-    if ((prevProps.address !== this.props.address || prevProps.betContract !== this.props.betContract) && this.props.betContract !== undefined) {
-      //console.log(this.props.address)
+    console.log(this.props)
+    if ((prevProps.address !== this.props.address || prevProps.betContract !== this.props.betContract) && this.props.betContract !== undefined && this.props.address !== undefined) {
       try {
         this.props.betContract.methods.totalMoneyWonFromUser(this.props.address).call().then(result => {
 

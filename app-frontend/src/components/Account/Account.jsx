@@ -38,7 +38,7 @@ class Account extends React.Component {
   render() {
     return (
       <div className="mainContentAccount">
-        <p className={this.props.theme == "light" ?"blackP" : "lightGreyP"} id="hiUser">
+        <p className={this.props.theme === "light" ?"blackP" : "lightGreyP"} id="hiUser">
           Hi {this.state.loaded && this.state.dataPerso !== undefined ? this.state.dataPerso[0].pseudo : ""} !
         </p>
         {/*<div id="linkMyBets">
@@ -52,10 +52,10 @@ class Account extends React.Component {
             </Link>
           </div>
     </div>*/}
-        <div id="myBetsAccountDiv" className={this.props.theme == "light" ?"whiteDiv" : "blackDiv"}>
+        <div id="myBetsAccountDiv" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
           <div id="divMyBetsAccountButtons">
-            <button onClick={(e) => { this.setState({ betsType: "default" }); this.setState({ betsToDisplay: this.props.myBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "default" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My Bets</p></button>
-            <button onClick={(e) => { this.setState({ betsType: "p2p" }); this.setState({ betsToDisplay: this.props.myP2PBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme == "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "p2p" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My P2P Bets</p></button>
+            <button onClick={(e) => { this.setState({ betsType: "default" }); this.setState({ betsToDisplay: this.props.myBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme === "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "default" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My Bets</p></button>
+            <button onClick={(e) => { this.setState({ betsType: "p2p" }); this.setState({ betsToDisplay: this.props.myP2PBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme === "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "p2p" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My P2P Bets</p></button>
           </div>
           <div id="superMyBetsAccountDiv2">
             {this.state.betsToDisplay.map(function (item, index) {
@@ -76,8 +76,8 @@ class Account extends React.Component {
           </div>
 
         </div>
-        <div id="friendsDiv" className={this.props.theme == "light" ?"whiteDiv" : "blackDiv"}>
-          <p className={this.props.theme == "light" ?"headerTitle accountP" : "headerTitleDark accountP"} >Friends</p>
+        <div id="friendsDiv" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
+          <p className={this.props.theme === "light" ?"headerTitle accountP" : "headerTitleDark accountP"} >Friends</p>
           <div id="friendAdder">
             <input placeholder="Type an address here" className="settingsInput" type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
             <button className='generalsButton settingsButton' onClick={(event) => { this.sendFriendRequestReact(this.state.newFriend) }}><p className="buttonP">Add friend</p></button>
@@ -86,13 +86,13 @@ class Account extends React.Component {
           <p id={this.state.cssmessageAddFriend}>{this.state.messageAddFriend}</p>
           <MyFriends updateFriends={this.updateFriends} myFriends={this.state.friends} address={this.props.address} logged={this.props.logged} setFriendsList={this.setFriendsList}></MyFriends>
         </div>
-        <div id="requestSuperDiv" className={this.props.theme == "light" ?"whiteDiv" : "blackDiv"}>
-          <p className={this.props.theme == "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
+        <div id="requestSuperDiv" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
+          <p className={this.props.theme === "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
 
           <MyRequests socket={this.props.socket} updateRequests={this.updateRequests} requests={this.state.requests} updateFriends={this.updateFriends} address={this.props.address} logged={this.props.logged}></MyRequests>
         </div>
-        <div id="settingsAccount" className={this.props.theme == "light" ?"whiteDiv" : "blackDiv"}>
-          <p className={this.props.theme == "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>
+        <div id="settingsAccount" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
+          <p className={this.props.theme === "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>
 
           <div id="changePseudoDiv">
             <input placeholder="Type your new pseudo here" className="settingsInput" type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>

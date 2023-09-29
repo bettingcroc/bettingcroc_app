@@ -52,9 +52,9 @@ class P2PBetOption extends React.Component {
   }
   render() {
     return (
-      <div id={this.props.status === 0 ? "p2p2Open" : "p2p2"} className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
+      <div id={this.props.status === 0 ? "p2p2Open" : "p2p2"} className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <div id="p2p2Box1">
-          <p id="line1P2POption" className={this.props.theme == "light" ? "blackP" : "whiteP"}>P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
+          <p id="line1P2POption" className={this.props.theme === "light" ? "blackP" : "whiteP"}>P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
           {this.props.logged && this.props.status === 0 ? <div className="friendInviterTrigger">
             <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
             <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
@@ -63,7 +63,7 @@ class P2PBetOption extends React.Component {
         </div>
         <div id="p2p2Box2">
           <div id="line2P2POption">
-            <p className={this.props.theme == "light" ? "blackP" : "whiteP"}>Best cote : </p>
+            <p className={this.props.theme === "light" ? "blackP" : "whiteP"}>Best cote : </p>
             {this.props.status === 0 ? <button
               id="buttonCoteP2P"
               className="button"
@@ -92,7 +92,7 @@ class P2PBetOption extends React.Component {
             </div>}
           </div>
           <div id="line3P2POption">
-            <p className={this.props.theme == "light" ? "blackP" : "whiteP"}>Amount bettable : </p>
+            <p className={this.props.theme === "light" ? "blackP" : "whiteP"}>Amount bettable : </p>
             <p id="amountBettableP">{this.props.args !== null ? this.props.args[2] === "indispo" ? "Nothing :/" : this.props.args[2] + " USDT" : null} </p>
           </div>
 

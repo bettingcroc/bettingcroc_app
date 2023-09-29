@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import refreshImage from "./refresh.png"
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 var __mounted;
 class P2PFinder extends React.Component {
 
@@ -140,13 +140,13 @@ class P2PFinder extends React.Component {
   render() {
     return (
 
-      <div id="p2pfinder" className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
+      <div id="p2pfinder" className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <div id="titleP2pFinder">
 
-          <p className={this.props.theme == "light" ? "blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
+          <p className={this.props.theme === "light" ? "blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
 
         </div>
-        <p className={this.props.theme == "light" ? "blackP" : "whiteP"}>against</p>
+        <p className={this.props.theme === "light" ? "blackP" : "whiteP"}>against</p>
         <div id="inputP2pFinder">
           <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
             <div id="superinputLine1P2PFinder">
@@ -154,7 +154,7 @@ class P2PFinder extends React.Component {
                 <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
               </div>
               <div id="modalinputLine1P2PFinder" className={this.state.modal}>
-                {this.props.optionsArray == null
+                {this.props.optionsArray === null
                   ? null
                   : this.props.optionsArray.split(",").map((item, index) => {
                     return (
@@ -166,7 +166,7 @@ class P2PFinder extends React.Component {
               </div>
             </div>
           </ClickAwayListener>
-          <p id='minToBetP' className={this.props.theme == "light" ? "blackP" : "whiteP"}> search by minimum amount :</p>
+          <p id='minToBetP' className={this.props.theme === "light" ? "blackP" : "whiteP"}> search by minimum amount :</p>
           <div id="inputLine2P2PFinder">
             <div id="inputAmountP2PFinder"><input
               className="css-input"
@@ -178,7 +178,7 @@ class P2PFinder extends React.Component {
             ></input></div>
             <button id="buttonRefreshP2PFinderButton" className={this.state.modeSearch === "minToBet" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { this.setState({ modeSearch: "minToBet" }) }}></button>
           </div>
-          <p id='orP' className={this.props.theme == "light" ? "blackP" : "whiteP"}>or search by bet id :</p>
+          <p id='orP' className={this.props.theme === "light" ? "blackP" : "whiteP"}>or search by bet id :</p>
           <div id="inputLine3P2PFinder">
             <div id="inputIdP2PFinder"><input
               className="css-input"

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 var __mounted;
 
 class FriendInviter extends React.Component {
@@ -60,7 +60,7 @@ class FriendInviter extends React.Component {
                   <input placeholder='Select a friend' onChange={(e) => { this.setState({ friendToDisplay: e.target.value }); this.setSelectedOption(undefined); this.setState({ isASearchRequest: true }) }} className='inputAddressInviter' type='text' value={this.state.friendToDisplay}></input>
                 </div>
                 <div id="modalinputLine1FriendInviter" className={this.state.modal}>
-                  {this.props.friends == null
+                  {this.props.friends === null
                     ? null
                     : this.props.friends.map((item, index) => {
                       if (!this.state.isASearchRequest) {

@@ -69,7 +69,7 @@ class Classement extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.data == null ? null : this.state.data.map((item, index) => {
+          {this.state.data === null ? null : this.state.data.map((item, index) => {
             //console.log("item "+index)
 
             //console.log(item)

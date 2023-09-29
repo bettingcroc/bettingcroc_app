@@ -1790,7 +1790,7 @@ async function addUser(address) {
 	catch (e) {
 		console.log(e)
 		//console.log("error adding a player to database => ", e.code);
-		if (e.code == 'SQLITE_CONSTRAINT_PRIMARYKEY') return -1;
+		if (e.code === 'SQLITE_CONSTRAINT_PRIMARYKEY') return -1;
 		throw e;
 	}
 

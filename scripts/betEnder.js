@@ -86,7 +86,7 @@ async function createWinnersArray(betsClosed) {
     winnerBetsToEnd = [];
     for (i = 0; i < betsClosed.length; i++) {
         let betNumber = betsClosed[i]
-        if (model.get_Type(betNumber) == 'football') {
+        if (model.get_Type(betNumber) === 'football') {
             var optionsFoot = {
                 'method': 'GET',
                 'url': 'https://v3.football.api-sports.io/fixtures',
@@ -101,12 +101,12 @@ async function createWinnersArray(betsClosed) {
                     console.log("requête foot for bet " + betNumber);
                     //console.log(JSON.parse(response.body).response[0].fixture.status)
                     if (JSON.parse(response.body).response[0].fixture.status.short === "FT" || JSON.parse(response.body).response[0].fixture.status.short === "AET" || JSON.parse(response.body).response[0].fixture.status.short === "PEN") {
-                        if (JSON.parse(response.body).response[0].teams.home.winner == true) {
+                        if (JSON.parse(response.body).response[0].teams.home.winner === true) {
                             winnerBetsToEnd.push(0);
                             betsToEnd.push(betNumber);
                         }
                         else {
-                            if (JSON.parse(response.body).response[0].teams.away.winner == true) {
+                            if (JSON.parse(response.body).response[0].teams.away.winner === true) {
                                 winnerBetsToEnd.push(2);
                             }
                             else {
@@ -120,7 +120,7 @@ async function createWinnersArray(betsClosed) {
                 })
             })
         }
-        if (model.get_Type(betNumber) == 'basketball') {
+        if (model.get_Type(betNumber) === 'basketball') {
             var optionsNBA = {
                 'method': 'GET',
                 'url': 'https://v1.basketball.api-sports.io/games',

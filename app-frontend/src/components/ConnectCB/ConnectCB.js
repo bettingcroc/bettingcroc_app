@@ -5,19 +5,17 @@ import coinbaseImage from "./coinbase.png"
 
 class ConnectCb extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
   render() {
     return (
-      <div className="connectButton">
-        <button className="buttonTransparent buttonTransparentModal" onClick={this.props.connectWalletHandler}>
-          <img src={coinbaseImage} alt="coinbaseImage" id="coinbaseImage"></img>
-          <p>CoinBase</p>
+      <button className="buttonTransparent buttonTransparentModal" onClick={this.props.connectWalletHandler}>
+        <img src={coinbaseImage} alt="coinbaseImage" className='walletsImage'></img>
+        <p>CoinBase Wallet</p>
 
-        </button>
-      </div>
+      </button>
     )
   }
 

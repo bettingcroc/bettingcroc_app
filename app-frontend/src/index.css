@@ -35,13 +35,7 @@
     justify-content: space-around;
 }
 
-.menuHidden {
-    width: 0px;
-}
 
-.menuHidden * {
-    display: none;
-}
 
 @media screen and (max-width: 1080px) {
     #hamburger {
@@ -88,18 +82,7 @@
 
 
 
-    #menuMobile {
-        position: fixed;
-        top: 0px;
-        right: 0px;
-        height: calc(100vh - 70px);
-        z-index: 100;
-        transition: width 0.6s;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-    }
+    
 
     #accountLink {
         display: none;

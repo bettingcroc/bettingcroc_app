@@ -88,54 +88,8 @@
 
 
 
-#bettingCrocTitle {
-  width: 169px;
-  height: 46px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-#crocoImage {
-  width: 56.79px;
-  height: 56px;
-
-}
-
-#logo {
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: 17px;
-
-  height: 56px;
 
 
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-#topLeft {
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  height: 56px;
-  width: 38%;
-  justify-content: space-between;
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  z-index: 0;
-}
 
 #links {
 
@@ -227,22 +181,9 @@
   flex-grow: 0;
 }
 
-.accountLogo {
-  width: 60px;
-  height: 60px;
 
-  border-radius: 16px;
-}
 
-#topRight {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 20px;
-  width: 46%;
 
-}
 
 #leftBar {
 
@@ -311,61 +252,6 @@
   justify-content: center;
 }
 
-#under2leftBar {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 40px;
-
-  width: 73%;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin-top: 20px;
-}
-
-#categories {
-  /* Frame 1000002780 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 10px;
-
-  width: 100%;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-  margin-bottom: 20px;
-}
-
-#popular {
-  /* Frame 1000002779 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 10px;
-
-  width: 100%;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
 
 
 
@@ -1651,62 +1537,6 @@ a:hover {
 
 
 
-#titleLeftBar {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 32px;
-
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.optionsLeftBar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 16px 24px;
-  gap: 24px;
-
-  width: 100%;
-  height: 50px;
-
-  /* Vert */
-  /*background: #539B57;*/
-
-  /* Shadow */
-  border-radius: 16px;
-  border: solid;
-  border-width: 1px;
-  border-color: #F4F7F9;
-
-}
-
-.optionsLeftBarP {
-  width: 110px;
-  height: 27px;
-
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-
-  /* identical to box height */
-
-  /* Texte gris */
-  color: #737791;
-  margin: 0;
-
-}
-
-.logoImage {
-  width: 25px;
-  height: 25px;
-}
 
 #bettingCrocImage {
   width: calc(100% - 137px);
@@ -1718,39 +1548,17 @@ a:hover {
 
 
 
-#metamaskImage {
-  width: 80px;
-}
-
-#walletconnectImage {
-  width: 80px;
-}
-
-#coinbaseImage {
-  width: 80px;
-}
 
 
 
 .buttonTransparent {
   background-color: transparent;
-  border: transparent;
+  border: none;
 }
 
-.buttonTransparentModal {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
-.connectButton:hover {
-  background-color: rgb(255, 255, 255, 0.2);
-  border-radius: 20px;
 
-}
 
-.connectButton p {
-  margin: 0;
-}
 
 .collapse {
   visibility: collapse;
@@ -1964,17 +1772,7 @@ table.customTable thead {
 
 
 
-#closeConnecter {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  background-color: white;
-  border-width: 1px;
-  border-radius: 50px;
-  border-style: solid;
-}
+
 
 .viewADecentraBet {
   display: flex;
@@ -2592,14 +2390,6 @@ table.customTable thead {
 #inputIdP2PFinder {
   width: 80%;
 }
-
-
-
-#getGainsDiv {
-  display: flex;
-  justify-content: center;
-}
-
 
 
 *,

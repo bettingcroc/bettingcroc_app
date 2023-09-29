@@ -1,6 +1,6 @@
 import React from 'react';
 import "./BetterMobile.css"
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import BetMaker from '../betMaker/betMaker';
 import BetterBottomRight from '../BetterBottomRight/BetterBottomRight';
 

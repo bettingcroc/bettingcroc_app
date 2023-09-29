@@ -1641,7 +1641,7 @@ function add_bet(betNumber, option, list, date, type, country, league, idAPI) {
 		return db.prepare('SELECT betNumber FROM Bets where ROWID=(?)').get(result.lastInsertRowid)['betNumber'];
 	} catch (e) {
 		console.log("error adding a bet to database => ", e.code);
-		if (e.code == 'SQLITE_CONSTRAINT_PRIMARYKEY') return -1;
+		if (e.code === 'SQLITE_CONSTRAINT_PRIMARYKEY') return -1;
 		throw e;
 	}
 }

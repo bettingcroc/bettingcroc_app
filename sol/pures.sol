@@ -5,7 +5,7 @@ pragma solidity >=0.7.0 <0.9.0;
 contract Pures{
         
     function compareStrings(string memory a, string memory b) public pure returns (bool) {
-        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+        return (keccak256(abi.encodePacked((a))) === keccak256(abi.encodePacked((b))));
     }
     
     function isInArrayAddress(address element, address[] memory list) public pure returns (bool) {

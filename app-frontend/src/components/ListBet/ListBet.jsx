@@ -77,13 +77,13 @@ class ListBet extends React.Component {
             if (item) {
               return (
                 <Link className="topBetsBox" key={item.betNumber} to={"/bet/numBet?n=" + item.betNumber} >
-                  <div id={"topBetsBox" + (index + 1)} key={item.betNumber} className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
-                    <div className="topBetsMiniBox1"><p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
+                  <div id={"topBetsBox" + (index + 1)} key={item.betNumber} className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+                    <div className="topBetsMiniBox1"><p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
                     <div className="topBetsMiniBox2">
                       <div className="topBetsMiniMiniBox1"><p>{item.type}</p></div>
                       <div className="topBetsMiniMiniBox2">
-                        <p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>{item.name.split('-')[0]}</p>
-                        <p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>{item.name.split('-')[1]}</p>
+                        <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{item.name.split('-')[0]}</p>
+                        <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{item.name.split('-')[1]}</p>
                       </div>
                     </div>
                   </div>
@@ -92,17 +92,17 @@ class ListBet extends React.Component {
             }
           })}
         </div>
-        <div id="box3ListBets" className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
+        <div id="box3ListBets" className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
           {this.state.matchesSorted.length === 0 ? null : this.state.dates.map((item, index) => {
             return (<div key={item} id="boxDateBox3listBets">
-              <p id="dateListBet" className={this.props.theme == "light" ? "blackP" : "whiteP"}>{item}</p>
+              <p id="dateListBet" className={this.props.theme === "light" ? "blackP" : "whiteP"}>{item}</p>
               {this.state.matchesSorted[index].map((item2, index2) =>
                 <div key={item2.betNumber}>
                   <Link to={"/bet/numBet?n=" + item2.betNumber} >
                     <div className="betLineListBets">
-                      <p id="nameBetListBetsP" className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>{item2.name}</p>
-                      <p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>{item2.date.split(' ')[3].split(":")[0] + ":" + item2.date.split(' ')[3].split(":")[1]}</p>
-                      <p className={this.props.theme == "light" ? "blackP" : "lightGreyP"}>{item2.type}</p>
+                      <p id="nameBetListBetsP" className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.name}</p>
+                      <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.date.split(' ')[3].split(":")[0] + ":" + item2.date.split(' ')[3].split(":")[1]}</p>
+                      <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.type}</p>
                     </div>
                   </Link>
                 </div>)}

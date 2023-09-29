@@ -1,112 +1,76 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ConnectButton from '../ConnectButton/ConnectButton';
+import React, { useEffect, useState } from 'react';
+import ConnectMetamask from '../ConnectMetamask/ConnectMetamask';
 import ConnectWc from '../ConnectWC/ConnectWC';
 import ConnectCb from '../ConnectCB/ConnectCB';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import Authentification from "../Authentification/Authentification";
 import "./Connecter.css"
+import { closeImage } from "../../images"
 
+function Connecter(props) {
+  const [connected, setConnected] = useState(props.defaultAccount !== undefined ? true : false)
+  const [modalState, setModalState] = useState("closed")
+  useEffect(() => {
+    if (props.defaultAccount === undefined) {
+      setConnected(false)
 
-class Connecter extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      connected: this.props.defaultAccount !== undefined ? true : false,
-      modalState: "closed"
     }
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
-    this.handleClickAwayEvent = this.handleClickAwayEvent.bind(this);
-
-    if (this.props.defaultAccount !== undefined) {
-      this.setState({ connected: true })
+    if (props.defaultAccount !== undefined && props.defaultAccount !== "") {
+      setConnected(true)
+      closeModal()
     }
-  }
-  openModal() {
-    this.setState({ modalState: "open" })
-    this.props.switchOverlayMode()
+    return () => {
+      document.body.style.overflow = '';
+    }
+  }, [props.defaultAccount])
+  function openModal() {
+    setModalState("open")
+    props.switchOverlayMode()
     document.body.style.overflow = 'hidden';
   }
-  closeModal() {
-    this.setState({ modalState: "closed" })
-    this.props.closeOverlay()
+  function closeModal() {
+    setModalState("closed")
+    props.closeOverlay()
     document.body.style.overflow = '';
-
   }
-  handleClickAwayEvent() {
-    this.closeModal()
-  }
-  componentDidUpdate(prevProps) {
+  return (
+    <div >
+      {connected === true && props.defaultAccount !== undefined ?
+        <div id="connecterConnected">
+          <p id="accountDisplay" className={props.theme === "light" ? "blackP" : "lightGreyP"}>{props.defaultAccount.substring(0, 5) + "..." + props.defaultAccount.substring(39)}</p>
+          <Authentification web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>
 
-    if (prevProps.defaultAccount !== this.props.defaultAccount) {
-      if (this.props.defaultAccount !== undefined && this.props.defaultAccount !== "") {
-        this.setState({ connected: true })
-        this.closeModal()
-      }
-    }
-    if (prevProps.defaultAccount !== this.props.defaultAccount) {
-      if (this.props.defaultAccount === undefined) {
-        this.setState({ connected: false })
+          <button className='generalsButton' onClick={props.disconnect}>
+            <p className="buttonP">Disconnect</p>
+          </button>
+        </div>
+        :
+        modalState === "closed" ?
+          <button className='generalsButton' onClick={openModal}><p className="buttonP">Connect Your Wallet</p></button> : <div>
+            <ClickAwayListener onClickAway={closeModal} touchEvent={false}>
 
-      }
-    }
-  }
-  componentWillUnmount() {
-    document.body.style.overflow = '';
+              <div id="connecterDiv">
 
-  }
-  render() {
-    return (
-      <div >
-        {this.state.connected === true && this.props.defaultAccount !== undefined ?
-          <div id="connecterConnected">
-            <p id="accountDisplay">{this.props.defaultAccount.substring(0, 5) + "..." + this.props.defaultAccount.substring(39)}</p>
-            <Authentification web3={this.props.web3} address={this.props.defaultAccount} setLogged={this.props.setLogged} logged={this.props.logged}></Authentification>
+                  <p id="chooseYourProvider">Choose your provider below to connect your wallet</p>
 
-            <button className='generalsButton' onClick={this.props.disconnect}>
-              <p className="buttonP">Disconnect</p>
-            </button>
-          </div>
-          :
-          this.state.modalState === "closed" ?
-            <button className='generalsButton' onClick={this.openModal}><p className="buttonP">Connect Your Wallet</p></button> : <div>
-              <ClickAwayListener onClickAway={this.handleClickAwayEvent} touchEvent={false}>
+                <div id="line2Modal">
 
-                <div id="connecterDiv">
-
-                  <div id="line1Modal">
-                    <p id="chooseYourProvider">Choose your provider !</p>
-                  </div>
-
-                  <div id="line2Modal">
-
-                    <div>
-                      <ConnectWc connectWalletHandler={this.props.connectWalletConnectHandler}></ConnectWc>
-                    </div>
-                    <div id='metamaskConnecterDiv'>
-                      <ConnectButton connectWalletHandler={this.props.connectWalletHandler} defaultAccount={this.props.defaultAccount} errorMessage={this.props.errorMessage} connButtonText={this.props.connButtonText}></ConnectButton>
-                    </div>
-                    <div>
-                      <ConnectCb connectWalletHandler={this.props.connectCoinBaseHandler}></ConnectCb>
-                    </div>
-                  </div>
-                  <button id="closeConnecter" onClick={this.closeModal}>X</button>
-
+                    <ConnectWc web3={props.web3} accountChangedHandler={props.accountChangedHandler}></ConnectWc>
+                    <ConnectMetamask web3={props.web3} accountChangedHandler={props.accountChangedHandler} ></ConnectMetamask>
+                    <ConnectCb connectWalletHandler={props.connectCoinBaseHandler}></ConnectCb>
                 </div>
-              </ClickAwayListener>
-              <div id="overlay" className={this.props.overlayClass}></div>
+                <button id="closeConnecter" onClick={closeModal}><img id='closeImage' src={closeImage}></img></button>
 
-            </div>
-        }
+              </div>
+            </ClickAwayListener>
+            <div id="overlay" className={props.overlayClass}></div>
 
-      </div>
-    );
-  }
+          </div>
+      }
+
+    </div>
+  );
 }
 
-Connecter.propTypes = {};
-
-Connecter.defaultProps = {};
 
 export default Connecter;

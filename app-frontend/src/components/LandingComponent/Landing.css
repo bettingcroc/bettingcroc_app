@@ -30,8 +30,7 @@
 }
 
 .linkLanding {
-    width: 47.5%;
-    height: 90%;
+    height: calc(calc(100vh - 145px) / 2);
     border-radius: 18px;
 }
 
@@ -40,7 +39,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-
+    gap: 25px;
 }
 
 @media screen and (max-width: 550px) {

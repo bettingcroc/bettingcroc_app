@@ -2,29 +2,9 @@
   "name": "bettingcroc-frontend",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@coinbase/wallet-sdk": "^3.6.3",
-    "@material-ui/core": "^4.12.4",
-    "@walletconnect/ethereum-provider": "^2.9.2",
-    "@walletconnect/modal": "^2.6.1",
-    "@walletconnect/web3-provider": "^1.8.0",
-    "bootstrap": "^4.3.1",
-    "browserslist": "^4.20.3",
-    "caniuse-lite": "^1.0.30001344",
-    "eslint": "^7.11.0",
-    "eslint-config-react-app": "^7.0.1",
-    "react": "^16.14.0",
-    "react-bootstrap": "^1.0.0-beta.5",
-    "react-dom": "^16.8.3",
-    "react-router-dom": "^6.2.2",
-    "react-scripts": "^4.0.3",
-    "socket.io-client": "^4.5.4",
-    "web3": "^1.8.1",
-    "web3-token": "^0.2.7"
-  },
   "scripts": {
-    "start": "export NODE_OPTIONS=--openssl-legacy-provider; DISABLE_ESLINT_PLUGIN=true react-scripts start",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider; DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -36,5 +16,17 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "dependencies": {
+    "@coinbase/wallet-sdk": "^3.7.2",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/base": "^5.0.0-beta.15",
+    "@mui/material": "^5.14.11",
+    "@walletconnect/ethereum-provider": "^2.10.1",
+    "@walletconnect/modal": "^2.6.2",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0",
+    "react-scripts": "^5.0.1"
+  }
 }

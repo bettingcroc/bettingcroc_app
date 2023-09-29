@@ -2,7 +2,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import "./P2PBetCreator.css"
 
 
@@ -67,12 +67,12 @@ class P2PBetCreator extends React.Component {
   }
   render() {
     return (
-      <div id="p2pcreator" className={this.props.theme == "light" ? "whiteDiv" : "blackDiv"}>
+      <div id="p2pcreator" className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
 
 
         <div id="superNewP2P">
 
-          <p id="newP2PP" className={this.props.theme == "light" ? "blackP" : "whiteP"}>New P2P</p>
+          <p id="newP2PP" className={this.props.theme === "light" ? "blackP" : "whiteP"}>New P2P</p>
 
         </div>
         <div id="inputsP2P">
@@ -92,7 +92,7 @@ class P2PBetCreator extends React.Component {
                 <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
               </div>
               <div id="modalinputLine1P2PFinder" className={this.state.modal}>
-                {this.props.optionsArray == null
+                {this.props.optionsArray === null
                   ? null
                   : this.props.optionsArray.split(",").map((item, index) => {
                     return (

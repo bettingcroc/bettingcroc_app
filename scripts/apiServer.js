@@ -1773,7 +1773,7 @@ function getTodayMatches() {
 		match["betNumber"] = arrayIndex[i]["betNumber"]
 		match["name"] = get_Name(arrayIndex[i]["betNumber"])
 		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
-		match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
+		match["type"] = get_Type(arrayIndex[i]["betNumber"]) === 'football' ? '⚽' : '🏀'
 		matches.matches.push(match)
 	}
 	//console.log(matches)
@@ -1794,7 +1794,7 @@ async function getTopBets() {
 			match["betNumber"] = arrayIndex[i]["betNumber"]
 			match["name"] = get_Name(arrayIndex[i]["betNumber"])
 			match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
-			match["type"] = get_Type(arrayIndex[i]["betNumber"]) == 'football' ? '⚽' : '🏀'
+			match["type"] = get_Type(arrayIndex[i]["betNumber"]) === 'football' ? '⚽' : '🏀'
 			await multiBetContract.methods.getTotalMoneyBet(arrayIndex[i]["betNumber"]).call()
 				.then(function (result) {
 					//console.log(i)
