@@ -11,8 +11,8 @@ class P2PFinder extends React.Component {
     this.state = {
       selectedOption: 0,
       minBet: 0,
-      id: props.id === null ? 0 : props.id,
-      modeSearch: props.id === null ? "minToBet" : "byId",
+      id: props.id === undefined ? 0 : props.id,
+      modeSearch: props.id === undefined ? "minToBet" : "byId",
       loaded: false,
       modal: "collapse"
     }
@@ -151,10 +151,10 @@ class P2PFinder extends React.Component {
           <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
             <div id="superinputLine1P2PFinder">
               <div id="inputLine1P2PFinder" onClick={this.setModal}>
-                <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
+                <p>{this.props.optionsArray !== undefined ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
               </div>
               <div id="modalinputLine1P2PFinder" className={this.state.modal}>
-                {this.props.optionsArray === null
+                {this.props.optionsArray === undefined
                   ? null
                   : this.props.optionsArray.split(",").map((item, index) => {
                     return (

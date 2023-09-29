@@ -11,7 +11,6 @@ import MenuMobile from '../MenuMobile/MenuMobile';
 
 
 const Base = (props) => {
-    console.log(props.mainVue)
     return (
         <div id={props.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
             <TopBar vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText}  connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>

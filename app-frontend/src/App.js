@@ -51,7 +51,6 @@ function App() {
     const [decentrabetContract, setDecentrabetContract] = useState()
     const [balanceUSDT, setBalanceUSDT] = useState()
 
-
     useEffect(() => {
         // adding event listeners on mount here
         socket.on('connect', () => {
@@ -77,7 +76,6 @@ function App() {
         }
         socket.on('disconnect', () => console.log('server disconnected'))
         let walletType = localStorage.getItem("walletType")
-        console.log("wallet connected is " + walletType)
         if (walletType === "Metamask") {
             if (web3.givenProvider) {
                 web3.setProvider(Web3.givenProvider)
@@ -207,7 +205,7 @@ function App() {
         allowancesSetter()
         if (defaultAccount !== undefined) { socket.emit('joinRoom', defaultAccount.toLowerCase()) }
     };
-    
+
 
     function connectCoinBase() { }
     /*
@@ -300,6 +298,8 @@ function App() {
     }
     function closeMenuMobile() {
         setMenuMobile("menuHidden")
+        document.body.style.overflow = '';
+
     }
 
     function switchOverlayMode() {
@@ -657,7 +657,9 @@ function App() {
     }
     function switchMenuMobile() {
         if (menuMobile !== "menu") {
-            setMenuMobile("menu"); 
+            setMenuMobile("menu");
+            document.body.style.overflow = 'hidden';
+
             console.log("switching menu mobile to open")
         } else {
             closeMenuMobile()
@@ -677,7 +679,7 @@ function App() {
                     <Route path="/football" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
                     <Route path="/tennis" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
                     <Route path="/finance" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
-                    <Route path="/bet/:betNum" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdtContract={USDTContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDT={balanceUSDT} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />
+                    <Route path="/bet" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdtContract={USDTContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDT={balanceUSDT} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />
                     <Route path="/decentrabet" element={
                         <DecentraBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} decentrabetContract={decentrabetContract} usdtContract={USDTContract} address={defaultAccount} theme={theme}></DecentraBet>
                         //<ComingSoon></ComingSoon>

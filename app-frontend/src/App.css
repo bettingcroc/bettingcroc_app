@@ -501,19 +501,7 @@
 
 
 
-#countryLeagueDate {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-}
 
-#optionsSchedule {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-}
 
 #inputStake {
   width: 146px;
@@ -1049,7 +1037,6 @@
 
 
 .headerTitle {
-  height: 32px;
 
   /* H1 */
   font-family: 'Roboto';
@@ -1071,7 +1058,6 @@
 }
 
 .headerTitleDark {
-  height: 32px;
 
   /* H1 */
   font-family: 'Roboto';

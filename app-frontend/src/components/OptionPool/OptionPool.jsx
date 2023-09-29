@@ -59,7 +59,6 @@ class OptionPool extends React.Component {
     } catch (error) { }
   }
   componentDidUpdate(prevProps, prevState) {
-    //console.log("update OptionPool")
     if (prevProps !== this.props && __mounted) {
       try {
         if (this.props.status !== 2) {
@@ -128,10 +127,12 @@ class OptionPool extends React.Component {
           <button className="buttonTeamTitle" onClick={(event) => { this.setBet(event); }}><p className='teamTitle'>{this.props.team}</p></button> :
           <div className="buttonTeamTitleDiv"><p className='teamTitle'>{this.props.team}</p></div>}
         {this.props.status === 0 ? <div>
-          <p className={this.props.theme === "light" ?"blackP" : "lightGreyP"}>To win : {this.props.moneyInOtherPools === null ? null : ((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))).toFixed(2)}</p>
-          <p className={this.props.theme === "light" ?"blackP" : "lightGreyP"}>Cote : {this.props.moneyInOtherPools === null ? null : (((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))) / parseFloat(this.props.amountToBet) + 1).toFixed(2)}</p>
+          <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>To win : {this.props.moneyInOtherPools === null ? null : ((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))).toFixed(2)}</p>
+          <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>Cote : {this.props.moneyInOtherPools === null ? null : (((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))) / parseFloat(this.props.amountToBet) + 1).toFixed(2)}</p>
         </div> : null}
-        <p className={this.props.theme === "light" ?"blackP" : "lightGreyP"}>{parseFloat(this.state.moneyInPool) / decimalsConverter(10)} USDT {this.props.address !== undefined && this.state.moneyIgot > 0 && this.props.moneyInOtherPools[this.props.optionNumber]>0  ? "(I betted " + parseFloat(this.state.moneyIgot) / decimalsConverter(10) + " USDT and can win " + (parseFloat(this.state.moneyIgot / this.state.moneyInPool * this.props.moneyInOtherPools[this.props.optionNumber]) + parseFloat(this.state.moneyIgot) / decimalsConverter(10)).toFixed(2) + " USDT)" : null}</p>
+        <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>
+          {parseFloat(this.state.moneyInPool) / decimalsConverter(10)} USDT {this.props.moneyInOtherPools === null ? null :  this.props.address !== undefined && this.state.moneyIgot > 0 && this.props.moneyInOtherPools[this.props.optionNumber] > 0 ? "(I betted " + parseFloat(this.state.moneyIgot) / decimalsConverter(10) + " USDT and can win " + (parseFloat(this.state.moneyIgot / this.state.moneyInPool * this.props.moneyInOtherPools[this.props.optionNumber]) + parseFloat(this.state.moneyIgot) / decimalsConverter(10)).toFixed(2) + " USDT)" : null}
+        </p>
       </div>
     );
   }

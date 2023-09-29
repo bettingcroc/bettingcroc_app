@@ -89,6 +89,20 @@
     flex-grow: 0;
 }
 
+#countryLeagueDate {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#optionsSchedule {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
 @media screen and (max-width: 550px) {
     .optionDiv {
         font-size: 16px;
@@ -112,5 +126,59 @@
 
     #p2p1 {
         flex-direction: column;
+    }
+
+    .headerTitle {
+
+        /* H1 */
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: unset;
+
+        /* identical to box height, or 160% */
+
+        /* Primary/Dark Shade */
+        color: #05004E;
+
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+
+    .headerTitleDark {
+
+        /* H1 */
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: unset;
+
+        /* identical to box height, or 160% */
+
+        /* Primary/Dark Shade */
+        color: #ffffff;
+
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+
+    #countryLeagueDate {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #optionsSchedule {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
     }
 }

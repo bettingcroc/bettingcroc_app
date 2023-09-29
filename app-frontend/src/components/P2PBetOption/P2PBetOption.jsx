@@ -54,7 +54,7 @@ class P2PBetOption extends React.Component {
     return (
       <div id={this.props.status === 0 ? "p2p2Open" : "p2p2"} className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <div id="p2p2Box1">
-          <p id="line1P2POption" className={this.props.theme === "light" ? "blackP" : "whiteP"}>P2P Bets {this.props.optionsArray === null ? null : this.props.args === null ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
+          <p id="line1P2POption" className={this.props.theme === "light" ? "blackP" : "whiteP"}>P2P Bets {this.props.optionsArray === undefined ? null : this.props.args === undefined ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
           {this.props.logged && this.props.status === 0 ? <div className="friendInviterTrigger">
             <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
             <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
@@ -68,7 +68,7 @@ class P2PBetOption extends React.Component {
               id="buttonCoteP2P"
               className="button"
               onClick={(event) => {
-                if (this.props.args !== null) {
+                if (this.props.args !== undefined) {
                   this.props.setTypeBet(3)
                   this.props.setBetArgs({
                     betNumber: this.props.betNumber,
@@ -86,14 +86,14 @@ class P2PBetOption extends React.Component {
                 //this.betOnThisOption(this.props.amountToBet);
               }}
             >
-              <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
+              <p id="coteP2P">{this.props.args === undefined ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
             </button> : <div id="buttonCoteP2P"
-              className="button">                <p id="coteP2P">{this.props.args === null ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
+              className="button">                <p id="coteP2P">{this.props.args === undefined ? "-" : this.props.args[1] === "indispo" ? "Nothing :/" : this.props.args[1]}</p>
             </div>}
           </div>
           <div id="line3P2POption">
             <p className={this.props.theme === "light" ? "blackP" : "whiteP"}>Amount bettable : </p>
-            <p id="amountBettableP">{this.props.args !== null ? this.props.args[2] === "indispo" ? "Nothing :/" : this.props.args[2] + " USDT" : null} </p>
+            <p id="amountBettableP">{this.props.args !== undefined ? this.props.args[2] === "indispo" ? "Nothing :/" : this.props.args[2] + " USDT" : null} </p>
           </div>
 
         </div>
