@@ -41,17 +41,17 @@ class P2PFinder extends React.Component {
     }*/
   }
   searchCote(minToEnter) {
-    //console.log("try search cote")
+    console.log("try search cote")
     try {
       //console.log("try search cote2")
       this.props.betContract.methods
-        .getMaxCote(this.props.betNumber, this.state.selectedOption, minToEnter)
+        .getMaxCoteP2PBet(this.props.betNumber, this.state.selectedOption, minToEnter)
         .call()
         .then((result) => {
           //console.log("maxCote " + result)
           if (parseInt(result) !== 0) {
             this.props.betContract.methods
-              .seeP2PBet(this.props.betNumber, result)
+              .getP2PBet(this.props.betNumber, result)
               .call()
               .then((result2) => {
                 //console.log(result2)
@@ -81,19 +81,19 @@ class P2PFinder extends React.Component {
           }
         });
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   }
   searchById(id) {
-    //console.log("try search id")
+    console.log("try search id")
     try {
       //console.log("try search id2 with ", this.props.betNumber, id)
       //if (parseInt(result) !== 0) {
       this.props.betContract.methods
-        .seeP2PBet(this.props.betNumber, id)
+        .getP2PBet(this.props.betNumber, id)
         .call()
         .then((result2) => {
-          //console.log(result2)
+          console.log(result2)
           this.props.setP2PdisplayArgs([result2, parseFloat(
             1 + Object.values(result2)[2] / Object.values(result2)[3]
           ).toFixed(2), (

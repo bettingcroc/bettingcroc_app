@@ -8,12 +8,14 @@ import TopBar from "../TopBar/TopBar"
 import { useEffect } from 'react'
 import LeftBar from '../LeftBar/LeftBar';
 import MenuMobile from '../MenuMobile/MenuMobile';
-
+import { ToastContainer, toast } from 'react-toastify';
+import "./Base.css"
+import "react-toastify/dist/ReactToastify.css";
 
 const Base = (props) => {
     return (
         <div id={props.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
-            <TopBar vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText}  connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
+            <TopBar vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
             <div id="secondBox">
                 <LeftBar mainVue={props.mainVue} theme={props.theme}></LeftBar>
                 <div id="mainVue">
@@ -30,20 +32,17 @@ const Base = (props) => {
                         </div> : <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Hi young Crocodile !</p>}
                     </div>
                     <div id="superMidRightBar">
-                        <div id="midRightBar">
 
-                            {props.mainVue === "bet" ?
-                                props.rightBar === "betMaker" ?
-                                    props.typeBet === 0 ? null
-                                        : <BetMaker setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betArgs={props.betArgs} typeBet={props.typeBet}></BetMaker>
-                                    : props.rightBar === "myBets" ?
-                                        <MyBets setMyBets={props.setMyBets} myBets={props.myBets} betContract={props.betContract} address={props.defaultAccount}></MyBets>
-                                        : <MyP2PBets setMyBets={props.setMyP2PBets} myBets={props.myP2PBets} betContract={props.betContract} address={props.defaultAccount}></MyP2PBets>
-                                : <GetGains address={props.defaultAccount} betContract={props.betContract}></GetGains>
+                        {props.mainVue === "bet" ?
+                            props.rightBar === "betMaker" ?
+                                props.typeBet === 0 ? null
+                                    : <BetMaker setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betArgs={props.betArgs} typeBet={props.typeBet}></BetMaker>
+                                : props.rightBar === "myBets" ?
+                                    <MyBets setMyBets={props.setMyBets} myBets={props.myBets} betContract={props.betContract} address={props.defaultAccount}></MyBets>
+                                    : <MyP2PBets setMyBets={props.setMyP2PBets} myBets={props.myP2PBets} betContract={props.betContract} address={props.defaultAccount}></MyP2PBets>
+                            : <GetGains address={props.defaultAccount} betContract={props.betContract}></GetGains>
 
-                            }
-
-                        </div>
+                        }
                     </div>
                     {props.mainVue === "bet" ? <BetterBottomRight address={props.defaultAccount} betArgs={props.betArgs} approve={props.approve} betFunction={props.betFunction}></BetterBottomRight> : null}
                 </div>
@@ -58,12 +57,12 @@ const Base = (props) => {
             <div id="mobileBottomBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
                 <Link to="/basketball" className="linkMobileBottomBar"><p id="listBetsTitle" className={props.vueTopBar === "listBets" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Sport Bets</p></Link>
                 <Link to="/decentrabet" className="linkMobileBottomBar"><p id="decentraBetTitle" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
-                <Link to="/rankings" className="linkMobileBottomBar"><p id="rankingsTitle" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
+                <Link to="/rankings" className="linkMobileBottomBar"><p id="rankingsLink" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
                 <button className="buttonTransparent" id="hamburger" onClick={props.switchMenuMobile}><img id="hamburgerImg" src={props.theme === "light" ? hamburgerImage : hamburgerWhiteImage} alt="hamburgerImage"></img></button>
 
             </div>
             <MenuMobile menuMobile={props.menuMobile} theme={props.theme} switchTheme={props.switchTheme} closeMenuMobile={props.closeMenuMobile}></MenuMobile>
-
+            <ToastContainer autoClose={false}></ToastContainer>
         </div>
     );
 }

@@ -10,8 +10,8 @@ import { DECENTRABET_ABI, DECENTRABET_ADDRESS, MBT_ABI, MBT_ADDRESS, MULTIBET_AB
 import { Link, Outlet } from "react-router-dom";
 import { EthereumProvider } from '@walletconnect/ethereum-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
-import { APP_NAME, APP_LOGO_URL, DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID, cssIdentifiers, chainId } from "./consts"
-
+import { APP_NAME, APP_LOGO_URL, DEFAULT_ETH_JSONRPC_URL, chainId, MY_SERVER } from "./consts"
+import { toast, ToastContainer } from 'react-toastify';
 
 /*const coinbaseWallet = new CoinbaseWalletSDK({
   appName: APP_NAME,
@@ -39,7 +39,7 @@ function App() {
     const [mainVue, setMainVue] = useState()
     const [myBets, setMyBets] = useState([])
     const [myP2PBets, setMyP2PBets] = useState([])
-    const [socket, setSocket] = useState(io('https://testnet.bettingcroc.com'))
+    const [socket, setSocket] = useState(io(MY_SERVER + ""))
     const [requestUpdater, setRequestUpdater] = useState()
     const [friendsUpdater, setFriendsUpdater] = useState()
     const [theme, setTheme] = useState(localStorage.getItem("theme") === "dark" ? "dark" : "light")
@@ -152,7 +152,7 @@ function App() {
                 window.location.reload();
             })
             window.ethereum.on('accountsChanged', () => {
-                let url = "https://testnet.bettingcroc.com/logout";
+                let url = MY_SERVER + "/logout";
 
                 let options = {
                     method: "POST",
@@ -168,7 +168,10 @@ function App() {
             // cleaning up the listeners here
         }
     }, []);
-
+    useEffect(() => {
+        updateMyBets()
+        updateMyP2PBets()
+    }, [defaultAccount])
 
     async function chainChanger() {
         try {
@@ -232,7 +235,7 @@ function App() {
     web3.setProvider(ethereum)
   }*/
     async function logoutReact() {
-        let url = "https://testnet.bettingcroc.com/logout";
+        let url = MY_SERVER + "/logout";
         let options = { method: "POST", };
         fetch(url, options).then(() => {
             console.log("logged out");
@@ -330,10 +333,13 @@ function App() {
     function updateMyBets() {
         console.log("asking bets")
         let disconnectedFunction = false
+        if (multiBetContract === undefined || defaultAccount === undefined) {
+            return
+        }
         try {
             multiBetContract.methods.getMyBetsUser(defaultAccount).call().then(result => {
 
-                fetch("https://testnet.bettingcroc.com/api/mybets/", {
+                fetch(MY_SERVER + "/api/mybets/", {
                     method: "POST"
                     , body: JSON.stringify({ listBets: result })
                     , headers: {
@@ -342,7 +348,7 @@ function App() {
                 }).then(
                     (res) => {
                         res.json().then(async (data) => {
-                            console.log(data)
+                            //console.log(data)
                             for (let b in data) {
                                 let bet = data[b]
                                 if (bet.status === 0 || bet.status === 1) {
@@ -407,7 +413,7 @@ function App() {
                                     bet = Object.assign(bet, { mise: mises })
                                 }
                                 );
-                                console.log(bet)
+                                //console.log(bet)
                             }
 
                             if (disconnectedFunction === false) { setMyBets(data) }
@@ -419,16 +425,21 @@ function App() {
 
         } catch (error) {
             console.log(error);
+
             disconnectedFunction = true;
             return
         }
     }
     function updateMyP2PBets() {
+        console.log("asking p2pbets")
+
         let disconnectedFunction = false
+        if (multiBetContract === undefined || defaultAccount === undefined) {
+            return
+        }
         try {
-            multiBetContract.methods.seeMyP2PBets(defaultAccount).call().then(async result => {
-                //console.log(result)
-                fetch("https://testnet.bettingcroc.com/api/mybets/", {
+            multiBetContract.methods.seeMyP2PBetsUser(defaultAccount).call().then(async result => {
+                fetch(MY_SERVER + "/api/mybets/", {
                     method: "POST"
                     , body: JSON.stringify({ listBets: result })
                     , headers: {
@@ -437,71 +448,67 @@ function App() {
                 }).then(
                     (res) => {
                         res.json().then(async (data) => {
-                            //console.log(data)
-                            //let listP2PBets = []
+                            result = result.filter((element, index) => {
+                                return result.indexOf(element) === index;
+                            });
                             for (let n = 0; n < result.length; n++) {
-
                                 await new Promise(next => {
                                     try {
-                                        multiBetContract.methods.seeMyP2PBetsDetail(defaultAccount, result[n]).call().then(result2 => {
-                                            //console.log(result2)
-                                            for (let n2 = 0; n2 < result2.length; n2++) {
-                                                //console.log(n2)
-                                                //listP2PBets.push(result2[n2])
-                                                let betLet = data[n]
-                                                betLet.p2pNum = result2[n2]
-                                                //listP2PBets.push(betLet)
-                                                //console.log(n, " ", result[n], " ", result2[n2])
+                                        multiBetContract.methods.seeMyP2PBetsUserDetail(defaultAccount, result[n]).call().then(p2pNumbers => {
+                                            for (let p = 0; p < p2pNumbers.length; p++) {
+                                                let iterationStatus = true
+                                                for (let m = 0; m < data.length; m++) {
+                                                    if (iterationStatus) {
+                                                        if (data[m].id === result[n] && data[m].p2pNum === undefined) {
+                                                            //console.log("setting p2p " + p2pNumbers[p])
+                                                            data[m].p2pNum = p2pNumbers[p]
+                                                            iterationStatus = false
+                                                            //console.log(data[n])
+                                                        }
+                                                    }
+                                                }
                                             }
                                             next()
                                         })
                                     }
-                                    catch (error) { //console.log(error);
+                                    catch (error) {
+                                        console.log(error);
                                         disconnectedFunction = true; return;
                                     }
                                 })
                             }
-                            //console.log(listP2PBets)
-
-                            /*for (let n = 0; n < result.length; n++) {
-                              data[n].p2pNum = listP2PBets[n]
-                            }*/
-                            //console.log(data)
                             for (let n = 0; n < data.length; n++) {
                                 await new Promise(next => {
                                     try {
                                         //console.log(n, data[n].id, defaultAccount, data[n].p2pNum)
                                         multiBetContract.methods.getHasUserWonP2P(defaultAccount, data[n].id, data[n].p2pNum).call().then(async result3 => {
                                             //console.log(result3)
-                                            //console.log(result3)
                                             if (result3 === true) {
                                                 data[n].betState = "W"
                                             }
                                             else {
                                                 try {
-                                                    multiBetContract.methods.getHasUserWonP2P(defaultAccount, data[n].id, data[n].p2pNum).call().then(result4 => {
+                                                    multiBetContract.methods.getDead(data[n].id).call().then(result4 => {
                                                         if (result4 === true) {
-                                                            data[n].betState = "W"
+                                                            data[n].betState = "L"
                                                         }
                                                         else {
-                                                            data[n].betState = "L"
-
+                                                            data[n].betState = "🕗"
                                                         }
                                                     })
                                                 }
                                                 catch (error) {
-                                                    //console.log(error);
+                                                    console.log(error);
                                                     disconnectedFunction = true; return
                                                 }
                                             }
                                             next()
                                         })
                                     }
-                                    catch (error) { //console.log(error);
+                                    catch (error) {
+                                        console.log(error);
                                         disconnectedFunction = true; return
                                     }
-
-
                                 })
                                 await multiBetContract.methods.getBetOptions(data[n].id).call().then(async options => {
                                     //console.log(options)
@@ -509,12 +516,10 @@ function App() {
                                     for (let ind = 0; ind < options; ind++) {
                                         mises.push(0)
                                     }
-                                    //mises[1]="ezww"
                                     //console.log(mises)
-
                                     let optionCreator = 0
                                     try {
-                                        await multiBetContract.methods.seeP2PBet(data[n].id, data[n].p2pNum).call().then(p2pBet => {
+                                        await multiBetContract.methods.getP2PBet(data[n].id, data[n].p2pNum).call().then(p2pBet => {
                                             //console.log(bet.id)
                                             //console.log(data[n].id, data[n].p2pNum)
                                             optionCreator = parseInt(Object.values(p2pBet)[6])
@@ -527,11 +532,10 @@ function App() {
                                             else { mises[optionCreator] = 0 }
                                             //console.log(mise)
                                         }
-
                                         )
                                     }
                                     catch (error) {
-                                        //console.log(error); 
+                                        console.log(error);
                                         disconnectedFunction = true;
                                         return
                                     }
@@ -539,13 +543,13 @@ function App() {
                                         if (o === optionCreator) { break }
                                         //console.log(data[n].id, data[n].p2pNum,defaultAccount)
                                         try {
-                                            await multiBetContract.methods.getAmountBetted(data[n].id, data[n].p2pNum, defaultAccount).call().then(amountBetted => {
+                                            await multiBetContract.methods.getAmountBettedFromUserP2P(data[n].id, data[n].p2pNum, defaultAccount).call().then(amountBetted => {
                                                 mises[o] = amountBetted
                                             }
                                             )
                                         }
                                         catch (error) {
-                                            //console.log(error);
+                                            console.log(error);
                                             disconnectedFunction = true;
                                             return
                                         }
@@ -566,23 +570,37 @@ function App() {
             })
 
         } catch (error) {
-            //console.log(error);
+            console.log(error);
             disconnectedFunction = true;
         }
     }
     function approveUSDT(amount) {
-        USDTContract.methods.approve("0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5", amount).send({ from: defaultAccount })
+        let approveToast = toast.loading("Approving USDT...", { closeButton: true })
+        USDTContract.methods
+            .approve("0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5", amount)
+            .send({ from: defaultAccount })
             .once('receipt', (receipt) => {
                 console.log("approve success")
+                toast.update(approveToast, { render: "USDT approved", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
+            })
+            .once('error', (error) => {
+                console.log(error)
+                toast.update(approveToast, { render: "Error " + error.code, type: "error", isLoading: false, closeButton: true, autoClose: 7000 });
             })
     }
     function approveMBT(amount) {
+        let approveToast = toast.loading("Approving MBT...")
         MBTContract.methods
             .approve("0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5", amount)
             .send({ from: defaultAccount })
-            .once("receipt", (receipt) => {
-                console.log("approve success");
-            });
+            .once('receipt', (receipt) => {
+                console.log("approve success")
+                toast.update(approveToast, { render: "MBT approved", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
+            })
+            .once('error', (error) => {
+                console.log(error)
+                toast.update(approveToast, { render: "Error " + error.code, type: "error", isLoading: false, closeButton: true, autoClose: 7000 });
+            })
     }
     function betFunction() {
         console.log("bet")
@@ -602,13 +620,21 @@ function App() {
         }
     }
     function betOnThisOption(amount) {
-        console.log("bet Try")
-        multiBetContract.methods.betOn(betArgs.betNumber, betArgs.optionNumber, amount).send({ from: defaultAccount })
+        let betToast = toast.loading("Betting...")
+        multiBetContract.methods
+            .betOn(betArgs.betNumber, betArgs.optionNumber, amount)
+            .send({ from: defaultAccount })
             .once('receipt', (receipt) => {
                 console.log("bet success")
+                toast.update(betToast, { render: "betOnThisOption success", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
+            })
+            .once('error', (error) => {
+                console.log(error)
+                toast.update(betToast, { render: "Error " + error.code, type: "error", isLoading: false, closeButton: true, autoClose: 7000 });
             })
     }
     function betOnThisOptionP2P(amount) {
+        let betToast = toast.loading("Betting...")
         try {
             multiBetContract.methods
                 .joinP2PBet(
@@ -617,9 +643,14 @@ function App() {
                     amount
                 )
                 .send({ from: defaultAccount })
-                .once("receipt", (receipt) => {
-                    console.log("bet success");
-                });
+                .once('receipt', (receipt) => {
+                    console.log("bet success")
+                    toast.update(betToast, { render: "betOnThisOptionP2P success", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
+                })
+                .once('error', (error) => {
+                    console.log(error)
+                    toast.update(betToast, { render: "Error " + error.code, type: "error", isLoading: false, closeButton: true, autoClose: 7000 });
+                })
         } catch (error) {
             console.log(error);
         }
@@ -634,6 +665,8 @@ function App() {
         console.log(amount, cote, option, authorized);
         let amountToEnter = (cote - 1) * (parseFloat(amount) / decimalsConverter(10));
         amountToEnter = weiconvert(parseFloat(amountToEnter.toPrecision(7)));
+        let betToast = toast.loading("Creating bet...")
+
         multiBetContract.methods
             .createP2PBet(
                 amount,
@@ -643,9 +676,14 @@ function App() {
                 authorized
             )
             .send({ from: defaultAccount })
-            .once("receipt", (receipt) => {
-                console.log("new bet Created");
-            });
+            .once('receipt', (receipt) => {
+                console.log("new bet created")
+                toast.update(betToast, { render: "createP2PBet success", type: "success", isLoading: false, closeButton: true });
+            })
+            .once('error', (error) => {
+                console.log(error)
+                toast.update(betToast, { render: "Error " + error.code, type: "error", isLoading: false, closeButton: true });
+            })
     }
     function joinBetRoom(betNumber) {
         socket.emit('joinRoom', "scoreBet" + betNumber)
@@ -680,12 +718,8 @@ function App() {
                     <Route path="/tennis" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
                     <Route path="/finance" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
                     <Route path="/bet" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdtContract={USDTContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDT={balanceUSDT} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />
-                    <Route path="/decentrabet" element={
-                        <DecentraBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} decentrabetContract={decentrabetContract} usdtContract={USDTContract} address={defaultAccount} theme={theme}></DecentraBet>
-                        //<ComingSoon></ComingSoon>
-                    } />
-                    <Route path="/rankings" element={<Classement mainVueSetter={updateMainVue} vueSetter={setVueTopBar} address={defaultAccount}></Classement>}></Route>
-                    {/*<Route path="/mybets" element={<MyBets mainVueSetter={updateMainVue} betContract={multiBetContract} address={defaultAccount}></MyBets>}></Route>*/}
+                    <Route path="/decentrabet" element={<DecentraBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} decentrabetContract={decentrabetContract} usdtContract={USDTContract} address={defaultAccount} theme={theme}></DecentraBet>} />
+                    <Route path="/rankings" element={<Classement mainVueSetter={updateMainVue} vueSetter={setVueTopBar} address={defaultAccount} theme={theme} logged={logged}></Classement>}></Route>
                     <Route path="/account" element={<Account closeMenuMobile={updateMainVue} myP2PBets={myP2PBets} myBets={myBets} betContract={multiBetContract} mainVueSetter={updateMainVue} requestUpdater={requestUpdater} friendsUpdater={friendsUpdater} socket={socket} setLogged={setLogged} web3={web3} address={defaultAccount} logged={logged} theme={theme} switchTheme={switchTheme} ></Account>}></Route>
                     <Route path="/docs" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>}></Route>
                     <Route path="/getusdt" element={<USDTGetter web3={web3} address={defaultAccount}></USDTGetter>}></Route>

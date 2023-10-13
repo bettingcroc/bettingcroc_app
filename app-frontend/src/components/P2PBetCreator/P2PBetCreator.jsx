@@ -145,17 +145,7 @@ class P2PBetCreator extends React.Component {
             <p id="buttonCreateP2PP">Create bet</p>
           </button>
           <div id="errorCoteDiv"><p id="errorP" className={this.state.class}>{this.state.error}</p></div>
-          {/*<h3>
-              will cost you {this.state.amountToBet} USDT and{" "}
-              {this.state.amountToBet} MBT
-              </h3>*/}
         </div>
-
-
-
-
-
-        {/*<button className="button" onClick={this.seeP2PBets}>seeP2PBets</button>*/}
       </div>
     );
   }

@@ -1,0 +1,115 @@
+#superMidRightBar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 375px);
+}
+
+#rightBar {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 70px);
+    z-index: 40;
+    width: 21.875%;
+    top: 70px;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+#rankingsLink {
+
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 140%;
+
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+
+@media screen and (max-width: 1080px) {
+    #hamburger {
+        display: block;
+    }
+
+    #links {
+        display: none;
+    }
+
+    #bettingcroctitle {
+        display: none;
+    }
+
+    #switchThemeHome {
+        display: none;
+    }
+
+    #leftBar {
+        display: none;
+    }
+
+    #rightBar {
+        display: none;
+    }
+
+    #mainVue {
+        width: 100%;
+    }
+
+    #mobileBottomBar {
+        display: flex;
+        z-index: 150;
+
+    }
+
+    #mainVue {
+        min-height: calc(100vh - 140px);
+    }
+
+    .menu {
+        width: 100vw;
+    }
+
+
+
+
+
+    #accountLink {
+        display: none;
+    }
+
+    .bottomBarLink {
+        align-items: center;
+        height: fit-content;
+    }
+
+    .linkMobileBottomBar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+
+}
+
+@media screen and (max-width: 550px) {
+    #bettingCrocTitle {
+        display: none;
+    }
+
+    #topBar {
+        padding: 10px;
+    }
+
+}

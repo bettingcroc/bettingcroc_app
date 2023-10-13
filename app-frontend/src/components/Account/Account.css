@@ -1,8 +1,141 @@
+#myBetsAccountDiv {
+    max-height: 640px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: 23px 31px;
+    gap: 10px;
+
+    min-height: 190px;
+
+
+    border: 1px solid #F8F9FA;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+}
+
+#superMyBetsAccountDiv2 {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: flex-start;
+
+    gap: 10px;
+
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.myBetsAccountDiv3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: black;
+    align-items: center;
+    padding: 6px;
+    border-radius: 8px;
+
+}
+
+.myBetsAccountDiv3:hover {
+    background-color: #d1d1d1;
+}
+
+.myBetsAccountDiv3Dark:hover {
+    background-color: #404040 !important;
+}
+
+.myBetsAccountDiv3 p {
+    margin: 0;
+}
+
+.myBetsAccountDiv2 {
+    width: 100%;
+}
+
 @media screen and (max-width: 1080px) {
-    #friendAdder{
+    #friendAdder {
         width: 100%;
     }
-    #changePseudoDiv{
+
+    #changePseudoDiv {
         width: 100%;
     }
+}
+
+.titleBetAccount {
+    width: 35%;
+}
+
+.dateBetAccount {
+    width: 10%;
+}
+
+.stateBetAccount {}
+
+#changePseudoDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.settingsInput {
+    width: 68%;
+}
+
+.settingsButton {
+    width: 28%;
+
+}
+
+#settingsAccount {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: 23px 31px;
+    gap: 10px;
+
+    min-height: 190px;
+
+
+    border: 1px solid #F8F9FA;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+}
+
+#friendsDiv {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: 23px 31px;
+    gap: 10px;
+
+    min-height: 190px;
+
+
+    border: 1px solid #F8F9FA;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+}
+
+#galleryDiv {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: 23px 31px;
+    gap: 10px;
+
+    min-height: 190px;
+
+
+    border: 1px solid #F8F9FA;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
 }

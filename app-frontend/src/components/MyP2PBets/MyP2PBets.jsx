@@ -9,7 +9,6 @@ class MyP2PBets extends React.Component {
     this.state = {
       myBets: [],
     };
-    console.log("constrsuction");
   }
   componentDidMount() {
     __mounted = true;
@@ -28,23 +27,19 @@ class MyP2PBets extends React.Component {
   render() {
     return (
       <div className="myBetsDiv">
-        {this.props.myBets.length===0?null:this.props.myBets.map(function (item, index) {
+        {this.props.myBets.length === 0 ? null : this.props.myBets.map(function (item, index) {
           console.log(item)
           return (
-            <div key={index} className="myBetDiv">
-              <Link to={"/bet/numBet?n=" + item.id + "&p2p=" + item.p2pNum + "#myP2P"}>
-                <div className="myBetSuperDiv">
+            <Link to={"/bet?n=" + item.id + "&p2p=" + item.p2pNum + "#myP2P"} key={index} className="myBetSuperDiv">
 
-                  <div className="myBetUnderDiv">
-                    <p className="lineMyBetsPTitle">{item.status === 0 ? item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1] : item.optionsArray.split(",")[0] + " " + item.scoreHome + " - " + item.scoreAway + " " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
-                    <p className="lineMyBetsPDate">{timeConverterDate(item.date)}</p>
-                  </div>
-                  <div className="myBetUnderDiv2">
-                    <p className="betStateP">{item.betState}</p>
-                  </div>
-                </div>
-              </Link>
-            </div>
+              <div className="myBetUnderDiv">
+                <p className="lineMyBetsPTitle">{item.status === 0 ? item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1] : item.optionsArray.split(",")[0] + " " + item.scoreHome + " - " + item.scoreAway + " " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
+                <p className="lineMyBetsPDate">{timeConverterDate(item.date)}</p>
+              </div>
+              <div className="myBetUnderDiv2">
+                <p className="betStateP">{item.betState}</p>
+              </div>
+            </Link>
           );
         })}
       </div>
@@ -63,6 +58,6 @@ function timeConverterDate(UNIX_timestamp) {
   var year = a.getFullYear();
   var month = a.getMonth();
   var date = a.getDate();
-  var time = date + '/' + (month+1) + '/' + year;
+  var time = date + '/' + (month + 1) + '/' + year;
   return time;
 }

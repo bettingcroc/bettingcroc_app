@@ -15,11 +15,11 @@ const LeftBar = (props) => {
         <div id="under2leftBar">
           <div id="categories">
             <p id="titleLeftBar" className={props.theme === "light" ? "blackP" : "lightGreyP"}>Popular</p>
-            <Link className="optionsLeftBar" to="/decentrabet">
+            <Link className="optionsLeftBar" to="/football">
               <img src={footballImage} alt="footballImage" className="logoImage"></img>
-              <p className={classP}>Ligue des Champions</p>
+              <p className={classP}>Champions League</p>
             </Link>
-            <Link className="optionsLeftBar" to="/basketball">
+            <Link className="optionsLeftBar" to="/football">
               <img src={footballImage} alt="footballImage" className="logoImage"></img>
               <p className={classP}>Ligue 1</p>
             </Link>
@@ -38,7 +38,7 @@ const LeftBar = (props) => {
               <p className={classP}>Bundesliga</p>
             </Link>
 
-            <Link className="optionsLeftBar" to="/tennis">
+            <Link className="optionsLeftBar" to="/football">
               <img src={footballImage} alt="footballImage" className="logoImage"></img>
               <p className={classP}>Serie A</p>
             </Link>

@@ -1,266 +1,83 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Authentification from "../Authentification/Authentification";
 import { Link, Outlet } from "react-router-dom";
 import MyFriends from "../MyFriends/MyFriends";
 import MyRequests from "../MyRequests/MyRequests";
 import MyBets from "../MyBets/MyBets";
 import "./Account.css"
+import { MY_SERVER } from "../../consts"
 
 
-var __mounted;
-
-class Account extends React.Component {
-  constructor(props) {
-
-    super(props);
-    //this.props.closeMenuMobile()
-    this.state = {
-      dataPersoloaded: false,
-      loaded: false,
-      myPseudo: undefined,
-      dataPerso: undefined,
-      newPseudo: "",
-      newFriend: "",
-      requests: undefined,
-      logged: false,
-      friends: undefined,
-      messageAddFriend: null,
-      cssmessageAddFriend: null,
-      betsType: "default",
-      betsToDisplay: []
-    };
-    this.setPseudoReact = this.setPseudoReact.bind(this);
-    this.sendFriendRequestReact = this.sendFriendRequestReact.bind(this);
-    this.setFriendsList = this.setFriendsList.bind(this);
-    this.updateRequests = this.updateRequests.bind(this);
-    this.updateFriends = this.updateFriends.bind(this);
-  }
-  render() {
-    return (
-      <div className="mainContentAccount">
-        <p className={this.props.theme === "light" ?"blackP" : "lightGreyP"} id="hiUser">
-          Hi {this.state.loaded && this.state.dataPerso !== undefined ? this.state.dataPerso[0].pseudo : ""} !
-        </p>
-        {/*<div id="linkMyBets">
-            <Link className="superLinkMyBetsDiv" href="/mybets">
-              <div className="linkMyBetsDiv"></div>
-            </Link>
-          <div className="superLinkMyBetsDiv">
-
-            <Link>
-              <div className="linkMyBetsDiv"></div>
-            </Link>
-          </div>
-    </div>*/}
-        <div id="myBetsAccountDiv" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
-          <div id="divMyBetsAccountButtons">
-            <button onClick={(e) => { this.setState({ betsType: "default" }); this.setState({ betsToDisplay: this.props.myBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme === "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "default" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My Bets</p></button>
-            <button onClick={(e) => { this.setState({ betsType: "p2p" }); this.setState({ betsToDisplay: this.props.myP2PBets }); console.log(this.props.myBets); console.log(this.props.myP2PBets); }} className="accountButton"><p className={this.props.theme === "light" ?"blackP" : "lightGreyP"}  id={this.state.betsType === "p2p" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My P2P Bets</p></button>
-          </div>
-          <div id="superMyBetsAccountDiv2">
-            {this.state.betsToDisplay.map(function (item, index) {
-              return (
-                <div key={index} className="myBetsAccountDiv2">
-                  <Link to={"/bet/numBet?n=" + item.id}>
-                    <div className="myBetsAccountDiv3">
-                      <p className="titleBetAccount">{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
-                      <p className="dateBetAccount">{timeConverterDate(item.date)}</p>
-                      {<div className="divMisesAccount">{item.mise.map((mise, index) => { if (mise != 0) { return <p key={index} className="miseBetAccount">{parseFloat(mise) / decimalsConverter(10) + " USDT on " + item.optionsArray.split(",")[index]}</p> } else return null })}
-                      </div>}
-                      <p className="stateBetAccount">{item.betState}</p>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-        <div id="friendsDiv" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
-          <p className={this.props.theme === "light" ?"headerTitle accountP" : "headerTitleDark accountP"} >Friends</p>
-          <div id="friendAdder">
-            <input placeholder="Type an address here" className="settingsInput" type="text" value={this.state.newFriend} onChange={(e) => this.setState({ newFriend: e.target.value })}></input>
-            <button className='generalsButton settingsButton' onClick={(event) => { this.sendFriendRequestReact(this.state.newFriend) }}><p className="buttonP">Add friend</p></button>
-          </div>
-
-          <p id={this.state.cssmessageAddFriend}>{this.state.messageAddFriend}</p>
-          <MyFriends updateFriends={this.updateFriends} myFriends={this.state.friends} address={this.props.address} logged={this.props.logged} setFriendsList={this.setFriendsList}></MyFriends>
-        </div>
-        <div id="requestSuperDiv" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
-          <p className={this.props.theme === "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
-
-          <MyRequests socket={this.props.socket} updateRequests={this.updateRequests} requests={this.state.requests} updateFriends={this.updateFriends} address={this.props.address} logged={this.props.logged}></MyRequests>
-        </div>
-        <div id="settingsAccount" className={this.props.theme === "light" ?"whiteDiv" : "blackDiv"}>
-          <p className={this.props.theme === "light" ?"headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>
-
-          <div id="changePseudoDiv">
-            <input placeholder="Type your new pseudo here" className="settingsInput" type="text" value={this.state.newPseudo} onChange={(e) => this.setState({ newPseudo: e.target.value })}></input>
-            <button className='generalsButton settingsButton' onClick={(event) => { this.setPseudoReact(this.state.newPseudo) }}><p className="buttonP" >Change Pseudo</p></button>
-          </div>
-          <button onClick={this.props.switchTheme}>Switch theme</button>
-        </div>
-      </div>
-    );
-  }
-  setPseudoReact(newPseudo) {
-    setPseudo(newPseudo)
-  }
-  sendFriendRequestReact(newFriend) {
-    this.props.socket.emit("sendFriendRequest", { fromAddress: this.props.address, toAddress: newFriend })
-    console.log(this.state.friends)
-    for (let add in this.state.friends) {
-      if (newFriend === this.state.friends[add].address2) {
-        this.setState({ messageAddFriend: "Already friend with " + newFriend })
-        this.setState({ cssmessageAddFriend: "messageAddFriend1" })
-        return
-      }
-    }
-    sendFriendRequest(newFriend)
-    this.setState({ messageAddFriend: "Invitation sent to " + newFriend })
-    this.setState({ cssmessageAddFriend: "messageAddFriend2" })
-    return
-  }
-
-  componentDidMount() {
-    __mounted = true;
-    this.props.mainVueSetter("account")
-
+function Account(props) {
+  const [loaded, setLoaded] = useState(false)
+  const [dataPerso, setDataPerso] = useState()
+  const [newPseudo, setNewPseudo] = useState("")
+  const [newFriend, setNewFriend] = useState("")
+  const [requests, setRequests] = useState()
+  const [logged, setLogged] = useState(false)
+  const [friends, setFriends] = useState()
+  const [messageAddFriend, setMessageAddFriend] = useState()
+  const [cssmessageAddFriend, setCssMessageAddFriend] = useState()
+  const [betsType, setBetsType] = useState("default")
+  const [betsToDisplay, setBetsToDisplay] = useState([])
+  useEffect(() => {
+    props.mainVueSetter("account")
     testLogin().then((res) => {
-      console.log("res " + res)
       if (res.isLogged === true) {
-
-        this.setState({ logged: true });
-        this.props.setLogged(true);
-        if (this.props.logged) {
-          let link2 = "https://testnet.bettingcroc.com/api/myrequests"
-          console.log(link2)
+        setLogged(true)
+        props.setLogged(true);
+        if (props.logged) {
+          let link2 = MY_SERVER + "/api/myrequests"
           fetch(link2, { method: "GET" }).then((res) => {
             res.json().then((data) => {
-              console.log(data)
-              if (this.state.requests === undefined) { this.setState({ requests: data }); }
+              if (requests === undefined) { setRequests(data) }
             });
           });
-          let link3 = "https://testnet.bettingcroc.com/api/myfriends/"
-          console.log(link3)
+          let link3 = MY_SERVER + "/api/myfriends/"
           fetch(link3, { method: "GET" }).then((res) => {
             res.json().then((data) => {
-              console.log(data)
-              if (this.state.friends === undefined) { this.setState({ friends: data }); }
-              console.log("this.state.friends")
-              console.log(this.state.friends)
-              console.log("this.state.friends")
+              if (friends === undefined) {
+                setFriends(data)
+              }
             });
           });
         }
       }
-      else { this.setState({ logged: false }); this.props.setLogged(false) }
+      else { setLogged(false); props.setLogged(false) }
     })
-    if(this.props.myBets.length!==0){
-      console.log(this.props.myBets)
-      console.log("EEEEEEEEEEE")
-
-      this.setState({betsToDisplay:this.props.myBets})
+  }, [])
+  useEffect(() => {
+    if (betsType === "p2p" && props.myP2PBets.length > 0) { setBetsToDisplay(props.myP2PBets) }
+    if (betsType === "default" && props.myBets.length > 0) { setBetsToDisplay(props.myBets) }
+  }, [props.myBets, props.myP2PBets])
+  useEffect(() => {
+    if (props.logged) {
+      updateRequests()
     }
-  }
-  setFriendsList(friends) {
-    this.setState({ friends: friends })
-  }
-  updateRequests() {
-    console.log("update requests")
-    let link2 = "https://testnet.bettingcroc.com/api/myrequests"
-    fetch(link2, { method: "GET" }).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          console.log(data)
-          this.setState({ requests: data });
-        });
-      }
-    });
-  }
-  updateFriends() {
-    console.log("updateFriends")
-    let link = "https://testnet.bettingcroc.com/api/myfriends/"
-    fetch(link, { method: "GET" }).then((res) => {
-      res.json().then((data) => {
-        console.log(data)
-        this.setState({ friends: data });
-      });
-    });
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if ((prevProps.address !== this.props.address && this.state.dataPersoloaded === false && this.props.address !== undefined)) {
-      let link = "https://testnet.bettingcroc.com/api/score/" + this.props.address.toLowerCase();
+  }, [props.requestUpdater])
+  useEffect(() => {
+    if (props.logged) {
+      updateFriends()
+    }
+  }, [props.friendsUpdater])
+  useEffect(() => {
+    if (props.logged) {
+      updateFriends()
+      updateRequests()
+    }
+  }, [props.logged])
+  useEffect(() => {
+    if (props.address !== undefined) {
+      let link = MY_SERVER + "/api/score/" + props.address.toLowerCase();
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
-          if (this.state.dataPersoloaded !== true) { this.setState({ dataPerso: data, loaded: true }); }
+          setDataPerso(data)
         });
-      });
+      })
     }
-
-    if ((prevProps !== this.props && this.props.address !== undefined) || (prevProps.logged !== this.props.logged && this.props.address !== undefined)) {
-
-
-      if (this.props.logged) {
-        let link2 = "https://testnet.bettingcroc.com/api/myrequests"
-        console.log(link2)
-        fetch(link2, { method: "GET" }).then((res) => {
-          res.json().then((data) => {
-            console.log(data)
-            if (this.state.requests === undefined) { this.setState({ requests: data }); }
-          });
-        });
-        let link3 = "https://testnet.bettingcroc.com/api/myfriends/"
-        console.log(link3)
-        fetch(link3, { method: "GET" }).then((res) => {
-          res.json().then((data) => {
-            console.log(data)
-            if (this.state.friends === undefined) { this.setState({ friends: data }); }
-            console.log("this.state.friends")
-            console.log(this.state.friends)
-            console.log("this.state.friends")
-          });
-        });
-      }
-    }
-    if (this.props.requestUpdater !== prevProps.requestUpdater) {
-      this.updateRequests()
-    }
-    if (this.props.friendsUpdater !== prevProps.friendsUpdater) {
-      this.updateFriends()
-    }
-    /*if (this.props.address !== undefined && this.props.address !== prevProps.address && __mounted) {
-      try {
-        console.log(this.props.address);
-        fetch("https://testnet.bettingcroc.com/api/mybets/" + this.props.address, { method: "GET" }).then(
-          (res) => {
-            console.log(res.status)
-            res.json().then((data) => {
-              console.log(data)
-              console.log("mybets")
-
-              if (__mounted) {
-                this.setState({ myBets: data });
-              }
-            });
-          }
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    }*/
-
-    if((prevProps.myBets.length===0 && this.props.myBets.length!==0) || (prevProps.myBets.length!==0 && this.props.myBets.length===0)){
-      console.log(this.props.myBets)
-      console.log("EEEEEEEEEEE")
-      this.setState({betsToDisplay:this.props.myBets})
-    }
-  }
-}
-
-async function setPseudo(newPseudo) {
-  if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/api/setUpPseudo/";
+  }, [props.address])
+  async function setPseudo(newPseudo) {
+    let url = MY_SERVER + "/api/setUpPseudo/";
     let bodyToSend = JSON.stringify({
       "newPseudo": newPseudo,
     });
@@ -279,12 +96,19 @@ async function setPseudo(newPseudo) {
     })
     console.log("end function")
     return ("done2")
-  }
-}
 
-async function sendFriendRequest(newFriend) {
-  if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/api/sendFriendRequest/";
+  }
+  async function sendFriendRequest(newFriend) {
+    props.socket.emit("sendFriendRequest", { fromAddress: props.address, toAddress: newFriend })
+    console.log(friends)
+    for (let add in friends) {
+      if (newFriend === friends[add].address2) {
+        setMessageAddFriend("Already friend with " + newFriend)
+        setCssMessageAddFriend("messageAddFriend1")
+        return
+      }
+    }
+    let url = MY_SERVER + "/api/sendFriendRequest/";
     let bodyToSend = JSON.stringify({
       "head": "newFriend",
       "newFriend": newFriend,
@@ -303,15 +127,15 @@ async function sendFriendRequest(newFriend) {
       });
     })
     console.log("end function")
-    return ("done2")
+    setMessageAddFriend("Invitation sent to " + newFriend)
+    setCssMessageAddFriend("messageAddFriend2")
+    return
+
   }
-}
 
-async function testLogin() {
-  if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/api/testlogin";
+  async function testLogin() {
+    let url = MY_SERVER + "/api/testlogin";
 
-    console.log(url);
     let options = {
       method: "GET",
     };
@@ -319,18 +143,100 @@ async function testLogin() {
     await new Promise(next => {
       fetch(url, options).then((res) => {
         res.json().then((data) => {
-          console.log(data)
           result = data
           next()
         })
-
-
       });
     })
-
     return result
   }
+  function updateRequests() {
+    console.log("update requests")
+    let link2 = MY_SERVER + "/api/myrequests"
+    fetch(link2, { method: "GET" }).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          setRequests(data)
+        });
+      }
+    });
+  }
+  function updateFriends() {
+    console.log("updateFriends")
+    let link = MY_SERVER + "/api/myfriends/"
+    fetch(link, { method: "GET" }).then((res) => {
+      res.json().then((data) => {
+        setFriends(data)
+      });
+    });
+  }
+  return (
+    <div className="mainContentAccount">
+      <p className={props.theme === "light" ? "blackP" : "lightGreyP"} id="hiUser">
+        Hi {loaded && dataPerso !== undefined ? dataPerso[0].pseudo : ""} !
+      </p>
+      <div id="myBetsAccountDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+        <div id="divMyBetsAccountButtons">
+          <button onClick={(e) => { setBetsType("default"); setBetsToDisplay(props.myBets); }} className="accountButton"><p className={props.theme === "light" ? "blackP" : "lightGreyP"} id={betsType === "default" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My Bets</p></button>
+          <button onClick={(e) => { setBetsType("p2p"); setBetsToDisplay(props.myP2PBets); }} className="accountButton"><p className={props.theme === "light" ? "blackP" : "lightGreyP"} id={betsType === "p2p" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My P2P Bets</p></button>
+        </div>
+        <div id="superMyBetsAccountDiv2">
+          {betsToDisplay.map(function (item, index) {
+            console.log(item)
+            if (item.optionsArray === null) {
+              console.log("ERROR DB => missing bet")
+              return null
+            }
+            return (
+              <div key={index} className="myBetsAccountDiv2">
+                <Link to={"/bet?n=" + item.id}>
+                  <div className={props.theme === "light" ? "myBetsAccountDiv3" : " myBetsAccountDiv3 myBetsAccountDiv3Dark"}>
+                    <p className={props.theme === "light" ? "titleBetAccount blackP" : " titleBetAccount whiteP"}>{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
+                    <p className={props.theme === "light" ? "dateBetAccount blackP" : " dateBetAccount whiteP"}>{timeConverterDate(item.date)}</p>
+                    {<div className="divMisesAccount">{item.mise.map((mise, index) => { if (mise != 0) { return <p key={index} className={props.theme === "light" ? "miseBetAccount blackP" : " miseBetAccount whiteP"}>{parseFloat(mise) / decimalsConverter(10) + " USDT on " + item.optionsArray.split(",")[index]}</p> } else return null })}
+                    </div>}
+                    <p className="stateBetAccount">{item.betState}</p>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+      <div id="galleryDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+        <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"} >Gallery</p>
+
+      </div>
+      {props.logged ? <div id="friendsDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+        <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"} >Friends</p>
+        <div id="friendAdder">
+          <input placeholder="Type an address here" className="settingsInput" type="text" value={newFriend} onChange={(e) => setNewFriend(e.target.value)}></input>
+          <button className='generalsButton settingsButton' onClick={(event) => { sendFriendRequest(newFriend) }}><p className="buttonP">Add friend</p></button>
+        </div>
+
+        <p id={cssmessageAddFriend}>{messageAddFriend}</p>
+        <MyFriends updateFriends={updateFriends} myFriends={friends} address={props.address} logged={props.logged} setFriendsList={setFriends}></MyFriends>
+      </div> : null}
+      {props.logged ? <div id="requestSuperDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+        <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
+
+        <MyRequests socket={props.socket} updateRequests={updateRequests} requests={requests} updateFriends={updateFriends} address={props.address} logged={props.logged}></MyRequests>
+      </div> : null}
+      {props.logged ? <div id="settingsAccount" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+        <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>
+
+        <div id="changePseudoDiv">
+          <input placeholder="Type your new pseudo here" className="settingsInput" type="text" value={newPseudo} onChange={(e) => setNewPseudo(e.target.value)}></input>
+          <button className='generalsButton settingsButton' onClick={(event) => { setPseudo(newPseudo) }}><p className="buttonP" >Change Pseudo</p></button>
+        </div>
+      </div> : null}
+    </div>
+  );
 }
+
+
+
 
 export default Account;
 function timeConverterDate(UNIX_timestamp) {

@@ -1,3 +1,44 @@
+#classementTable {
+    background-color: #d6d6d6;
+
+}
+
+#mainContentClassement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+}
+
+#classementTableDark {
+    background-color: #404040;
+    color: white;
+}
+
+td {
+    font-family: Roboto;
+    padding: 12px;
+
+}
+
+th {
+    font-family: Roboto;
+    padding: 12px;
+
+}
+
+#rankingsTitle {
+    font-size: 35px;
+}
+
+#addressRankingColumn {
+    border-radius: 12px 0px 0px 0px;
+}
+
+#addressSearchResults {
+    color: white;
+}
+
 @media screen and (max-width: 1080px) {
 
     #addressRankingColumn {

@@ -1,44 +1,32 @@
 /* global BigInt */
-import React from 'react';
-var __mounted
+import React, { useState, useEffect } from 'react';
+import "./OptionPool.css"
 
 
-class OptionPool extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      moneyInPool: null,
-      moneyIgot: null,
-      loaded: false
-    }
-    //this.betOnThisOption = this.betOnThisOption.bind(this)
-    this.setBet = this.setBet.bind(this)
-  }
-  componentDidMount() {
-    //console.log("address"+this.props.address)
-    //console.log("mount OptionPool " + this.props.optionNumber)
-    __mounted = true
+function OptionPool(props) {
+  const [moneyInPool, setMoneyInPool] = useState()
+  const [moneyIgot, setMoneyIgot] = useState()
+
+  useEffect(() => {
     try {
-      if (this.props.status !== 2) {
-        this.props.betContract.methods
-          .getAmountInPool(this.props.betNumber, this.props.optionNumber)
+      if (props.status !== 2) {
+        props.betContract.methods
+          .getAmountInPool(props.betNumber, props.optionNumber)
           .call()
           .then((result) => {
-            //console.log(result)
             try {
-              if (__mounted && this.state.loaded === false) { this.setState({ moneyInPool: result }); }
+              setMoneyInPool(result)
 
             } catch (error) { }
           });
       }
       else {
-        this.props.betContract.methods
-          .getMoneyInPoolEnd(this.props.betNumber, this.props.optionNumber)
+        props.betContract.methods
+          .getMoneyInPoolEnd(props.betNumber, props.optionNumber)
           .call()
           .then((result) => {
-            //console.log(result)
             try {
-              if (__mounted && this.state.loaded === false) { this.setState({ moneyInPool: result }); }
+              setMoneyInPool(result)
 
             } catch (error) { }
           });
@@ -46,98 +34,67 @@ class OptionPool extends React.Component {
 
 
     } catch (error) { }
+
+  }, [props.moneyInOtherPools])
+
+  useEffect(() => {
     try {
-      this.props.betContract.methods
-        .getAmountInPoolFromUserEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
+      props.betContract.methods
+        .getAmountInPoolFromUserEnd(props.betNumber, props.optionNumber, props.address)
         .call()
         .then((result) => {
           try {
-            if (__mounted) { this.setState({ moneyIgot: result }); }
+            setMoneyIgot(result)
 
           } catch (error) { }
         });
     } catch (error) { }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props && __mounted) {
-      try {
-        if (this.props.status !== 2) {
-          this.props.betContract.methods
-            .getAmountInPool(this.props.betNumber, this.props.optionNumber)
-            .call()
-            .then((result) => {
-              //console.log(result)
-              try {
-                if (__mounted && this.state.loaded === false) { this.setState({ moneyInPool: result }); }
+  }, [props.address, props.betNumber, props.amountToBet])
 
-              } catch (error) { }
-            });
-        }
-        else {
-          this.props.betContract.methods
-            .getMoneyInPoolEnd(this.props.betNumber, this.props.optionNumber)
-            .call()
-            .then((result) => {
-              //console.log(result)
-              try {
-                if (__mounted && this.state.loaded === false) { this.setState({ moneyInPool: result }); }
-
-              } catch (error) { }
-            });
-        }
-
-
-      } catch (error) { }
-      try {
-        this.props.betContract.methods
-          .getAmountInPoolFromUserEnd(this.props.betNumber, this.props.optionNumber, this.props.address)
-          .call()
-          .then((result) => {
-            try {
-              if (__mounted) { this.setState({ moneyIgot: result }); }
-
-            } catch (error) { }
-          });
-      } catch (error) { }
-
-    }
-    //console.log(this.props.address)
-  }
-  componentWillUnmount() {
-    __mounted = false
-    //console.log("unmount OptionPool " + this.props.team)
-  }
-
-  setBet() {
-    this.props.setTypeBet(1);
-    this.props.setBetArgs({
-      betNumber: this.props.betNumber,
-      optionNumber: this.props.optionNumber,
-      amountToBet: weiconvert(this.props.amountToBet),
-      optionName: this.props.team,
-      betName: this.props.betName,
-      toWin: this.props.moneyInOtherPools === null ? null : (parseFloat(this.props.amountToBet) * (((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))) / parseFloat(this.props.amountToBet) + 1)).toFixed(2),
-      cote: this.props.moneyInOtherPools === null ? null : (((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))) / parseFloat(this.props.amountToBet) + 1).toFixed(2)
+  function setBet() {
+    props.setTypeBet(1);
+    props.setBetArgs({
+      betNumber: props.betNumber,
+      optionNumber: props.optionNumber,
+      amountToBet: weiconvert(props.amountToBet),
+      optionName: props.team,
+      betName: props.betName,
+      toWin: props.moneyInOtherPools === null ? null : (parseFloat(props.amountToBet) * (((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))) / parseFloat(props.amountToBet) + 1)).toFixed(2),
+      cote: props.moneyInOtherPools === null ? null : (((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))) / parseFloat(props.amountToBet) + 1).toFixed(2)
     });
   }
-  render() {
-    return (
-      <div className="optionPool">
-        {this.props.status === 0 ?
-          <button className="buttonTeamTitle" onClick={(event) => { this.setBet(event); }}><p className='teamTitle'>{this.props.team}</p></button> :
-          <div className="buttonTeamTitleDiv"><p className='teamTitle'>{this.props.team}</p></div>}
-        {this.props.status === 0 ? <div>
-          <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>To win : {this.props.moneyInOtherPools === null ? null : ((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))).toFixed(2)}</p>
-          <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>Cote : {this.props.moneyInOtherPools === null ? null : (((parseFloat(this.props.amountToBet) * this.props.moneyInOtherPools[this.props.optionNumber]) / ((parseFloat(this.state.moneyInPool) / decimalsConverter(10)) + parseFloat(this.props.amountToBet))) / parseFloat(this.props.amountToBet) + 1).toFixed(2)}</p>
-        </div> : null}
-        <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>
-          {parseFloat(this.state.moneyInPool) / decimalsConverter(10)} USDT {this.props.moneyInOtherPools === null ? null :  this.props.address !== undefined && this.state.moneyIgot > 0 && this.props.moneyInOtherPools[this.props.optionNumber] > 0 ? "(I betted " + parseFloat(this.state.moneyIgot) / decimalsConverter(10) + " USDT and can win " + (parseFloat(this.state.moneyIgot / this.state.moneyInPool * this.props.moneyInOtherPools[this.props.optionNumber]) + parseFloat(this.state.moneyIgot) / decimalsConverter(10)).toFixed(2) + " USDT)" : null}
-        </p>
-      </div>
-    );
-  }
-}
 
+  return (
+    <div className="optionPool">
+      {props.status === 0 ?
+        <button className="buttonTeamTitle" onClick={(event) => { setBet(event); }}>
+          <p className='teamTitle'>{props.team}</p>
+          <p className='teamTitle'>{props.moneyInOtherPools === null ? null : (((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))) / parseFloat(props.amountToBet) + 1).toFixed(2)}</p>
+        </button> :
+        <div className="buttonTeamTitleDiv"><p className='teamTitle'>{props.team}</p></div>}
+
+      <div className='tableOptionPool'>
+        {props.status === 0 ?
+
+          <p className={props.theme === "light" ? "blackP cellOptionPool1" : "lightGreyP cellOptionPool1"}>To win : {props.moneyInOtherPools === null ? null : ((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))).toFixed(2)} USDT</p>
+          : null}
+
+
+        <p className={props.theme === "light" ? "blackP cellOptionPool2" : "lightGreyP cellOptionPool2"}>
+          Money in the pool : {parseFloat(moneyInPool) / decimalsConverter(10)} USDT
+        </p>
+
+
+
+        {props.moneyInOtherPools === null ? null : props.address !== undefined && moneyIgot > 0 && props.moneyInOtherPools[props.optionNumber] > 0 ? <p className={props.theme === "light" ? "blackP cellOptionPool2" : "lightGreyP cellOptionPool2"}>I betted  {parseFloat(moneyIgot) / decimalsConverter(10)}  USDT and can win {(parseFloat(moneyIgot / moneyInPool * props.moneyInOtherPools[props.optionNumber]) + parseFloat(moneyIgot) / decimalsConverter(10)).toFixed(2)} USDT</p>
+          : null}
+
+      </div>
+
+
+    </div>
+  );
+}
 
 
 export default OptionPool;

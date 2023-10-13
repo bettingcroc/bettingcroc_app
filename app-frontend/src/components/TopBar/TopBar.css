@@ -41,7 +41,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
-
+    height: 70px;
 }
 
 
@@ -69,8 +69,13 @@
     z-index: 0;
 }
 
-@media screen and (max-width: 1080px){
-    #themeSwitcherTopBar{
+@media screen and (max-width: 1080px) {
+    #themeSwitcherTopBar {
         display: none !important;
+    }
+
+    #topLeft {
+
+        width: unset;
     }
 }

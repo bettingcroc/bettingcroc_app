@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import BetComplet from "../BetComplet/BetComplet";
 import { useSearchParams } from "react-router-dom";
 import OptionPool from "../OptionPool/OptionPool";
 import P2PBetOption from "../P2PBetOption/P2PBetOption";
@@ -7,7 +6,8 @@ import P2PBetCreator from "../P2PBetCreator/P2PBetCreator";
 import P2PFinder from "../P2PFinder/P2PFinder";
 import Jauge from "../Jauge/Jauge";
 import FriendInviter from "../FriendInviter/FriendInviter";
-
+import "./Bet.css"
+import { MY_SERVER } from "../../consts"
 
 const Bet = (props) => {
   const [optionsArray, setOptionArray] = useState()
@@ -26,8 +26,8 @@ const Bet = (props) => {
 
   useEffect(() => {
     props.mainVueSetter("bet")
-    fetch("https://testnet.bettingcroc.com/api/infoMatch/" + searchParams.get("n"), { method: "GET" }).then((res) => {
-      res.json().then((data) => {
+    fetch(MY_SERVER+"/api/infoMatch/" + searchParams.get("n"), { method: "GET" }).then((res) => {
+      res.json().then(async (data) => {
         setOptionArray(data.optionsArray)
         setDate(data.date)
         setType(data.type)
@@ -38,51 +38,47 @@ const Bet = (props) => {
         setScoreAway(data.scoreAway)
         let sizeBet = 0
         try { sizeBet = data.optionsArray.split(",").length }
-        catch (error) { console.log(error)}
+        catch (error) { console.log(error) }
         let moneyInPoolsLet = []
         for (let i = 0; i < sizeBet; i++) {
           moneyInPoolsLet.push(-1)
         }
         if (props.betContract !== undefined) {
-          for (let i = 0; i < sizeBet; i++) {
-            try {
-              props.betContract.methods
-                .getAmountInPool(searchParams.get("n"), i)
-                .call()
-                .then((result) => {
-                  moneyInPoolsLet[i] += 1
-                  try {
-                    for (let a = 0; a < sizeBet; a++) {
-                      if (a !== i) {
-                        moneyInPoolsLet[a] += parseFloat(result) / decimalsConverter(10);
-                      }
 
-                    }
-                  } catch (error) {console.log(error) }
-                });
-            } catch (error) { console.log(error)}
-          }
-          try {
-            //console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet[0])
-            if (moneyInPoolsLet[0] === -1) {
+          await new Promise(async next2 => {
+            for (let i = 0; i < sizeBet; i++) {
+              try {
+                await new Promise(next => {
+                  props.betContract.methods
+                    .getAmountInPool(searchParams.get("n"), i)
+                    .call()
+                    .then((result) => {
+                      moneyInPoolsLet[i] += 1
+                      try {
+                        for (let a = 0; a < sizeBet; a++) {
+                          if (a !== i) {
+                            moneyInPoolsLet[a] += parseFloat(result) / decimalsConverter(10);
+                          }
+
+                        }
+                        next()
+
+                      } catch (error) { }
+                    });
+
+                })
+              } catch (error) { }
             }
-            else {
-              //console.log(moneyInPoolsLet)
-              setMoneyInPools(moneyInPoolsLet)
-              //console.log("setting " + state.moneyInPools)
-            }
-            //console.log("!!!!!!!!!!!!!! " + moneyInPoolsLet)
-            setMoneyInPools(moneyInPoolsLet)
-            //console.log("setting " + state.moneyInPools)
-          } catch (error) { }
+            next2()
+          })
+          setMoneyInPools(moneyInPoolsLet)
         }
-
       });
     });
-  }, [props.betContract]);
+  }, [props.betContract,searchParams.get("n")]);
   useEffect(() => {
     if (props.logged) {
-      let link = "https://testnet.bettingcroc.com/api/myfriends/"
+      let link = MY_SERVER+"/api/myfriends/"
       fetch(link, { method: "GET" }).then((res) => {
         res.json().then((data) => {
           setFriends(data)
@@ -129,23 +125,21 @@ const Bet = (props) => {
             </div>
           </div>
         </div>
-        <div id="superOptionPool">
-          <div id="optionsPool" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-            <div id="gameResults">
-              <p className={props.theme === "light" ? "blackP" : "whiteP"} id="gameResultsP">Game Results</p>
-              {props.logged && status === 0 ? <div className="friendInviterTrigger">
-                <button className="buttonInviter" onClick={openModalInviter}>Invite a friend</button>
-                <FriendInviter address={props.address} socket={props.socket} typeBet="general" friends={friends} modalCloser={closeModalInviter} active={modalInviterOpened} argsBet={{ betNumber: searchParams.get("n"), title: optionsArray }}></FriendInviter>
-              </div> : null}
-            </div>
-            <div id="optionsBox">
-              {
-              optionsArray === undefined ? 
-              null :
-               optionsArray.split(",").map((item, index) => {
-                return <OptionPool key={item} team={item} status={status} moneyInOtherPools={moneyInPools === undefined ? null : moneyInPools} betNumber={searchParams.get("n")} optionNumber={index} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betName={optionsArray} theme={props.theme}></OptionPool>
-              })}
-            </div>
+        <div id="optionsPool" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+          <div id="gameResults">
+            <p className={props.theme === "light" ? "blackP" : "whiteP"} id="gameResultsP">Game Results</p>
+            {props.logged && status === 0 ? <div className="friendInviterTrigger">
+              <button className="buttonInviter" onClick={openModalInviter}>Invite a friend</button>
+              <FriendInviter address={props.address} socket={props.socket} typeBet="general" friends={friends} modalCloser={closeModalInviter} active={modalInviterOpened} argsBet={{ betNumber: searchParams.get("n"), title: optionsArray }}></FriendInviter>
+            </div> : null}
+          </div>
+          <div id="optionsBox">
+            {
+              optionsArray === undefined ?
+                null :
+                optionsArray.split(",").map((item, index) => {
+                  return <OptionPool key={item} team={item} status={status} moneyInOtherPools={moneyInPools === undefined ? null : moneyInPools} betNumber={searchParams.get("n")} optionNumber={index} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betName={optionsArray} theme={props.theme}></OptionPool>
+                })}
           </div>
         </div>
 

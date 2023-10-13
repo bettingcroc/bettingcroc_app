@@ -1,36 +1,76 @@
 .buttonTeamTitle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    border-radius: 5px;
-    background-color: #ECE572;
-    border: none;
-    padding-left: 4px;
-    padding-right: 4px;
-    text-align: center;
-    width: 220px;
-  }
-  .buttonTeamTitleDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    border-radius: 5px;
-    background-color: rgb(236, 229, 114, 0.3);
-    border: none;
-    padding-left: 4px;
-    padding-right: 4px;
-    text-align: center;
-    width: 220px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: #ECE572;
+  border: none;
+  padding: 6px 4px;
+  text-align: center;
+  width: 220px;
+}
+
+.buttonTeamTitleDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgb(236, 229, 114, 0.3);
+  border: none;
+  padding-left: 4px;
+  padding-right: 4px;
+  text-align: center;
+  width: 220px;
+}
+
+.optionPool p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.optionPool {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+}
+
+.tableOptionPool {
+  display: flex;
+  flex-direction: column;
+}
+
+.cellOptionPool1 {
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  margin: 0;
+  font-family: 'Roboto';
+  padding: 6px;
+}
+
+.cellOptionPool2 {
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  margin: 0;
+  font-family: 'Roboto';
+  border-top: none;
+  padding: 6px;
+
+}
+
 @media screen and (max-width: 550px) {
-    .buttonTeamTitle {
-        width: unset;
-    }
-    .buttonTeamTitleDiv {
-        width: unset;
-    }
+  .buttonTeamTitle {
+    width: unset;
+  }
+
+  .buttonTeamTitleDiv {
+    width: unset;
+  }
 }

@@ -35,7 +35,6 @@ class GetGains extends React.Component {
 
   }
   componentDidUpdate(prevProps) {
-    console.log(this.props)
     if ((prevProps.address !== this.props.address || prevProps.betContract !== this.props.betContract) && this.props.betContract !== undefined && this.props.address !== undefined) {
       try {
         this.props.betContract.methods.totalMoneyWonFromUser(this.props.address).call().then(result => {

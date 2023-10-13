@@ -163,23 +163,7 @@
   flex-grow: 0;
 }
 
-#rankingsTitle {
 
-  height: 25px;
-
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 140%;
-
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-}
 
 
 
@@ -202,18 +186,6 @@
 }
 
 
-#rightBar {
-  position: sticky;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: calc(100vh - 70px);
-  z-index: 40;
-  width: 21.875%;
-  top: 70px;
-  border-style: solid;
-  border-width: 1px;
-}
 
 
 
@@ -322,88 +294,7 @@
 
 }
 
-#superOptionPool {
-  /* Todays Sales */
 
-  width: 100%;
-  height: 220px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
-
-#optionsPool {
-  /* Today Sales */
-
-  box-sizing: border-box;
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 31px;
-  gap: 30px;
-
-  width: 100%;
-  height: 220px;
-  border: 1px solid #F8F9FA;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
-
-.optionPool p {
-  margin: 0
-}
-
-.optionPool {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 110px;
-}
-
-#gameResults {
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 0px;
-  height: 32px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
-
-
-#gameResultsP {
-  margin: 0;
-  height: 32px;
-
-  /* H1 */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 32px;
-
-  /* identical to box height, or 160% */
-
-  /* Primary/Dark Shade */
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
 
 
 #nameBet {
@@ -1296,55 +1187,10 @@
   background-color: transparent;
 }
 
-.myBetDiv {
-  width: 100%;
-}
 
-#superMidRightBar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 
-#midRightBar {
-  width: 90%;
-}
 
-.myBetDiv a {
-  border-radius: 5px;
-  width: 370px;
-  height: 50px;
-  color: white
-}
 
-.myBetUnderDiv {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.myBetSuperDiv:hover {
-  background-color: #9294a1;
-
-}
-
-.myBetsDiv {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  align-items: center;
-}
-
-.lineMyBetsPTitle {
-  position: relative;
-  left: 10px;
-}
-
-.lineMyBetsPDate {
-  position: relative;
-  right: 10px;
-}
 
 a:hover {
 
@@ -1550,27 +1396,6 @@ a:hover {
   visibility: collapse;
 }
 
-table.customTable {
-  width: 100%;
-  background-color: #FFFFFF;
-  border-collapse: collapse;
-  border-width: 3px;
-  border-color: #539B57;
-  border-style: solid;
-  color: #000000;
-}
-
-table.customTable td,
-table.customTable th {
-  border-width: 3px;
-  border-color: #539B57;
-  border-style: solid;
-  padding: 5px;
-}
-
-table.customTable thead {
-  background-color: #539B57;
-}
 
 .requestDiv {
   display: flex;
@@ -1657,53 +1482,6 @@ table.customTable thead {
   margin-bottom: 30px;
 }
 
-#changePseudoDiv {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 60%;
-}
-
-.settingsInput {
-  width: 68%;
-}
-
-.settingsButton {
-  width: 28%;
-
-}
-
-#settingsAccount {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: flex-start;
-  padding: 23px 31px;
-  gap: 10px;
-
-  min-height: 190px;
-
-
-  border: 1px solid #F8F9FA;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
-
-#friendsDiv {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: flex-start;
-  padding: 23px 31px;
-  gap: 10px;
-
-  min-height: 190px;
-
-
-  border: 1px solid #F8F9FA;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
 
 .accountP {
   /*padding-left: 20px;*/
@@ -2139,59 +1917,6 @@ table.customTable thead {
   width: 50%;
 }
 
-#myBetsAccountDiv {
-  max-height: 640px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: flex-start;
-  padding: 23px 31px;
-  gap: 10px;
-
-  min-height: 190px;
-
-
-  border: 1px solid #F8F9FA;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
-
-#superMyBetsAccountDiv2 {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: flex-start;
-
-  gap: 10px;
-
-
-  overflow-y: scroll;
-  overflow-x: hidden;
-  width: 100%;
-}
-
-.myBetsAccountDiv3 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  color: black;
-  align-items: center;
-  padding: 6px;
-  border-radius: 8px;
-
-}
-
-.myBetsAccountDiv3:hover {
-  background-color: #d1d1d1;
-}
-
-.myBetsAccountDiv3 p {
-  margin: 0;
-}
-
-.myBetsAccountDiv2 {
-  width: 100%;
-}
 
 #getGains {
   background-color: #ffd700;
@@ -2209,24 +1934,7 @@ table.customTable thead {
   border: none;
 }
 
-.myBetSuperDiv {
-  display: flex;
-  flex-direction: column;
-  background-color: #737791;
-  border: solid;
-  border-width: 10px;
-  border-color: white;
-  border-radius: 20px;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 80px;
-  font-size: 14px;
-}
 
-.myBetSuperDiv p {
-  margin: 0;
-}
 
 .betStateP {
   width: fit-content;
@@ -2278,15 +1986,7 @@ table.customTable thead {
   }
 }
 
-.titleBetAccount {
-  width: 35%;
-}
 
-.dateBetAccount {
-  width: 10%;
-}
-
-.stateBetAccount {}
 
 #minToBetP {
   margin: 0;

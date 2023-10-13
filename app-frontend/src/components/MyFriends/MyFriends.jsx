@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MY_SERVER } from "../../consts"
+
 var __mounted;
 
 class MyFriends extends React.Component {
@@ -13,7 +15,6 @@ class MyFriends extends React.Component {
   }
   componentDidMount() {
     __mounted = true;
-    console.log("mount myFriends")
   }
   componentDidUpdate(prevProps) {
     /*console.log("from myFriends")
@@ -63,7 +64,7 @@ class MyFriends extends React.Component {
 async function removeFriend(args) {
   console.log(__mounted)
   if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/api/removeFriend/";
+    let url = MY_SERVER+"/api/removeFriend/";
     console.log(args)
     console.log(args.head)
 

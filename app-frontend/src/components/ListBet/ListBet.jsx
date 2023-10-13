@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import bettingCrocImage from "./bettingCrocTransparent.png"
 import "./ListBet.css"
+import { MY_SERVER } from "../../consts"
 
 
 var _mounted
@@ -22,7 +23,7 @@ class ListBet extends React.Component {
     _mounted = true
     this.props.mainVueSetter("bet")
 
-    fetch("https://testnet.bettingcroc.com/api/lastbets", { method: "GET" }).then((res) => {
+    fetch(MY_SERVER+"/api/lastbets", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         if (_mounted) {
           this.setState({ matches: data.matches });
@@ -56,7 +57,7 @@ class ListBet extends React.Component {
         //console.log("state.matches then " + this.state.matches);
       });
     });
-    fetch("https://testnet.bettingcroc.com/api/topbets", { method: "GET" }).then((res) => {
+    fetch(MY_SERVER+"/api/topbets", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         if (_mounted) {
           this.setState({ topMatches: data.matches });
@@ -76,7 +77,7 @@ class ListBet extends React.Component {
           {this.state.topMatches.map((item, index) => {
             if (item) {
               return (
-                <Link className="topBetsBox" key={item.betNumber} to={"/bet/numBet?n=" + item.betNumber} >
+                <Link className="topBetsBox" key={item.betNumber} to={"/bet?n=" + item.betNumber} >
                   <div id={"topBetsBox" + (index + 1)} key={item.betNumber} className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
                     <div className="topBetsMiniBox1"><p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
                     <div className="topBetsMiniBox2">
@@ -98,7 +99,7 @@ class ListBet extends React.Component {
               <p id="dateListBet" className={this.props.theme === "light" ? "blackP" : "whiteP"}>{item}</p>
               {this.state.matchesSorted[index].map((item2, index2) =>
                 <div key={item2.betNumber}>
-                  <Link to={"/bet/numBet?n=" + item2.betNumber} >
+                  <Link to={"/bet?n=" + item2.betNumber} >
                     <div className="betLineListBets">
                       <p id="nameBetListBetsP" className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.name}</p>
                       <p className={this.props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.date.split(' ')[3].split(":")[0] + ":" + item2.date.split(' ')[3].split(":")[1]}</p>

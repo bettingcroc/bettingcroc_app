@@ -1,0 +1,20 @@
+#notificationsBox{
+    border: solid 1px grey;
+    padding: 24px;
+    margin-top: 50px;
+    width: 600px;
+    height: 500px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#notificationCenter{
+
+}
+.alignStart{
+    align-self: start;
+}
+.alignCenter{
+    align-self: center;
+}

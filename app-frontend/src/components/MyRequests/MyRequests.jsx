@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { MY_SERVER } from "../../consts"
+
 var __mounted;
 
 class MyRequests extends React.Component {
@@ -10,7 +12,6 @@ class MyRequests extends React.Component {
   }
   componentDidMount() {
     __mounted = true;
-    console.log("mount myRequests")
   }
   componentDidUpdate(prevProps) {
 
@@ -41,10 +42,10 @@ class MyRequests extends React.Component {
                     </button>
                     :
                     item.header === "betInvitation" && JSON.parse(item.body).typeBet === "general" ?
-                      <Link to={"/bet/numBet?n=" + JSON.parse(item.body).argsBet.betNumber}><p>{JSON.parse(item.body).argsBet.title.split(",")[0]} - {JSON.parse(item.body).argsBet.title.split(",")[JSON.parse(item.body).argsBet.title.split(",").length]}</p></Link>
+                      <Link to={"/bet?n=" + JSON.parse(item.body).argsBet.betNumber}><p>{JSON.parse(item.body).argsBet.title.split(",")[0]} - {JSON.parse(item.body).argsBet.title.split(",")[JSON.parse(item.body).argsBet.title.split(",").length]}</p></Link>
                       :
                       item.header === "betInvitation" && JSON.parse(item.body).typeBet === "p2p" ?
-                        <Link to={"/bet/numBet?n=" + JSON.parse(item.body).argsBet.betNumber+"&p2p="+Object.values(JSON.parse(item.body).argsBet.p2pnumber[0])[0]}><p>{JSON.parse(item.body).argsBet.title.split(",")[0]} - {JSON.parse(item.body).argsBet.title.split(",")[JSON.parse(item.body).argsBet.title.split(",").length-1]}</p></Link>
+                        <Link to={"/bet?n=" + JSON.parse(item.body).argsBet.betNumber+"&p2p="+Object.values(JSON.parse(item.body).argsBet.p2pnumber[0])[0]}><p>{JSON.parse(item.body).argsBet.title.split(",")[0]} - {JSON.parse(item.body).argsBet.title.split(",")[JSON.parse(item.body).argsBet.title.split(",").length-1]}</p></Link>
                         :
                         null
                 }
@@ -60,7 +61,7 @@ class MyRequests extends React.Component {
 
 async function answerRequest(args) {
   if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/api/answerRequest/";
+    let url = MY_SERVER+"/api/answerRequest/";
     console.log(args)
     console.log(args.head)
 

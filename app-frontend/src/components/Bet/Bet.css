@@ -1,0 +1,244 @@
+.optionDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 52px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    margin: 0;
+    text-align: center;
+}
+
+#optionsPool {
+    /* Today Sales */
+
+    box-sizing: border-box;
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px 31px;
+    gap: 30px;
+
+    width: 100%;
+    border: 1px solid #F8F9FA;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+}
+
+
+
+#gameResults {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0px;
+    height: 32px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+
+#gameResultsP {
+    margin: 0;
+    height: 32px;
+
+    /* H1 */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+
+    /* identical to box height, or 160% */
+
+    /* Primary/Dark Shade */
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+#schedule {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #F4F7F9;
+    border-radius: 14px;
+    flex: none;
+    flex-grow: 0;
+    order: 0;
+    flex-grow: 0;
+    padding: 6px;
+}
+
+#scheduleP {
+
+
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 26px;
+    line-height: 32px;
+
+    /* identical to box height, or 123% */
+
+    /* Texte gris */
+    color: #737791;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    text-align: center;
+}
+
+#underNameBet {
+    /* Today Sales */
+
+    box-sizing: border-box;
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px 31px;
+    gap: 10px;
+
+    height: 190px;
+
+
+    border: 1px solid #F8F9FA;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+}
+
+#p2p1 {
+    /* Frame 1000002764 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 20px;
+
+    width: 100%;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 3;
+    flex-grow: 0;
+}
+
+#countryLeagueDate {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#optionsSchedule {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media screen and (max-width: 550px) {
+    .optionDiv {
+        font-size: 16px;
+        line-height: unset;
+        width: unset;
+        height: unset;
+    }
+
+    #schedule {
+        width: unset;
+        height: unset;
+    }
+
+    #scheduleP {
+        font-size: unset;
+    }
+
+    #underNameBet {
+        height: unset;
+    }
+
+    #p2p1 {
+        flex-direction: column;
+    }
+
+    .headerTitle {
+
+        /* H1 */
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: unset;
+
+        /* identical to box height, or 160% */
+
+        /* Primary/Dark Shade */
+        color: #05004E;
+
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+
+    .headerTitleDark {
+
+        /* H1 */
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: unset;
+
+        /* identical to box height, or 160% */
+
+        /* Primary/Dark Shade */
+        color: #ffffff;
+
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+
+    #countryLeagueDate {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #optionsSchedule {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

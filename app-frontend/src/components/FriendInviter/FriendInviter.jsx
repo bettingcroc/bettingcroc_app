@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import { MY_SERVER } from "../../consts"
+
 var __mounted;
 
 class FriendInviter extends React.Component {
@@ -137,7 +139,7 @@ function addressReducer(address) {
 
 async function sendBetInvitation(address, message, argsBet,typeBet) {
   if (__mounted) {
-    let url = "https://testnet.bettingcroc.com/api/sendFriendRequest/";
+    let url = MY_SERVER+"/api/sendFriendRequest/";
     let bodyToSend = JSON.stringify({
       "head": "betInvitation",
       "address": address,
