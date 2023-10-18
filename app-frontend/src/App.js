@@ -58,10 +58,20 @@ function App() {
         })
         socket.on('ReceivedFriendRequest', (from) => {
             console.log("ReceivedFriendRequest from" + from)
+            toast.info(from + " wants to be your friend", {
+                position: toast.POSITION.TOP_CENTER,
+                icon: "👥",
+                data: { "inCenter": true, "read": "0"}
+            });
             setRequestUpdater(Math.random())
         })
         socket.on('ReceivedBetInvitation', (from) => {
             console.log("ReceivedBetInvitation from" + from)
+            toast.info(from + " wants you to bet on something...", {
+                position: toast.POSITION.TOP_CENTER,
+                icon: "📨",
+                data: { "inCenter": true, "read": "0"}
+            });
             setRequestUpdater(Math.random())
         })
         socket.on('newFriendAcceptedToSender', (from) => {
@@ -72,6 +82,7 @@ function App() {
             setTimeout(() => socket.connect(), 5000)
         })
         if (defaultAccount !== undefined) {
+            console.log("joiningRoom " + defaultAccount)
             socket.emit('joinRoom', defaultAccount.toLowerCase())
         }
         socket.on('disconnect', () => console.log('server disconnected'))
@@ -171,6 +182,10 @@ function App() {
     useEffect(() => {
         updateMyBets()
         updateMyP2PBets()
+        if (defaultAccount !== undefined) {
+            console.log("joiningRoom " + defaultAccount)
+            socket.emit('joinRoom', defaultAccount.toLowerCase())
+        }
     }, [defaultAccount])
 
     async function chainChanger() {

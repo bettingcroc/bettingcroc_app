@@ -1,7 +1,7 @@
 const express = require('express')
 const logger = require('./logger.js')
 const model = require('./model')
-var cors = require('cors')
+const cors = require('cors')
 const users = require('./users')
 const apiServer = require('./apiServer')
 const app = express()
@@ -11,9 +11,10 @@ const socketIo = require("socket.io")
 const http = require("http")
 const server = http.createServer(app)
 
+
 const io = socketIo(server, {
   cors: {
-    origin: "https://testnet.bettingcroc.com"
+    origin: "http://localhost:3000"
   }
 }) //in case server and client run on different urls
 
@@ -79,10 +80,16 @@ function updateTopBets() {
 
 
 app.use(session({
-  "secret": "zgkijngzjigizg244515FGFG"
+  "secret": "zgkijngzjigizg244515FGFG",
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
 }))
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000', // replace with your frontend URL
+  credentials: true
+}));
 app.use(express.json())
 
 /*app.listen(port, () => {
@@ -119,6 +126,25 @@ app.get('/api/nonce/:address', async (req, res) => {
   res.send({ 'nonce': req.session.nonce })
 })
 
+app.post('/api/login_unsecure', (req, res) => {
+  console.log('POST /login_unsecure')
+  console.log(req.body.address)
+  if (req.body.address === undefined) {
+    console.log("trying to log without address")
+    res.status(401).send()
+  }
+  else {
+    req.session.logged = true
+    req.session.address = req.body.address.toLowerCase()
+    let position = users.get_Classement_address(req.body.address.toLowerCase());
+    if (position === undefined) {
+      users.addUser(req.body.address);
+    }
+    req.session.save()
+    res.send("login")
+  }
+})
+
 app.post('/login', (req, res) => {
   console.log('POST /login')
   let nonce = req.session.nonce
@@ -143,8 +169,8 @@ app.post('/logout', (req, res) => {
 })
 app.get('/api/testLogin', (req, res) => {
   console.log('GET /testLogin')
-
-  res.send({ isLogged: req.session.logged })
+  console.log(req.sessionID + " is " + req.session.logged + " " + req.session.address)
+  res.send({ isLogged: req.session.logged, address: req.session.address })
 })
 app.post('/api/setUpPseudo/', (req, res) => {
   console.log('POST /api/setUpPseudo/')
@@ -162,7 +188,7 @@ app.post('/api/setUpPseudo/', (req, res) => {
 
 app.post('/api/sendFriendRequest/', (req, res) => {
   console.log('POST /api/sendFriendRequest/')
-
+  //TODO check si la request existe
   if (req.session.logged === true) {
     //console.log(req.body)
     if (req.body.head === "newFriend") {
@@ -198,9 +224,13 @@ app.post('/api/answerRequest/', (req, res) => {
   console.log('POST /api/answerRequest/')
 
   if (req.session.logged === true) {
-    //console.log(req.body, " from ", req.session.address)
-    users.answerRequest(req.body, req.session.address)
-    res.status(200).send()
+    if (users.answerRequest(req.body, req.session.address)) {
+      res.status(200).send()
+    }
+    else {
+      console.log("users already friends")
+      res.status(401).send()
+    }
   }
   else {
     console.log("not logged")
@@ -224,8 +254,6 @@ app.post('/api/removeFriend/', (req, res) => { //
 
 app.get('/api/myrequests', (req, res) => {
   console.log('GET /api/myrequests/')
-  res.send(apiServer.getMyRequests("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0".toLowerCase()))
-
   if (req.session.logged === true) {
     res.send(apiServer.getMyRequests(req.session.address))
   }
@@ -235,9 +263,20 @@ app.get('/api/myrequests', (req, res) => {
   }
 })
 
+app.post('/api/setmyrequests_read', (req, res) => {
+  console.log('POST /api/setmyrequests_read/')
+  if (req.session.logged === true) {
+    apiServer.setMyRequestsRead(req.session.address)
+    res.status(200).send()
+  }
+  else {
+    console.log("not logged")
+    res.status(401).send()
+  }
+})
+
 app.get('/api/myrequests_unread', (req, res) => {
   console.log('GET /api/myrequests_unread/')
-  res.send(apiServer.getMyRequestsUnread("0x72454D7B1328bDc323c96cd86EAAe6f87Ec598d0".toLowerCase()))
   if (req.session.logged === true) {
     res.send(apiServer.getMyRequestsUnread(req.session.address))
   }
@@ -249,7 +288,6 @@ app.get('/api/myrequests_unread', (req, res) => {
 
 app.get('/api/myfriends', (req, res) => {
   console.log('GET /api/myfriends/')
-
   if (req.session.logged === true) {
     res.send(apiServer.getMyFriends(req.session.address))
   }

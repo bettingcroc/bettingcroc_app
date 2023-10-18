@@ -1,122 +1,125 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import { MY_SERVER } from "../../consts"
 
 var __mounted;
 
-class FriendInviter extends React.Component {
-  constructor(props) {
-    super(props)
-    this.setModal = this.setModal.bind(this);
-    this.setSelectedOption = this.setSelectedOption.bind(this);
-    this.handleClickAwayEvent = this.handleClickAwayEvent.bind(this);
-    this.sendInvitationReact = this.sendInvitationReact.bind(this);
-    this.state = {
-      selectedOption: undefined,
-      message: "",
-      friendToDisplay: "",
-      isASearchRequest: false,
-      errorMessage: null
-    }
-  }
-  componentDidMount() {
-    this.setState({
-      modal: "collapse"
-    })
-    __mounted=true;
-  }
-  setModal() {
-    if (this.state.modal === "collapse") {
-      this.setState({ modal: null })
+function FriendInviter(props) {
+  const [selectedOption, setSelectedOption] = useState()
+  const [message, setMessage] = useState("")
+  const [friendToDisplay, setFriendToDisplay] = useState("")
+  const [isASearchRequest, setIsASearchRequest] = useState(false)
+  const [errorMessage, setErrorMessage] = useState()
+  const [modal, setModal] = useState("collapse")
+
+  function toggleModal() {
+    if (modal === "collapse") {
+      setModal(null)
     }
     else {
-      this.setState({ modal: "collapse" })
+      setModal("collapse")
     }
   }
-  setSelectedOption(option) {
-    this.setState({ selectedOption: option })
+  function handleClickAwayEvent() {
+    setModal("collapse")
   }
-  handleClickAwayEvent() {
-    this.setState({ modal: "collapse" })
-  }
-  sendInvitationReact(address, message, argsBet,typeBet) {
+  function sendBetInvitation(address, message, argsBet, typeBet) {
     console.log("sendingInvitation")
-    console.log(this.props.friends)
-    console.log(this.state.selectedOption)
+    console.log(props.friends)
+    console.log(selectedOption)
     console.log(address, message, argsBet)
-
-    sendBetInvitation(address, message, argsBet,typeBet)
-    this.props.socket.emit("sendBetInvitation", { fromAddress: this.props.address, toAddress: address })
+    let url = MY_SERVER + "/api/sendFriendRequest/";
+    let options = {
+      method: "POST",
+      body: JSON.stringify({
+        "head": "betInvitation",
+        "address": address,
+        "message": message,
+        "argsBet": argsBet,
+        "typeBet": typeBet
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include'
+    };
+      fetch(url, options).then((res) => {
+        console.log("done " + res.status);
+        if(res.status===200){
+          props.socket.emit("sendBetInvitation", { fromAddress: props.address, toAddress: address })
+        }
+      });
     return
   }
-  render() {
-    if (this.props.active) {
-      return (
-        <ClickAwayListener onClickAway={this.props.modalCloser}>
+  return (
+    <ClickAwayListener onClickAway={props.modalCloser}>
 
-          <div className="friendInviter">
-            <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
-              <div className="superinputLine1FriendInviter">
-                <div className="inputLine1FriendInviter" onClick={this.setModal}>
-                  <input placeholder='Select a friend' onChange={(e) => { this.setState({ friendToDisplay: e.target.value }); this.setSelectedOption(undefined); this.setState({ isASearchRequest: true }) }} className='inputAddressInviter' type='text' value={this.state.friendToDisplay}></input>
-                </div>
-                <div id="modalinputLine1FriendInviter" className={this.state.modal}>
-                  {this.props.friends === null
-                    ? null
-                    : this.props.friends.map((item, index) => {
-                      if (!this.state.isASearchRequest) {
-                        return (
-                          <div key={index} className="lineModalFriendInviter" onClick={() => { this.setSelectedOption(index); this.setState({ friendToDisplay: item.pseudo }); this.setModal(); this.setState({ isASearchRequest: false }) }}>
-                            <p className="lineModalFriendInviterP"> {item.pseudo}</p><p className="lineAddressModalFriendInviterP"> {addressReducer(item.address2)}</p>
-                          </div>
-                        );
-                      } else {
-                        if (item.pseudo.toLowerCase().includes(this.state.friendToDisplay.toLowerCase())) {
-                          return (
-                            <div key={index} className="lineModalFriendInviter" onClick={() => { this.setSelectedOption(index); this.setState({ friendToDisplay: item.pseudo }); this.setModal(); this.setState({ isASearchRequest: false }) }}>
-                              <p className="lineModalFriendInviterP"> {item.pseudo}</p><p className="lineAddressModalFriendInviterP"> {addressReducer(item.address2)}</p>
-                            </div>
-                          );
-                        } else {
-                          return null
-                        }
-                      }
-                    })}
-                </div>
-              </div>
-            </ClickAwayListener>
-            <div className="superinputLine1FriendInviter">
-
-              <div className="inputLine1FriendInviter">
-
-                <input placeholder='Type something..' onChange={(e) => this.setState({ message: e.target.value })}
-                  className='inputMessageFriendInviter' type='text'></input>
-              </div>
+      <div className="friendInviter">
+        <ClickAwayListener onClickAway={handleClickAwayEvent}>
+          <div className="superinputLine1FriendInviter">
+            <div className="inputLine1FriendInviter" onClick={toggleModal}>
+              <input placeholder='Select a friend' onChange={(e) => {console.log(e.target.value); if (e.target.value === null) { setFriendToDisplay("") } else { setFriendToDisplay(e.target.value) }; setSelectedOption(undefined); setIsASearchRequest(true) }} className='inputAddressInviter' type='text' value={friendToDisplay}></input>
             </div>
-            <div className='lastLineDivFriendInviter'>
-              <button className='sendInvitation' onClick={(event) => {
-                if (this.state.selectedOption !== undefined) {
-                  if (this.props.argsBet.p2pnumber !== null && this.props.typeBet === "p2p" || this.props.typeBet ==="general" ) {
-                    this.sendInvitationReact(this.props.friends[this.state.selectedOption].address2, this.state.message, this.props.argsBet,this.props.typeBet);
-                    this.setState({ errorMessage: "Invitation sent !" })
-                  }else{
-                    this.setState({ errorMessage: "Select a bet !" })
+            <div id="modalinputLine1FriendInviter" className={modal}>
+              {props.friends === null
+                ? null
+                : props.friends.map((item, index) => {
+                  if (!isASearchRequest) {
+                    return (
+                      <div key={index} className="lineModalFriendInviter" onClick={() => { setSelectedOption(index); console.log(item.pseudo); if (item.pseudo === null) { setFriendToDisplay("") } else { setFriendToDisplay(item.pseudo) }; toggleModal(); setIsASearchRequest(false) }}>
+                        <p className="lineModalFriendInviterP"> {item.pseudo}</p><p className="lineAddressModalFriendInviterP"> {addressReducer(item.address2)}</p>
+                      </div>
+                    );
+                  } else {
+                    console.log(friendToDisplay)
+                    if(item.pseudo===null){
+                      return null
+                    }
+                    if (item.pseudo.toLowerCase().includes(friendToDisplay.toLowerCase())) {
+                      return (
+                        <div key={index} className="lineModalFriendInviter" onClick={() => { setSelectedOption(index); console.log(item.pseudo); if (item.pseudo === null) { setFriendToDisplay("") } else { setFriendToDisplay(item.pseudo) }; toggleModal(); setIsASearchRequest(false) }}>
+                          <p className="lineModalFriendInviterP"> {item.pseudo}</p><p className="lineAddressModalFriendInviterP"> {addressReducer(item.address2)}</p>
+                        </div>
+                      );
+                    } else {
+                      return null
+                    }
                   }
-                }
-                else { this.setState({ errorMessage: "Select a friend !" }) }
-              }}>Send invitation</button>
-              <p className='errorMessageFriendInviter'>{this.state.errorMessage}</p>
+                })}
             </div>
           </div>
         </ClickAwayListener>
-      )
-    }
-    else {
-      return null
-    }
-  }
+        <div className="superinputLine1FriendInviter">
+
+          <div className="inputLine1FriendInviter">
+
+            <input placeholder='Type something..' onChange={(e) => setMessage(e.target.value)}
+              className='inputMessageFriendInviter' type='text'></input>
+          </div>
+        </div>
+        <div className='lastLineDivFriendInviter'>
+          <button className='sendInvitation' onClick={(event) => {
+            if (selectedOption !== undefined) {
+              if (props.argsBet.p2pnumber !== null && props.typeBet === "p2p" || props.typeBet === "general") {
+                sendBetInvitation(props.friends[selectedOption].address2, message, props.argsBet, props.typeBet);
+                setErrorMessage("Invitation sent !")
+              } else {
+                setErrorMessage("Select a bet !")
+
+              }
+            }
+            else {
+              setErrorMessage("Select a friend !")
+            }
+          }}>Send invitation</button>
+          <p className='errorMessageFriendInviter'>{errorMessage}</p>
+        </div>
+      </div>
+    </ClickAwayListener>
+  )
 }
+
 
 
 FriendInviter.propTypes = {};
@@ -135,32 +138,4 @@ function addressReducer(address) {
     addressReduced += address[i]
   }
   return addressReduced
-}
-
-async function sendBetInvitation(address, message, argsBet,typeBet) {
-  if (__mounted) {
-    let url = MY_SERVER+"/api/sendFriendRequest/";
-    let bodyToSend = JSON.stringify({
-      "head": "betInvitation",
-      "address": address,
-      "message":message,
-      "argsBet":argsBet,
-      "typeBet":typeBet
-    });
-    let options = {
-      method: "POST",
-      body: bodyToSend,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    await new Promise(next => {
-      fetch(url, options).then((res) => {
-        console.log("done " + res.status);
-        next()
-      });
-    })
-    console.log("end function")
-    return ("done2")
-  }
 }

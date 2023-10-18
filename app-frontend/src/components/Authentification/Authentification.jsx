@@ -109,7 +109,6 @@ async function requestLogin(nonce, web3, address) {
       signedNonce: signedNonce,
       address: address,
     });
-    console.log(url);
     let options = {
       method: "POST",
       body: bodyToSend,
@@ -132,6 +131,7 @@ async function testLogin() {
     let url = MY_SERVER+"/api/testlogin";
     let options = {
       method: "GET",
+      credentials:'include'
     };
     let result
     await new Promise(next => {

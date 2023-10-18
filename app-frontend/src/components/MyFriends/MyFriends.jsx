@@ -4,90 +4,56 @@ import { MY_SERVER } from "../../consts"
 
 var __mounted;
 
-class MyFriends extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loaded: false,
-      myFriends: undefined,
-    };
-    this.removeFriendReact = this.removeFriendReact.bind(this)
-  }
-  componentDidMount() {
-    __mounted = true;
-  }
-  componentDidUpdate(prevProps) {
-    /*console.log("from myFriends")
-    try {
-      console.log(this.props.myFriends)
-
-    }
-    catch (e) {
-      console.log(e)
-    }
-    console.log("from myFriends")*/
-
-  }
-
-  removeFriendReact(args) {
-    removeFriend(args)
-    this.props.updateFriends()
-  }
-  render() {
-    return (
-        <div className="accountContainer">
-          {this.props.myFriends !== undefined ?
-            this.props.myFriends.map((item) => {
-              return (
-                <div key={item.address2} className="requestDiv">
-                  <p>{item.pseudo}</p>
-
-                  <p>{item.address2}</p>
-                  <button className='generalsButton' onClick={(event) => { //e is undefined
-                    this.removeFriendReact(
-                      { "head": "removeFriend", "oldFriend": item.address2 }
-                    )
-                  }
-                  }
-                  >
-                    <p className="buttonP">Remove</p></button>
-                </div>
-              );
-            }) : null}
-        </div>
-    );
-  }
+function MyFriends(props) {
 
 
-}
-
-async function removeFriend(args) {
-  console.log(__mounted)
-  if (__mounted) {
-    let url = MY_SERVER+"/api/removeFriend/";
-    console.log(args)
-    console.log(args.head)
-
-    let bodyToSend = JSON.stringify(
-      args
-    );
+  function removeFriend(args) {
+    let url = MY_SERVER + "/api/removeFriend/";
     let options = {
       method: "POST",
-      body: bodyToSend,
+      body: JSON.stringify(
+        args
+      ),
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include'
     };
-    await new Promise(next => {
-      fetch(url, options).then((res) => {
-        console.log("done " + res.status);
-        next()
-      });
-    })
-    console.log("end function")
-    return ("done2")
+    fetch(url, options).then((res) => {
+      console.log("done " + res.status);
+      if (res.status === 200) {
+        props.updateFriends()
+      }
+    });
   }
+
+  return (
+    <div className="accountContainer">
+      {props.myFriends !== undefined ?
+        props.myFriends.map((item) => {
+          return (
+            <div key={item.address2} className="requestDiv">
+              <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.pseudo}</p>
+
+              <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.address2}</p>
+              <button className='generalsButton' onClick={(event) => { //e is undefined
+                removeFriend(
+                  { "head": "removeFriend", "oldFriend": item.address2 }
+                )
+              }
+              }
+              >
+                <p className="buttonP">Remove</p></button>
+            </div>
+          );
+        }) : null}
+    </div>
+  );
+
+
 }
+
+
 
 MyFriends.propTypes = {};
 

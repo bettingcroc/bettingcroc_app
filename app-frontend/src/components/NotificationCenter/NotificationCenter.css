@@ -1,13 +1,13 @@
 #notificationsBox{
     border: solid 1px grey;
     padding: 24px;
-    margin-top: 50px;
     width: 600px;
     height: 500px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-y: scroll;
 }
 #notificationCenter{
 
@@ -18,3 +18,16 @@
 .alignCenter{
     align-self: center;
 }
+.notificationLine{
+    border-bottom: solid 1px #CDCDCD;
+    border-top: solid 1px #CDCDCD;
+
+    padding: 12px 12px;
+}
+
+.newNotificationLight{
+    background-color: #c3fbc6;
+} 
+.newNotificationDark{
+    background-color: #2b4f2d;
+} 

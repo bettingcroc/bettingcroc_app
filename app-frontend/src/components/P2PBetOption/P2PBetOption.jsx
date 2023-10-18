@@ -57,7 +57,7 @@ class P2PBetOption extends React.Component {
           <p id="line1P2POption" className={this.props.theme === "light" ? "blackP" : "whiteP"}>P2P Bets {this.props.optionsArray === undefined ? null : this.props.args === undefined ? null : " against " + this.props.optionsArray.split(",")[this.props.args[0]['6']]}</p>
           {this.props.logged && this.props.status === 0 ? <div className="friendInviterTrigger">
             <button className="buttonInviter" onClick={this.openModalInviter}>Invite a friend</button>
-            <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} active={this.state.modalInviterOpened}></FriendInviter>
+            {this.state.modalInviterOpened ? <FriendInviter address={this.props.address} socket={this.props.socket} typeBet="p2p" argsBet={{ betNumber: this.props.betNumber, title: this.props.optionsArray, p2pnumber: this.props.args }} friends={this.props.friends} modalCloser={this.closeModalInviter} ></FriendInviter> : null}
           </div> : null}
 
         </div>

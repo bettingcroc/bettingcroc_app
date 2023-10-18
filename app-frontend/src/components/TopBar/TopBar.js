@@ -11,24 +11,45 @@ import NotificationCenter from "../NotificationCenter/NotificationCenter";
 import { MY_SERVER } from "../../consts"
 
 function TopBar(props) {
-  const [unread, setunRead] = useState(0)
-  const [modalOpened, setModalOpened] = useState(false)
 
-  useEffect(() => {
-    fetch(MY_SERVER + "/api/myrequests_unread", { method: "GET" }).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          setunRead(data.unread)
-        })
-      }
-    })
-  }, []) //props.logged TOFIX
+
   function notif() {
     toast.success("Success Notification !", {
       position: toast.POSITION.TOP_CENTER,
       data: { "inCenter": true }
     });
   }
+
+  function login_unsecure() {
+    let url = MY_SERVER + "/api/login_unsecure";
+    let bodyToSend = JSON.stringify({
+      address: props.defaultAccount
+    })
+    let options = {
+      method: "POST",
+      body: bodyToSend,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include'
+    };
+    fetch(url, options).then((res) => {
+      let url = MY_SERVER + "/api/testlogin";
+      let options = {
+        method: "GET",
+        credentials: 'include'
+
+      };
+      let result
+      fetch(url, options).then((res) => {
+        res.json().then((data) => {
+          if (data.isLogged === true) { props.setLogged(true) }
+          else { props.setLogged(false) }
+        })
+      });
+    })
+  }
+
   return (
     <div id="topBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
       <div id="topLeft">
@@ -43,11 +64,12 @@ function TopBar(props) {
           <Link to="/decentrabet"><p id="decentraBetTitle" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
           <Link to="/rankings"><p id="rankingsLink" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
         </div>
-        <button onClick={notif}>toast</button>
+        /<button onClick={notif}>toast</button>
+        <button onClick={login_unsecure}>login_unsecure</button>
       </div>
       <div id="topRight">
-        <button onClick={(e) => setModalOpened(true)}>Notifications ({unread})</button>
-        <NotificationCenter unread theme={props.theme} modalOpened={modalOpened} setModalOpened={setModalOpened}></NotificationCenter>
+        <NotificationCenter theme={props.theme} logged={props.logged}></NotificationCenter>
+
 
         <ThemeSwitcher theme={props.theme} switchTheme={props.switchTheme} id={"themeSwitcherTopBar"}></ThemeSwitcher>
         <Connecter accountChangedHandler={props.accountChangedHandler} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></Connecter>

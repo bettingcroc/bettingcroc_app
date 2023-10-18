@@ -28,13 +28,13 @@ function Account(props) {
         props.setLogged(true);
         if (props.logged) {
           let link2 = MY_SERVER + "/api/myrequests"
-          fetch(link2, { method: "GET" }).then((res) => {
+          fetch(link2, { method: "GET", credentials:'include' }).then((res) => {
             res.json().then((data) => {
               if (requests === undefined) { setRequests(data) }
             });
           });
           let link3 = MY_SERVER + "/api/myfriends/"
-          fetch(link3, { method: "GET" }).then((res) => {
+          fetch(link3, { method: "GET", credentials:'include' }).then((res) => {
             res.json().then((data) => {
               if (friends === undefined) {
                 setFriends(data)
@@ -55,8 +55,9 @@ function Account(props) {
       updateRequests()
     }
   }, [props.requestUpdater])
-  useEffect(() => {
+  useEffect(() => { 
     if (props.logged) {
+      console.log("friends update")
       updateFriends()
     }
   }, [props.friendsUpdater])
@@ -119,6 +120,7 @@ function Account(props) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials:'include'
     };
     await new Promise(next => {
       fetch(url, options).then((res) => {
@@ -137,7 +139,7 @@ function Account(props) {
     let url = MY_SERVER + "/api/testlogin";
 
     let options = {
-      method: "GET",
+      method: "GET", credentials:'include'
     };
     let result
     await new Promise(next => {
@@ -153,7 +155,7 @@ function Account(props) {
   function updateRequests() {
     console.log("update requests")
     let link2 = MY_SERVER + "/api/myrequests"
-    fetch(link2, { method: "GET" }).then((res) => {
+    fetch(link2, { method: "GET", credentials: 'include' }).then((res) => {
       if (res.status === 200) {
         res.json().then((data) => {
           setRequests(data)
@@ -164,7 +166,7 @@ function Account(props) {
   function updateFriends() {
     console.log("updateFriends")
     let link = MY_SERVER + "/api/myfriends/"
-    fetch(link, { method: "GET" }).then((res) => {
+    fetch(link, { method: "GET", credentials: 'include'  }).then((res) => {
       res.json().then((data) => {
         setFriends(data)
       });
@@ -216,12 +218,12 @@ function Account(props) {
         </div>
 
         <p id={cssmessageAddFriend}>{messageAddFriend}</p>
-        <MyFriends updateFriends={updateFriends} myFriends={friends} address={props.address} logged={props.logged} setFriendsList={setFriends}></MyFriends>
+        <MyFriends theme={props.theme} updateFriends={updateFriends} myFriends={friends} address={props.address} logged={props.logged} setFriendsList={setFriends}></MyFriends>
       </div> : null}
       {props.logged ? <div id="requestSuperDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
 
-        <MyRequests socket={props.socket} updateRequests={updateRequests} requests={requests} updateFriends={updateFriends} address={props.address} logged={props.logged}></MyRequests>
+        <MyRequests theme={props.theme} socket={props.socket} updateRequests={updateRequests} requests={requests} updateFriends={updateFriends} address={props.address} logged={props.logged}></MyRequests>
       </div> : null}
       {props.logged ? <div id="settingsAccount" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>

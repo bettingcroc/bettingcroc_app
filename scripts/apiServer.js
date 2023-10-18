@@ -1915,7 +1915,7 @@ async function getMyP2PBets(address) {
 function getMyRequests(address, maxDate = 0) {
 	//console.log(maxDate)
 	if (maxDate === 0) {
-		let select = db.prepare(`select address1,address2,header,body,dateRequest,pseudo,id from friendsRequests,Players where address2='${address}' and address=address1;`);
+		let select = db.prepare(`select address1,address2,header,body,dateRequest,read,pseudo,id from friendsRequests,Players where address2='${address}' and address=address1;`);
 		let result = select.all();
 		//console.log(result)
 		if (result) return result;
@@ -1936,6 +1936,14 @@ function getMyFriends(address) {
 	if (result) return result;
 }
 
+function setMyRequestsRead(address) {
+	let update = db.prepare(`UPDATE friendsRequests
+	SET read=1
+	WHERE
+		read=0 and address2='${address}'`)
+	update.run()
+}
+
 module.exports = {
 	getTodayMatches: getTodayMatches,
 	getMatchInfo: getMatchInfo,
@@ -1948,5 +1956,6 @@ module.exports = {
 	getMyP2PBets: getMyP2PBets,
 	getMyRecentsBets: getMyRecentsBets,
 	newNonce: newNonce,
-	getMyRequestsUnread: getMyRequestsUnread
+	getMyRequestsUnread: getMyRequestsUnread,
+	setMyRequestsRead: setMyRequestsRead
 }

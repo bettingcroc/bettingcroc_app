@@ -26,7 +26,7 @@ const Bet = (props) => {
 
   useEffect(() => {
     props.mainVueSetter("bet")
-    fetch(MY_SERVER+"/api/infoMatch/" + searchParams.get("n"), { method: "GET" }).then((res) => {
+    fetch(MY_SERVER + "/api/infoMatch/" + searchParams.get("n"), { method: "GET" }).then((res) => {
       res.json().then(async (data) => {
         setOptionArray(data.optionsArray)
         setDate(data.date)
@@ -75,11 +75,11 @@ const Bet = (props) => {
         }
       });
     });
-  }, [props.betContract,searchParams.get("n")]);
+  }, [props.betContract, searchParams.get("n")]);
   useEffect(() => {
     if (props.logged) {
-      let link = MY_SERVER+"/api/myfriends/"
-      fetch(link, { method: "GET" }).then((res) => {
+      let link = MY_SERVER + "/api/myfriends/"
+      fetch(link, { method: "GET", credentials: 'include' }).then((res) => {
         res.json().then((data) => {
           setFriends(data)
         });
@@ -130,7 +130,7 @@ const Bet = (props) => {
             <p className={props.theme === "light" ? "blackP" : "whiteP"} id="gameResultsP">Game Results</p>
             {props.logged && status === 0 ? <div className="friendInviterTrigger">
               <button className="buttonInviter" onClick={openModalInviter}>Invite a friend</button>
-              <FriendInviter address={props.address} socket={props.socket} typeBet="general" friends={friends} modalCloser={closeModalInviter} active={modalInviterOpened} argsBet={{ betNumber: searchParams.get("n"), title: optionsArray }}></FriendInviter>
+              {modalInviterOpened ? <FriendInviter address={props.address} socket={props.socket} typeBet="general" friends={friends} modalCloser={closeModalInviter} argsBet={{ betNumber: searchParams.get("n"), title: optionsArray }}></FriendInviter> : null}
             </div> : null}
           </div>
           <div id="optionsBox">

@@ -1655,7 +1655,7 @@ function newFriendRequest(args, address) {
 	timeNow = new Date().toLocaleTimeString();
 	dateNow = new Date().toLocaleDateString();
 	//console.log(address,args.newFriend,args.head, JSON.stringify(args),dateNow+" "+timeNow)
-	insert.run(address, args.newFriend.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow, 0);
+	insert.run(address, args.newFriend.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow, "0");
 }
 
 function newBetInvitation(args, address) {
@@ -1664,8 +1664,8 @@ function newBetInvitation(args, address) {
 	let insert = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest,read) VALUES (?,?,?,?,?,?)`);
 	timeNow = new Date().toLocaleTimeString();
 	dateNow = new Date().toLocaleDateString();
-	//console.log(address,args.newFriend,args.head, JSON.stringify(args),dateNow+" "+timeNow)
-	insert.run(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow), 0;
+	console.log(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow)
+	insert.run(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow, "0");
 }
 
 function areUsersFriends(address1, address2) {
@@ -1677,14 +1677,18 @@ function areUsersFriends(address1, address2) {
 }
 
 function answerRequest(args, address) {
-	console.log(address)
-	console.log(address)
 	if (args.head === "newFriend") {
-		let insert = db.prepare(`INSERT INTO friendsLinks (address1,address2) VALUES (?,?)`);
-		insert.run(address.toLowerCase(), args.newFriend.toLowerCase());
-		insert.run(args.newFriend.toLowerCase(), address.toLowerCase());
-		let del = db.prepare('DELETE FROM friendsRequests WHERE id=' + args.id)
-		del.run()
+		if (!areUsersFriends(address.toLowerCase(), args.newFriend.toLowerCase())) {
+			let insert = db.prepare(`INSERT INTO friendsLinks (address1,address2) VALUES (?,?)`);
+			insert.run(address.toLowerCase(), args.newFriend.toLowerCase());
+			insert.run(args.newFriend.toLowerCase(), address.toLowerCase());
+			let del = db.prepare('DELETE FROM friendsRequests WHERE id=' + args.id)
+			del.run()
+			return true
+		}
+		else {
+			return false
+		}
 	}
 }
 function removeFriend(args, address) {

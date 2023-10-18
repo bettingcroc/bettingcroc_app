@@ -69,6 +69,26 @@
     z-index: 0;
 }
 
+#notificationBox {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+#notificationButton {
+    margin-top: 17.5px;
+    padding: 8px;
+    background-color: #539B57;
+    border: none;
+    color: white;
+    font-size: 16px;
+    width: fit-content;
+    border-radius: 8px;
+}
+
+
 @media screen and (max-width: 1080px) {
     #themeSwitcherTopBar {
         display: none !important;
