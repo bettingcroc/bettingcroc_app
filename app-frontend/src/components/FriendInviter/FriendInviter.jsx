@@ -25,10 +25,6 @@ function FriendInviter(props) {
     setModal("collapse")
   }
   function sendBetInvitation(address, message, argsBet, typeBet) {
-    console.log("sendingInvitation")
-    console.log(props.friends)
-    console.log(selectedOption)
-    console.log(address, message, argsBet)
     let url = MY_SERVER + "/api/sendFriendRequest/";
     let options = {
       method: "POST",
@@ -44,12 +40,16 @@ function FriendInviter(props) {
       },
       credentials: 'include'
     };
-      fetch(url, options).then((res) => {
-        console.log("done " + res.status);
-        if(res.status===200){
-          props.socket.emit("sendBetInvitation", { fromAddress: props.address, toAddress: address })
-        }
-      });
+    fetch(url, options).then((res) => {
+      console.log("done " + res.status);
+      if (res.status === 200) {
+        props.socket.emit("sendBetInvitation", { fromAddress: props.address, toAddress: address })
+        setErrorMessage("Invitation sent !")
+      }
+      if (res.status === 401) {
+        setErrorMessage("You already invited your friend !")
+      }
+    });
     return
   }
   return (
@@ -59,7 +59,7 @@ function FriendInviter(props) {
         <ClickAwayListener onClickAway={handleClickAwayEvent}>
           <div className="superinputLine1FriendInviter">
             <div className="inputLine1FriendInviter" onClick={toggleModal}>
-              <input placeholder='Select a friend' onChange={(e) => {console.log(e.target.value); if (e.target.value === null) { setFriendToDisplay("") } else { setFriendToDisplay(e.target.value) }; setSelectedOption(undefined); setIsASearchRequest(true) }} className='inputAddressInviter' type='text' value={friendToDisplay}></input>
+              <input placeholder='Select a friend' onChange={(e) => { if (e.target.value === null) { setFriendToDisplay("") } else { setFriendToDisplay(e.target.value) }; setSelectedOption(undefined); setIsASearchRequest(true) }} className='inputAddressInviter' type='text' value={friendToDisplay}></input>
             </div>
             <div id="modalinputLine1FriendInviter" className={modal}>
               {props.friends === null
@@ -67,18 +67,17 @@ function FriendInviter(props) {
                 : props.friends.map((item, index) => {
                   if (!isASearchRequest) {
                     return (
-                      <div key={index} className="lineModalFriendInviter" onClick={() => { setSelectedOption(index); console.log(item.pseudo); if (item.pseudo === null) { setFriendToDisplay("") } else { setFriendToDisplay(item.pseudo) }; toggleModal(); setIsASearchRequest(false) }}>
+                      <div key={index} className="lineModalFriendInviter" onClick={() => { setSelectedOption(index); if (item.pseudo === null) { setFriendToDisplay("") } else { setFriendToDisplay(item.pseudo) }; toggleModal(); setIsASearchRequest(false) }}>
                         <p className="lineModalFriendInviterP"> {item.pseudo}</p><p className="lineAddressModalFriendInviterP"> {addressReducer(item.address2)}</p>
                       </div>
                     );
                   } else {
-                    console.log(friendToDisplay)
-                    if(item.pseudo===null){
+                    if (item.pseudo === null) {
                       return null
                     }
                     if (item.pseudo.toLowerCase().includes(friendToDisplay.toLowerCase())) {
                       return (
-                        <div key={index} className="lineModalFriendInviter" onClick={() => { setSelectedOption(index); console.log(item.pseudo); if (item.pseudo === null) { setFriendToDisplay("") } else { setFriendToDisplay(item.pseudo) }; toggleModal(); setIsASearchRequest(false) }}>
+                        <div key={index} className="lineModalFriendInviter" onClick={() => { setSelectedOption(index); if (item.pseudo === null) { setFriendToDisplay("") } else { setFriendToDisplay(item.pseudo) }; toggleModal(); setIsASearchRequest(false) }}>
                           <p className="lineModalFriendInviterP"> {item.pseudo}</p><p className="lineAddressModalFriendInviterP"> {addressReducer(item.address2)}</p>
                         </div>
                       );
@@ -103,7 +102,6 @@ function FriendInviter(props) {
             if (selectedOption !== undefined) {
               if (props.argsBet.p2pnumber !== null && props.typeBet === "p2p" || props.typeBet === "general") {
                 sendBetInvitation(props.friends[selectedOption].address2, message, props.argsBet, props.typeBet);
-                setErrorMessage("Invitation sent !")
               } else {
                 setErrorMessage("Select a bet !")
 

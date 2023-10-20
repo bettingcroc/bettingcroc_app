@@ -1648,6 +1648,27 @@ function setPseudo(newPseudo, address) {
 
 
 }
+
+function requestAlreadyExists(type, body, sender) {
+	if (type === "newFriend") {
+		let request = db.prepare(`select count(*) as "exists"  from friendsRequests where address1='${sender}' and address2='${body.newFriend.toLowerCase()}' and header='newFriend'`).get();
+		if (request.exists > 0) { return true }
+		else {
+			return false
+		}
+	}
+	if (type === "betInvitation") {
+		let requests = db.prepare(`select body from friendsRequests where address1='${sender}' and address2='${body.address.toLowerCase()}' and header='betInvitation'`).all();
+		for (let r = 0; r < requests.length; r++) {
+			let bodyRequest = JSON.parse(requests[r].body)
+			if (JSON.stringify(bodyRequest.argsBet) === JSON.stringify(body.argsBet)) {
+				return true
+			}
+		}
+		return false
+	}
+}
+
 function newFriendRequest(args, address) {
 	//console.log(args)
 	//console.log(address)
@@ -1659,12 +1680,12 @@ function newFriendRequest(args, address) {
 }
 
 function newBetInvitation(args, address) {
-	console.log(args)
-	console.log(address)
+	//console.log(args)
+	//console.log(address)
 	let insert = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest,read) VALUES (?,?,?,?,?,?)`);
 	timeNow = new Date().toLocaleTimeString();
 	dateNow = new Date().toLocaleDateString();
-	console.log(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow)
+	//console.log(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow)
 	insert.run(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow, "0");
 }
 
@@ -1831,5 +1852,6 @@ module.exports = {
 	removeFriend: removeFriend,
 	areUsersFriends: areUsersFriends,
 	newBetInvitation: newBetInvitation,
-	getFriendsClassement: getFriendsClassement
+	getFriendsClassement: getFriendsClassement,
+	requestAlreadyExists: requestAlreadyExists
 }

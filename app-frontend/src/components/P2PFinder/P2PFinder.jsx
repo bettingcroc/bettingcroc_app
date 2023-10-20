@@ -28,7 +28,7 @@ class P2PFinder extends React.Component {
   }
   componentWillUnmount() {
     __mounted = false
-    //console.log("unmount P2P finder")
+    //console.log("unmount P2P finder") TODO functionniser tout ce qui ne l'est pas
   }
   componentDidUpdate(prevProps) {
     if (this.props.id !== undefined && prevProps !== this.props && this.props.betContract !== undefined && (this.state.loaded === false || this.props.id !== prevProps.id)) {
@@ -84,43 +84,38 @@ class P2PFinder extends React.Component {
       console.log(error);
     }
   }
-  searchById(id) {
+  async searchById(id) {
     console.log("try search id")
     try {
-      //console.log("try search id2 with ", this.props.betNumber, id)
-      //if (parseInt(result) !== 0) {
-      this.props.betContract.methods
-        .getP2PBet(this.props.betNumber, id)
-        .call()
-        .then((result2) => {
-          console.log(result2)
-          this.props.setP2PdisplayArgs([result2, parseFloat(
-            1 + Object.values(result2)[2] / Object.values(result2)[3]
-          ).toFixed(2), (
-            parseFloat(Object.values(result2)[4]) /
-            decimalsConverter(10)
-          ).toFixed(2)])
-          if (__mounted) {
-            this.setState({
-              bestCote: parseFloat(
-                1 + Object.values(result2)[2] / Object.values(result2)[3]
-              ).toFixed(2),
-            });
-            this.setState({
-              bettable: (
-                parseFloat(Object.values(result2)[4]) /
-                decimalsConverter(10)
-              ).toFixed(2),
-            });
-            this.setState({ betNumberP2P: id });
-          }
-        });
-      //} else {
-      // if (__mounted) { this.setState({ bestCote: "indispo", bettable: "indispo" }); this.props.setP2PdisplayArgs(["indispo", "indispo", "indispo"]) }
-      // }
+      console.log("try search id2 with ", this.props.betNumber, id)
+      let result2 = await this.props.betContract.methods.getP2PBet(this.props.betNumber, id).call()
+      try {
+        console.log(result2)
+        this.props.setP2PdisplayArgs([result2, parseFloat(
+          1 + Object.values(result2)[2] / Object.values(result2)[3]
+        ).toFixed(2), (
+          parseFloat(Object.values(result2)[4]) /
+          decimalsConverter(10)
+        ).toFixed(2)])
+        if (__mounted) {
+          this.setState({
+            bestCote: parseFloat(
+              1 + Object.values(result2)[2] / Object.values(result2)[3]
+            ).toFixed(2),
+          });
+          this.setState({
+            bettable: (
+              parseFloat(Object.values(result2)[4]) /
+              decimalsConverter(10)
+            ).toFixed(2),
+          });
+          this.setState({ betNumberP2P: id });
+        }
+      } catch (e) { }
+
 
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   }
   setModal() {

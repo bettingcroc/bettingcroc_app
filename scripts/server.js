@@ -19,45 +19,45 @@ const io = socketIo(server, {
 }) //in case server and client run on different urls
 
 io.on("connection", (socket) => {
-  console.log("client connected: ", socket.id)
+  //console.log("client connected: ", socket.id)
   socket.on("joinRoom", (nameRoom) => {
-    console.log(socket.id + " joined room " + nameRoom)
+    //console.log(socket.id + " joined room " + nameRoom)
     socket.join(nameRoom)
   })
 
   socket.on("leaveRoom", (nameRoom) => {
-    console.log(socket.id + " left room " + nameRoom)
+    //console.log(socket.id + " left room " + nameRoom)
     socket.leave(nameRoom)
   })
 
   socket.on("sendFriendRequest", (args) => {
     //console.log("socket")
-    console.log("sendFriendRequest : " + args.toAddress.toLowerCase() + " from " + args.fromAddress)
+    //console.log("sendFriendRequest : " + args.toAddress.toLowerCase() + " from " + args.fromAddress)
     io.to(args.toAddress.toLowerCase()).emit("ReceivedFriendRequest", args.fromAddress)
     //console.log("socket")
   })
 
   socket.on("newFriendAccepted", (args) => {
     //console.log("socket")
-    console.log("newFriendAccepted : " + args.toAddress + " from " + args.fromAddress)
+    //console.log("newFriendAccepted : " + args.toAddress + " from " + args.fromAddress)
     io.to(args.toAddress.toLowerCase()).emit("newFriendAcceptedToSender", args.fromAddress)
     //console.log("socket")
   })
 
   socket.on("sendBetInvitation", (args) => {
     //console.log("socket")
-    console.log("sendBetInvitation : " + args.toAddress + " from " + args.fromAddress)
+    //console.log("sendBetInvitation : " + args.toAddress + " from " + args.fromAddress)
     io.to(args.toAddress.toLowerCase()).emit("ReceivedBetInvitation", args.fromAddress)
     //console.log("socket")
   })
 
   socket.on("update_score", (updates) => {
-    console.log("update_score : " + updates.betNumber)
+    //console.log("update_score : " + updates.betNumber)
     io.to("scoreBet" + updates.betNumber).emit("scoreBetReception", [updates.scoreHome, updates.scoreAway])
   })
 
   socket.on("disconnect", (reason) => {
-    console.log(reason)
+    //console.log(reason)
   })
 })
 
@@ -128,7 +128,6 @@ app.get('/api/nonce/:address', async (req, res) => {
 
 app.post('/api/login_unsecure', (req, res) => {
   console.log('POST /login_unsecure')
-  console.log(req.body.address)
   if (req.body.address === undefined) {
     console.log("trying to log without address")
     res.status(401).send()
@@ -169,14 +168,11 @@ app.post('/logout', (req, res) => {
 })
 app.get('/api/testLogin', (req, res) => {
   console.log('GET /testLogin')
-  console.log(req.sessionID + " is " + req.session.logged + " " + req.session.address)
   res.send({ isLogged: req.session.logged, address: req.session.address })
 })
 app.post('/api/setUpPseudo/', (req, res) => {
   console.log('POST /api/setUpPseudo/')
-
   if (req.session.logged === true) {
-    //console.log(req.body.newPseudo, " ", req.session.address)
     users.setPseudo(req.body.newPseudo, req.session.address)
     res.status(200).send()
   }
@@ -188,30 +184,33 @@ app.post('/api/setUpPseudo/', (req, res) => {
 
 app.post('/api/sendFriendRequest/', (req, res) => {
   console.log('POST /api/sendFriendRequest/')
-  //TODO check si la request existe
   if (req.session.logged === true) {
-    //console.log(req.body)
-    if (req.body.head === "newFriend") {
-      if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
-        console.log("already friends")
-        res.status(401).send()
+    if (users.requestAlreadyExists(req.body.head, req.body, req.session.address)) {
+      console.log("request already exists")
+      res.status(401).send()
+    } 
+    else {
+      if (req.body.head === "newFriend") {
+        if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
+          console.log("already friends")
+          res.status(401).send()
+        }
+        else {
+          users.newFriendRequest(req.body, req.session.address)
+          res.status(200).send()
+        }
       }
-      else {
-        //console.log(req.body, " from ", req.session.address)
-        users.newFriendRequest(req.body, req.session.address)
-        res.status(200).send()
+      if (req.body.head === "betInvitation") {
+        console.log(req.body)
+        if (users.areUsersFriends(req.session.address, req.body.address.toLowerCase())) {
+          users.newBetInvitation(req.body, req.session.address)
+          res.status(200).send()
+        }
+        else {
+          console.log("users aren't friends")
+          res.status(401).send()
+        }
       }
-    }
-    if (req.body.head === "betInvitation") {
-      if (users.areUsersFriends(req.session.address, req.body.address.toLowerCase())) {
-        users.newBetInvitation(req.body, req.session.address)
-        res.status(200).send()
-      }
-      else {
-        console.log("users aren't friends")
-        res.status(401).send()
-      }
-
     }
   }
   else {
