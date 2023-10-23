@@ -22,19 +22,22 @@ function Account(props) {
   const [betsToDisplay, setBetsToDisplay] = useState([])
   useEffect(() => {
     props.mainVueSetter("account")
+
+  }, [])
+  useEffect(() => {
     testLogin().then((res) => {
       if (res.isLogged === true) {
         setLogged(true)
         props.setLogged(true);
         if (props.logged) {
           let link2 = MY_SERVER + "/api/myrequests"
-          fetch(link2, { method: "GET", credentials:'include' }).then((res) => {
+          fetch(link2, { method: "GET", credentials: 'include' }).then((res) => {
             res.json().then((data) => {
               if (requests === undefined) { setRequests(data) }
             });
           });
           let link3 = MY_SERVER + "/api/myfriends/"
-          fetch(link3, { method: "GET", credentials:'include' }).then((res) => {
+          fetch(link3, { method: "GET", credentials: 'include' }).then((res) => {
             res.json().then((data) => {
               if (friends === undefined) {
                 setFriends(data)
@@ -55,7 +58,7 @@ function Account(props) {
       updateRequests()
     }
   }, [props.requestUpdater])
-  useEffect(() => { 
+  useEffect(() => {
     if (props.logged) {
       console.log("friends update")
       updateFriends()
@@ -120,7 +123,7 @@ function Account(props) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials:'include'
+      credentials: 'include'
     };
     await new Promise(next => {
       fetch(url, options).then((res) => {
@@ -139,7 +142,7 @@ function Account(props) {
     let url = MY_SERVER + "/api/testlogin";
 
     let options = {
-      method: "GET", credentials:'include'
+      method: "GET", credentials: 'include'
     };
     let result
     await new Promise(next => {
@@ -166,7 +169,7 @@ function Account(props) {
   function updateFriends() {
     console.log("updateFriends")
     let link = MY_SERVER + "/api/myfriends/"
-    fetch(link, { method: "GET", credentials: 'include'  }).then((res) => {
+    fetch(link, { method: "GET", credentials: 'include' }).then((res) => {
       res.json().then((data) => {
         setFriends(data)
       });

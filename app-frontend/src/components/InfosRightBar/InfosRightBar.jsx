@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 import { render } from 'react-dom';
 
 
-class InfosRightBar extends React.Component{
-  constructor(props){
-    super(props)
-  }
-  render(){
-    return(
+function InfosRightBar(props) {
+
+  return (
     <div>
       InfosRightBar Component
     </div>
   )
-}
 
-} 
+
+}
 
 InfosRightBar.propTypes = {};
 

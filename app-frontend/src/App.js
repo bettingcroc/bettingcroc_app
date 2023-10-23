@@ -61,7 +61,7 @@ function App() {
             toast.info(from + " wants to be your friend", {
                 position: toast.POSITION.TOP_CENTER,
                 icon: "👥",
-                data: { "inCenter": true, "read": "0"}
+                data: { "inCenter": true, "read": "0" }
             });
             setRequestUpdater(Math.random())
         })
@@ -70,7 +70,7 @@ function App() {
             toast.info(from + " wants you to bet on something...", {
                 position: toast.POSITION.TOP_CENTER,
                 icon: "📨",
-                data: { "inCenter": true, "read": "0"}
+                data: { "inCenter": true, "read": "0" }
             });
             setRequestUpdater(Math.random())
         })
@@ -251,7 +251,7 @@ function App() {
   }*/
     async function logoutReact() {
         let url = MY_SERVER + "/logout";
-        let options = { method: "POST", };
+        let options = { method: "POST", credentials: 'include' };
         fetch(url, options).then(() => {
             console.log("logged out");
         });
@@ -311,10 +311,12 @@ function App() {
     function updateMainVue(newVue) {
         if (newVue) {
             setMainVue(newVue)
+            console.log("updating main vue "+newVue)
             closeMenuMobile()
         }
     }
     function closeMenuMobile() {
+        console.log("closing menu mobile")
         setMenuMobile("menuHidden")
         document.body.style.overflow = '';
 
@@ -712,8 +714,7 @@ function App() {
         if (menuMobile !== "menu") {
             setMenuMobile("menu");
             document.body.style.overflow = 'hidden';
-
-            console.log("switching menu mobile to open")
+            console.log("switching menu mobile to open : "+menuMobile)
         } else {
             closeMenuMobile()
             console.log("switching menu mobile to closed")

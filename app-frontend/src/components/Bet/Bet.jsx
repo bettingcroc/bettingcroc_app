@@ -23,9 +23,10 @@ const Bet = (props) => {
   const [scoreHome, setScoreHome] = useState()
   const [scoreAway, setScoreAway] = useState()
   const [modalInviterOpened, setModalInviterOpened] = useState(false)
-
   useEffect(() => {
     props.mainVueSetter("bet")
+  }, [])
+  useEffect(() => {
     fetch(MY_SERVER + "/api/infoMatch/" + searchParams.get("n"), { method: "GET" }).then((res) => {
       res.json().then(async (data) => {
         setOptionArray(data.optionsArray)
@@ -144,7 +145,7 @@ const Bet = (props) => {
         </div>
 
         <div id="p2p1" style={status !== 0 ? { marginBottom: "30px" } : null}>
-          <P2PFinder id={props.p2pLink !== undefined ? props.p2pLink : undefined} optionsArray={optionsArray} betContract={props.betContract} betNumber={searchParams.get("n")} setP2PdisplayArgs={setP2PdisplayArgs} theme={props.theme}></P2PFinder>
+          <P2PFinder optionsArray={optionsArray} betContract={props.betContract} betNumber={searchParams.get("n")} setP2PdisplayArgs={setP2PdisplayArgs} theme={props.theme}></P2PFinder>
 
           {
             status === 0 ?

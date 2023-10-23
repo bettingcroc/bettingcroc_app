@@ -4,29 +4,26 @@ import cross from './cross.png'
 import "./betMaker.css"
 
 
-class BetMaker extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  render() {
-    return (
-      <div id="betMaker">
-        <div id="line1">
-          <p id="betMakerLine1P">{this.props.typeBet === 1 ? "Bet on" : this.props.typeBet === 2 ? "Create a new bet" : this.props.typeBet === 3 ? "Join a bet" : null}</p>
+function BetMaker(props) {
 
-          <button id="crossButton" onClick={(event) => { this.props.setTypeBet(0); this.props.setBetArgs(null) }}><img id="cross" src={cross} alt="cross"></img></button>
+  return (
+    <div id="betMaker">
+      <div id="line1">
+        <p id="betMakerLine1P">{props.typeBet === 1 ? "Bet on" : props.typeBet === 2 ? "Create a new bet" : props.typeBet === 3 ? "Join a bet" : null}</p>
 
-        </div>
-        <div id="line3">
-          <p>{this.props.betArgs.betName.split(',')[0]} - {this.props.betArgs.betName.split(',')[this.props.betArgs.betName.split(',').length - 1]} </p>
-        </div>
-        <div id="line2">
-          <p>{this.props.typeBet === 1 || this.props.typeBet === 2 ? this.props.betArgs.optionName : this.props.typeBet === 3 ? "against " + this.props.betArgs.optionName : null}</p>
-          <p>{this.props.betArgs.cote}</p>
-        </div>
-        {this.props.typeBet === 2 ? this.props.betArgs.authorized === undefined ? <p id="line4">Public bet</p> : <p id="line4">{"Private for : " + this.props.betArgs.authorized}</p> : null}
-      </div>)
-  }
+        <button id="crossButton" onClick={(event) => { props.setTypeBet(0); props.setBetArgs(null) }}><img id="cross" src={cross} alt="cross"></img></button>
+
+      </div>
+      <div id="line3">
+        <p>{props.betArgs.betName.split(',')[0]} - {props.betArgs.betName.split(',')[props.betArgs.betName.split(',').length - 1]} </p>
+      </div>
+      <div id="line2">
+        <p>{props.typeBet === 1 || props.typeBet === 2 ? props.betArgs.optionName : props.typeBet === 3 ? "against " + props.betArgs.optionName : null}</p>
+        <p>{props.betArgs.cote}</p>
+      </div>
+      {props.typeBet === 2 ? props.betArgs.authorized === undefined ? <p id="line4">Public bet</p> : <p id="line4">{"Private for : " + props.betArgs.authorized}</p> : null}
+    </div>)
+
 }
 
 BetMaker.propTypes = {};

@@ -12,7 +12,7 @@ function Classement(props) {
   useEffect(() => {
     props.vueSetter("rankings")
     props.mainVueSetter("rankings")
-    fetch(MY_SERVER + "/api/classement/", { method: "GET" }).then((res) => {
+    fetch(MY_SERVER + "/api/classement/", { method: "GET", credentials: 'include' }).then((res) => {
       res.json().then((data) => {
         setClassement(data)
       });
@@ -20,7 +20,7 @@ function Classement(props) {
   }, [])
   useEffect(() => {
     if (props.address !== "" && props.address !== undefined) {
-      fetch(MY_SERVER + "/api/score/" + props.address, { method: "GET" }).then((res) => {
+      fetch(MY_SERVER + "/api/score/" + props.address, { method: "GET", credentials: 'include' }).then((res) => {
         res.json().then((data) => {
           if (loaded === false && props.address !== undefined && data.length > 0) {
             setLoaded(true)
@@ -32,7 +32,7 @@ function Classement(props) {
   }, [props.address])
   useEffect(() => {
     if (props.logged) {
-      fetch(MY_SERVER + "/api/classementFriends/" + props.address, { method: "GET" }).then((res) => {
+      fetch(MY_SERVER + "/api/classementFriends/" + props.address, { method: "GET", credentials: 'include' }).then((res) => {
         res.json().then((data) => {
           setClassementFriends(data)
         });
@@ -42,7 +42,7 @@ function Classement(props) {
 
   function searchScore() {
     if (addressSearch !== undefined && addressSearch != "") {
-      fetch(MY_SERVER + "/api/score/" + addressSearch, { method: "GET" }).then((res) => {
+      fetch(MY_SERVER + "/api/score/" + addressSearch, { method: "GET", credentials: 'include' }).then((res) => {
         res.json().then((data) => {
           if (data.length > 0) {
             setDataAddressSearch(data)

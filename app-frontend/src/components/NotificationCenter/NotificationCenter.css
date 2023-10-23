@@ -31,3 +31,8 @@
 .newNotificationDark{
     background-color: #2b4f2d;
 } 
+@media screen and (max-width: 730px) {
+    #notificationBox {
+        display: none;
+    }
+}

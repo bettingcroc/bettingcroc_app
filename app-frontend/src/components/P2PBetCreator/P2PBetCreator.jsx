@@ -1,154 +1,126 @@
 /* global BigInt */
 
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import "./P2PBetCreator.css"
 
 
-var __mounted;
-class P2PBetCreator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      amountToBet: 1,
-      cote: undefined,
-      P2PBetCreatorSwitcher: "Public",
-      selectedOption: 0,
-      authorized: undefined,
-      error: null,
-      class: null,
-      modal: "collapse"
-    };
-    this.switchButton = this.switchButton.bind(this);
+function P2PBetCreator(props) {
+  const [amountToBet, setAmountToBet] = useState(1)
+  const [cote, setCote] = useState()
+  const [P2PBetCreatorSwitcher, setP2PBetCreatorSwitcher] = useState("Public")
+  const [selectedOption, setSelectedOption] = useState(0)
+  const [authorized, setAuthorized] = useState()
+  const [error, setError] = useState()
+  const [classTag, setClassTag] = useState()
+  const [modal, setModal] = useState("collapse")
+  useEffect(() => {
+    setAmountToBet(props.amountToBet)
+  }, [props.amountToBet])
 
-    //this.createP2PBet = this.createP2PBet.bind(this);
-    //this.seeP2PBets = this.seeP2PBets.bind(this);
-    this.changeClass = this.changeClass.bind(this);
-    this.setModal = this.setModal.bind(this);
-    this.setSelectedOption = this.setSelectedOption.bind(this);
-    this.handleClickAwayEvent = this.handleClickAwayEvent.bind(this);
-  }
-  componentDidMount() {
-    this.setState({ authorized: undefined });
-    //console.log(this.state.authorized);
-    __mounted = true
-  }
-  componentDidUpdate(prevProps) {
-    //console.log("update P2P Creator "+ this.props.amountToBet)
-    if (prevProps !== this.props && __mounted) {
-
-      this.setState({ amountToBet: this.props.amountToBet })
-    }
-  }
-  switchButton() {
-    if (this.state.P2PBetCreatorSwitcher === "Public") {
-      this.setState({ P2PBetCreatorSwitcher: "Friends only" });
+  function switchButton() {
+    if (P2PBetCreatorSwitcher === "Public") {
+      setP2PBetCreatorSwitcher("Friends only");
     } else {
-      this.setState({ P2PBetCreatorSwitcher: "Public" });
+      setP2PBetCreatorSwitcher("Public");
     }
   }
-  changeClass() {
-    this.setState({ class: null })
+  function changeClass() {
+    setClassTag(null)
   }
-  setModal() {
-    if (this.state.modal === "collapse") {
-      this.setState({ modal: null })
+  function switchModal() {
+    if (modal === "collapse") {
+      setModal(null)
     }
     else {
-      this.setState({ modal: "collapse" })
+      setModal("collapse")
     }
   }
-  handleClickAwayEvent() {
-    this.setState({ modal: "collapse" })
+  function handleClickAwayEvent() {
+    setModal("collapse")
   }
-  setSelectedOption(option) {
-    this.setState({ selectedOption: option })
-  }
-  render() {
-    return (
-      <div id="p2pcreator" className={this.props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+  return (
+    <div id="p2pcreator" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
 
 
-        <div id="superNewP2P">
+      <div id="superNewP2P">
 
-          <p id="newP2PP" className={this.props.theme === "light" ? "blackP" : "whiteP"}>New P2P</p>
+        <p id="newP2PP" className={props.theme === "light" ? "blackP" : "whiteP"}>New P2P</p>
 
-        </div>
-        <div id="inputsP2P">
-          <input
-            className="css-input"
-            placeholder="cote"
-            id="cote"
-            type="number"
-            min="1.01"
-            value={this.state.cote || ""}
-            onChange={(e) => this.setState({ cote: e.target.value })}
-          ></input>
-          <ClickAwayListener onClickAway={this.handleClickAwayEvent}>
-
-            <div id="superinputLine1P2PFinder">
-              <div id="selectCreateNewP2P" onClick={this.setModal}>
-                <p>{this.props.optionsArray !== null ? this.props.optionsArray.split(",")[this.state.selectedOption] : null}</p>
-              </div>
-              <div id="modalinputLine1P2PFinder" className={this.state.modal}>
-                {this.props.optionsArray === null
-                  ? null
-                  : this.props.optionsArray.split(",").map((item, index) => {
-                    return (
-                      <div key={index} className="lineModalP2PFinder" onClick={() => { this.setSelectedOption(index); this.setModal() }}>
-                        <p>{item}</p>
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          </ClickAwayListener>
-          <div id="authorizedDiv">
-            <button id="publicSwitchButton" className="button" onClick={this.switchButton}>
-              {this.state.P2PBetCreatorSwitcher}
-            </button>
-            <input
-              type="text"
-              className={
-                this.state.P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
-              }
-              id="adressAuthorizedInput"
-              value={this.state.authorized || ''}
-              onChange={(e) => { this.setState({ authorized: e.target.value }); console.log(this.state.authorized) }}
-            ></input>
-          </div>
-          <button className="button"
-            id="buttonCreateP2Pbutton"
-            onClick={(event) => {
-              if (this.state.cote <= 1 || this.state.cote === null || this.state.cote === undefined) {
-                this.setState({ error: "Cote must be > 1 !" }); this.setState({ class: "horizontal-shake" }); setTimeout(this.changeClass, 1000);
-              }
-              else {
-                this.setState({ error: null })
-                console.log(this.state.selectedOption);
-                this.props.setTypeBet(2)
-                this.props.setBetArgs({
-                  betNumber: this.props.betNumber,
-                  betName: this.props.optionsArray,
-                  amountToBet: weiconvert(this.state.amountToBet),
-                  cote: this.state.cote,
-                  selectedOption: this.state.selectedOption,
-                  authorized: this.state.authorized,
-                  optionName: this.props.optionsArray.split(",")[this.state.selectedOption],
-                  toWin: this.state.amountToBet * this.state.cote
-                })
-
-              }
-            }}
-          >
-            <p id="buttonCreateP2PP">Create bet</p>
-          </button>
-          <div id="errorCoteDiv"><p id="errorP" className={this.state.class}>{this.state.error}</p></div>
-        </div>
       </div>
-    );
-  }
+      <div id="inputsP2P">
+        <input
+          className="css-input"
+          placeholder="cote"
+          id="cote"
+          type="number"
+          min="1.01"
+          value={cote || ""}
+          onChange={(e) => setCote(e.target.value)}
+        ></input>
+        <ClickAwayListener onClickAway={handleClickAwayEvent}>
+
+          <div id="superinputLine1P2PFinder">
+            <div id="selectCreateNewP2P" onClick={(e) => switchModal()}>
+              <p>{props.optionsArray !== null ? props.optionsArray.split(",")[selectedOption] : null}</p>
+            </div>
+            <div id="modalinputLine1P2PFinder" className={modal}>
+              {props.optionsArray === null
+                ? null
+                : props.optionsArray.split(",").map((item, index) => {
+                  return (
+                    <div key={index} className="lineModalP2PFinder" onClick={() => { setSelectedOption(index); switchModal() }}>
+                      <p>{item}</p>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        </ClickAwayListener>
+        <div id="authorizedDiv">
+          <button id="publicSwitchButton" className="button" onClick={switchButton}>
+            {P2PBetCreatorSwitcher}
+          </button>
+          <input
+            type="text"
+            className={
+              P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
+            }
+            id="adressAuthorizedInput"
+            value={authorized || ''}
+            onChange={(e) => { setAuthorized(e.target.value); console.log(authorized) }}
+          ></input>
+        </div>
+        <button className="button"
+          id="buttonCreateP2Pbutton"
+          onClick={(event) => {
+            if (cote <= 1 || cote === null || cote === undefined) {
+              setError("Cote must be > 1 !"); setClassTag("horizontal-shake"); setTimeout(changeClass, 1000);
+            }
+            else {
+              setError(null)
+              console.log(selectedOption);
+              props.setTypeBet(2)
+              props.setBetArgs({
+                betNumber: props.betNumber,
+                betName: props.optionsArray,
+                amountToBet: weiconvert(amountToBet),
+                cote: cote,
+                selectedOption: selectedOption,
+                authorized: authorized,
+                optionName: props.optionsArray.split(",")[selectedOption],
+                toWin: amountToBet * cote
+              })
+            }
+          }}
+        >
+          <p id="buttonCreateP2PP">Create bet</p>
+        </button>
+        <div id="errorCoteDiv"><p id="errorP" className={classTag}>{error}</p></div>
+      </div>
+    </div>
+  );
+
 }
 
 export default P2PBetCreator;

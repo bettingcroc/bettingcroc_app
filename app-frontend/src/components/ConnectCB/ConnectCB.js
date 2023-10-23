@@ -3,21 +3,17 @@ import PropTypes from 'prop-types';
 import coinbaseImage from "./coinbase.png"
 
 
-class ConnectCb extends React.Component {
+function ConnectCb(props) {
 
-  constructor(props) {
-    super(props)
-  }
 
-  render() {
-    return (
-      <button className="buttonTransparent buttonTransparentModal" onClick={this.props.connectWalletHandler}>
-        <img src={coinbaseImage} alt="coinbaseImage" className='walletsImage'></img>
-        <p>CoinBase Wallet</p>
+  return (
+    <button className="buttonTransparent buttonTransparentModal" onClick={props.connectWalletHandler}>
+      <img src={coinbaseImage} alt="coinbaseImage" className='walletsImage'></img>
+      <p>CoinBase Wallet</p>
 
-      </button>
-    )
-  }
+    </button>
+  )
+
 
 }
 

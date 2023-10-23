@@ -64,8 +64,8 @@ function TopBar(props) {
           <Link to="/decentrabet"><p id="decentraBetTitle" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
           <Link to="/rankings"><p id="rankingsLink" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
         </div>
-        /<button onClick={notif}>toast</button>
-        <button onClick={login_unsecure}>login_unsecure</button>
+        {/*<button onClick={notif}>toast</button>
+        <button onClick={login_unsecure}>login_unsecure</button>*/}
       </div>
       <div id="topRight">
         <NotificationCenter theme={props.theme} logged={props.logged}></NotificationCenter>

@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DecentraBetCreator from '../DecentraBetCreator/DecentraBetCreator';
 import ViewADecentrabet from '../ViewADecentrabet/ViewADecentrabet';
 import "./DecentraBet.css"
 
 
-class DecentraBet extends React.Component {
-  constructor(props){
-    super(props);
-    this.props.vueSetter("decentraBet")
-    this.props.mainVueSetter("decentraBet")
-  } 
-  render(){
-    return(
-      <div className="mainContentDecentraBet">
-        <ViewADecentrabet decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address} theme={this.props.theme}></ViewADecentrabet>
-        <DecentraBetCreator theme={this.props.theme} decentrabetContract={this.props.decentrabetContract} usdtContract={this.props.usdtContract} address={this.props.address}></DecentraBetCreator> 
-   
-      </div>
-    );
-  }
-} 
+function DecentraBet(props) {
+  useEffect(() => {
+    props.vueSetter("decentraBet")
+    props.mainVueSetter("decentraBet")
+  },[])
+
+  return (
+    <div className="mainContentDecentraBet">
+      <ViewADecentrabet decentrabetContract={props.decentrabetContract} usdtContract={props.usdtContract} address={props.address} theme={props.theme}></ViewADecentrabet>
+      <DecentraBetCreator theme={props.theme} decentrabetContract={props.decentrabetContract} usdtContract={props.usdtContract} address={props.address}></DecentraBetCreator>
+
+    </div>
+  );
+
+}
 
 
 export default DecentraBet;

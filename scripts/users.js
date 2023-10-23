@@ -1830,7 +1830,6 @@ function recover(nonsigned, signed) {
 		hex += '' + nonsigned.charCodeAt(i).toString(16)
 	}
 	var hexMessage = "0x" + hex
-	console.log(hexMessage)
 	//console.log("before signed "+web3.utils.sha3(nonsigned)+" signed "+signed)
 	return web3.eth.accounts.recover(hexMessage, signed);
 }
