@@ -5,13 +5,12 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import "./App.css";
 import "./index.css";
-import { ListBet, Bet, Connecter, MyP2PBets, DecentraBet, Classement, MyBets, Account, BetMaker, ComingSoon, LandingComponent, USDTGetter, GetGains, BetterMobile, BetterBottomRight, Base } from "./components"
+import { ListBet, Bet, DecentraBet, Classement, Account, ComingSoon, LandingComponent, USDTGetter, Base, NotificationsMobile } from "./components"
 import { DECENTRABET_ABI, DECENTRABET_ADDRESS, MBT_ABI, MBT_ADDRESS, MULTIBET_ABI, MULTIBET_ADDRESS, USDT_ABI, USDT_ADDRESS } from "./config";
-import { Link, Outlet } from "react-router-dom";
 import { EthereumProvider } from '@walletconnect/ethereum-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import { APP_NAME, APP_LOGO_URL, DEFAULT_ETH_JSONRPC_URL, chainId, MY_SERVER } from "./consts"
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 /*const coinbaseWallet = new CoinbaseWalletSDK({
   appName: APP_NAME,
@@ -311,7 +310,7 @@ function App() {
     function updateMainVue(newVue) {
         if (newVue) {
             setMainVue(newVue)
-            console.log("updating main vue "+newVue)
+            console.log("updating main vue " + newVue)
             closeMenuMobile()
         }
     }
@@ -714,7 +713,7 @@ function App() {
         if (menuMobile !== "menu") {
             setMenuMobile("menu");
             document.body.style.overflow = 'hidden';
-            console.log("switching menu mobile to open : "+menuMobile)
+            console.log("switching menu mobile to open : " + menuMobile)
         } else {
             closeMenuMobile()
             console.log("switching menu mobile to closed")
@@ -738,6 +737,7 @@ function App() {
                     <Route path="/rankings" element={<Classement mainVueSetter={updateMainVue} vueSetter={setVueTopBar} address={defaultAccount} theme={theme} logged={logged}></Classement>}></Route>
                     <Route path="/account" element={<Account closeMenuMobile={updateMainVue} myP2PBets={myP2PBets} myBets={myBets} betContract={multiBetContract} mainVueSetter={updateMainVue} requestUpdater={requestUpdater} friendsUpdater={friendsUpdater} socket={socket} setLogged={setLogged} web3={web3} address={defaultAccount} logged={logged} theme={theme} switchTheme={switchTheme} ></Account>}></Route>
                     <Route path="/docs" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>}></Route>
+                    <Route path="/notifications" element={<NotificationsMobile mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></NotificationsMobile>}></Route>
                     <Route path="/getusdt" element={<USDTGetter web3={web3} address={defaultAccount}></USDTGetter>}></Route>
                     <Route path="/*" element={<p>error</p>}></Route>
                 </Route>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Outlet } from 'react-router-dom';
-import { hamburgerWhiteImage, hamburgerImage } from "../../images"
+import { hamburgerWhiteImage, hamburgerImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingLight, rankingDark, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsLight, notificationsDark, notificationsInactive } from "../../images"
 import { cssIdentifiers, } from "../../consts"
 import { MyP2PBets, MyBets, BetMaker, GetGains, BetterMobile, BetterBottomRight } from "../../components"
 import TopBar from "../TopBar/TopBar"
@@ -55,9 +55,25 @@ const Base = (props) => {
                     <BetterMobile address={props.defaultAccount} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betArgs={props.betArgs} typeBet={props.typeBet} approve={props.approve} betFunction={props.betFunction}></BetterMobile>
                 : null}
             <div id="mobileBottomBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-                <Link to="/basketball" className="linkMobileBottomBar"><p id="listBetsTitle" className={props.vueTopBar === "listBets" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Sport Bets</p></Link>
-                <Link to="/decentrabet" className="linkMobileBottomBar"><p id="decentraBetTitle" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
-                <Link to="/rankings" className="linkMobileBottomBar"><p id="rankingsLink" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
+                <div id='linksMobileBottomBar'>
+                    <Link to="/basketball" className="linkMobileBottomBar">
+                        <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "listBets" ? props.theme === "light" ? sportsLight : sportsDark : sportsInactive}></img>
+                        <p id="listBetsLinkMobileBottomBar" className={props.vueTopBar === "listBets" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Sport Bets</p>
+                    </Link>
+                    <Link to="/decentrabet" className="linkMobileBottomBar">
+                        <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "decentraBet" ? props.theme === "light" ? decentraBetLight : decentraBetDark : decentraBetInactive}></img>
+                        <p id="decentraBetLinkMobileBottomBar" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
+                    <Link to="/rankings" className="linkMobileBottomBar">
+                        <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "rankings" ? props.theme === "light" ? rankingLight : rankingDark : rankingInactive}></img>
+                        <p id="rankingsLinkMobileBottomBar" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p>
+                    </Link>
+                    <Link to="/notifications" className="linkMobileBottomBar">
+                        <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "notifications" ? props.theme === "light" ? notificationsLight : notificationsDark : notificationsInactive}></img>
+                        <p id="notificationsLinkMobileBottomBar" className={props.vueTopBar === "notifications" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Notifications</p>
+                    </Link>
+
+                </div>
+
                 <button className="buttonTransparent" id="hamburger" onClick={props.switchMenuMobile}><img id="hamburgerImg" src={props.theme === "light" ? hamburgerImage : hamburgerWhiteImage} alt="hamburgerImage"></img></button>
 
             </div>
