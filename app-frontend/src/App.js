@@ -11,6 +11,7 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import { APP_NAME, APP_LOGO_URL, DEFAULT_ETH_JSONRPC_URL, chainId, MY_SERVER } from "./consts"
 import { toast } from 'react-toastify';
+import { useNotificationCenter } from "react-toastify/addons/use-notification-center"
 
 /*const coinbaseWallet = new CoinbaseWalletSDK({
   appName: APP_NAME,
@@ -49,9 +50,77 @@ function App() {
     const [MBTContract, setMBTContract] = useState()
     const [decentrabetContract, setDecentrabetContract] = useState()
     const [balanceUSDT, setBalanceUSDT] = useState()
+    //notificationCenter
+    const [unread, setUnread] = useState(0)
+    var {
+        notifications,
+        clear,
+        markAllAsRead,
+        markAsRead,
+        add,
+        update,
+        remove,
+        find,
+        sort,
+        unreadCount
+    } = useNotificationCenter()
 
     useEffect(() => {
-        // adding event listeners on mount here
+        let unread = 0
+        for (let n = 0; n < notifications.length; n++) {
+            let notif = notifications[n]
+            if (notif.data.read === "0") {
+                unread++
+            }
+        }
+        setUnread(unread)
+        console.log("newNOtif " + notifications.length)
+    }, [notifications])
+
+    useEffect(() => {
+        fetch(MY_SERVER + "/api/myrequests_unread", { method: "GET", credentials: 'include' }).then((res) => {
+            if (res.status === 200) {
+                res.json().then((data) => {
+                    setUnread(data.unread)
+                })
+            }
+        })
+    }, [logged])
+
+    useEffect(() => {
+        console.log("constructor")
+        updateNotificationsFromServer()
+    }, [logged])
+
+
+
+    function setAllNotifsRead() {
+        setTimeout(() => {
+            for (let n = 0; n < notifications.length; n++) {
+                let notif = notifications[n]
+                notif.data.read = "1"
+            }
+            console.log("setAllNotifsRead")
+        }, 5000);
+
+
+    }
+    function updateNotificationsFromServer() {
+        fetch(MY_SERVER + "/api/myrequests", { method: "GET", credentials: 'include' }).then((res) => {
+            if (res.status === 200) {
+                res.json().then((data) => {
+                    for (let n = data.length - 1; n >= 0; n--) {
+                        let notif = data[n]
+                        let body = JSON.parse(notif.body)
+                        let content = notif.header === "newFriend" ? notif.address1 + " wants to be your friend" : notif.pseudo !== undefined && notif.header === "betInvitation" ? notif.pseudo + " invited you to bet on " + body.argsBet.title.split(",")[0] + " vs " + body.argsBet.title.split(",")[body.argsBet.title.split(",").length - 1] : null
+                        add({ "id": notif.id, "content": content, "data": { "inCenter": true, "body": body, "read": notif.read } })
+                    }
+                });
+            }
+        });
+    }
+
+    useEffect(() => {
         socket.on('connect', () => {
             console.log("connected to server with " + socket.id); if (defaultAccount !== undefined) { socket.emit('joinRoom', defaultAccount.toLowerCase()) }
         })
@@ -64,8 +133,16 @@ function App() {
             });
             setRequestUpdater(Math.random())
         })
-        socket.on('ReceivedBetInvitation', (from) => {
+        socket.on('ReceivedBetInvitation', (addressFrom, pseudoFrom) => {
+            if (window.innerWidth <= 1080) {
+                addressFrom = addressFrom.substring(0, 5) + "..." + addressFrom.substring(39)
+            }
+            let from = pseudoFrom !== undefined ? pseudoFrom : addressFrom
             console.log("ReceivedBetInvitation from" + from)
+            fetch(MY_SERVER + "/api/score/" + from, { method: "GET", credentials: 'include' }).then((res) => {
+                res.json().then((data) => {
+                })
+            })
             toast.info(from + " wants you to bet on something...", {
                 position: toast.POSITION.TOP_CENTER,
                 icon: "📨",
@@ -162,16 +239,7 @@ function App() {
                 window.location.reload();
             })
             window.ethereum.on('accountsChanged', () => {
-                let url = MY_SERVER + "/logout";
-
-                let options = {
-                    method: "POST",
-                };
-                fetch(url, options).then((res) => {
-                    console.log("request logout with res: " + res);
-                    window.location.reload();
-                });
-
+                logout()
             })
         }
         return () => {
@@ -248,15 +316,18 @@ function App() {
     console.log(web3)
     web3.setProvider(ethereum)
   }*/
-    async function logoutReact() {
+    async function logout() {
         let url = MY_SERVER + "/logout";
         let options = { method: "POST", credentials: 'include' };
-        fetch(url, options).then(() => {
+        fetch(url, options).then((res) => {
             console.log("logged out");
+            if (res.status === 200) {
+                setLogged(false)
+            }
         });
     }
     function disconnect() {
-        logoutReact()
+        logout()
         console.log("disconnecting wallet")
         setDefaultAccount(undefined)
         web3.setProvider(DEFAULT_ETH_JSONRPC_URL)
@@ -725,7 +796,7 @@ function App() {
 
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Base accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged}></Base>}
+                <Route path="/" element={<Base accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged} unread={unread} setUnread={setUnread} notifications={notifications} setAllNotifsRead={setAllNotifsRead}></Base>}
                 >
                     <Route path="/" element={<LandingComponent mainVueSetter={updateMainVue} vueSetter={setVueTopBar}></LandingComponent>} />
                     <Route path="/basketball" element={<ListBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></ListBet>} />
@@ -735,9 +806,9 @@ function App() {
                     <Route path="/bet" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdtContract={USDTContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDT={balanceUSDT} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />
                     <Route path="/decentrabet" element={<DecentraBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} decentrabetContract={decentrabetContract} usdtContract={USDTContract} address={defaultAccount} theme={theme}></DecentraBet>} />
                     <Route path="/rankings" element={<Classement mainVueSetter={updateMainVue} vueSetter={setVueTopBar} address={defaultAccount} theme={theme} logged={logged}></Classement>}></Route>
-                    <Route path="/account" element={<Account closeMenuMobile={updateMainVue} myP2PBets={myP2PBets} myBets={myBets} betContract={multiBetContract} mainVueSetter={updateMainVue} requestUpdater={requestUpdater} friendsUpdater={friendsUpdater} socket={socket} setLogged={setLogged} web3={web3} address={defaultAccount} logged={logged} theme={theme} switchTheme={switchTheme} ></Account>}></Route>
+                    <Route path="/account" element={defaultAccount !== undefined ? <Account vueSetter={setVueTopBar} closeMenuMobile={updateMainVue} myP2PBets={myP2PBets} myBets={myBets} betContract={multiBetContract} mainVueSetter={updateMainVue} requestUpdater={requestUpdater} friendsUpdater={friendsUpdater} socket={socket} setLogged={setLogged} web3={web3} address={defaultAccount} logged={logged} theme={theme} switchTheme={switchTheme} ></Account> : null}></Route>
                     <Route path="/docs" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>}></Route>
-                    <Route path="/notifications" element={<NotificationsMobile mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></NotificationsMobile>}></Route>
+                    <Route path="/notifications" element={<NotificationsMobile mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme} unread={unread} setUnread={setUnread} notifications={notifications} setAllNotifsRead={setAllNotifsRead}></NotificationsMobile>}></Route>
                     <Route path="/getusdt" element={<USDTGetter web3={web3} address={defaultAccount}></USDTGetter>}></Route>
                     <Route path="/*" element={<p>error</p>}></Route>
                 </Route>

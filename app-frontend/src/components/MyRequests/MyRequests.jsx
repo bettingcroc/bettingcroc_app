@@ -35,7 +35,7 @@ function MyRequests(props) {
           return (
             <div key={item.dateRequest} className="requestDiv">
               <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.dateRequest} </p>
-              <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.pseudo !== null ? item.pseudo : item.address1} {item.header === "newFriend" ? " wants to be your friend !" : item.header === "betInvitation" ? " wants you to bet on " : null}</p>
+              <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.pseudo !== null ? item.pseudo : window.innerWidth <= 1080 ? null : item.address1} {item.header === "newFriend" ? " wants to be your friend !" : item.header === "betInvitation" ? " wants you to bet on " : null}</p>
 
               {
                 item.header === "newFriend" ?

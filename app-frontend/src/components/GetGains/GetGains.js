@@ -54,7 +54,7 @@ function GetGains(props) {
   }
   return (
     <div id="getGainsDiv">
-      {props.address === undefined ? null : <button onClick={getGains} id={won ? "getGains" : "getGainsLose"}>{won ? "Get " + gains + " USDT !" : "Waiting for some money"}</button>}
+      {props.address === undefined ? null : <button onClick={getGains} id="getGainsButton" className={won ? "goldButton" : "greyButton"}><p>{won ? "Get " + gains + " USDT !" : "Waiting for some money"}</p></button>}
     </div>
   );
 

@@ -1,9 +1,12 @@
-function closeBets(betNumbers){
-	for (let bN in betNumbers){
-		bN=betNumbers[bN]
-		//let update = db.prepare('update bets set status=1 where betNumber='+bN)
-		//update.run()
-		console.log('update bets set status=1 where betNumber='+bN)
-	}
+let [a,b,c] = [ true ?1:2,false?3:4,true?8:9]
+console.log([a,b,c])
+
+function e(){
+    return `eee ${b}`
 }
-closeBets([55,56])
+console.log(e())
+
+let now = new Date()
+  let month = now.getMonth() + 1;
+  let day = now.getDate() < 10 ? `0${now.getDate()}` : now.getDate()
+  console.log(day)

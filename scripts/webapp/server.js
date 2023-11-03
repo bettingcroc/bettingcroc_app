@@ -1,18 +1,18 @@
-const express = require('express')
-const logger = require('./logger.js')
-const model = require('./model')
-const cors = require('cors')
-const users = require('./users')
-const apiServer = require('./apiServer')
+import express from 'express'
+import logger from '../logger.js'
+import model from '../model.js'
+import cors from 'cors'
+import users from '../users.js'
+import apiServer from './apiServer.js'
 const app = express()
 const port = process.env.PORT || 4000;
-const session = require('express-session')
-const socketIo = require("socket.io")
-const http = require("http")
+import session from 'express-session'
+import { Server } from 'socket.io';
+import http from "http"
 const server = http.createServer(app)
 
 
-const io = socketIo(server, {
+const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000"
   }
@@ -31,24 +31,19 @@ io.on("connection", (socket) => {
   })
 
   socket.on("sendFriendRequest", (args) => {
-    //console.log("socket")
     //console.log("sendFriendRequest : " + args.toAddress.toLowerCase() + " from " + args.fromAddress)
     io.to(args.toAddress.toLowerCase()).emit("ReceivedFriendRequest", args.fromAddress)
-    //console.log("socket")
   })
 
   socket.on("newFriendAccepted", (args) => {
-    //console.log("socket")
     //console.log("newFriendAccepted : " + args.toAddress + " from " + args.fromAddress)
     io.to(args.toAddress.toLowerCase()).emit("newFriendAcceptedToSender", args.fromAddress)
-    //console.log("socket")
   })
 
   socket.on("sendBetInvitation", (args) => {
-    //console.log("socket")
+    console.log(args)
     //console.log("sendBetInvitation : " + args.toAddress + " from " + args.fromAddress)
-    io.to(args.toAddress.toLowerCase()).emit("ReceivedBetInvitation", args.fromAddress)
-    //console.log("socket")
+    io.to(args.toAddress.toLowerCase()).emit("ReceivedBetInvitation", args.fromAddress, users.getPseudo(args.fromAddress))
   })
 
   socket.on("update_score", (updates) => {
@@ -184,21 +179,31 @@ app.post('/api/setUpPseudo/', (req, res) => {
 
 app.post('/api/sendFriendRequest/', (req, res) => {
   console.log('POST /api/sendFriendRequest/')
+
   if (req.session.logged === true) {
     if (users.requestAlreadyExists(req.body.head, req.body, req.session.address)) {
       console.log("request already exists")
       res.status(401).send()
-    } 
+    }
     else {
       if (req.body.head === "newFriend") {
-        if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
-          console.log("already friends")
+        if (req.body.newFriend.toLowerCase() === undefined || req.body.newFriend.toLowerCase() === null) {
           res.status(401).send()
         }
-        else {
-          users.newFriendRequest(req.body, req.session.address)
-          res.status(200).send()
-        }
+        else
+          if (req.body.newFriend.toLowerCase().length !== 42) {
+            res.status(401).send()
+          }
+          else {
+            if (users.areUsersFriends(req.session.address, req.body.newFriend.toLowerCase())) {
+              console.log("already friends")
+              res.status(401).send()
+            }
+            else {
+              users.newFriendRequest(req.body, req.session.address)
+              res.status(200).send()
+            }
+          }
       }
       if (req.body.head === "betInvitation") {
         console.log(req.body)
@@ -304,7 +309,7 @@ app.get('/api/lastbets', (req, res) => {
 app.get('/api/topBets', async (req, res) => {
   console.log('GET /api/topBets/')
 
-  //console.log(topBets)
+  console.log(topBets)
   res.send(topBets)
 })
 app.get('/api/infoMatch/:id', (req, res) => {
@@ -332,7 +337,7 @@ app.get('/api/classementFriends/:address', (req, res) => {
 
 app.get('/api/score/:address', (req, res) => {
   console.log('GET /api/score/' + req.params.address)
-  score = apiServer.getMyScore(req.params.address.toLowerCase())
+  let score = apiServer.getMyScore(req.params.address.toLowerCase())
   res.send(score)
 })
 
@@ -340,7 +345,7 @@ app.get('/api/score/:address', (req, res) => {
 app.post('/api/myBets', async (req, res) => {
   //console.log('POST /api/myBets')
   //console.log(req.body)
-  betsInfos = await apiServer.getMyBets(req.body.listBets)
+  let betsInfos = await apiServer.getMyBets(req.body.listBets)
   //console.log(betsInfos)
   res.send(betsInfos)
 })

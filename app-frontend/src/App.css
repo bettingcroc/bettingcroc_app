@@ -91,23 +91,6 @@
 
 
 
-#links {
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  justify-content: space-between;
-  width: 50%;
-  height: 25px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-}
 
 
 
@@ -1393,9 +1376,7 @@ a:hover {
 }
 
 
-.accountP {
-  /*padding-left: 20px;*/
-}
+
 
 #friendAdder {
   display: flex;
@@ -1404,20 +1385,7 @@ a:hover {
   justify-content: space-between;
 }
 
-#requestSuperDiv {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: flex-start;
-  padding: 23px 31px;
-  gap: 10px;
 
-  min-height: 190px;
-
-  border: 1px solid #F8F9FA;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
 
 #loggedImage {
   width: 16px;
@@ -1813,21 +1781,7 @@ a:hover {
 }
 
 
-#getGains {
-  background-color: #ffd700;
-  color: black;
-  padding: 20px;
-  border-radius: 10px;
-  border: none;
-}
 
-#getGainsLose {
-  background-color: #868686;
-  color: black;
-  padding: 20px;
-  border-radius: 10px;
-  border: none;
-}
 
 
 

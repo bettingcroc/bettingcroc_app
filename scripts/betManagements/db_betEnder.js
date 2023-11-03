@@ -1,5 +1,4 @@
-const io = require('socket.io-client')
-const Sqlite = require('better-sqlite3');
+import { io } from "socket.io-client";import Sqlite from 'better-sqlite3'
 
 let db = new Sqlite('db.sqlite');
 
@@ -15,9 +14,12 @@ socket.on('disconnect', () => console.log('server disconnected'))
 
 
 function get_betClosed() {
-    let select = db.prepare(`select betNumber from bets where status=1`);
-    let result = select.all();
-    if (result) return result;
+    let select = db.prepare(`select betNumber from bets where status=1`).all();
+	let betsClosed = [];
+    for (let i = 0; i < select.length; i++) {
+        betsClosed.push(select[i]["betNumber"]);
+    }
+    if (select) return betsClosed;
 }
 
 function get_betClosed_byType(type) {
@@ -57,7 +59,7 @@ function update_score(betNumber, scoreHome, scoreAway) {
 }
 
 
-module.exports = {
+export default {
     get_betClosed_byType: get_betClosed_byType,
     get_betClosed: get_betClosed,
     get_leagueClosed_byType:get_leagueClosed_byType,

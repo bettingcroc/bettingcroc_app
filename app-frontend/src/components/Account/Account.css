@@ -56,15 +56,6 @@
     width: 100%;
 }
 
-@media screen and (max-width: 1080px) {
-    #friendAdder {
-        width: 100%;
-    }
-
-    #changePseudoDiv {
-        width: 100%;
-    }
-}
 
 .titleBetAccount {
     width: 35%;
@@ -138,4 +129,63 @@
     border: 1px solid #F8F9FA;
     box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
     border-radius: 20px;
+}
+
+#requestSuperDiv {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: 23px 31px;
+    gap: 10px;
+
+    min-height: 190px;
+
+    border: 1px solid #F8F9FA;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+}
+
+@media screen and (max-width: 1080px) {
+    #requestSuperDiv {
+        display: none;
+    }
+
+    #friendAdder {
+        width: 100%;
+    }
+
+    #inputPseudoSetter {
+        width: 100%;
+        padding: 7.5px;
+        border-radius: 8px;
+        border: solid 1px #e3e3e3;
+
+        outline: none;
+    }
+
+    #inputFriendAdder {
+        width: 100%;
+        padding: 7.5px;
+        border-radius: 8px;
+        border: solid 1px #e3e3e3;
+
+        outline: none;
+
+    }
+
+    #changePseudoDiv {
+        width: 100%;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .settingsButton {
+        width: unset;
+
+    }
+
+    .accountP {
+        margin-bottom: 10px;
+    }
 }

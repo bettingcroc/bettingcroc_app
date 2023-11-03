@@ -44599,3 +44599,16 @@ no bet to close on 31/01/2023 at 12:00:14 to 12:01:14
 no bet to close on 31/01/2023 at 12:01:14 to 12:02:14
 no bet to close on 31/01/2023 at 12:02:14 to 12:03:14
 no bet to close on 31/01/2023 at 12:03:14 to 12:04:14
+no bet to close on 02/11/2023 at 16:59:43 to 17:00:43
+no bet to close on 02/11/2023 at 17:00:43 to 17:01:43
+no bet to close on 02/11/2023 at 17:01:43 to 17:02:43
+no bet to close on 02/11/2023 at 17:02:43 to 17:03:43
+no bet to close on 02/11/2023 at 17:12:44 to 17:13:44
+no bet to close on 02/11/2023 at 17:13:44 to 17:14:44
+no bet to close on 02/11/2023 at 17:15:38 to 17:16:38
+no bet to close on 02/11/2023 at 17:21:03 to 17:22:03
+5 closed on 02/11/2023 at 17:22:13no bet to close on 02/11/2023 at 17:23:03 to 17:24:03
+no bet to close on 02/11/2023 at 17:24:03 to 17:25:03
+no bet to close on 02/11/2023 at 17:25:03 to 17:26:03
+no bet to close on 02/11/2023 at 17:26:03 to 17:27:03
+no bet to close on 02/11/2023 at 17:27:03 to 17:28:03

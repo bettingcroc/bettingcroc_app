@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Base = (props) => {
     return (
         <div id={props.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
-            <TopBar vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
+            <TopBar  unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
             <div id="secondBox">
                 <LeftBar mainVue={props.mainVue} theme={props.theme}></LeftBar>
                 <div id="mainVue">
@@ -67,10 +67,10 @@ const Base = (props) => {
                         <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "rankings" ? props.theme === "light" ? rankingLight : rankingDark : rankingInactive}></img>
                         <p id="rankingsLinkMobileBottomBar" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p>
                     </Link>
-                    <Link to="/notifications" className="linkMobileBottomBar">
+                    {props.logged ? <Link to="/notifications" className="linkMobileBottomBar">
                         <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "notifications" ? props.theme === "light" ? notificationsLight : notificationsDark : notificationsInactive}></img>
                         <p id="notificationsLinkMobileBottomBar" className={props.vueTopBar === "notifications" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Notifications</p>
-                    </Link>
+                    </Link>:null}
 
                 </div>
 

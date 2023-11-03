@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { MY_SERVER } from "../../consts"
-
-var __mounted;
+import "./MyFriends.css"
 
 function MyFriends(props) {
 
@@ -35,7 +33,7 @@ function MyFriends(props) {
             <div key={item.address2} className="requestDiv">
               <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.pseudo}</p>
 
-              <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.address2}</p>
+              <p className={props.theme === "light" ? "blackP friendsAddress" : "lightGreyP friendsAddress"}>{item.address2}</p>
               <button className='generalsButton' onClick={(event) => { //e is undefined
                 removeFriend(
                   { "head": "removeFriend", "oldFriend": item.address2 }

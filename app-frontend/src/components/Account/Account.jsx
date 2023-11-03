@@ -22,7 +22,7 @@ function Account(props) {
   const [betsToDisplay, setBetsToDisplay] = useState([])
   useEffect(() => {
     props.mainVueSetter("account")
-
+    props.vueSetter("account")
   }, [])
   useEffect(() => {
     testLogin().then((res) => {
@@ -91,6 +91,7 @@ function Account(props) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include'
     };
     await new Promise(next => {
       fetch(url, options).then((res) => {
@@ -103,8 +104,11 @@ function Account(props) {
 
   }
   async function sendFriendRequest(newFriend) {
-    props.socket.emit("sendFriendRequest", { fromAddress: props.address, toAddress: newFriend })
-    console.log(friends)
+    if (newFriend.length !== 42) {
+      setMessageAddFriend("Bad address format")
+      setCssMessageAddFriend("messageAddFriend1")
+      return
+    }
     for (let add in friends) {
       if (newFriend === friends[add].address2) {
         setMessageAddFriend("Already friend with " + newFriend)
@@ -125,15 +129,21 @@ function Account(props) {
       },
       credentials: 'include'
     };
-    await new Promise(next => {
-      fetch(url, options).then((res) => {
+    fetch(url, options)
+      .then((res) => {
         console.log("done " + res.status);
-        next()
-      });
-    })
-    console.log("end function")
-    setMessageAddFriend("Invitation sent to " + newFriend)
-    setCssMessageAddFriend("messageAddFriend2")
+        if (res.status === 200) {
+          props.socket.emit("sendFriendRequest", { fromAddress: props.address, toAddress: newFriend })
+          setMessageAddFriend("Invitation sent to " + newFriend)
+          setCssMessageAddFriend("messageAddFriend2")
+        }
+        else {
+          setMessageAddFriend("Something went wrong ")
+          setCssMessageAddFriend("messageAddFriend1")
+        }
+      })
+
+
     return
 
   }
@@ -216,7 +226,7 @@ function Account(props) {
       {props.logged ? <div id="friendsDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"} >Friends</p>
         <div id="friendAdder">
-          <input placeholder="Type an address here" className="settingsInput" type="text" value={newFriend} onChange={(e) => setNewFriend(e.target.value)}></input>
+          <input id="inputFriendAdder" placeholder="Type an address here" className="settingsInput" type="text" value={newFriend} onChange={(e) => setNewFriend(e.target.value)}></input>
           <button className='generalsButton settingsButton' onClick={(event) => { sendFriendRequest(newFriend) }}><p className="buttonP">Add friend</p></button>
         </div>
 
@@ -228,14 +238,15 @@ function Account(props) {
 
         <MyRequests theme={props.theme} socket={props.socket} updateRequests={updateRequests} requests={requests} updateFriends={updateFriends} address={props.address} logged={props.logged}></MyRequests>
       </div> : null}
-      {props.logged ? <div id="settingsAccount" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-        <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>
+      {props.logged ?
+        <div id="settingsAccount" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+          <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>
 
-        <div id="changePseudoDiv">
-          <input placeholder="Type your new pseudo here" className="settingsInput" type="text" value={newPseudo} onChange={(e) => setNewPseudo(e.target.value)}></input>
-          <button className='generalsButton settingsButton' onClick={(event) => { setPseudo(newPseudo) }}><p className="buttonP" >Change Pseudo</p></button>
-        </div>
-      </div> : null}
+          <div id="changePseudoDiv">
+            <input id="inputPseudoSetter" placeholder="Type your new pseudo here" className="settingsInput" type="text" value={newPseudo} onChange={(e) => setNewPseudo(e.target.value)}></input>
+            <button className='generalsButton settingsButton' onClick={(event) => { setPseudo(newPseudo) }}><p className="buttonP" >Change Pseudo</p></button>
+          </div>
+        </div> : null}
     </div>
   );
 }

@@ -83,6 +83,14 @@
     flex-grow: 0;
 }
 
+#accountLink {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 140%;
+}
+
 #notificationsLink {
     font-family: 'Roboto';
     font-style: normal;

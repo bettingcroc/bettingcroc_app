@@ -63,19 +63,17 @@ function TopBar(props) {
           <Link to="/basketball"><p id="listBetsTitle" className={props.vueTopBar === "listBets" ? props.theme === "light" ? "blackP" : "lightGreyP" : "titleInactive"}>Sport Bets</p></Link>
           <Link to="/decentrabet"><p id="decentraBetTitle" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
           <Link to="/rankings"><p id="rankingsLink" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
+          {props.defaultAccount !== undefined ? <Link to="/account" id="accountLink"><p id="accountLink" className={props.vueTopBar === "account" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Account</p></Link> : null}
         </div>
         {/*<button onClick={notif}>toast</button>
         <button onClick={login_unsecure}>login_unsecure</button>*/}
       </div>
       <div id="topRight">
-        <NotificationCenter theme={props.theme} logged={props.logged}></NotificationCenter>
+        <NotificationCenter unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} theme={props.theme}></NotificationCenter>
 
 
         <ThemeSwitcher theme={props.theme} switchTheme={props.switchTheme} id={"themeSwitcherTopBar"}></ThemeSwitcher>
         <Connecter accountChangedHandler={props.accountChangedHandler} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></Connecter>
-        <Link to="/account" id="accountLink">
-          <img className="accountLogo" src={props.theme === "light" ? accountImage : accountImageWhite} alt="accountImage"></img>
-        </Link>
       </div>
 
 

@@ -10,29 +10,18 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "type": "module",
     "dependencies": {
-        "@metamask/detect-provider": "^1.2.0",
-        "@truffle/hdwallet-provider": "^2.0.11",
-        "better-sqlite3": "^7.6.2",
-        "consolidate": "^0.16.0",
+        "@truffle/hdwallet-provider": "^2.1.15",
+        "better-sqlite3": "^9.0.0",
         "cors": "^2.8.5",
-        "ethers": "^5.5.4",
         "express": "^4.17.1",
         "express-session": "^1.17.3",
-        "express-useragent": "^1.0.15",
         "fetch": "^1.1.0",
-        "follow-redirects": "^1.15.2",
-        "http": "^0.0.1-security",
-        "jquery": "^3.6.0",
-        "morgan": "^1.10.0",
-        "mustache": "^4.2.0",
         "require": "^2.4.20",
         "socket.io": "^4.5.4",
         "socket.io-client": "^4.6.1",
         "truffle": "^5.4.26",
-        "url": "^0.11.3",
-        "web3": "^1.7.5",
-        "web3-eth-accounts": "^1.7.0",
-        "web3-token": "^0.2.7"
+        "web3": "^4.2.1"
     }
 }
