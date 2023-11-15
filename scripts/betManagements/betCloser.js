@@ -1,9 +1,9 @@
 import { PRIVATE_KEY_CERATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, betClosedABI } from "../config.js"
-import fs from 'fs';
-import logger from '../logger.js'
+import { logBetCloser } from "../logger.js";
 import model from '../model.js'
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
+
 
 const provider = new HDWalletProvider(PRIVATE_KEY_CERATOR, NODE_URL_BSCTESTNET);
 const web3 = new Web3(provider);
@@ -34,26 +34,16 @@ function betCloser() {
                     betsToClose.push(parseInt(res.betNumber))
                 });
                 model.closeBets(betsToClose)
-                let str = `${betsToClose} closed on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`
-                console.log(str)
-                fs.appendFile("../logs/logsBetCloser.txt", str, function (err) {
-                    if (err) {
-                        return console.log(err);
-                    }
-                });
+                logBetCloser(`${betsToClose} closed on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`)
             })
             .on('error', function (error, receipt) {
                 console.log("error tx");
             })
     }
     else {
-        let str = `no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + 60000).toLocaleTimeString()}`
-        logger.magenta(str);
-        fs.appendFile("../logs/logsBetCloser.txt", str + "\n", function (err) {
-            if (err) {
-                return console.log(err);
-            }
-        });
+        logBetCloser(`no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + 60000).toLocaleTimeString()}`)
     }
 }
+
+
 betCloser();

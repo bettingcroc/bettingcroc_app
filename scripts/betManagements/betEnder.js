@@ -1,20 +1,21 @@
 import { API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL } from "../config.js"
-import fs from 'fs';
 import db_betEnder from './db_betEnder.js'
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
-
+import { logBetEnder } from "../logger.js";
 
 const provider = new HDWalletProvider(PRIVATE_KEY_ENDER, NODE_URL_BSCTESTNET);
 const web3 = new Web3(provider);
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
+const DELAY = 60000
 
 multiBetContract.setConfig({ contractDataInputFill: "both" })
 
 
 async function betEnder() {
-    setTimeout(betEnder, 60000);
+    setTimeout(betEnder, DELAY);
     let betsClosed = db_betEnder.get_betClosed();
+    console.log(betsClosed)
     if (betsClosed.length > 0) {
         createWinnersArray(betsClosed)
             .then((winnerArray) => {
@@ -23,54 +24,36 @@ async function betEnder() {
                     endBetOnChain(winnerArray[0], winnerArray[1]);
                 }
                 else {
-                    let str = `${new Date().toLocaleDateString()} ${new Date(new Date().getTime() - 60000).toLocaleTimeString()} to ${new Date().toLocaleTimeString()} : no bet to End`
-                    console.log(str);
-                    fs.appendFile("../logs/logsBetEnder.txt", str + "\n", function (err) {
-                        if (err) {
-                            return console.log(err);
-                        }
-                    });
+                    logBetEnder(`${new Date().toLocaleDateString()} ${new Date(new Date().getTime() - 60000).toLocaleTimeString()} to ${new Date().toLocaleTimeString()} : no bet to End`)
                 }
             })
     }
     else {
-        let str = `${new Date().toLocaleDateString()} ${new Date(new Date().getTime() - 60000).toLocaleTimeString()} to ${new Date().toLocaleTimeString()} : no bet to End`
-        console.log(str);
-        fs.appendFile("../logs/logsBetEnder.txt", str + "\n", function (err) {
-            if (err) {
-                return console.log(err);
-            }
-        });
+        logBetEnder(`${new Date().toLocaleDateString()} ${new Date(new Date().getTime() - 60000).toLocaleTimeString()} to ${new Date().toLocaleTimeString()} : no bet to End`)
     }
 }
 
-betEnder();
 
 async function endBetOnChain(betsToEnd, winnerBetsToEnd) {
-    console.log("tx sent")
+    console.log("trying to end bets on chain")
     await multiBetContract.methods
         .endBets(betsToEnd, winnerBetsToEnd)
-        .send({ from: keyPublic })
+        .send({ from: PUBLIC_KEY_ENDER })
         .on('receipt', function (receipt) {
             db_betEnder.endBets(betsToEnd)
-            let str =`${new Date().toLocaleDateString()} ${new Date()} ${betsToEnd} ended with ${winnerBetsToEnd}`
-            console.log(str);
-            fs.appendFile("../logs/logsBetEnder.txt", str + "\n", function (err) {
-                if (err) {
-                    return console.log(err);
-                }
-            });
+            logBetEnder(`${new Date().toLocaleDateString()} ${new Date()} bets ${betsToEnd} ended with ${winnerBetsToEnd}`)
         })
         .on('error', function (error, receipt) {
             console.log(`error tx ${error}`);
         })
 }
 
+
 async function createWinnersArray(betsClosed) {
     let betsToEnd = [];
     let winnerBetsToEnd = [];
     await new Promise(async next => {
-        for (i = 0; i < betsClosed.length; i++) {
+        for (let i = 0; i < betsClosed.length; i++) {
             let betNumber = betsClosed[i]
             let options = {
                 'method': 'GET',
@@ -81,8 +64,6 @@ async function createWinnersArray(betsClosed) {
             }
             let res = await fetch(URL_API_BASKETBALL + `?id=${db_betEnder.get_idAPI(betNumber)}`, options)
             let data = await res.json()
-
-            console.log("request basket for bet " + betNumber);
             let matchStatus = data.response[0].status.short
             let scoreHome = data.response[0].scores.home.total
             let scoreAway = data.response[0].scores.away.total
@@ -112,3 +93,6 @@ async function createWinnersArray(betsClosed) {
     }
     return [betsToEnd, winnerBetsToEnd];
 }
+
+
+betEnder();

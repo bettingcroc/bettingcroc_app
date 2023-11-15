@@ -1,3 +1,6 @@
+import fs from 'fs';
+
+
 function red(toLog) {
     console.log('\x1b[31m%s\x1b[0m', toLog)
 }
@@ -19,13 +22,21 @@ function magenta(toLog) {
 function high(toLog) {
     console.log('\x1b[47m%s\x1b[30\x1b[0m', toLog)
 }
-
-export default {
-    red: red,
-    blue: blue,
-    green: green,
-    yellow: yellow,
-    magenta: magenta,
-    cyan: cyan,
-    high: high
+function logBetEnder(log) {
+    red(log);
+    fs.appendFile("../logs/logsBetEnder.txt", log + "\n", function (err) {
+        if (err) {
+            return console.log(err);
+        }
+    })
 }
+function logBetCloser(log) {
+    yellow(log);
+    fs.appendFile("../logs/logsBetCloser.txt", log + "\n", function (err) {
+        if (err) {
+            return console.log(err);
+        }
+    })
+}
+
+export { logBetEnder, logBetCloser }

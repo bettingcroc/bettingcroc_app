@@ -4,19 +4,20 @@ import model from '../model.js'
 import cors from 'cors'
 import users from '../users.js'
 import apiServer from './apiServer.js'
-const app = express()
-const port = process.env.PORT || 4000;
 import session from 'express-session'
 import { Server } from 'socket.io';
 import http from "http"
+
+
+const app = express()
+const port = process.env.PORT || 4000;
 const server = http.createServer(app)
-
-
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000"
   }
 }) //in case server and client run on different urls
+
 
 io.on("connection", (socket) => {
   //console.log("client connected: ", socket.id)
@@ -62,7 +63,6 @@ updateTopBets()
 function updateTopBets() {
   //console.log("updateTopBets")
   apiServer.getTopBets().then((result) => {
-
     if (result === "error") { setTimeout(updateTopBets, 60000) }
     else {
       topBets = result;
@@ -70,8 +70,6 @@ function updateTopBets() {
     }
   })
 }
-
-
 
 
 app.use(session({
@@ -85,11 +83,9 @@ app.use(cors({
   origin: 'http://localhost:3000', // replace with your frontend URL
   credentials: true
 }));
+
 app.use(express.json())
 
-/*app.listen(port, () => {
-  console.log(`Bettingcroc application listening on port ${port}`)
-})*/
 server.listen(port, err => {
   if (err) console.log(err)
   console.log("Server running on Port ", port)
@@ -97,9 +93,7 @@ server.listen(port, err => {
 
 app.get('/api/position/:address', (req, res) => {
   console.log('GET /api/position/' + req.params.address)
-
   address = req.params.address.toLowerCase()
-  //console.log(address)
   let position = users.get_Classement_address(address);
   if (position === undefined) {
     users.addUser(address);
@@ -343,22 +337,18 @@ app.get('/api/score/:address', (req, res) => {
 
 
 app.post('/api/myBets', async (req, res) => {
-  //console.log('POST /api/myBets')
-  //console.log(req.body)
+  console.log('POST /api/myBets')
   let betsInfos = await apiServer.getMyBets(req.body.listBets)
-  //console.log(betsInfos)
   res.send(betsInfos)
 })
 
 app.post('/api/myRecentsBets', async (req, res) => {
   console.log('POST /api/myRecentsBets')
-
   res.send(await apiServer.getMyRecentsBets(req.body.listBets))
 })
 
 app.get('/api/myP2PBets/:address', async (req, res) => {
   console.log('GET /api/myP2PBets/' + req.params.address)
-
   res.send(await apiServer.getMyP2PBets(req.params.address))
 })
 

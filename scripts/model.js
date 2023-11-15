@@ -1,6 +1,6 @@
 import Sqlite from 'better-sqlite3'
 import  {Web3}  from 'web3'
-import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI } from "../config.js"
+import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI } from "./config.js"
 
 
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET))
@@ -172,13 +172,7 @@ function closeBets(betNumbers) {
 }
 
 
-function endBets(betNumbers) {
-	for (let bN in betNumbers) {
-		bN = betNumbers[bN]
-		let update = db.prepare('update bets set status=2 where betNumber=' + bN)
-		update.run()
-	}
-}
+
 
 
 function cancelBet(betNumber) {
@@ -220,7 +214,6 @@ export default {
 	get_League: get_League,
 	get_CLosestDatesByTypeAndLeague: get_CLosestDatesByTypeAndLeague,
 	closeBets: closeBets,
-	endBets: endBets,
 	cancelBet: cancelBet,
 	sqlToInject:sqlToInject,
 	getTable:getTable
