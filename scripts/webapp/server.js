@@ -1,5 +1,4 @@
 import express from 'express'
-import logger from '../logger.js'
 import model from '../model.js'
 import cors from 'cors'
 import users from '../users.js'
@@ -366,24 +365,24 @@ app.get('/swagger/static/:dir/:file', (req, res) => {
 })
 
 app.get('/swagger', (req, res) => {
-  logger.red('GET /SWAGGER')
+  console.log('GET /SWAGGER')
   res.sendFile(__dirname + "/swagger/build/index.html");
 });
 
 
 app.get('/db/:table', (req, res) => {
   table = model.getTable(req.params.table)
-  logger.red('GET /db/' + req.params.table)
+  console.log('GET /db/' + req.params.table)
   res.send(table);
 });
 app.get('/db', (req, res) => {
-  logger.red('GET /db')
+  console.log('GET /db')
   res.sendFile(__dirname + "/dbDisplayer/index.html");
 });
 /* FOR DEV */
 
 app.get('/*', (req, res) => {
-  logger.red('GET /')
+  console.log('GET /')
   res.sendFile(__dirname + "/app/build/index.html");
 });
 

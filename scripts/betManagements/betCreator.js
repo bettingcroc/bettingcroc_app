@@ -1,6 +1,6 @@
 import { PRIVATE_KEY_CERATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
 import fs from 'fs';
-import logger from '../logger.js'
+import { cyan } from '../logger.js'
 import model from '../model.js'
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
@@ -89,7 +89,7 @@ async function betCreator() {
   let leagues = ["NBA"]
   let sports = ["basketball"]
   let date = dateIterator(dayIncrementer);
-  logger.cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + date + " !!!!!!!!!!!!!!!!!!!!!!!!");
+  cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + date + " !!!!!!!!!!!!!!!!!!!!!!!!");
   setTimeout(betCreator, DELAY);
   for (let i = 0; i < leagues.length; i++) {
     let league = leagues[i];
@@ -117,7 +117,7 @@ async function betCreator() {
           await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.results, data, numberOfOptions, sport, date);
         }
         else {
-          logger.blue(`0 bets ${sport} to add`);
+          blue(`0 bets ${sport} to add`);
         }
       })
     })

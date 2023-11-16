@@ -39,4 +39,4 @@ function logBetCloser(log) {
     })
 }
 
-export { logBetEnder, logBetCloser }
+export { logBetEnder, logBetCloser, cyan, blue }

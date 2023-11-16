@@ -4,7 +4,7 @@ import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, } 
 
 const db = new Sqlite('db.sqlite');
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
-const multiBetContract = new web3.eth.Contract(JSON.parse(multiBetABI), multiBetAddress);
+const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
 db.prepare('CREATE TABLE IF NOT EXISTS Players (address TEXT PRIMARY KEY, score INTEGER, pseudo TEXT)').run();
 db.prepare('create TABLE IF NOT EXISTS friendsLinks (address1 TEXT,address2 text)').run();
