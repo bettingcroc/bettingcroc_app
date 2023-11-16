@@ -1,8 +1,8 @@
 import Sqlite from 'better-sqlite3'
 import { Web3 } from 'web3';
-import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, } from "./config.js"
+import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI,__dirname } from "./config.js"
 
-const db = new Sqlite('db.sqlite');
+const db = new Sqlite(__dirname+'/db.sqlite');
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 

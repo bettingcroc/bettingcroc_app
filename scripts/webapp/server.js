@@ -6,7 +6,7 @@ import apiServer from './apiServer.js'
 import session from 'express-session'
 import { Server } from 'socket.io';
 import http from "http"
-
+import { __dirname } from '../config.js'
 
 const app = express()
 const port = process.env.PORT || 4000;
@@ -355,7 +355,7 @@ app.get('/api/myP2PBets/:address', async (req, res) => {
 app.use(express.static("./app/build/"))
 
 app.get('/static/:dir/:file', (req, res) => {
-  console.log('GET /static/' + req.params.dir + "/" + req.params.file)
+  //console.log('GET /static/' + req.params.dir + "/" + req.params.file)
   res.sendFile(__dirname + "/app/build/static/" + req.params.dir + "/" + req.params.file)
 })
 

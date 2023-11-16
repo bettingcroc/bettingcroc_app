@@ -1,11 +1,11 @@
 import Sqlite from 'better-sqlite3'
 import  {Web3}  from 'web3'
 import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI } from "./config.js"
-
+import { __dirname } from './config.js'
 
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET))
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress)
-const db = new Sqlite('db.sqlite');
+const db = new Sqlite(__dirname+'/db.sqlite');
 
 
 db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, status INTEGER, type TEXT, country TEXT, league TEXT, idAPI INTEGER, scoreHome INTEGER, scoreAway INTEGER)').run();

@@ -1,6 +1,7 @@
 import { io } from "socket.io-client"; import Sqlite from 'better-sqlite3'
+import { __dirname } from "../config";
 
-const db = new Sqlite('db.sqlite');
+const db = new Sqlite(__dirname + '/db.sqlite');
 const socket = io('https://testnet.bettingcroc.com')
 
 
