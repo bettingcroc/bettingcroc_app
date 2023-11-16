@@ -2,13 +2,15 @@
 import { Web3 } from 'web3';
 import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, } from "../config.js"
 import Sqlite from 'better-sqlite3'
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+console.log(__dirname+"/../db.sqlite")
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
-const db = new Sqlite('db.sqlite');
-
-
-db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, closed BOOLEAN, type TEXT, country TEXT, league TEXT, idAPI INTEGER)').run();
+const db = new Sqlite(__dirname+"/../db.sqlite");
 
 function randomString(length) {
 	let text = "";
