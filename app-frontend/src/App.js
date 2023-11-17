@@ -664,7 +664,7 @@ function App() {
     function approveUSDT(amount) {
         let approveToast = toast.loading("Approving USDT...", { closeButton: true })
         USDTContract.methods
-            .approve("0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5", amount)
+            .approve(MULTIBET_ADDRESS, amount)
             .send({ from: defaultAccount })
             .once('receipt', (receipt) => {
                 console.log("approve success")
@@ -678,7 +678,7 @@ function App() {
     function approveMBT(amount) {
         let approveToast = toast.loading("Approving MBT...")
         MBTContract.methods
-            .approve("0xBD445c5A2C4197ce12DE4e28473dE471aD21D8B5", amount)
+            .approve(MULTIBET_ADDRESS, amount)
             .send({ from: defaultAccount })
             .once('receipt', (receipt) => {
                 console.log("approve success")

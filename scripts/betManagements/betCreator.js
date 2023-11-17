@@ -16,7 +16,7 @@ multiBetContract.setConfig({ contractDataInputFill: "both" })
 
 var tx = 0;
 var FirstDay = Math.round((new Date().getTime()) / 1000);
-var dayIncrementer = 0;
+var dayIncrementer = 1;
 
 
 function run() {
