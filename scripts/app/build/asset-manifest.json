@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d7b89a50.css",
-    "main.js": "/static/js/main.e78bf8ea.js",
+    "main.css": "/static/css/main.7aad1434.css",
+    "main.js": "/static/js/main.0585d1df.js",
     "static/js/774.0d8f1ff4.chunk.js": "/static/js/774.0d8f1ff4.chunk.js",
     "static/js/459.9e8c0f91.chunk.js": "/static/js/459.9e8c0f91.chunk.js",
     "static/media/home.png": "/static/media/home.e0ec557fad1fbe917d9d.png",
@@ -20,16 +20,22 @@
     "static/media/sun.png": "/static/media/sun.e084c7323a6f30ebee93.png",
     "static/media/moonYellow.png": "/static/media/moonYellow.3bea3d398a25611d421b.png",
     "static/media/hamburger.png": "/static/media/hamburger.976b5194516ca86106ce.png",
+    "static/media/sportsInactive.png": "/static/media/sportsInactive.daa6f7030d18098d66ec.png",
+    "static/media/sportsLight.png": "/static/media/sportsLight.fa136dc96a923281c9e8.png",
+    "static/media/sportsDark.png": "/static/media/sportsDark.287ed6f573c901d3c7dc.png",
     "static/media/walletconnect.png": "/static/media/walletconnect.9f823c8845fe5055a070.png",
     "static/media/close.png": "/static/media/close.76608c97ea3351d43407.png",
+    "static/media/decentraBetInactive.png": "/static/media/decentraBetInactive.8aa7343d700b461385cf.png",
+    "static/media/decentraBetLight.png": "/static/media/decentraBetLight.f8c165054d19c966b8c0.png",
+    "static/media/decentraBetDark.png": "/static/media/decentraBetDark.533dccdb5ef6fbd052ca.png",
     "index.html": "/index.html",
-    "main.d7b89a50.css.map": "/static/css/main.d7b89a50.css.map",
-    "main.e78bf8ea.js.map": "/static/js/main.e78bf8ea.js.map",
+    "main.7aad1434.css.map": "/static/css/main.7aad1434.css.map",
+    "main.0585d1df.js.map": "/static/js/main.0585d1df.js.map",
     "774.0d8f1ff4.chunk.js.map": "/static/js/774.0d8f1ff4.chunk.js.map",
     "459.9e8c0f91.chunk.js.map": "/static/js/459.9e8c0f91.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d7b89a50.css",
-    "static/js/main.e78bf8ea.js"
+    "static/css/main.7aad1434.css",
+    "static/js/main.0585d1df.js"
   ]
 }
