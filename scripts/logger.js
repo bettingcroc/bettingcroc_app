@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { __dirname } from './config';
+import { __dirname } from './config.js';
 
 function red(toLog) {
     console.log('\x1b[31m%s\x1b[0m', toLog)
