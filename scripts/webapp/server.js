@@ -371,7 +371,7 @@ app.get('/swagger', (req, res) => {
 
 
 app.get('/db/:table', (req, res) => {
-  table = model.getTable(req.params.table)
+  let table = model.getTable(req.params.table)
   console.log('GET /db/' + req.params.table)
   res.send(table);
 });
