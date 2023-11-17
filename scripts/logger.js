@@ -38,5 +38,13 @@ function logBetCloser(log) {
         }
     })
 }
+function logBetCreator(log) {
+    green(log);
+    fs.appendFile(__dirname+"/../logs/logsBetCreator.txt", log + "\n", function (err) {
+        if (err) {
+            return console.log(err);
+        }
+    })
+}
 
-export { logBetEnder, logBetCloser, cyan, blue }
+export { logBetEnder, logBetCloser, cyan,  logBetCreator }

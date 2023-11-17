@@ -1,6 +1,6 @@
 import { PRIVATE_KEY_CERATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
 import fs from 'fs';
-import { cyan } from '../logger.js'
+import { cyan, logBetCreator } from '../logger.js'
 import model from '../model.js'
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
@@ -64,12 +64,7 @@ async function betWriter(listNames, listOptions, numberOfBets, response, numberO
               : null
           let nameBet = type === 'basketball' ? nameHome + "," + nameAway : type === 'football' ? nameHome + ",Draw," + nameAway : null
           model.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
-          let str = `${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet} \n`;
-          fs.appendFile("../../logs/logsBetCreator.txt", str, function (err) {
-            if (err) {
-              return console.log(err);
-            }
-          });
+          logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet} \n`)
         }
         console.log(`${date} bets succesfully added`);
       })
