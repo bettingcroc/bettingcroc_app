@@ -6,7 +6,7 @@ import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
 
 
-const DELAY = 30000//86400000
+const DELAY = 86400000//30000
 const provider = new HDWalletProvider(PRIVATE_KEY_CERATOR, NODE_URL_BSCTESTNET);
 const web3 = new Web3(provider);
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
@@ -65,7 +65,7 @@ async function betWriter(listNames, listOptions, numberOfBets, response, numberO
           let nameBet = type === 'basketball' ? nameHome + "," + nameAway : type === 'football' ? nameHome + ",Draw," + nameAway : null
           model.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
           let str = `${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet} \n`;
-          fs.appendFile("../logs/logsBetCreator.txt", str, function (err) {
+          fs.appendFile("../../logs/logsBetCreator.txt", str, function (err) {
             if (err) {
               return console.log(err);
             }
