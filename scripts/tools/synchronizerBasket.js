@@ -16,7 +16,6 @@ multiBetContract.methods
 				.getBetNumberToBetName(i)
 				.call()
 				.then(async (result) => {
-					console.log(result)
 					let matchUnsync = result.split(" ")
 					let options = {
 						'method': 'GET',
@@ -27,7 +26,6 @@ multiBetContract.methods
 					}
 					fetch(URL_API_BASKETBALL + `?date=${dateFormater(matchUnsync[2])}&season=${"2023-2024"}&team=${matchUnsync[0]}`, options).then((res) => {
 						res.json().then(async (data) => {
-							console.log(data)
 							let nameHome = data.response[0].teams.home.name;
 							let nameAway = data.response[0].teams.away.name;
 							let timestamp = data.response[0].timestamp;

@@ -1,5 +1,5 @@
 import fs from 'fs';
-
+import { __dirname } from './config';
 
 function red(toLog) {
     console.log('\x1b[31m%s\x1b[0m', toLog)
@@ -24,7 +24,7 @@ function high(toLog) {
 }
 function logBetEnder(log) {
     red(log);
-    fs.appendFile("../logs/logsBetEnder.txt", log + "\n", function (err) {
+    fs.appendFile(__dirname+"/../logs/logsBetEnder.txt", log + "\n", function (err) {
         if (err) {
             return console.log(err);
         }
@@ -32,7 +32,7 @@ function logBetEnder(log) {
 }
 function logBetCloser(log) {
     yellow(log);
-    fs.appendFile("../logs/logsBetCloser.txt", log + "\n", function (err) {
+    fs.appendFile(__dirname+"/../logs/logsBetCloser.txt", log + "\n", function (err) {
         if (err) {
             return console.log(err);
         }
