@@ -49,8 +49,8 @@ function newFriendRequest(args, address) {
 	//console.log(args)
 	//console.log(address)
 	let insert = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest,read) VALUES (?,?,?,?,?,?)`);
-	timeNow = new Date().toLocaleTimeString();
-	dateNow = new Date().toLocaleDateString();
+	let timeNow = new Date().toLocaleTimeString();
+	let dateNow = new Date().toLocaleDateString();
 	//console.log(address,args.newFriend,args.head, JSON.stringify(args),dateNow+" "+timeNow)
 	insert.run(address, args.newFriend.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow, "0");
 }
@@ -59,8 +59,8 @@ function newBetInvitation(args, address) {
 	//console.log(args)
 	//console.log(address)
 	let insert = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest,read) VALUES (?,?,?,?,?,?)`);
-	timeNow = new Date().toLocaleTimeString();
-	dateNow = new Date().toLocaleDateString();
+	let timeNow = new Date().toLocaleTimeString();
+	let dateNow = new Date().toLocaleDateString();
 	//console.log(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow)
 	insert.run(address, args.address.toLowerCase(), args.head, JSON.stringify(args), dateNow + " " + timeNow, "0");
 }
@@ -105,7 +105,7 @@ function get10MaxScore() {
 }
 function getFriendsClassement(address) {
 	address = address.toLowerCase()
-	request = `SELECT * FROM players where address in (select address2 from friendsLinks where address1='${address}' union SELECT distinct address1 from friendsLinks where address1='${address}') order by score desc;`
+	let request = `SELECT * FROM players where address in (select address2 from friendsLinks where address1='${address}' union SELECT distinct address1 from friendsLinks where address1='${address}') order by score desc;`
 	let select = db.prepare(request);
 	let result = select.all();
 	if (result) return result;
@@ -114,10 +114,8 @@ function getFriendsClassement(address) {
 function update_Scores() {
 	let taille = db.prepare('SELECT COUNT(*) as taille FROM Players').get();
 	taille = taille.taille;
-	//console.log("from users.js "+taille);
-	console.log(get_addresses())
 	for (i = 0; i < taille; i++) {
-		address = get_addresses()[i].address;
+		let address = get_addresses()[i].address;
 		multiBetContract.methods.getScoreUser(address).call()
 			.then((result) => {
 				update_Score(address, result);
@@ -134,7 +132,7 @@ function update_WeekScores() {
 	//console.log("from users.js "+taille);
 	console.log(get_addresses())
 	for (i = 0; i < taille; i++) {
-		address = get_addresses()[i].address;
+		let address = get_addresses()[i].address;
 		multiBetContract.methods.getScoreUser(address).call()
 			.then((result) => {
 				console.log("result " + result)
@@ -146,11 +144,8 @@ function update_WeekScores() {
 
 function update_WeekScore(address, score) {
 	db.prepare(`UPDATE players SET oldWeek = (select week from players where address = '${address}' ) WHERE address= '${address}'`).run()
-	console.log(`UPDATE players SET oldWeek = (select week from players where address = '${address}' ) WHERE address= '${address}'`)
 	let oldScore = db.prepare(`select week from players where address ='${address}'`).get()
-	console.log(oldScore)
 	let scoreUpdated = score - oldScore.week
-	console.log(scoreUpdated)
 	let update = db.prepare(`UPDATE players SET week = '${scoreUpdated}' WHERE address= '${address}'`)
 	update.run();
 }
@@ -166,13 +161,8 @@ function get_addresses() {
 async function addUser(address) {
 	if (!address) { console.log("pas d'address" + !address); return; }
 	address = address.toLowerCase();
-	console.log(address);
 	try {
 		let insert = db.prepare(`INSERT INTO Players (address,score) VALUES (?,?)`);
-		/*await multiBetContract.methods.getScoreUser(address).call()
-			.then((result) => {
-				console.log("new user score :" + result)
-			})*/
 		await multiBetContract.methods.getScoreUser(address.toLowerCase()).call()
 			.then((result) => {
 				console.log("new user score :" + result)
@@ -200,12 +190,11 @@ function get_Classement_address(address) {
 
 
 function recover(nonsigned, signed) {
-	var hex = ''
-	for (var i = 0; i < nonsigned.length; i++) {
+	let hex = ''
+	for (let i = 0; i < nonsigned.length; i++) {
 		hex += '' + nonsigned.charCodeAt(i).toString(16)
 	}
-	var hexMessage = "0x" + hex
-	//console.log("before signed "+web3.utils.sha3(nonsigned)+" signed "+signed)
+	let hexMessage = "0x" + hex
 	return web3.eth.accounts.recover(hexMessage, signed);
 }
 
@@ -217,7 +206,6 @@ export default {
 	update_Scores: update_Scores,
 	get10MaxScore: get10MaxScore,
 	get_Classement_address: get_Classement_address,
-	//verifySignature: verifySignature,
 	update_WeekScores: update_WeekScores,
 	recover: recover,
 	setPseudo: setPseudo,
