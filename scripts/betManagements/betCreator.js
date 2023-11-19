@@ -8,7 +8,7 @@ import HDWalletProvider from '@truffle/hdwallet-provider'
 function run() {
   try {
     const DELAY = 86400000//30000
-    const provider = new HDWalletProvider(PRIVATE_KEY_CERATOR, NODE_URL_BSCTESTNET);
+    const provider = new HDWalletProvider(PRIVATE_KEY_CERATOR, NODE_URL_BSCTESTNET, 0, 10000);
     const web3 = new Web3(provider);
     const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 

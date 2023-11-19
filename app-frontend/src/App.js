@@ -74,7 +74,6 @@ function App() {
             }
         }
         setUnread(unread)
-        console.log("newNOtif " + notifications.length)
     }, [notifications])
 
     useEffect(() => {
@@ -88,7 +87,6 @@ function App() {
     }, [logged])
 
     useEffect(() => {
-        console.log("constructor")
         updateNotificationsFromServer()
     }, [logged])
 
@@ -381,12 +379,10 @@ function App() {
     function updateMainVue(newVue) {
         if (newVue) {
             setMainVue(newVue)
-            console.log("updating main vue " + newVue)
             closeMenuMobile()
         }
     }
     function closeMenuMobile() {
-        console.log("closing menu mobile")
         setMenuMobile("menuHidden")
         document.body.style.overflow = '';
 
@@ -425,7 +421,7 @@ function App() {
         }
         try {
             multiBetContract.methods.getMyBetsUser(defaultAccount).call().then(result => {
-
+                console.log(result)
                 fetch(MY_SERVER + "/api/mybets/", {
                     method: "POST"
                     , body: JSON.stringify({ listBets: result })
