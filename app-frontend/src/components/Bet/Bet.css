@@ -111,6 +111,8 @@
 }
 
 #underNameBet {
+    width: 100%;
+
     /* Today Sales */
 
     box-sizing: border-box;
@@ -163,6 +165,26 @@
     width: 100%;
 }
 
+#optionsBox {
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 50px;
+
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    justify-content: space-between;
+
+}
+
 @media screen and (max-width: 550px) {
     .optionDiv {
         font-size: 16px;
@@ -182,6 +204,7 @@
 
     #underNameBet {
         height: unset;
+        padding: 15px 15px;
     }
 
     #p2p1 {
@@ -232,7 +255,7 @@
 
     #countryLeagueDate {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
     }
 
     #optionsSchedule {
@@ -240,5 +263,13 @@
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
+    }
+
+    #optionsPool {
+        padding: 15px 15px;
+    }
+
+    #optionsBox {
+        gap: 20px;
     }
 }

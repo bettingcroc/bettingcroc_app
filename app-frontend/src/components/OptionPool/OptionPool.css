@@ -67,10 +67,23 @@
 
 @media screen and (max-width: 550px) {
   .buttonTeamTitle {
-    width: unset;
+    width: 90%;
   }
 
   .buttonTeamTitleDiv {
-    width: unset;
+    width: 90%;
+  }
+
+  .cellOptionPool1 {
+    padding: 6px;
+    font-size: 10px !important;
+  }
+
+  .cellOptionPool2 {
+    padding: 6px;
+    font-size: 10px !important;
+  }
+  .optionPool p {
+    font-size: 13px;
   }
 }

@@ -197,7 +197,6 @@ function Account(props) {
         </div>
         <div id="superMyBetsAccountDiv2">
           {betsToDisplay.map(function (item, index) {
-            console.log(item)
             if (item.optionsArray === null) {
               console.log("ERROR DB => missing bet")
               return null

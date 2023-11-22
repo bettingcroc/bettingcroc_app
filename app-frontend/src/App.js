@@ -120,7 +120,7 @@ function App() {
 
     useEffect(() => {
         socket.on('connect', () => {
-            console.log("connected to server with " + socket.id); if (defaultAccount !== undefined) { socket.emit('joinRoom', defaultAccount.toLowerCase()) }
+            //console.log("connected to server with " + socket.id); if (defaultAccount !== undefined) { socket.emit('joinRoom', defaultAccount.toLowerCase()) }
         })
         socket.on('ReceivedFriendRequest', (from) => {
             console.log("ReceivedFriendRequest from" + from)
@@ -248,7 +248,7 @@ function App() {
         updateMyBets()
         updateMyP2PBets()
         if (defaultAccount !== undefined) {
-            console.log("joiningRoom " + defaultAccount)
+            //console.log("joiningRoom " + defaultAccount)
             socket.emit('joinRoom', defaultAccount.toLowerCase())
         }
     }, [defaultAccount])
@@ -414,14 +414,14 @@ function App() {
         }
     }
     function updateMyBets() {
-        console.log("asking bets")
         let disconnectedFunction = false
         if (multiBetContract === undefined || defaultAccount === undefined) {
             return
         }
         try {
+            console.log("asking bets")
             multiBetContract.methods.getMyBetsUser(defaultAccount).call().then(result => {
-                console.log(result)
+                //console.log(result)
                 fetch(MY_SERVER + "/api/mybets/", {
                     method: "POST"
                     , body: JSON.stringify({ listBets: result })
@@ -439,7 +439,7 @@ function App() {
                                 }
                                 else if (bet.status === 2) {
                                     try {
-                                        await multiBetContract.methods.getHasUserWon(bet.id, defaultAccount).call().then(
+                                        await multiBetContract.methods.getHasUserWon( defaultAccount,bet.id).call().then(
                                             async (res1) => {
                                                 //console.log("call3")
                                                 if (res1 === true) {
@@ -514,13 +514,13 @@ function App() {
         }
     }
     function updateMyP2PBets() {
-        console.log("asking p2pbets")
 
         let disconnectedFunction = false
         if (multiBetContract === undefined || defaultAccount === undefined) {
             return
         }
         try {
+            console.log("asking p2pbets")
             multiBetContract.methods.seeMyP2PBetsUser(defaultAccount).call().then(async result => {
                 fetch(MY_SERVER + "/api/mybets/", {
                     method: "POST"

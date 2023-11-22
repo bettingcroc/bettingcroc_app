@@ -12,12 +12,14 @@ function GetGains(props) {
     if (props.address !== undefined && props.betContract !== undefined) {
       try {
         props.betContract.methods.totalMoneyWonFromUser(props.address).call().then(result => {
+          console.log(result)
           setGainsFromGeneral(parseFloat(result) / decimalsConverter(10))
           props.betContract.methods.totalMoneyWonFromUserP2P(props.address).call().then(result2 => {
             setGainsFromP2P(parseFloat(result2) / decimalsConverter(10))
-            setGains(parseFloat(result) / decimalsConverter(10) + parseFloat(result2) / decimalsConverter(10))
-            console.log("gains " + gains)
-            if (gains > 0) {
+            let gainsTemp = (parseFloat(result) / decimalsConverter(10) + parseFloat(result2) / decimalsConverter(10))
+            setGains(gainsTemp)
+            console.log("gains " + gainsTemp)
+            if (gainsTemp > 0) {
               setWon(true)
             }
             else {
@@ -39,10 +41,14 @@ function GetGains(props) {
         })
     }
     else if (gainsFromGeneral > 0 && gainsFromP2P === 0) {
+      try{
       props.betContract.methods.claimMoney().send({ from: props.address })
         .once('receipt', (receipt) => {
           console.log("all gains from general recupered success")
-        })
+        })}
+        catch(e){
+          console.log(e)
+        }
     }
     else if (gainsFromGeneral === 0 && gainsFromP2P > 0) {
       props.betContract.methods.claimMoneyFromP2P().send({ from: props.address })

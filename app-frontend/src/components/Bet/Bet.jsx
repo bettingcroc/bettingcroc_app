@@ -97,32 +97,30 @@ const Bet = (props) => {
     <div id="superBetComplet">
       {status === 0 ? <Jauge balanceUSDT={props.balanceUSDT} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
       <div className={status === 0 ? "betCompletOpen" : "betComplet"}>
-        <div id="nameBet">
-          <div id="underNameBet" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-            <div id="countryLeagueDate">
-              <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{country} / {league}</p>
-              <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{status === 0 ? timeConverterDate(date) : status === 2 ? null : "chrono"}</p>
+        <div id="underNameBet" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+          <div id="countryLeagueDate">
+            <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{country} / {league}</p>
+            <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{status === 0 ? timeConverterDate(date) : status === 2 ? null : "chrono"}</p>
+          </div>
+          <div id="optionsSchedule">
+            <div id={status === 2 && scoreHome > scoreAway ? "optionWinner" : "option1"} className="optionDiv">
+
+              <p id={status === 2 && scoreHome > scoreAway ? "optionPWinner" : "option1P"} className={props.theme === "light" ? "blackP" : "lightGreyP"}>{optionsArray === undefined ? null : optionsArray.split(",")[0]}</p>
+
             </div>
-            <div id="optionsSchedule">
-              <div id={status === 2 && scoreHome > scoreAway ? "optionWinner" : "option1"} className="optionDiv">
-
-                <p id={status === 2 && scoreHome > scoreAway ? "optionPWinner" : "option1P"} className={props.theme === "light" ? "blackP" : "lightGreyP"}>{optionsArray === undefined ? null : optionsArray.split(",")[0]}</p>
-
-              </div>
-              {status === 0 ?
+            {status === 0 ?
+              <div id="schedule">
+                <p id="scheduleP" className="scheduleTitle"> {timeConverterSchedule(date)}</p>
+              </div> :
+              <div id="scoreDiv">
                 <div id="schedule">
-                  <p id="scheduleP" className="scheduleTitle"> {timeConverterSchedule(date)}</p>
-                </div> :
-                <div id="scoreDiv">
-                  <div id="schedule">
-                    <p id="scheduleP" className="scheduleTitle"> {scoreAway !== undefined ? scoreHome + " - " + scoreAway : null}</p>
-                  </div>
+                  <p id="scheduleP" className="scheduleTitle"> {scoreAway !== undefined ? scoreHome + " - " + scoreAway : null}</p>
+                </div>
 
-                </div>}
-              <div id={status === 2 && scoreHome < scoreAway ? "optionWinner" : "option2"} className="optionDiv">
+              </div>}
+            <div id={status === 2 && scoreHome < scoreAway ? "optionWinner" : "option2"} className="optionDiv">
 
-                <p id={status === 2 && scoreHome < scoreAway ? "optionPWinner" : "option2P"} className={props.theme === "light" ? "blackP" : "lightGreyP"}>{optionsArray === undefined ? null : optionsArray.split(",")[optionsArray.split(",").length - 1]}</p>
-              </div>
+              <p id={status === 2 && scoreHome < scoreAway ? "optionPWinner" : "option2P"} className={props.theme === "light" ? "blackP" : "lightGreyP"}>{optionsArray === undefined ? null : optionsArray.split(",")[optionsArray.split(",").length - 1]}</p>
             </div>
           </div>
         </div>

@@ -250,39 +250,8 @@
   width: 100%;
 }
 
-#mainVue {
-  min-height: calc(100vh - 70px);
-
-  width: 60.25%;
-  padding: 25px;
-}
-
-#optionsBox {
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 50px;
 
 
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-  justify-content: space-between;
-
-}
-
-
-
-
-#nameBet {
-  width: 100%;
-}
 
 
 
@@ -298,23 +267,7 @@
 
 
 
-#p2pfinder {
-  /* Today Sales */
-  width: calc(50% - 10px);
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 30px;
-  gap: 10px;
-
-
-  width: 100%;
-
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
 
 
 
@@ -571,73 +524,7 @@
   flex-grow: 0;
 }
 
-#buttonSearchP2P {
-  /* Button get pro */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  gap: 10px;
-
-  width: 100%;
-  height: 50px;
-
-  /* Vert */
-  background: #539B57;
-
-  border: none;
-  border-radius: 8px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 4;
-  flex-grow: 0;
-}
-
-#inputLine2P2PFinder {
-  /* Frame 1000002783 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 16px;
-
-  width: 100%;
-  height: 50px;
-  justify-content: space-between;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-}
-
-#titleP2pFinder {
-  /* Frame 1000002744 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 20px;
-
-  height: 32px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-  margin-bottom: 20px;
-}
 
 
 
@@ -662,62 +549,9 @@
 }
 
 
-#superinputLine1P2PFinder {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  order: 0;
-  height: 50px;
-}
 
-#inputLine1P2PFinder p {
-  margin: 0;
-}
 
-#inputLine1P2PFinder {
-  /* 4 */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  gap: 24px;
-
-  width: 100%;
-  height: 50px;
-
-  /* Gris clair */
-  background: #F4F7F9;
-  border-radius: 10px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-#selectCreateNewP2P {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  gap: 24px;
-
-  width: 100%;
-  height: 50px;
-
-  /* Gris clair */
-  background: #F4F7F9;
-  border-radius: 10px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
 
 .lineModalP2PFinder p {
   margin: 0;
@@ -808,33 +642,7 @@
   flex-grow: 0;
 }
 
-#buttonRefreshP2PFinder {
-  /* Button get pro */
 
-  /* Auto layout */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  gap: 10px;
-
-  width: 50px;
-  height: 50px;
-
-  /* Vert */
-  background: #539B57;
-  border-radius: 8px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-  position: relative;
-  bottom: 3px;
-  right: 6px;
-}
 
 #refreshImage {
   width: 19.81px;
@@ -875,6 +683,7 @@
 }
 
 .headerTitleDark {
+  width: fit-content;
 
   /* H1 */
   font-family: 'Roboto';
@@ -895,39 +704,6 @@
   flex-grow: 0;
 }
 
-
-
-
-#buttonRefreshP2PFinderButton {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-  border-width: 1px;
-  border-style: solid;
-
-}
-
-.activeButtonSwitch {
-  background-color: #539B57;
-}
-
-
-
-#minBet {
-  height: 50px;
-  width: 100%;
-  border-radius: 10px;
-  border: solid;
-  border-top-width: medium;
-  border-right-width: medium;
-  border-bottom-width: medium;
-  border-left-width: medium;
-  border-width: 0px;
-  background: #F4F7F9;
-  padding: 12px 20px;
-}
-
-#superButtonSearchP2P {}
 
 #searchP {
   color: #FFFFFF;
@@ -1019,17 +795,6 @@
   margin-bottom: 20px;
 }
 
-#cote {
-  order: 0;
-  width: 100%;
-  height: 50px;
-  background: #F4F7F9;
-  border-radius: 10px;
-  border: none;
-  padding: 12px 20px;
-}
-
-
 
 
 #buttonCreateP2P {
@@ -1059,41 +824,8 @@
   right: 5.5px;
 }
 
-#buttonCreateP2Pbutton {
-  order: 2;
-  background: #ECE572;
-  border: none;
-  width: 100%;
-  height: 50px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-}
 
-#superButtonCreateP2Pbutton {
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-  background-color: transparent;
-  border: transparent;
-}
 
-#buttonCreateP2PP {
-  color: #000000;
-  font-size: 18px;
-  margin: 0;
-}
-
-#publicSwitchButton {
-  width: 100px;
-  height: 50px;
-  border-radius: 10px;
-  background-color: #539B57;
-  border: none;
-  color: white;
-}
 
 
 
@@ -1346,12 +1078,7 @@ a:hover {
   margin: 0;
 }
 
-#connecterConnected {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-}
+
 
 #hiUser {
   margin: 0;

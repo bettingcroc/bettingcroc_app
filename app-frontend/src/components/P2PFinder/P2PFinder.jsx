@@ -1,6 +1,8 @@
 /* global BigInt */
 import React, { useState } from 'react';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import "./P2PFinder.css"
+
 
 function P2PFinder(props) {
   const [selectedOption, setSelectedOption] = useState(0)

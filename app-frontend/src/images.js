@@ -25,6 +25,7 @@ import decentraBetInactive from "./assets/decentraBetInactive.png"
 import notificationsInactive from "./assets/notificationsInactive.png"
 import notificationsLight from "./assets/notificationsLight.png"
 import notificationsDark from "./assets/notificationsDark.png"
+import walletDark from "./assets/walletDark.png"
+import walletLight from "./assets/walletLight.png"
 
-
-export { closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }
+export { walletDark, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.7aad1434.css",
-    "main.js": "/static/js/main.165df70f.js",
+    "main.css": "/static/css/main.04a7f44e.css",
+    "main.js": "/static/js/main.9a16da84.js",
     "static/js/774.0d8f1ff4.chunk.js": "/static/js/774.0d8f1ff4.chunk.js",
     "static/js/459.9e8c0f91.chunk.js": "/static/js/459.9e8c0f91.chunk.js",
     "static/media/home.png": "/static/media/home.e0ec557fad1fbe917d9d.png",
@@ -29,13 +29,13 @@
     "static/media/decentraBetLight.png": "/static/media/decentraBetLight.f8c165054d19c966b8c0.png",
     "static/media/decentraBetDark.png": "/static/media/decentraBetDark.533dccdb5ef6fbd052ca.png",
     "index.html": "/index.html",
-    "main.7aad1434.css.map": "/static/css/main.7aad1434.css.map",
-    "main.165df70f.js.map": "/static/js/main.165df70f.js.map",
+    "main.04a7f44e.css.map": "/static/css/main.04a7f44e.css.map",
+    "main.9a16da84.js.map": "/static/js/main.9a16da84.js.map",
     "774.0d8f1ff4.chunk.js.map": "/static/js/774.0d8f1ff4.chunk.js.map",
     "459.9e8c0f91.chunk.js.map": "/static/js/459.9e8c0f91.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7aad1434.css",
-    "static/js/main.165df70f.js"
+    "static/css/main.04a7f44e.css",
+    "static/js/main.9a16da84.js"
   ]
 }

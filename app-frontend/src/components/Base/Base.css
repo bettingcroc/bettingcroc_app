@@ -106,6 +106,13 @@
     flex-grow: 0;
 }
 
+#mainVue {
+    min-height: calc(100vh - 70px);
+
+    width: 60.25%;
+    padding: 25px;
+}
+
 @media screen and (max-width: 1080px) {
     .logoLinkMobileBottomBar {
         height: 30px;
@@ -136,9 +143,6 @@
         display: none;
     }
 
-    #mainVue {
-        width: 100%;
-    }
 
     #mobileBottomBar {
         display: flex;
@@ -150,6 +154,7 @@
 
     #mainVue {
         min-height: calc(100vh - 140px);
+        width: 100%;
     }
 
     .menu {
@@ -186,6 +191,10 @@
     }
 
     #topBar {
+        padding: 10px;
+    }
+
+    #mainVue {
         padding: 10px;
     }
 

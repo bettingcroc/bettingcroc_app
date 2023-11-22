@@ -95,7 +95,7 @@ function Authentification(props) {
   }
 
   return (
-    <div className="mainContent">
+    <div>
       {!props.logged ?
         <button className='generalsButton' onClick={login}>
           <p className="buttonP">Login</p>
