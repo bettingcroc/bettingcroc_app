@@ -38,51 +38,28 @@
     flex-grow: 0;
 }
 
-#superStakeJauge {
-    /* Today Sales */
 
-    box-sizing: border-box;
+#stakeTitleP {
 
-    /* Auto layout */
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
-    height: 100px;
+    /* H1 */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
 
+    /* identical to box height, or 160% */
 
-    justify-content: center;
-    border: solid;
-    border-width: 2px;
-    border-color: #539B57;
-    border-radius: 20px;
-}
-
-#blurJauge {
-    position: sticky;
-    z-index: 45;
-    top: 70px;
-}
-
-
-#jaugeDiv {
-    /* Frame 1000002770 */
-
-    /* Auto layout */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-
-    width: 70%;
-    height: 56px;
+    /* Primary/Dark Shade */
 
 
     /* Inside auto layout */
     flex: none;
     order: 0;
-    flex-grow: 1;
+    flex-grow: 0;
 }
+
+
+
 
 #stakeJauge {
     /* Today Sales */
@@ -102,6 +79,35 @@
 
 }
 
+#line1Jauge {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 6px;
+
+}
+
+#inputStake {
+    width: 146px;
+    border-radius: 5px;
+    border: solid;
+    border-width: 1px;
+    border-color: #c0c4c7;
+}
+
+#jauge {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    z-index: 45;
+    top: 70px;
+    padding: 10px 15px;
+    border-color: #539b57;
+    border-radius: 20px;
+    border-width: 2px;
+    border-style: solid;
+}
+
 @media screen and (max-width: 550px) {
 
     #stakeBox {
@@ -111,22 +117,42 @@
         align-items: center;
     }
 
+    #line1jauge {
+        margin-bottom: 4px;
+
+    }
+
     #graduation {
         height: unset;
         gap: unset;
     }
 
-    #superStakeJauge {
-        height: fit-content;
-        padding: 10px 0px;
+    #graduation p {
+        font-size: 10px;
     }
+
+
 
     #stakeJauge {
 
         height: fit-content;
     }
 
-    #jaugeDiv {
-        width: 100%;
+
+    #stakeTitleP {
+        font-size: 16px;
+        height: fit-content;
+        line-height: unset;
+    }
+
+    #inputStake {
+
+        height: 18px;
+    }
+
+    #jauge {
+        padding: 6px 15px;
+        gap: 6px;
+
     }
 }

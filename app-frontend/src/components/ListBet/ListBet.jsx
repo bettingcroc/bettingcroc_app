@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import bettingCrocImage from "./bettingCrocTransparent.png"
+import { homeImage, titleImage, accountImage, accountImageWhite } from "../../images"
 import "./ListBet.css"
 import { MY_SERVER } from "../../consts"
 
@@ -51,7 +51,7 @@ function ListBet(props) {
 
   return (
     <div className="listBets">
-      <div id="box1ListBets"><img src={bettingCrocImage} alt="bettingCrocImage" id="bettingCrocImage"></img></div>
+      <div id="box1ListBets"><img src={titleImage} alt="titleImage" id="titleImageListBets"></img></div>
       <div id="box2ListBets">
         {topMatches.map((item, index) => {
           if (item) {

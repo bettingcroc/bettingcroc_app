@@ -106,3 +106,14 @@
     justify-content: space-between;
     align-items: center;
 }
+
+@media screen and (max-width: 550px) {
+
+    #p2p2Open {
+        padding: 15px;
+    }
+
+    #p2p2 {
+        padding: 15px;
+    }
+}

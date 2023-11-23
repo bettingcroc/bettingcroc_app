@@ -273,13 +273,7 @@
 
 
 
-#inputStake {
-  width: 146px;
-  border-radius: 5px;
-  border: solid;
-  border-width: 1px;
-  border-color: #c0c4c7;
-}
+
 
 .coteMainDiv {
   display: flex;
@@ -601,46 +595,7 @@
   flex-grow: 0;
 }
 
-#stakeTitleP {
-  height: 32px;
 
-  /* H1 */
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 32px;
-
-  /* identical to box height, or 160% */
-
-  /* Primary/Dark Shade */
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-#stakeTitle {
-  /* Frame 1000002744 */
-
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 20px;
-
-  height: 32px;
-
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
 
 
 
