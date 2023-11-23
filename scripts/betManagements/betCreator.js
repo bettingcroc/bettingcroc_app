@@ -7,7 +7,7 @@ import HDWalletProvider from '@truffle/hdwallet-provider'
 
 function run() {
   try {
-    const DELAY = 30000//86400000//30000
+    const DELAY = 86400000//30000
     const provider = new HDWalletProvider(PRIVATE_KEY_CERATOR, NODE_URL_BSCTESTNET, 0, 10000);
     const web3 = new Web3(provider);
     const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
@@ -65,7 +65,7 @@ function run() {
                   : null
               let nameBet = type === 'basketball' ? nameHome + "," + nameAway : type === 'football' ? nameHome + ",Draw," + nameAway : null
               model.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
-              logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet} \n`)
+              logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
             }
             console.log(`${date} bets succesfully added`);
           })
