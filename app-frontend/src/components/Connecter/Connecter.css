@@ -160,6 +160,7 @@
   background-color: grey;
   display: flex;
   flex-direction: column;
-  width: 150px;
+  width: 250px;
   padding: 12px;
+  gap: 30px;
 }

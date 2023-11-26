@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Base = (props) => {
     return (
         <div id={props.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
-            <TopBar  unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
+            <TopBar balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
             <div id="secondBox">
                 <LeftBar mainVue={props.mainVue} theme={props.theme}></LeftBar>
                 <div id="mainVue">
@@ -70,14 +70,14 @@ const Base = (props) => {
                     {props.logged ? <Link to="/notifications" className="linkMobileBottomBar">
                         <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "notifications" ? props.theme === "light" ? notificationsLight : notificationsDark : notificationsInactive}></img>
                         <p id="notificationsLinkMobileBottomBar" className={props.vueTopBar === "notifications" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Notifications</p>
-                    </Link>:null}
+                    </Link> : null}
 
                 </div>
 
                 <button className="buttonTransparent" id="hamburger" onClick={props.switchMenuMobile}><img id="hamburgerImg" src={props.theme === "light" ? hamburgerImage : hamburgerWhiteImage} alt="hamburgerImage"></img></button>
 
             </div>
-            <MenuMobile menuMobile={props.menuMobile} theme={props.theme} switchTheme={props.switchTheme} closeMenuMobile={props.closeMenuMobile}></MenuMobile>
+            <MenuMobile menuMobile={props.menuMobile} theme={props.theme} switchTheme={props.switchTheme} closeMenuMobile={props.closeMenuMobile} address={props.defaultAccount}></MenuMobile>
             <ToastContainer autoClose={false}></ToastContainer>
         </div>
     );

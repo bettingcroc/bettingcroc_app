@@ -16,9 +16,7 @@
   border-radius: 20px;
 }
 
-#p2pfinder {
-  padding: 15px 15px;
-}
+
 
 #superinputLine1P2PFinder {
   display: flex;
@@ -152,6 +150,10 @@
 }
 
 @media screen and (max-width: 550px) {
+  #p2pfinder {
+    padding: 15px 15px;
+  }
+
   #inputLine1P2PFinder {
     height: 30px;
   }

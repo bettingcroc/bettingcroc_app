@@ -1,14 +1,63 @@
-#line3viewADecentraBet2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+#introDecentraBet {
+    width: 100%;
 }
-#line3createADecentraBet1{
+
+#line3createADecentraBet1 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 20px;
 }
+
+#decentraBetBigTitle {
+    font-family: CCUltimatum;
+    letter-spacing: 0.5px;
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.decentraBetDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px 30px;
+    gap: 30px;
+
+    width: calc(50% - 10px);
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+}
+
+#decentraBetInteracter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.decentraBetDivDark {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px 30px;
+    gap: 30px;
+
+    width: calc(50% - 10px);
+
+    background: #181818;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+}
+
 @media screen and (max-width: 1080px) {
     .buttonViewDecentraBet {
         width: fit-content;
@@ -30,6 +79,15 @@
 }
 
 @media screen and (max-width: 550px) {
+    .decentraBetDiv {
+        width: 100%;
+    }
+    .decentraBetDivDark {
+        width: 100%;
+    }
+    #decentraBetBigTitle {
+        font-size: 55px;
+    }
 
     #blockviewADecentraBet {
         flex-direction: column;
@@ -67,15 +125,23 @@
     #line4viewADecentraBet {
         width: 100%;
     }
+
     .inputDecentraBet {
         width: 100%;
     }
-    #line3createADecentraBet1{
+
+    #line3createADecentraBet1 {
         flex-direction: column;
         width: 100%;
     }
-    .lineviewADecentraBetColumn{
+
+    .lineviewADecentraBetColumn {
         height: unset;
+        gap: 20px;
+    }
+
+    #decentraBetInteracter {
+        flex-direction: column;
         gap: 20px;
     }
 }

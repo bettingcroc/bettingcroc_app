@@ -1,5 +1,7 @@
 /* global BigInt */
 import React, { useState } from "react";
+import "./ViewADecentrabet.css"
+
 
 function ViewADecentrabet(props) {
   const [idBetToView, setIdBetToView] = useState()
@@ -49,8 +51,10 @@ function ViewADecentrabet(props) {
   }
 
   return (
-    <div className={props.theme === "light" ? "viewADecentraBet" : "viewADecentraBetDark"}>
+    <div className={props.theme === "light" ? "decentraBetDiv" : "decentraBetDivDark"}>
       <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Find a Decentrabet</p>
+      <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>Search a decentraBet from its number</p>
+
       <div id="line1viewADecentraBet" className="lineviewADecentraBet">
         <input
           id="inputidBetToView"
@@ -64,40 +68,39 @@ function ViewADecentrabet(props) {
         <button className="buttonViewDecentraBet" onClick={viewBet}>
           Find bet
         </button>
-        <div id="divStateDecentraBet">
-          <p id="decentraStateP" className={props.theme === "light" ? "blackP" : "lightGreyP"}>State:{stateBet}</p>
+      </div>
+      <div id="decentraBetViewer">
+        <div id="line2viewADecentraBet" >
+          <p className="line1DecentraBetViewerP">Bet n° {idBetToView}</p>
+          <p className="line1DecentraBetViewerP">State : {stateBet}</p>
         </div>
-      </div>
+        <div className="lineviewADecentraBetColumn">
+          <div id="line3viewADecentraBet" className="lineviewADecentraBetColumn">
+            <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>Amount to Bet : {amountToBet} USDT </p>
+            <div id="line3viewADecentraBet2">
+              <button className="buttonViewDecentraBet" onClick={(event) => { approveUSDT(amountToBet) }}>Approve USDT</button>
 
-      <div id="line2viewADecentraBet" className="lineviewADecentraBet">
-        <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>Bet n° {idBetToView}</p>
+              <button className="buttonViewDecentraBet" onClick={joinBet}>Join Bet</button>
+            </div>
+          </div>
 
-      </div>
-      <div id="blockviewADecentraBet" className="lineviewADecentraBet">
-        <div id="line3viewADecentraBet" className="lineviewADecentraBetColumn">
-          <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>Amount to Bet : {amountToBet} USDT </p>
-          <div id="line3viewADecentraBet2">
-            <button className="buttonViewDecentraBet" onClick={(event) => { approveUSDT(amountToBet) }}>Approve USDT</button>
-
-            <button className="buttonViewDecentraBet" onClick={joinBet}>Join Bet</button>
+          <div id="line4viewADecentraBet" className="lineviewADecentraBetColumn">
+            <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>If your are the oracle, you can set the winner enterring the address of the winner below</p>
+            <input
+              id="addressWinnerDecentraBet"
+              type="text"
+              className="inputDecentraBet"
+              value={winnerToSet || ""}
+              onChange={(e) => {
+                setWinnerToSet(e.target.value);
+              }}
+              placeholder="winner"
+            ></input>
+            <button className="buttonViewDecentraBet" onClick={endBet}>endBet</button>
           </div>
         </div>
-
-        <div id="line4viewADecentraBet" className="lineviewADecentraBetColumn">
-          <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>I'm the oracle !</p>
-          <input
-            id="addressWinnerDecentraBet"
-            type="text"
-            className="inputDecentraBet"
-            value={winnerToSet || ""}
-            onChange={(e) => {
-              setWinnerToSet(e.target.value);
-            }}
-            placeholder="winner"
-          ></input>
-          <button className="buttonViewDecentraBet" onClick={endBet}>endBet</button>
-        </div>
       </div>
+
 
 
     </div>

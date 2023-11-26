@@ -12,6 +12,11 @@
   src: local('MyFont'), url(./Poppins-Regular.ttf)
 }
 
+@font-face {
+  font-family: 'CCUltimatum';
+  src: local('MyFont'), url(./cc-ultimatum-regular.otf)
+}
+
 .blackP {
   color: #05004E;
 }
@@ -55,6 +60,10 @@
 
   /* Background */
   background: #232323;
+}
+
+input:focus {
+  outline: none;
 }
 
 #secondBox {
@@ -1097,99 +1106,6 @@ a:hover {
 
 
 
-
-.viewADecentraBet {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 30px;
-  gap: 30px;
-
-  width: 100%;
-
-  background: #FFFFFF;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-}
-
-.viewADecentraBetDark {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 30px;
-  gap: 30px;
-
-  width: 100%;
-
-  background: #181818;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-}
-
-.DecentraBetCreator {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 30px;
-  gap: 30px;
-
-  width: 100%;
-
-
-  background: #FFFFFF;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
-
-.DecentraBetCreatorDark {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 23px 30px;
-  gap: 30px;
-
-  width: 100%;
-
-
-  background: #181818;
-  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
-  border-radius: 20px;
-}
-
-.lineviewADecentraBet {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  /*border-width: 1px;
-  border-style: solid;
-  border-color: #000000;*/
-}
-
-.lineviewADecentraBetColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  justify-content: space-between;
-}
-
-#blockviewADecentraBet {
-  justify-content: flex-start;
-  gap: 100px;
-}
-
-.lineviewADecentraBet p {
-  margin: 0;
-}
-
 #inputidBetToView {
 
   height: 50px;
@@ -1220,56 +1136,6 @@ a:hover {
   padding: 12px 20px;
 }
 
-.buttonViewDecentraBet {
-  padding: 17px;
-  width: 203px;
-  border-radius: 8px;
-  border: none;
-  background: #539B57;
-  color: #fff;
-}
-
-#line1viewADecentraBet {
-  justify-content: flex-start;
-  gap: 40px;
-}
-
-#line2viewADecentraBet p {
-  font-size: 18px;
-}
-
-#blockviewADecentraBet p {
-  font-size: 18px;
-}
-
-#decentraStateP {
-  min-width: 83px;
-}
-
-#addressWinnerDecentraBet {
-
-  height: 50px;
-  width: 405px;
-  border-radius: 10px;
-  border: solid;
-  border-top-width: medium;
-  border-right-width: medium;
-  border-bottom-width: medium;
-  border-left-width: medium;
-  border-width: 0px;
-  background: #F4F7F9;
-  padding: 12px 20px;
-
-}
-
-#line4viewADecentraBet {
-  width: 50%;
-}
-
-#line3viewADecentraBet {
-  width: 50%;
-}
-
 #divStateDecentraBet {
   display: flex;
   flex-direction: column;
@@ -1289,11 +1155,6 @@ a:hover {
 
 }
 
-#divDecentraBetPublic {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-}
 
 
 

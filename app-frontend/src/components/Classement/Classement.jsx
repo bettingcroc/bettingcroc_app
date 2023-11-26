@@ -59,97 +59,103 @@ function Classement(props) {
 
   return (
     <div id="mainContentClassement">
+      <div id="rankingsIntro" className={props.theme === "light" ? "classementDiv" : "classementDivDark"}>
+        <p id="rankingsTitle" className={props.theme === "light" ? "blackP" : "whiteP"}>Rankings</p>
+        <p id='introRankingsP' className={props.theme === "light" ? "blackP" : "lightGreyP"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra tellus libero, dapibus dapibus nibh mattis id. Cras eu lacinia mauris. In sed aliquet ante, ac rhoncus velit. Aliquam et elit turpis. Duis sit amet cursus justo, a condimentum justo. Integer neque ipsum, tristique sit amet odio nec, pulvinar accumsan elit. Cras tincidunt lobortis tortor, vel luctus felis porta et. Phasellus vel risus ac erat pretium dapibus. </p>
 
-      <p id="rankingsTitle" className={props.theme === "light" ? "blackP" : "whiteP"}>Rankings</p>
-      {classementFriends !== undefined ? <p className={props.theme === "light" ? "blackP" : "whiteP"}>Friends rankings</p> : null}
-      {classementFriends !== undefined ? <table id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
-        <thead>
+      </div>
+      {classementFriends !== undefined ? <div className={props.theme === "light" ? "classementDiv" : "classementDivDark"}>
+        <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Friends rankings</p>
+        <p className={props.theme === "light" ? "blackP" : "lightGreyP"}> </p>
+        <div id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
           <tr>
             <th id="addressRankingColumn">Address</th>
             <th>Pseudo</th>
             <th>Score</th>
             <th>Rank</th>
           </tr>
-        </thead>
-        <tbody>
-          {classementFriends === undefined ? null : classementFriends.map((item, index) => {
-            //console.log("item "+index)
+          <tbody>
+            {classementFriends === undefined ? null : classementFriends.map((item, index) => {
+              //console.log("item "+index)
 
-            //console.log(item)
-            if (item === null) { return null }
-            return <tr key={index}>
-              <td className="addressRankingCell">{item.address}</td>
-              <td>{item.pseudo}</td>
-              <td>{item.score}</td>
-              <td>{index + 1}</td>
-            </tr>
-          })}
-          {loaded === false ? null : <tr>
-            <td className="addressRankingCell">{props.address}</td>
-            <td>{loaded && dataPerso[0].pseudo !== undefined ? dataPerso[0].pseudo : "-"}</td>
-            <td>{loaded ? dataPerso[0].score : ""}</td>
-            <td>{loaded ? dataPerso[0].position : ""}</td>
-          </tr>}
-        </tbody>
-      </table> : <p className={props.theme === "light" ? "blackP" : "whiteP"}>Connect your wallet and login to start bet with your friends</p>}
-      <p className={props.theme === "light" ? "blackP" : "whiteP"}>World Rankings</p>
-      <table id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
-        <thead>
+              //console.log(item)
+              if (item === null) { return null }
+              return <tr key={index}>
+                <td className="addressRankingCell">{item.address}</td>
+                <td>{item.pseudo}</td>
+                <td>{item.score}</td>
+                <td>{index + 1}</td>
+              </tr>
+            })}
+            {loaded === false ? null : <tr>
+              <td className="addressRankingCell">{props.address}</td>
+              <td>{loaded && dataPerso[0].pseudo !== undefined ? dataPerso[0].pseudo : "-"}</td>
+              <td>{loaded ? dataPerso[0].score : ""}</td>
+              <td>{loaded ? dataPerso[0].position : ""}</td>
+            </tr>}
+          </tbody>
+        </div>
+      </div> : <p className={props.theme === "light" ? "blackP" : "whiteP"}>Connect your wallet and login to start bet with your friends</p>}
+      <div className={props.theme === "light" ? "classementDiv" : "classementDivDark"}>
+        <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>World Rankings</p>
+        <p className={props.theme === "light" ? "blackP" : "lightGreyP"}> Look out for the best betters of the world </p>
+
+        <div id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
           <tr>
             <th id="addressRankingColumn">Address</th>
             <th>Pseudo</th>
             <th>Score</th>
             <th>Rank</th>
           </tr>
-        </thead>
-        <tbody>
-          {classement === undefined ? null : classement.map((item, index) => {
-            //console.log("item "+index)
+          <tbody>
+            {classement === undefined ? null : classement.map((item, index) => {
+              //console.log("item "+index)
 
-            //console.log(item)
-            if (item === null) { return null }
-            return <tr key={index}>
-              <td className="addressRankingCell">{item.address}</td>
-              <td>{item.pseudo}</td>
-              <td>{item.score}</td>
-              <td>{index + 1}</td>
-            </tr>
-          })}
-          {loaded === false ? null : <tr>
-            <td className="addressRankingCell">{props.address}</td>
-            <td>{loaded && dataPerso[0].pseudo !== undefined ? dataPerso[0].pseudo : "-"}</td>
-            <td>{loaded ? dataPerso[0].score : ""}</td>
-            <td>{loaded ? dataPerso[0].position : ""}</td>
-          </tr>}
-        </tbody>
-      </table>
-      <div>
-        <div>
-          <input placeholder="Type an address here" className="settingsInput" type="text" value={addressSearch} onChange={(e) => setAddressSearch(e.target.value)}></input>
-          <button onClick={searchScore}>Seach address</button>
+              //console.log(item)
+              if (item === null) { return null }
+              return <tr key={index}>
+                <td className="addressRankingCell">{item.address}</td>
+                <td>{item.pseudo}</td>
+                <td>{item.score}</td>
+                <td>{index + 1}</td>
+              </tr>
+            })}
+            {loaded === false ? null : <tr>
+              <td className="addressRankingCell">{props.address}</td>
+              <td>{loaded && dataPerso[0].pseudo !== undefined ? dataPerso[0].pseudo : "-"}</td>
+              <td>{loaded ? dataPerso[0].score : ""}</td>
+              <td>{loaded ? dataPerso[0].position : ""}</td>
+            </tr>}
+          </tbody>
+        </div>
+      </div>
+      <div className={props.theme === "light" ? "classementDiv" : "classementDivDark"}>
+      <p id="findAPlayerDiv" className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Find a player</p>
+
+        <div id="line1FindAPlayer">
+          <input placeholder="Type an address here" id="addressPlayerFinder" type="text" value={addressSearch} onChange={(e) => setAddressSearch(e.target.value)}></input>
+          <button id="searchAddressClassement" onClick={searchScore}>Seach address</button>
 
         </div>
 
         {dataAddressSearch === undefined ? null : dataAddressSearch[0].address === null ? <p className={props.theme === "light" ? "blackP" : "whiteP"}>addressSearch not a betting croc yet</p> :
-          <table id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
+          <div id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
 
-            <thead>
-              <tr>
-                <th id="addressRankingColumn">Address</th>
-                <th>Pseudo</th>
-                <th>Score</th>
-                <th>Rank</th>
-              </tr>
-            </thead>
+            <tr>
+              <th id="addressRankingColumn">Address</th>
+              <th>Pseudo</th>
+              <th>Score</th>
+              <th>Rank</th>
+            </tr>
             <tbody>
               <tr id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
-                <td className="addressRankingCell">{addressSearch}</td>
-                <td>{dataAddressSearch[0].pseudo !== null ? dataPerso[0].pseudo : "-"}</td>
+                <td className="addressRankingCell">{dataAddressSearch[0].pseudo !== null ? dataAddressSearch[0].address : "-"}</td>
+                <td>{dataAddressSearch[0].pseudo !== null ? dataAddressSearch[0].pseudo : "-"}</td>
                 <td>{dataAddressSearch[0].score !== null ? dataAddressSearch[0].score : "-"}</td>
                 <td>{dataAddressSearch[0].position !== null ? dataAddressSearch[0].position : "-"}</td>
               </tr>
             </tbody>
-          </table>}
+          </div>}
       </div>
     </div>
 
