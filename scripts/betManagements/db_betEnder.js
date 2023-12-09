@@ -67,11 +67,18 @@ function endBets(betNumbers) {
 		update.run()
 	}
 }
+
+function cancelBet(betNumber) {
+	let update = db.prepare('update bets set status=3 where betNumber=' + betNumber)
+	update.run()
+}
+
 export default {
 	get_betClosed_byType: get_betClosed_byType,
 	get_betClosed: get_betClosed,
 	get_leagueClosed_byType: get_leagueClosed_byType,
 	get_idAPI: get_idAPI,
 	update_score: update_score, endBets: endBets,
+	cancelBet: cancelBet,
 
 }

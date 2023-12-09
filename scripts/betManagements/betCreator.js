@@ -1,6 +1,6 @@
 import { PRIVATE_KEY_CERATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
 import fs from 'fs';
-import { cyan, logBetCreator } from '../logger.js'
+import { cyan, logBetCreator, blue } from '../logger.js'
 import model from '../model.js'
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'

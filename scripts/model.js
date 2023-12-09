@@ -175,10 +175,7 @@ function closeBets(betNumbers) {
 
 
 
-function cancelBet(betNumber) {
-	let update = db.prepare('update bets set status=3 where betNumber=' + betNumber)
-	update.run()
-}
+
 
 
 function sqlToInject(){
@@ -214,7 +211,6 @@ export default {
 	get_League: get_League,
 	get_CLosestDatesByTypeAndLeague: get_CLosestDatesByTypeAndLeague,
 	closeBets: closeBets,
-	cancelBet: cancelBet,
 	sqlToInject:sqlToInject,
 	getTable:getTable
 }
