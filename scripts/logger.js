@@ -24,7 +24,7 @@ function high(toLog) {
 }
 function logBetEnder(log) {
     red(log);
-    fs.appendFile(__dirname+"/../logs/logsBetEnder.txt", log + "\n", function (err) {
+    fs.appendFile(__dirname + "/../logs/logsBetEnder.txt", log + "\n", function (err) {
         if (err) {
             return console.log(err);
         }
@@ -32,7 +32,7 @@ function logBetEnder(log) {
 }
 function logBetCloser(log) {
     yellow(log);
-    fs.appendFile(__dirname+"/../logs/logsBetCloser.txt", log + "\n", function (err) {
+    fs.appendFile(__dirname + "/../logs/logsBetCloser.txt", log + "\n", function (err) {
         if (err) {
             return console.log(err);
         }
@@ -40,11 +40,11 @@ function logBetCloser(log) {
 }
 function logBetCreator(log) {
     green(log);
-    fs.appendFile(__dirname+"/../logs/logsBetCreator.txt", log + "\n", function (err) {
+    fs.appendFile(__dirname + "/../logs/logsBetCreator.txt", log + "\n", function (err) {
         if (err) {
             return console.log(err);
         }
     })
 }
 
-export { logBetEnder, logBetCloser, cyan,  logBetCreator }
+export { logBetEnder, logBetCloser, cyan, logBetCreator, blue }
