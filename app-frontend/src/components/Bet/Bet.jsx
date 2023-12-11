@@ -95,7 +95,7 @@ const Bet = (props) => {
   }
   return (
     <div id="superBetComplet">
-      {status === 0 ? <Jauge balanceUSDT={props.balanceUSDT} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
+      {status === 0 ? <Jauge address={props.address} balanceUSDT={props.balanceUSDT} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
       <div className={status === 0 ? "betCompletOpen" : "betComplet"}>
         <div id="underNameBet" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
           <div id="countryLeagueDate">

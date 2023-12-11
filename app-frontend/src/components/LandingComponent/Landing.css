@@ -1,10 +1,69 @@
-.landingSquare {
+.landingSquare1Light {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
-    background-color: #539B57;
+    background: rgb(90, 179, 98);
+    background: radial-gradient(circle, rgba(90, 179, 98, 1) 0%, rgba(105, 204, 114, 1) 39%, rgba(71, 218, 83, 1) 55%, rgba(255, 255, 255, 1) 100%);
     border-radius: 18px;
+    padding: 0px 60px;
+}
+
+.landingSquare2Light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(195deg, rgba(255, 255, 255, 1) 0%, rgba(105, 204, 114, 1) 27%, rgba(40, 194, 54, 1) 49%, rgba(71, 218, 83, 1) 72%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+
+.landingSquare1Dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(19, 116, 18);
+    background: radial-gradient(circle, rgba(19, 116, 18, 1) 0%, rgba(38, 122, 45, 1) 28%, rgba(26, 153, 38, 1) 51%, rgba(28, 135, 37, 1) 76%, rgba(10, 10, 10, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+.landingSquare2Dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(195deg, rgba(0, 0, 0, 1) 0%, rgba(38, 122, 45, 1) 28%, rgba(41, 156, 52, 1) 51%, rgba(42, 105, 47, 1) 76%, rgba(10, 10, 10, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+
+.landingSquare3Light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(92, 255, 134);
+    background: radial-gradient(circle, rgba(92, 255, 134, 1) 0%, rgba(124, 224, 133, 1) 27%, rgba(95, 226, 107, 1) 49%, rgba(100, 227, 111, 1) 80%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+.landingSquare3Dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(18, 101, 17);
+    background: radial-gradient(circle, rgba(18, 101, 17, 1) 0%, rgba(38, 122, 45, 1) 21%, rgba(25, 147, 37, 1) 44%, rgba(28, 135, 37, 1) 66%, rgba(10, 10, 10, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
 }
 
 #landingLineDiv1 {
@@ -23,16 +82,41 @@
 }
 
 .landingP {
-    color: white;
     font-size: 40px;
     max-width: 40vw;
     overflow: hidden;
 }
 
 .linkLanding {
-    height: calc(calc(55vh - 145px) / 2);
+    height: calc(55vh - 145px);
     border-radius: 18px;
+    transition: transform 0.25s;
 }
+
+.linkLanding2 {
+    height: calc(35vh - 145px);
+    border-radius: 18px;
+    transition: transform 0.25s;
+}
+
+.linkLanding:hover {
+    transform: scale(1.005);
+
+}
+
+.linkLanding2:hover {
+    transform: scale(1.005);
+
+}
+
+.landingLinkTextBox {
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.landingP2 {}
 
 #landingComponent {
     display: flex;
@@ -40,6 +124,11 @@
     justify-content: space-between;
     height: 100%;
     gap: 25px;
+}
+
+
+.imagesLanding {
+    height: 80%;
 }
 
 @media screen and (max-width: 550px) {
@@ -58,10 +147,12 @@
         width: 100%;
         height: 100%;
     }
-    .landingP{
+
+    .landingP {
         max-width: initial;
     }
-    #landingComponent{
+
+    #landingComponent {
         gap: 20px;
 
     }

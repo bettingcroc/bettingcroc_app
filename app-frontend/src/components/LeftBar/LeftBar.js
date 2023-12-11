@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { basketBallImage, footballImage, financeImage, tennisImage } from "../../images"
 import { Link } from 'react-router-dom';
+import { TwitterTimelineEmbed } from 'react-twitter-embed';
 import "./LeftBar.css"
 
 
@@ -66,36 +67,42 @@ const LeftBar = (props) => {
               <p className={classP}>Tennis</p>
             </Link>
           </div>
-        </div> :props.mainVue === "decentraBet"?
-        <div id="under2leftBar">
-          <div id="categoriesD">
-            <p id="titleLeftBar" className={props.theme === "light" ? "blackP" : "lightGreyP"}>Featured events</p>
-            <Link className="optionsLeftBarD" to="/decentrabet">
-              <p className={classP}>Community Event</p>
-            </Link>
-            <Link className="optionsLeftBarD" to="/basketball">
-              <p className={classP}>Community Event</p>
-            </Link>
-            <Link className="optionsLeftBarD" to="/football">
-              <p className={classP}>Community Event</p>
+        </div> : props.mainVue === "decentraBet" ?
+          <div id="under2leftBar">
+            <div id="categoriesD">
+              <p id="titleLeftBar" className={props.theme === "light" ? "blackP" : "lightGreyP"}>Featured events</p>
+              <Link className="optionsLeftBarD" to="/decentrabet">
+                <p className={classP}>Community Event</p>
+              </Link>
+              <Link className="optionsLeftBarD" to="/basketball">
+                <p className={classP}>Community Event</p>
+              </Link>
+              <Link className="optionsLeftBarD" to="/football">
+                <p className={classP}>Community Event</p>
 
-            </Link>
-            <Link className="optionsLeftBarD" to="/football">
-              <p className={classP}>Community Event</p>
-            </Link>
+              </Link>
+              <Link className="optionsLeftBarD" to="/football">
+                <p className={classP}>Community Event</p>
+              </Link>
 
-            <Link className="optionsLeftBarD" to="/football">
-              <p className={classP}>Community Event</p>
-            </Link>
+              <Link className="optionsLeftBarD" to="/football">
+                <p className={classP}>Community Event</p>
+              </Link>
 
-            <Link className="optionsLeftBarD" to="/tennis">
-              <p className={classP}>Community Event</p>
-            </Link>
-            <Link className="optionsLeftBarD" to="/basketball">
-              <p className={classP}>Community Event</p>
-            </Link>
-          </div>
-        </div>:null}
+              <Link className="optionsLeftBarD" to="/tennis">
+                <p className={classP}>Community Event</p>
+              </Link>
+              <Link className="optionsLeftBarD" to="/basketball">
+                <p className={classP}>Community Event</p>
+              </Link>
+            </div>
+          </div> :
+           <TwitterTimelineEmbed
+           sourceType="timeline"
+           screenName="NBA"
+           theme={props.theme}
+         />
+      }
     </div>
   );
 }

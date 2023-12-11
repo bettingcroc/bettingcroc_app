@@ -56,9 +56,9 @@ function ListBet(props) {
         {topMatches.map((item, index) => {
           if (item) {
             return (
-              <div className="fire">
-                <Link className="topBetsBox" key={item.betNumber} to={"/bet?n=" + item.betNumber} >
-                  <div id={"topBetsBox" + (index + 1)} key={item.betNumber} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+              <div className="fire" key={item.betNumber}>
+                <Link className="topBetsBox" to={"/bet?n=" + item.betNumber} >
+                  <div id={"topBetsBox" + (index + 1)} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
                     <div className="topBetsMiniBox1"><p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
                     <div className="topBetsMiniBox2">
                       <div className="topBetsMiniMiniBox1"><p>{item.type}</p></div>
@@ -74,24 +74,22 @@ function ListBet(props) {
           }
         })}
       </div>
-      <div id="box3ListBets" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-        {matchesSorted.length === 0 ? null : dates.map((item, index) => {
-          return (<div key={item} id="boxDateBox3listBets">
+      {matchesSorted.length === 0 ? null : dates.map((item, index) => {
+        return (
+          <div key={item} id="box3ListBets" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
             <p id="dateListBet" className={props.theme === "light" ? "blackP" : "whiteP"}>{item}</p>
             {matchesSorted[index].map((item2, index2) =>
-              <div key={item2.betNumber}>
-                <Link to={"/bet?n=" + item2.betNumber} >
-                  <div className="betLineListBets">
-                    <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.name}</p>
-                    <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.date.split(' ')[3].split(":")[0] + ":" + item2.date.split(' ')[3].split(":")[1]}</p>
-                    <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item2.type}</p>
-                  </div>
-                </Link>
-              </div>)}
+              <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
+                <p className="greyP">{convertToReadableTime(item2.date.split(' ')[3])}</p>
+                <p  className="emojiBetline">{item2.type} {item2.country}</p>
+
+
+                <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
+              </Link>
+            )}
           </div>)
-        }
-        )}
-      </div>
+      }
+      )}
     </div>
   );
 
@@ -101,4 +99,9 @@ export default ListBet;
 
 function decimalsConverter(numberToConvert) {
   return Math.pow(numberToConvert, 18)
+}
+
+function convertToReadableTime(time) {
+  const [hours, minutes, seconds] = time.split(':').map(num => num.padStart(2, '0'));
+  return `${hours}:${minutes}`;
 }

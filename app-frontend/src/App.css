@@ -103,9 +103,7 @@ input:focus {
 
 
 
-.listBets .betLineListBets p:hover {
-  color: #737791;
-}
+
 
 #listBetsTitle {
   height: 25px;
@@ -1321,11 +1319,14 @@ a:hover {
 
 #nameBetListBetsP {
   width: 50%;
+  font-weight: bold;
 }
 
 
 
-
+.greyP {
+  color: #808080;
+}
 
 
 .betStateP {
@@ -1346,9 +1347,7 @@ a:hover {
 
 
 
-#dateListBet {
-  font-weight: bold;
-}
+
 
 .lds-dual-ring {
   display: inline-block;

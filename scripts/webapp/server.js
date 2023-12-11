@@ -65,7 +65,7 @@ function updateTopBets() {
     if (result === "error") { setTimeout(updateTopBets, 60000) }
     else {
       topBets = result;
-      setTimeout(updateTopBets, 180000)
+      setTimeout(updateTopBets, 600000)
     }
   })
 }

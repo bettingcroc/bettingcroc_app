@@ -38,7 +38,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 50px;
     width: 100%;
     order: 2;
     align-self: stretch;
@@ -52,6 +51,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 100%;
 }
 
 .topBetsBox {
@@ -64,8 +64,17 @@
 .betLineListBets {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 990px;
+    width: 100%;
+    gap: 50px;
+    padding: 24px 0px;
+    border-top: solid 1px grey;
+}
+
+.emojiBetline {
+}
+
+.betLineListBets:hover {
+    color: #737791 !important;
 }
 
 #topBetsBox1 {
@@ -172,9 +181,17 @@
     flex-grow: 0;
     z-index: 1;
 }
-#titleImageListBets{
-    width:  80%;
+
+#titleImageListBets {
+    width: 80%;
 }
+
+#dateListBet {
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 6px;
+}
+
 @media screen and (max-width: 1080px) {
     #box1ListBets {
         height: 80px;
@@ -232,6 +249,12 @@
     width: 100%;
     animation: burn 1.5s linear infinite alternate;
     height: 100%;
+    transition: transform 0.25s;
+}
+
+.fire:hover {
+    transform: scale(1.01);
+
 }
 
 @keyframes burn {
