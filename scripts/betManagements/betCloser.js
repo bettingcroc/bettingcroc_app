@@ -1,4 +1,4 @@
-import { PRIVATE_KEY_CERATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, betClosedABI } from "../config.js"
+import { PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, betClosedABI } from "../config.js"
 import { logBetCloser } from "../logger.js";
 import model from '../model.js'
 import { Web3 } from 'web3';
@@ -7,7 +7,7 @@ import HDWalletProvider from '@truffle/hdwallet-provider'
 function run() {
     try {
 
-        const provider = new HDWalletProvider(PRIVATE_KEY_CERATOR, NODE_URL_BSCTESTNET,0,10000);
+        const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET,0,10000);
         const web3 = new Web3(provider);
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 

@@ -1,4 +1,4 @@
-import { PRIVATE_KEY_CERATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
+import { NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
 import fs from 'fs';
 import { cyan, logBetCreator, blue } from '../logger.js'
 import model from '../model.js'
@@ -8,7 +8,7 @@ import HDWalletProvider from '@truffle/hdwallet-provider'
 function run() {
   try {
     const DELAY = 86400000 // 30000
-    const provider = new HDWalletProvider(PRIVATE_KEY_CERATOR, NODE_URL_BSCTESTNET, 0, 10000);
+    const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET, 0, 10000);
     const web3 = new Web3(provider);
     const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
@@ -72,12 +72,15 @@ function run() {
           .on('error', function (error, receipt) {
             console.log("e ", error);
             if (error.code === -32000) {
+              let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
+              web3.setProvider(newProvider)
               setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
             }
             console.log(`error tx ${type}`)
         })
         .catch((error) => {
             if (error.error.code === -32000) {
+
               setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
             }
             console.log(`error tx ${type} ${error.error.code} : ${error.error.message}`)
