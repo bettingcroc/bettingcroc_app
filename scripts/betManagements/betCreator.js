@@ -44,49 +44,39 @@ function run() {
 
     async function betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type, date) {
       //try {
-        console.log(`trying to write ${numberOfBets} bets`)
-        await multiBetContract.methods
-          .createNewBets(listNames, listOptions, numberOfBets)
-          .send({ from: PUBLIC_KEY_CREATOR })
-          .on('receipt', function (receipt) {
-            console.log("writing on chain succeed")
-            tx++;
-            let newBets = []
-            let logs = receipt.logs.filter(log => log.address.toLowerCase() === multiBetAddress.toLowerCase());
-            logs.forEach(log => {
-              let res = web3.eth.abi.decodeLog(newBetCreatedABI, log.data, log.topics);
-              newBets.push(parseInt(res.betNumber))
-            });
-            for (let a = 0; a < numberOfBets; a++) {
-              let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] = type === 'basketball' ? //Cannot access 'nameHome' before initialization
-                [response.response[a].teams.home.name, response.response[a].teams.away.name, newBets[a], response.response[a].timestamp, response.response[a].country.name, response.response[a].id, response.response[a].league.name]
-                : type === 'football' ?
-                  [response.response[a].teams.home.name, response.response[a].teams.away.name, newBets[a], response.response[a].fixture.timestamp, response.response[a].league.country, response.response[a].fixture.id, response.response[a].league.name]
-                  : null
-              let nameBet = type === 'basketball' ? nameHome + "," + nameAway : type === 'football' ? nameHome + ",Draw," + nameAway : null
-              model.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
-              logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
-            }
-            console.log(`${date} bets succesfully added`);
-          })
-          .on('error', function (error, receipt) {
-            console.log("e ", error);
-            if (error.code === -32000) {
-              let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
-              web3.setProvider(newProvider)
-              setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
-            }
-            console.log(`error tx ${type}`)
+      console.log(`trying to write ${numberOfBets} bets`)
+      await multiBetContract.methods
+        .createNewBets(listNames, listOptions, numberOfBets)
+        .send({ from: PUBLIC_KEY_CREATOR })
+        .on('receipt', function (receipt) {
+          console.log("writing on chain succeed")
+          tx++;
+          let newBets = []
+          let logs = receipt.logs.filter(log => log.address.toLowerCase() === multiBetAddress.toLowerCase());
+          logs.forEach(log => {
+            let res = web3.eth.abi.decodeLog(newBetCreatedABI, log.data, log.topics);
+            newBets.push(parseInt(res.betNumber))
+          });
+          for (let a = 0; a < numberOfBets; a++) {
+            let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] = type === 'basketball' ? //Cannot access 'nameHome' before initialization
+              [response.response[a].teams.home.name, response.response[a].teams.away.name, newBets[a], response.response[a].timestamp, response.response[a].country.name, response.response[a].id, response.response[a].league.name]
+              : type === 'football' ?
+                [response.response[a].teams.home.name, response.response[a].teams.away.name, newBets[a], response.response[a].fixture.timestamp, response.response[a].league.country, response.response[a].fixture.id, response.response[a].league.name]
+                : null
+            let nameBet = type === 'basketball' ? nameHome + "," + nameAway : type === 'football' ? nameHome + ",Draw," + nameAway : null
+            model.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
+            logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
+          }
+          console.log(`${date} bets succesfully added`);
         })
         .catch((error) => {
-            if (error.error.code === -32000) {
-
-              setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
-            }
-            console.log(`error tx ${type} ${error.error.code} : ${error.error.message}`)
+          if (error.error.code === -32000) {
+            let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
+            web3.setProvider(newProvider)
+            setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
+          }
+          console.log(`error tx ${type} ${error.error.code} : ${error.error.message}`)
         })
-     /*   }
-      catch (error) { console.log(error) }*/
     }
 
 
