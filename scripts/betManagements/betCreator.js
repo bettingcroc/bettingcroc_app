@@ -76,6 +76,9 @@ function run() {
             }
             console.log(`error tx ${type}`)
         })
+        .catch((error) => {
+          console.error(error);
+        })
      /*   }
       catch (error) { console.log(error) }*/
     }
