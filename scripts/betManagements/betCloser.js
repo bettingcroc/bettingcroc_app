@@ -1,4 +1,4 @@
-import { PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, betClosedABI } from "../config.js"
+import { NODES_URL_BSCTESTNET,PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, betClosedABI } from "../config.js"
 import { logBetCloser } from "../logger.js";
 import model from '../model.js'
 import { Web3 } from 'web3';
@@ -10,14 +10,15 @@ function run() {
         const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET,0,10000);
         const web3 = new Web3(provider);
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
+        const DELAY = 60000
 
         multiBetContract.setConfig({ contractDataInputFill: "both" })
 
 
         function betCloser() {
-            setTimeout(betCloser, 60000);
+            setTimeout(betCloser, DELAY);
             let date1 = Math.floor(new Date().getTime() / 1000);
-            let date2 = Math.floor((new Date().getTime() + 60000) / 1000);
+            let date2 = Math.floor((new Date().getTime() + DELAY) / 1000);
             let resultDB = model.get_BetBetween2dates(date1, date2);
             let betsToClose = [];
             for (let i = 0; i < resultDB.length; i++) {
@@ -38,12 +39,16 @@ function run() {
                         model.closeBets(betsToClose)
                         logBetCloser(`${betsToClose} closed on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`)
                     })
-                    .on('error', function (error, receipt) {
-                        console.log("error tx");
-                    })
+                    .catch((error) => {
+                        if (error.error.code === -32000) {
+                          let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
+                          web3.setProvider(newProvider)
+                        }
+                        logBetCloser(`error ${error.error.code} : ${error.error.message}`)
+                      })
             }
             else {
-                logBetCloser(`no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + 60000).toLocaleTimeString()}`)
+                logBetCloser(`no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + DELAY).toLocaleTimeString()}`)
             }
         }
 

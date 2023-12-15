@@ -45,9 +45,13 @@ function run() {
                     db_betEnder.endBets(betsToEnd)
                     logBetEnder(`${new Date().toLocaleDateString()} ${new Date()} bets ${betsToEnd} ended with ${winnerBetsToEnd}`)
                 })
-                .on('error', function (error, receipt) {
-                    console.log(`error tx ${error}`);
-                })
+                .catch((error) => {
+                    if (error.error.code === -32000) {
+                      let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
+                      web3.setProvider(newProvider)
+                    }
+                    logBetEnder(`error ${error.error.code} : ${error.error.message}`)
+                  })
         }
 
 
