@@ -56,15 +56,15 @@ function ListBet(props) {
         {topMatches.map((item, index) => {
           if (item) {
             return (
-              <div className="fire" key={item.betNumber}>
+              <div className={props.theme === "light" ? "fireLight" : "fireDark"} key={item.betNumber}>
                 <Link className="topBetsBox" to={"/bet?n=" + item.betNumber} >
                   <div id={"topBetsBox" + (index + 1)} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
                     <div className="topBetsMiniBox1"><p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
                     <div className="topBetsMiniBox2">
                       <div className="topBetsMiniMiniBox1"><p>{item.type}</p></div>
                       <div className="topBetsMiniMiniBox2">
-                        <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.name.split('-')[0]}</p>
-                        <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{item.name.split('-')[1]}</p>
+                        <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[0]}</p>
+                        <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[1]}</p>
                       </div>
                     </div>
                   </div>

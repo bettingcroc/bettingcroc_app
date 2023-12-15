@@ -436,7 +436,6 @@ function App() {
         try {
             console.log("asking bets")
             multiBetContract.methods.getMyBetsUser(defaultAccount).call().then(result => {
-                //console.log(result)
                 fetch(MY_SERVER + "/api/mybets/", {
                     method: "POST"
                     , body: JSON.stringify({ listBets: result })

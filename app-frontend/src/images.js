@@ -28,5 +28,9 @@ import notificationsDark from "./assets/notificationsDark.png"
 import walletDark from "./assets/walletDark.png"
 import walletLight from "./assets/walletLight.png"
 import crocodileRight from './assets/crocodileRight.png'
+import tutorialsDark from './assets/tutorialsDark.png'
+import tutorialsLight from './assets/tutorialsLight.png'
+import rankingLandingLight from './assets/rankingLandingLight.png'
+import rankingLandingDark from './assets/rankingLandingDark.png'
 
-export { walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }
+export { tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }

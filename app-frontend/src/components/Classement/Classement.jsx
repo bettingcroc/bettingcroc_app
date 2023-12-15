@@ -149,7 +149,7 @@ function Classement(props) {
             </tr>
             <tbody>
               <tr id={props.theme === "light" ? "classementTable" : "classementTableDark"}>
-                <td className="addressRankingCell">{dataAddressSearch[0].pseudo !== null ? dataAddressSearch[0].address : "-"}</td>
+                <td className="addressRankingCell">{dataAddressSearch[0].address !== null ? dataAddressSearch[0].address : "-"}</td>
                 <td>{dataAddressSearch[0].pseudo !== null ? dataAddressSearch[0].pseudo : "-"}</td>
                 <td>{dataAddressSearch[0].score !== null ? dataAddressSearch[0].score : "-"}</td>
                 <td>{dataAddressSearch[0].position !== null ? dataAddressSearch[0].position : "-"}</td>

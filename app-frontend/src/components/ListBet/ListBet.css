@@ -70,11 +70,20 @@
     border-top: solid 1px grey;
 }
 
-.emojiBetline {
-}
+.emojiBetline {}
 
 .betLineListBets:hover {
     color: #737791 !important;
+}
+
+#nameBetListBetsP {
+    width: 50%;
+    font-weight: bold;
+}
+
+#nameBetTopBetsP {
+    font-weight: bold;
+
 }
 
 #topBetsBox1 {
@@ -182,6 +191,12 @@
     z-index: 1;
 }
 
+.topBetsMiniMiniBox2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 #titleImageListBets {
     width: 80%;
 }
@@ -244,10 +259,18 @@
 
 }
 
-.fire {
+.fireDark {
     border-radius: 20px;
     width: 100%;
     animation: burn 1.5s linear infinite alternate;
+    height: 100%;
+    transition: transform 0.25s;
+}
+
+.fireLight {
+    border-radius: 20px;
+    width: 100%;
+    animation: burnLight 1.5s linear infinite alternate;
     height: 100%;
     transition: transform 0.25s;
 }
@@ -272,5 +295,23 @@
 
     to {
         box-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716, -.2em -1em .8em #451b0e;
+    }
+}
+
+@keyframes burnLight {
+    from {
+        box-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .4em #ffae34, .2em -.3em .3em #ec760c, -.2em -.4em .4em #cd4606, .1em -.5em .7em #973716;
+    }
+
+    45% {
+        box-shadow: .1em -.2em .5em #fefcc9, .15em 0 .4em #feec85, -.1em -.25em .5em #ffae34, .15em -.45em .5em #ec760c, -.1em -.5em .6em #cd4606, 0 -.8em .6em #973716;
+    }
+
+    70% {
+        box-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .6em #ffae34, .2em -.3em .4em #ec760c, -.2em -.4em .7em #cd4606, .1em -.5em .7em #973716;
+    }
+
+    to {
+        box-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716;
     }
 }

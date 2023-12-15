@@ -43,7 +43,7 @@ function run() {
 
 
     async function betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type, date) {
-      try {
+      //try {
         console.log(`trying to write ${numberOfBets} bets`)
         await multiBetContract.methods
           .createNewBets(listNames, listOptions, numberOfBets)
@@ -75,9 +75,9 @@ function run() {
               setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
             }
             console.log(`error tx ${type}`)
-          })
-      }
-      catch (error) { console.log(error) }
+        })
+     /*   }
+      catch (error) { console.log(error) }*/
     }
 
 

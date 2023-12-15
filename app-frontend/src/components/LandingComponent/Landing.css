@@ -52,7 +52,7 @@
     background: rgb(92, 255, 134);
     background: radial-gradient(circle, rgba(92, 255, 134, 1) 0%, rgba(124, 224, 133, 1) 27%, rgba(95, 226, 107, 1) 49%, rgba(100, 227, 111, 1) 80%, rgba(255, 255, 255, 1) 100%);
     border-radius: 18px;
-    padding: 0px 60px;
+    padding: 0px 180px 0px 60px;
 }
 
 .landingSquare3Dark {
@@ -63,7 +63,7 @@
     background: rgb(18, 101, 17);
     background: radial-gradient(circle, rgba(18, 101, 17, 1) 0%, rgba(38, 122, 45, 1) 21%, rgba(25, 147, 37, 1) 44%, rgba(28, 135, 37, 1) 66%, rgba(10, 10, 10, 1) 100%);
     border-radius: 18px;
-    padding: 0px 60px;
+    padding: 0px 180px 0px 60px;
 }
 
 #landingLineDiv1 {
@@ -131,6 +131,8 @@
     height: 80%;
 }
 
+@media screen and (max-width: 900px) {}
+
 @media screen and (max-width: 550px) {
     #landingLineDiv1 {
         flex-direction: column;
@@ -143,11 +145,6 @@
 
     }
 
-    .linkLanding {
-        width: 100%;
-        height: 100%;
-    }
-
     .landingP {
         max-width: initial;
     }
@@ -155,5 +152,40 @@
     #landingComponent {
         gap: 20px;
 
+    }
+
+    .linkLanding {
+        height: calc(25vh);
+    }
+
+    .landingSquare1Dark {
+
+        padding: 20px;
+    }
+
+    .landingSquare1Light {
+
+        padding: 20px;
+    }
+
+    .landingSquare2Dark {
+
+        padding: 20px;
+    }
+
+    .landingSquare3Dark {
+        padding: 20px;
+    }
+
+    .imagesLanding {
+        height: 60%;
+    }
+
+    .landingP2 {
+        font-size: 10px;
+    }
+
+    .landingP {
+        font-size: 20px;
     }
 }
