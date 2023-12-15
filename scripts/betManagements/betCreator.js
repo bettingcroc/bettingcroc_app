@@ -81,7 +81,7 @@ function run() {
             if (error.code === -32000) {
               setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
             }
-            console.log(`error tx ${type} ${error.code}`)
+            console.log(`error tx ${type} ${error.error.code}`)
         })
      /*   }
       catch (error) { console.log(error) }*/
