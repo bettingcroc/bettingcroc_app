@@ -78,6 +78,11 @@ function run() {
         })
         .catch((error) => {
           console.error(error);
+          console.log("e ", error);
+            if (error.code === -32000) {
+              setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
+            }
+            console.log(`error tx ${type}`)
         })
      /*   }
       catch (error) { console.log(error) }*/
