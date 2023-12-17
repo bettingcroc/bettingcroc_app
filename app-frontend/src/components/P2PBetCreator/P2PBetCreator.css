@@ -116,11 +116,11 @@
     margin: 0;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 800px) {
     #p2pcreator {
         /* Todays Sales */
         width: 100%;
-        order: 1;
+        order: 0;
         display: flex;
         flex-direction: column;
         align-items: flex-start;

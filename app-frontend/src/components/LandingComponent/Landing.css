@@ -126,12 +126,29 @@
     gap: 25px;
 }
 
-
+#landingPBis{
+    text-align: end;
+}
+#landingP2Bis{
+    text-align: end;
+    padding-left: 20px;
+}
 .imagesLanding {
     height: 80%;
 }
 
-@media screen and (max-width: 900px) {}
+@media screen and (max-width: 800px) {
+    .imagesLanding {
+        height: 60%;
+    }
+
+    .landingP {
+        font-size: 30px;
+    }
+    .landingP2{
+        font-size: 16px;
+    }
+}
 
 @media screen and (max-width: 550px) {
     #landingLineDiv1 {

@@ -149,9 +149,10 @@
   flex-grow: 0;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 800px) {
   #p2pfinder {
     padding: 15px 15px;
+    order: 1;
   }
 
   #inputLine1P2PFinder {

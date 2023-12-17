@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 
-function ComingSoon (){
-
+function ComingSoon(props) {
+  useEffect(() => {
+    props.mainVueSetter("comingSoon")
+  }, [])
   return (
     <div>
       Coming soon !

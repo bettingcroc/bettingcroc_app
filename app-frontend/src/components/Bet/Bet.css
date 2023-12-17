@@ -185,7 +185,7 @@
 
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 800px) {
     .optionDiv {
         font-size: 16px;
         line-height: unset;
