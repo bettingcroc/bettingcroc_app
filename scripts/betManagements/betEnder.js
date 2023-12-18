@@ -17,7 +17,6 @@ function run() {
         async function betEnder() {
             setTimeout(betEnder, DELAY);
             let betsClosed = db_betEnder.get_betClosed();
-            console.log(betsClosed)
             if (betsClosed.length > 0) {
                 createWinnersArray(betsClosed)
                     .then((winnerArray) => {
