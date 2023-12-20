@@ -208,6 +208,11 @@
 }
 
 @media screen and (max-width: 1080px) {
+    #nameBetListBetsP {
+
+        font-size: 14px;
+    }
+
     #box1ListBets {
         height: 80px;
     }
@@ -244,7 +249,7 @@
     }
 
     .betLineListBets {
-
+        gap: 10px;
         width: 100%;
     }
 
@@ -257,6 +262,9 @@
         padding: 0px;
     }
 
+    #box3ListBets {
+        padding: 15px;
+    }
 }
 
 .fireDark {

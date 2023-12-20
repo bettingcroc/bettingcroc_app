@@ -1,6 +1,8 @@
 /* global BigInt */
 import React, { useState } from 'react';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import Tooltip from '@mui/material/Tooltip';
+
 import "./P2PFinder.css"
 
 
@@ -79,26 +81,29 @@ function P2PFinder(props) {
         <p className={props.theme === "light" ? "blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
 
       </div>
-      <p className={props.theme === "light" ? "blackP" : "whiteP"}>against</p>
       <div id="inputP2pFinder">
-        <ClickAwayListener onClickAway={(e) => { setModal("collapse") }}>
-          <div id="superinputLine1P2PFinder">
-            <div id="inputLine1P2PFinder" onClick={switchModal}>
-              <p>{props.optionsArray !== undefined ? props.optionsArray.split(",")[selectedOption] : null}</p>
+        <div className='line1P2PFinder'>
+          <p className={props.theme === "light" ? "blackP" : "whiteP"}>Bet against</p>
+
+          <ClickAwayListener onClickAway={(e) => { setModal("collapse") }}>
+            <div id="superinputLine1P2PFinder">
+              <div id="inputLine1P2PFinder" onClick={switchModal}>
+                <p>{props.optionsArray !== undefined ? props.optionsArray.split(",")[selectedOption] : null}</p>
+              </div>
+              <div id="modalinputLine1P2PFinder" className={modal}>
+                {props.optionsArray === undefined
+                  ? null
+                  : props.optionsArray.split(",").map((item, index) => {
+                    return (
+                      <div key={index} className="lineModalP2PFinder" onClick={() => { setSelectedOption(index); switchModal() }}>
+                        <p>{item}</p>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
-            <div id="modalinputLine1P2PFinder" className={modal}>
-              {props.optionsArray === undefined
-                ? null
-                : props.optionsArray.split(",").map((item, index) => {
-                  return (
-                    <div key={index} className="lineModalP2PFinder" onClick={() => { setSelectedOption(index); switchModal() }}>
-                      <p>{item}</p>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        </ClickAwayListener>
+          </ClickAwayListener></div>
+
         <p id='minToBetP' className={props.theme === "light" ? "blackP" : "whiteP"}> search by minimum amount :</p>
         <div id="inputLine2P2PFinder">
           <div id="inputAmountP2PFinder"><input

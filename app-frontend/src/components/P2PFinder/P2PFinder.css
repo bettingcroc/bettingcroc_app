@@ -16,12 +16,18 @@
   border-radius: 20px;
 }
 
-
+.line1P2PFinder {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+}
 
 #superinputLine1P2PFinder {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   order: 0;
   height: 50px;
 }

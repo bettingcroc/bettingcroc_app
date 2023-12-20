@@ -179,8 +179,7 @@ function closeBets(betNumbers) {
 
 
 function sqlToInject(){
-	db.prepare('ALTER TABLE Bets ADD scoreHome INTEGER').run()
-	db.prepare('ALTER TABLE Bets ADD scoreAway INTEGER').run()
+	db.prepare('update bets set date="1703061000" where betNumber="166"').run()
 
 }
 

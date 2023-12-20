@@ -40,6 +40,7 @@ function run() {
                         logBetCloser(`${betsToClose} closed on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`)
                     })
                     .catch((error) => {
+                        console.log(error)
                         if (error.error.code === -32000) {
                           let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
                           web3.setProvider(newProvider)
