@@ -179,8 +179,7 @@ function closeBets(betNumbers) {
 
 
 function sqlToInject(){
-	db.prepare('update bets set date="1703061000" where betNumber="166"').run()
-
+	db.prepare('update bets set date=1703061240 where betNumber=166').run()
 }
 
 
