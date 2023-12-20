@@ -1,2 +1,2 @@
-const model = require('../model.js');
+import model from '../model.js'
 model.sqlToInject()
