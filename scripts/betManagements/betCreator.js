@@ -12,7 +12,7 @@ function run() {
 
     var tx = 0;
     var FirstDay = Math.round((new Date().getTime()) / 1000);
-    var dayIncrementer = 1;
+    var dayIncrementer = 2;
 
 
     function run() {
