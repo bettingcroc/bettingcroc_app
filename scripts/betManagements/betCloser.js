@@ -28,7 +28,7 @@ function run() {
                 console.log(betsToClose + " sent for closing on " + new Date().toLocaleDateString() + " at " + new Date().toLocaleTimeString());
                 multiBetContract.methods
                     .closeBets(betsToClose)
-                    .send({ from: PUBLIC_KEY_CREATOR,  gasPrice: web3.utils.toWei('10', 'gwei') })
+                    .send({ from: PUBLIC_KEY_CREATOR,  gasPrice: web3.utils.toWei('12', 'gwei') })
                     .on('receipt', function (receipt) {
                         let betsToClose = []
                         let logs = receipt.logs.filter(log => log.address.toLowerCase() === multiBetAddress.toLowerCase());

@@ -39,7 +39,7 @@ function run() {
             console.log("trying to end bets on chain")
             await multiBetContract.methods
                 .endBets(betsToEnd, winnerBetsToEnd)
-                .send({ from: PUBLIC_KEY_ENDER, gasPrice: web3.utils.toWei('10', 'gwei') })
+                .send({ from: PUBLIC_KEY_ENDER, gasPrice: web3.utils.toWei('11', 'gwei') })
                 .on('receipt', function (receipt) {
                     db_betEnder.endBets(betsToEnd)
                     logBetEnder(`${new Date().toLocaleDateString()} ${new Date()} bets ${betsToEnd} ended with ${winnerBetsToEnd}`)
