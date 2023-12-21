@@ -186,7 +186,7 @@ function closeBets(betNumbers) {
 
 
 function sqlToInject() {
-	let command = 'update bets set date=1703062700 where betNumber=166'
+	let command = 'update bets set status=2 where betNumber=0'
 	db.prepare(command).run()
 	console.log("runned " + command)
 }
