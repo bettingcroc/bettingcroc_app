@@ -142,7 +142,7 @@ function get_idAPI(betNumber) {
 	return null;
 }
 function get_CLosestDates(date) {
-	let select = db.prepare(`select betNumber from bets where date>'${date}' limit 14`);
+	let select = db.prepare(`select betNumber from bets where date>'${date}' order by date asc limit 14`);
 	let result = select.all();
 	if (result) return result;
 	return null;

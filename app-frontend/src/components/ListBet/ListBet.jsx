@@ -24,6 +24,9 @@ function ListBet(props) {
             let d = arr[0] + " " + arr[1] + " " + arr[2]
             if (!dates.includes(d)) { dates.push(d) }
           }
+          dates.sort((a, b) => {
+            return new Date(a) - new Date(b);
+          });
           setDates(dates);
           let index = 0
           let matchesSorted = []
@@ -81,7 +84,7 @@ function ListBet(props) {
             {matchesSorted[index].map((item2, index2) =>
               <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
                 <p className="greyP">{convertToReadableTime(item2.date.split(' ')[3])}</p>
-                <p  className="emojiBetline">{item2.type} {item2.country}</p>
+                <p className="emojiBetline">{item2.type} {item2.country}</p>
 
 
                 <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
