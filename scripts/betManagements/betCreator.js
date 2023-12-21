@@ -47,7 +47,7 @@ function run() {
       console.log(`trying to write ${numberOfBets} bets`)
       await multiBetContract.methods
         .createNewBets(listNames, listOptions, numberOfBets)
-        .send({ from: PUBLIC_KEY_CREATOR })
+        .send({ from: PUBLIC_KEY_CREATOR,  gasPrice: web3.utils.toWei('10', 'gwei') })
         .on('receipt', function (receipt) {
           console.log("writing on chain succeed")
           tx++;

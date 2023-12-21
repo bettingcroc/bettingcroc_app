@@ -6,7 +6,7 @@ import { logBetEnder } from "../logger.js";
 
 function run() {
     try {
-        const provider = new HDWalletProvider(PRIVATE_KEY_ENDER, NODE_URL_BSCTESTNET,0,10000);
+        const provider = new HDWalletProvider(PRIVATE_KEY_ENDER, NODE_URL_BSCTESTNET, 0, 10000);
         const web3 = new Web3(provider);
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
         const DELAY = 60000
@@ -39,18 +39,18 @@ function run() {
             console.log("trying to end bets on chain")
             await multiBetContract.methods
                 .endBets(betsToEnd, winnerBetsToEnd)
-                .send({ from: PUBLIC_KEY_ENDER })
+                .send({ from: PUBLIC_KEY_ENDER, gasPrice: web3.utils.toWei('10', 'gwei') })
                 .on('receipt', function (receipt) {
                     db_betEnder.endBets(betsToEnd)
                     logBetEnder(`${new Date().toLocaleDateString()} ${new Date()} bets ${betsToEnd} ended with ${winnerBetsToEnd}`)
                 })
                 .catch((error) => {
                     if (error.error.code === -32000) {
-                      let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
-                      web3.setProvider(newProvider)
+                        let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
+                        web3.setProvider(newProvider)
                     }
                     logBetEnder(`error ${error.error.code} : ${error.error.message}`)
-                  })
+                })
         }
 
 
