@@ -1,23 +1,18 @@
-import { NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
+import { GAS_PRICE,web3, NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
 import fs from 'fs';
 import { cyan, logBetCreator, blue } from '../logger.js'
 import model from '../model.js'
-import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
 
 function run() {
   try {
     const DELAY = 86400000 // 30000
-    const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET, 0, 10000);
-    const web3 = new Web3(provider);
     const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
-
     multiBetContract.setConfig({ contractDataInputFill: "both" })
-
 
     var tx = 0;
     var FirstDay = Math.round((new Date().getTime()) / 1000);
-    var dayIncrementer = 2;
+    var dayIncrementer = 1;
 
 
     function run() {
@@ -47,7 +42,7 @@ function run() {
       console.log(`trying to write ${numberOfBets} bets`)
       await multiBetContract.methods
         .createNewBets(listNames, listOptions, numberOfBets)
-        .send({ from: PUBLIC_KEY_CREATOR,  gasPrice: web3.utils.toWei('10', 'gwei') })
+        .send({ from: PUBLIC_KEY_CREATOR,  gasPrice: GAS_PRICE })
         .on('receipt', function (receipt) {
           console.log("writing on chain succeed")
           tx++;

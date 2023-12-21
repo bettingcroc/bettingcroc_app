@@ -1,13 +1,10 @@
-import { API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL } from "../config.js"
+import { GAS_PRICE, web3, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL } from "../config.js"
 import db_betEnder from './db_betEnder.js'
-import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
 import { logBetEnder } from "../logger.js";
 
 function run() {
     try {
-        const provider = new HDWalletProvider(PRIVATE_KEY_ENDER, NODE_URL_BSCTESTNET, 0, 10000);
-        const web3 = new Web3(provider);
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
         const DELAY = 60000
 
@@ -39,7 +36,7 @@ function run() {
             console.log("trying to end bets on chain")
             await multiBetContract.methods
                 .endBets(betsToEnd, winnerBetsToEnd)
-                .send({ from: PUBLIC_KEY_ENDER, gasPrice: web3.utils.toWei('11', 'gwei') })
+                .send({ from: PUBLIC_KEY_ENDER, gasPrice: GAS_PRICE })
                 .on('receipt', function (receipt) {
                     db_betEnder.endBets(betsToEnd)
                     logBetEnder(`${new Date().toLocaleDateString()} ${new Date()} bets ${betsToEnd} ended with ${winnerBetsToEnd}`)

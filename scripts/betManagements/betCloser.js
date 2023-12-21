@@ -1,25 +1,22 @@
-import { NODES_URL_BSCTESTNET,PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, betClosedABI } from "../config.js"
+import { GAS_PRICE, web3, NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, betClosedABI } from "../config.js"
 import { logBetCloser } from "../logger.js";
 import model from '../model.js'
-import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
 
 function run() {
     try {
 
-        const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET,0,10000);
-        const web3 = new Web3(provider);
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
-        const DELAY = 60000
+        const DELAY = 300000
 
         multiBetContract.setConfig({ contractDataInputFill: "both" })
 
 
         function betCloser() {
             setTimeout(betCloser, DELAY);
-            let date1 = Math.floor(new Date().getTime() / 1000);
-            let date2 = Math.floor((new Date().getTime() + DELAY) / 1000);
-            let resultDB = model.get_UnderDate(date2);
+            let date1 = Math.floor((new Date().getTime() - DELAY) / 1000);
+            let date2 = Math.floor(new Date().getTime() / 1000);
+            let resultDB = model.get_BetBetween2dates(date1, date2);
             let betsToClose = [];
             for (let i = 0; i < resultDB.length; i++) {
                 betsToClose.push(resultDB[i]["betNumber"]);
@@ -28,7 +25,7 @@ function run() {
                 console.log(betsToClose + " sent for closing on " + new Date().toLocaleDateString() + " at " + new Date().toLocaleTimeString());
                 multiBetContract.methods
                     .closeBets(betsToClose)
-                    .send({ from: PUBLIC_KEY_CREATOR,  gasPrice: web3.utils.toWei('12', 'gwei') })
+                    .send({ from: PUBLIC_KEY_CREATOR, gasPrice: GAS_PRICE })
                     .on('receipt', function (receipt) {
                         let betsToClose = []
                         let logs = receipt.logs.filter(log => log.address.toLowerCase() === multiBetAddress.toLowerCase());
@@ -42,11 +39,11 @@ function run() {
                     .catch((error) => {
                         console.log(error)
                         if (error.error.code === -32000) {
-                          let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
-                          web3.setProvider(newProvider)
+                            let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
+                            web3.setProvider(newProvider)
                         }
                         logBetCloser(`error ${error.error.code} : ${error.error.message}`)
-                      })
+                    })
             }
             else {
                 logBetCloser(`no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + DELAY).toLocaleTimeString()} from ${date1} to ${date2}`)
