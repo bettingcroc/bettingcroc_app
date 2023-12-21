@@ -76,7 +76,7 @@ function get_BetBetween2dates(date1, date2) {
 
 
 function get_UnderDate(date) {
-	let select = db.prepare(`SELECT betNumber from bets where date<'${date}'`);
+	let select = db.prepare(`SELECT betNumber from bets where date<'${date}' and status=0`);
 	let result = select.all();
 	if (result) return result;
 }
