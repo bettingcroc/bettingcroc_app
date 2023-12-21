@@ -1,11 +1,11 @@
 import Sqlite from 'better-sqlite3'
-import  {Web3}  from 'web3'
+import { Web3 } from 'web3'
 import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI } from "./config.js"
 import { __dirname } from './config.js'
 
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET))
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress)
-const db = new Sqlite(__dirname+'/db.sqlite');
+const db = new Sqlite(__dirname + '/db.sqlite');
 
 
 db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, status INTEGER, type TEXT, country TEXT, league TEXT, idAPI INTEGER, scoreHome INTEGER, scoreAway INTEGER)').run();
@@ -70,6 +70,13 @@ function get_MaxBet() {
 
 function get_BetBetween2dates(date1, date2) {
 	let select = db.prepare(`SELECT betNumber from bets where date>='${date1}' and date<'${date2}'`);
+	let result = select.all();
+	if (result) return result;
+}
+
+
+function get_UnderDate(date) {
+	let select = db.prepare(`SELECT betNumber from bets where date<'${date}'`);
 	let result = select.all();
 	if (result) return result;
 }
@@ -178,15 +185,15 @@ function closeBets(betNumbers) {
 
 
 
-function sqlToInject(){
+function sqlToInject() {
 	let command = 'update bets set date=1703062700 where betNumber=166'
 	db.prepare(command).run()
-	console.log("runned "+command)
+	console.log("runned " + command)
 }
 
 
-function getTable(table){
-	let select = db.prepare(`select * from `+table);
+function getTable(table) {
+	let select = db.prepare(`select * from ` + table);
 	let result = select.all();
 	if (result) return result;
 	return result;
@@ -211,6 +218,7 @@ export default {
 	get_League: get_League,
 	get_CLosestDatesByTypeAndLeague: get_CLosestDatesByTypeAndLeague,
 	closeBets: closeBets,
-	sqlToInject:sqlToInject,
-	getTable:getTable
+	sqlToInject: sqlToInject,
+	getTable: getTable,
+	get_UnderDate: get_UnderDate
 }
