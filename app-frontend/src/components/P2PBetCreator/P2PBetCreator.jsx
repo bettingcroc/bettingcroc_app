@@ -77,20 +77,19 @@ function P2PBetCreator(props) {
             </div>
           </div>
         </ClickAwayListener>
-        <div id="authorizedDiv">
-          <button id="publicSwitchButton" className="button" onClick={switchButton}>
-            {P2PBetCreatorSwitcher}
-          </button>
-          <input
-            type="text"
-            className={
-              P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
-            }
-            id="adressAuthorizedInput"
-            value={authorized || ''}
-            onChange={(e) => { setAuthorized(e.target.value); console.log(authorized) }}
-          ></input>
-        </div>
+        <button id="publicSwitchButton" className="button" onClick={switchButton}>
+          {P2PBetCreatorSwitcher}
+        </button>
+
+        <input
+          type="text"
+          className={
+            P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
+          }
+          id="adressAuthorizedInput"
+          value={authorized || ''}
+          onChange={(e) => { setAuthorized(e.target.value); console.log(authorized) }}
+        ></input>
         <button className="button"
           id="buttonCreateP2Pbutton"
           onClick={(event) => {

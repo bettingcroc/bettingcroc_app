@@ -1,6 +1,7 @@
 #p2pcreator {
     /* Todays Sales */
-    width: calc(50% - 10px);
+    width: 100%;
+    height: 100%;
     order: 1;
     display: flex;
     flex-direction: column;
@@ -31,7 +32,6 @@
     gap: 16px;
 
     width: 100%;
-    height: 248px;
 
 
     /* Inside auto layout */
@@ -63,6 +63,7 @@
 }
 
 #adressAuthorizedInput {
+    order: 3;
     width: 360px;
     height: 50px;
     border-radius: 10px;
@@ -88,6 +89,7 @@
 
 
 #publicSwitchButton {
+    order: 2;
     width: 100px;
     height: 50px;
     border-radius: 10px;
@@ -97,7 +99,7 @@
 }
 
 #buttonCreateP2Pbutton {
-    order: 2;
+    order: 4;
     background: #ECE572;
     border: none;
     width: 100%;

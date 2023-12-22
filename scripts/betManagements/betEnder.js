@@ -2,12 +2,15 @@ import { GAS_PRICE, web3, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBet
 import db_betEnder from './db_betEnder.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
 import { logBetEnder } from "../logger.js";
+import { Web3 } from 'web3';
 
 function run() {
     try {
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
         const DELAY = 60000
-
+        const provider = new HDWalletProvider(PRIVATE_KEY_ENDER, NODE_URL_BSCTESTNET, 0, 10000);
+        const web3 = new Web3(provider);
+        
         multiBetContract.setConfig({ contractDataInputFill: "both" })
 
 
