@@ -69,7 +69,7 @@ function get_MaxBet() {
 
 
 function get_BetBetween2dates(date1, date2) {
-	let select = db.prepare(`SELECT betNumber from bets where date>='${date1}' and date<'${date2}'`);
+	let select = db.prepare(`SELECT betNumber from bets where date>='${date1}' and date<'${date2}' and status=0`);
 	let result = select.all();
 	if (result) return result;
 }
