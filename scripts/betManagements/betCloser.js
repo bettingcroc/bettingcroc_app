@@ -14,8 +14,8 @@ function run() {
 
         function betCloser() {
             setTimeout(betCloser, DELAY);
-            let date1 = Math.floor((new Date().getTime() - DELAY) / 1000);
-            let date2 = Math.floor(new Date().getTime() / 1000);
+            let date1 = Math.floor(new Date().getTime() / 1000);
+            let date2 = Math.floor((new Date().getTime() + DELAY) / 1000);
             let resultDB = model.get_BetBetween2dates(date1, date2);
             let betsToClose = [];
             for (let i = 0; i < resultDB.length; i++) {
