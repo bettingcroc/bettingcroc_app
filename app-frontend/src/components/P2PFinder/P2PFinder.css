@@ -117,8 +117,8 @@
 
   /* Auto layout */
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   padding: 0px;
   gap: 20px;
 

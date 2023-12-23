@@ -32,5 +32,7 @@ import tutorialsDark from './assets/tutorialsDark.png'
 import tutorialsLight from './assets/tutorialsLight.png'
 import rankingLandingLight from './assets/rankingLandingLight.png'
 import rankingLandingDark from './assets/rankingLandingDark.png'
+import helpDark from './assets/helpDark.png'
+import helpLight from './assets/helpLight.png'
 
-export { tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }
+export { helpDark, helpLight, tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }

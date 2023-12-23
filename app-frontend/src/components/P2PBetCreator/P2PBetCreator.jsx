@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import "./P2PBetCreator.css"
+import Tooltip from '@mui/material/Tooltip';
+import { helpDark } from '../../images';
+
 
 
 function P2PBetCreator(props) {
@@ -46,7 +49,9 @@ function P2PBetCreator(props) {
       <div id="superNewP2P">
 
         <p id="newP2PP" className={props.theme === "light" ? "blackP" : "whiteP"}>New P2P</p>
-
+        <Tooltip title="You can search a P2P bet from bet id if you want to bet on a specific bet or by minimum amount bettable to be sure you can bet the amount you want.">
+          <img className='helpImage' src={helpDark}></img>
+        </Tooltip>
       </div>
       <div id="inputsP2P">
         <input

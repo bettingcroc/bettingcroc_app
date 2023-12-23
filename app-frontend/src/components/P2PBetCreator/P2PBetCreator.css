@@ -87,6 +87,114 @@
     padding: 12px 20px;
 }
 
+#superNewP2P {
+    /* Frame 1000002744 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0px;
+    gap: 20px;
+
+    width: 100%;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+#newP2P {
+    /* Frame 1000002738 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 574px;
+
+    width: 472px;
+    height: 32px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+#underNewP2P {
+    /* Frame 1000002737 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+
+    width: 82px;
+    height: 32px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+#newP2PP {
+    /* New P2P */
+
+    width: 102px;
+    height: 32px;
+
+    /* H1 */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+
+}
+
+
+
+#buttonCreateP2P {
+    /* Button get pro */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 10px;
+
+    width: 472px;
+    height: 50px;
+    border-radius: 10px;
+    /* Vert */
+    background: #ECE572;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+    position: relative;
+    bottom: 2.5px;
+    right: 5.5px;
+}
+
+
+
 
 #publicSwitchButton {
     order: 2;

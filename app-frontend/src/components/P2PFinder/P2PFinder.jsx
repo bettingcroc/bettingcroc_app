@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import Tooltip from '@mui/material/Tooltip';
-
 import "./P2PFinder.css"
+import { helpDark } from '../../images';
 
 
 function P2PFinder(props) {
@@ -79,7 +79,9 @@ function P2PFinder(props) {
       <div id="titleP2pFinder">
 
         <p className={props.theme === "light" ? "blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
-
+        <Tooltip title="You can search a P2P bet from bet id if you want to bet on a specific bet or by minimum amount bettable to be sure you can bet the amount you want.">
+          <img className='helpImage' src={helpDark}></img>
+        </Tooltip>
       </div>
       <div id="inputP2pFinder">
         <div className='line1P2PFinder'>
@@ -102,18 +104,25 @@ function P2PFinder(props) {
                   })}
               </div>
             </div>
-          </ClickAwayListener></div>
+          </ClickAwayListener>
+          <Tooltip title="Select the team that you would bet AGAINST. You will win only if the team selected will lose.">
+            <img className='helpImage' src={helpDark}></img>
+          </Tooltip>
+        </div>
 
         <p id='minToBetP' className={props.theme === "light" ? "blackP" : "whiteP"}> search by minimum amount :</p>
         <div id="inputLine2P2PFinder">
-          <div id="inputAmountP2PFinder"><input
-            className="css-input"
-            id="minBet"
-            type="number"
-            min="0"
-            value={minBet}
-            onChange={(e) => setMinBet(e.target.value)}
-          ></input></div>
+          <div id="inputAmountP2PFinder">
+            <input
+              className="css-input"
+              id="minBet"
+              type="number"
+              min="0"
+              value={minBet}
+              onChange={(e) => setMinBet(e.target.value)}
+            ></input>
+          </div>
+
           <button id="buttonRefreshP2PFinderButton" className={modeSearch === "minToBet" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { setModeSearch("minToBet") }}></button>
         </div>
         <p id='orP' className={props.theme === "light" ? "blackP" : "whiteP"}>or search by bet id :</p>
