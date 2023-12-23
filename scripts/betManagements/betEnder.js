@@ -1,4 +1,4 @@
-import { GAS_PRICE, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL } from "../config.js"
+import { GAS_PRICE, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODES_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL } from "../config.js"
 import db_betEnder from './db_betEnder.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
 import { logBetEnder } from "../logger.js";
@@ -45,11 +45,13 @@ function run() {
                     logBetEnder(`${new Date().toLocaleDateString()} ${new Date()} bets ${betsToEnd} ended with ${winnerBetsToEnd}`)
                 })
                 .catch((error) => {
+                    console.log(error)
+                    logBetEnder(`error ${error.error.code} : ${error.error.message} on ${web3.currentProvider.engine._providers[3].rpcUrl}`)
                     if (error.error.code === -32000) {
                         let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
                         web3.setProvider(newProvider)
+                        console.log("after error, provider is set to "+web3.currentProvider.engine._providers[3].rpcUrl)
                     }
-                    logBetEnder(`error ${error.error.code} : ${error.error.message}`)
                 })
         }
 

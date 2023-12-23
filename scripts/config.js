@@ -12,12 +12,11 @@ const PUBLIC_KEY_ENDER = "0x1deecf77dD59A35c9f68cf507d79DDbd8524fa65"
 const multiBetAddress = "0x17D31b07cAd51A170d35D3dc8a3b3fAC18d0e672"
 const NODES_URL_BSCTESTNET = ["https://bsc-testnet.blockpi.network/v1/rpc/public", "https://bsc-testnet.publicnode.com", "https://data-seed-prebsc-2-s1.bnbchain.org:8545", "https://bsc-testnet.public.blastapi.io", "https://bsc-testnet.blockpi.network/v1/rpc/public", "https://data-seed-prebsc-1-s1.bnbchain.org:8545"]
 const NODE_URL_BSCTESTNET = NODES_URL_BSCTESTNET[5]; //url of bsc testnet node
-console.log("setting node to " + NODE_URL_BSCTESTNET)
 const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET, 0, 10000);
-
 const web3 = new Web3(provider);
+console.log("setting node to " + web3.currentProvider.engine._providers[3].rpcUrl)
 const GAS_PRICE = web3.utils.toWei('10', 'gwei') //await web3.eth.getGasPrice()
-console.log(GAS_PRICE)
+console.log("setting gasPrice to " +GAS_PRICE)
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

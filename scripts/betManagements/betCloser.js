@@ -38,11 +38,12 @@ function run() {
                     })
                     .catch((error) => {
                         console.log(error)
+                        logBetCloser(`error ${error.error.code} : ${error.error.message} on ${web3.currentProvider.engine._providers[3].rpcUrl}`)
                         if (error.error.code === -32000) {
                             let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
                             web3.setProvider(newProvider)
+                            console.log("after error, provider is set to " + web3.currentProvider.engine._providers[3].rpcUrl)
                         }
-                        logBetCloser(`error ${error.error.code} : ${error.error.message}`)
                     })
             }
             else {
