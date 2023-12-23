@@ -46,7 +46,7 @@ function run() {
                     })
             }
             else {
-                logBetCloser(`no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + DELAY).toLocaleTimeString()} from ${date1} to ${date2}`)
+                console.log(`no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + DELAY).toLocaleTimeString()} from ${date1} to ${date2}`)
             }
         }
 
