@@ -140,6 +140,8 @@ const Bet = (props) => {
                   return <OptionPool key={item} team={item} status={status} moneyInOtherPools={moneyInPools === undefined ? null : moneyInPools} betNumber={searchParams.get("n")} optionNumber={index} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betName={optionsArray} theme={props.theme}></OptionPool>
                 })}
           </div>
+          <a className="needMoreHelpP" href="/docs">Need help with this ? Check this.</a>
+
         </div>
 
         <div id="p2p1" style={status !== 0 ? { marginBottom: "30px" } : null}>

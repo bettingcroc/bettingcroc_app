@@ -64,7 +64,7 @@
 
 #adressAuthorizedInput {
     order: 3;
-    width: 360px;
+    width: 100%;
     height: 50px;
     border-radius: 10px;
     border: solid;
@@ -79,7 +79,6 @@
 
 #cote {
     order: 0;
-    width: 100%;
     height: 50px;
     background: #F4F7F9;
     border-radius: 10px;
@@ -152,7 +151,6 @@
 #newP2PP {
     /* New P2P */
 
-    width: 102px;
     height: 32px;
 
     /* H1 */
@@ -165,6 +163,13 @@
 }
 
 
+.lineP2PCreator {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
+}
 
 #buttonCreateP2P {
     /* Button get pro */
@@ -251,7 +256,6 @@
     }
 
     #adressAuthorizedInput {
-        width: 100%;
         height: 30px;
     }
 

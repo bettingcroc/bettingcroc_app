@@ -8,8 +8,7 @@ import { helpDark } from '../../images';
 
 function P2PFinder(props) {
   const [selectedOption, setSelectedOption] = useState(0)
-  const [minBet, setMinBet] = useState(0)
-  const [id, setId] = useState(0)
+  const [p2pFinderInput, setP2pFinderInput] = useState(0)
   const [modeSearch, setModeSearch] = useState("minToBet")
   const [modal, setModal] = useState("collapse")
 
@@ -78,10 +77,9 @@ function P2PFinder(props) {
     <div id="p2pfinder" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
       <div id="titleP2pFinder">
 
-        <p className={props.theme === "light" ? "blackP" : "whiteP"} id="findp2pP">Find a P2P</p>
-        <Tooltip title="You can search a P2P bet from bet id if you want to bet on a specific bet or by minimum amount bettable to be sure you can bet the amount you want.">
-          <img className='helpImage' src={helpDark}></img>
-        </Tooltip>
+        <p className={props.theme === "light" ? "blackP" : "whiteP"} id="findp2pP">Find a P2P bet</p>
+
+
       </div>
       <div id="inputP2pFinder">
         <div className='line1P2PFinder'>
@@ -109,39 +107,31 @@ function P2PFinder(props) {
             <img className='helpImage' src={helpDark}></img>
           </Tooltip>
         </div>
-
-        <p id='minToBetP' className={props.theme === "light" ? "blackP" : "whiteP"}> search by minimum amount :</p>
-        <div id="inputLine2P2PFinder">
-          <div id="inputAmountP2PFinder">
-            <input
-              className="css-input"
-              id="minBet"
-              type="number"
-              min="0"
-              value={minBet}
-              onChange={(e) => setMinBet(e.target.value)}
-            ></input>
+        <div id='line2P2PFinder'>
+          <p className={props.theme === "light" ? "blackP" : "whiteP"}>Search by</p>
+          <div className='switchButtons'>
+            <button id="buttonRefreshP2PFinderButton" className={modeSearch === "minToBet" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { setModeSearch("minToBet") }}>Minimum amount bettable</button>
+            <button id="buttonRefreshP2PFinderButton" className={modeSearch === "byId" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { setModeSearch("byId") }}>Bet number</button>
           </div>
-
-          <button id="buttonRefreshP2PFinderButton" className={modeSearch === "minToBet" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { setModeSearch("minToBet") }}></button>
+          <Tooltip title="You can search a P2P bet from bet id if you want to bet on a specific bet or by minimum amount bettable to be sure you can bet the amount you want.">
+            <img className='helpImage' src={helpDark}></img>
+          </Tooltip>
         </div>
-        <p id='orP' className={props.theme === "light" ? "blackP" : "whiteP"}>or search by bet id :</p>
-        <div id="inputLine3P2PFinder">
-          <div id="inputIdP2PFinder"><input
-            className="css-input"
-            id="minBet"
-            type="number"
-            min="0"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          ></input></div>
-          <button id="buttonRefreshP2PFinderButton" className={modeSearch === "byId" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { setModeSearch("byId") }}></button>
+        <input
+          className="css-input"
+          id="p2pFinderInput"
+          type="number"
+          min="0"
+          value={p2pFinderInput}
+          onChange={(e) => setP2pFinderInput(e.target.value)}
+          placeholder={modeSearch === "minToBet" ? "Minimum amount to bet" : "Bet number"}
+        ></input>
 
-        </div>
 
-        <button id="buttonSearchP2P" onClick={(event) => { modeSearch === "minToBet" ? searchCote(weiconvert(minBet)) : searchById(id) }}><p id="searchP">Search !</p></button>
+        <button id="buttonSearchP2P" onClick={(event) => { modeSearch === "minToBet" ? searchCote(weiconvert(p2pFinderInput)) : searchById(p2pFinderInput) }}><p id="searchP">Search !</p></button>
 
       </div>
+      <a className="needMoreHelpP" href="/docs">Need help with this ? Check this.</a>
 
     </div>
   );

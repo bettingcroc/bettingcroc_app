@@ -23,14 +23,15 @@ const Base = (props) => {
                     <Outlet></Outlet>
                 </div>
                 <div id="rightBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-                    <div id={props.mainVue === "bet" ? "topRightBar" : "topRightBarElse"}>
+
+                    {props.defaultAccount !== undefined ? <div id={props.mainVue === "bet" ? "topRightBar" : "topRightBarElse"}>
                         {props.mainVue === "bet" ? <div id="underTopRightBar">
                             <button onClick={props.goPanier} className="topRightButton" id="panierP"><div id={props.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
                             <button onClick={props.goMyBets} className="topRightButton" id="myBetsP"><div id={props.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
                             <button onClick={props.goMyP2PBets} className="topRightButton" id="myP2PBetsP"><div id={props.rightBar === "myP2PBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My P2P Bets</div></button>
 
                         </div> : <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Hi young Crocodile !</p>}
-                    </div>
+                    </div> : null}
                     <div id="superMidRightBar">
 
                         {props.mainVue === "bet" ?

@@ -165,6 +165,15 @@
     width: 100%;
 }
 
+.needMoreHelpP {
+    margin-left: auto;
+    font-family: Poppins;
+    color: skyblue;
+    text-decoration: underline;
+    letter-spacing: -1px;
+    order: 10;
+}
+
 #optionsBox {
 
     /* Auto layout */
@@ -182,6 +191,16 @@
     align-self: stretch;
     flex-grow: 0;
     justify-content: space-between;
+
+}
+
+.switchButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    background-color: #e9e9ed;
+    padding: 3px;
+    border-radius: 8px;
 
 }
 

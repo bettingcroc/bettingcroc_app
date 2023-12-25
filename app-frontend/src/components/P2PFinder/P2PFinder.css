@@ -68,7 +68,7 @@
   flex-grow: 0;
 }
 
-#minBet {
+#p2pFinderInput {
   height: 50px;
   width: 100%;
   border-radius: 10px;
@@ -83,11 +83,10 @@
 }
 
 #buttonRefreshP2PFinderButton {
-  width: 50px;
-  height: 50px;
+  height: 44px;
+  width: 160px;
   border-radius: 8px;
-  border-width: 1px;
-  border-style: solid;
+  border: none;
 
 }
 
@@ -110,6 +109,13 @@
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+}
+
+#line2P2PFinder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
 #titleP2pFinder {
@@ -182,7 +188,7 @@
     height: 30px;
   }
 
-  #minBet {
+  #p2pFinderInput {
     height: 30px;
   }
 

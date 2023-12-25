@@ -11,7 +11,7 @@ import { helpDark } from '../../images';
 function P2PBetCreator(props) {
   const [amountToBet, setAmountToBet] = useState(1)
   const [cote, setCote] = useState()
-  const [P2PBetCreatorSwitcher, setP2PBetCreatorSwitcher] = useState("Public")
+  const [privacyBet, setPrivacyBet] = useState("Public")
   const [selectedOption, setSelectedOption] = useState(0)
   const [authorized, setAuthorized] = useState()
   const [error, setError] = useState()
@@ -21,13 +21,6 @@ function P2PBetCreator(props) {
     setAmountToBet(props.amountToBet)
   }, [props.amountToBet])
 
-  function switchButton() {
-    if (P2PBetCreatorSwitcher === "Public") {
-      setP2PBetCreatorSwitcher("Friends only");
-    } else {
-      setP2PBetCreatorSwitcher("Public");
-    }
-  }
   function changeClass() {
     setClassTag(null)
   }
@@ -48,48 +41,62 @@ function P2PBetCreator(props) {
 
       <div id="superNewP2P">
 
-        <p id="newP2PP" className={props.theme === "light" ? "blackP" : "whiteP"}>New P2P</p>
-        <Tooltip title="You can search a P2P bet from bet id if you want to bet on a specific bet or by minimum amount bettable to be sure you can bet the amount you want.">
-          <img className='helpImage' src={helpDark}></img>
-        </Tooltip>
+        <p id="newP2PP" className={props.theme === "light" ? "blackP" : "whiteP"}>Create my P2P bet</p>
       </div>
       <div id="inputsP2P">
-        <input
-          className="css-input"
-          placeholder="cote"
-          id="cote"
-          type="number"
-          min="1.01"
-          value={cote || ""}
-          onChange={(e) => setCote(e.target.value)}
-        ></input>
-        <ClickAwayListener onClickAway={handleClickAwayEvent}>
+        <div className="lineP2PCreator">
+          <p className={props.theme === "light" ? "blackP" : "whiteP"}>Bet on</p>
 
-          <div id="superinputLine1P2PFinder">
-            <div id="selectCreateNewP2P" onClick={(e) => switchModal()}>
-              <p>{props.optionsArray !== null ? props.optionsArray.split(",")[selectedOption] : null}</p>
+
+          <ClickAwayListener onClickAway={handleClickAwayEvent}>
+
+            <div id="superinputLine1P2PFinder">
+              <div id="selectCreateNewP2P" onClick={(e) => switchModal()}>
+                <p>{props.optionsArray !== null ? props.optionsArray.split(",")[selectedOption] : null}</p>
+              </div>
+              <div id="modalinputLine1P2PFinder" className={modal}>
+                {props.optionsArray === null
+                  ? null
+                  : props.optionsArray.split(",").map((item, index) => {
+                    return (
+                      <div key={index} className="lineModalP2PFinder" onClick={() => { setSelectedOption(index); switchModal() }}>
+                        <p>{item}</p>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
-            <div id="modalinputLine1P2PFinder" className={modal}>
-              {props.optionsArray === null
-                ? null
-                : props.optionsArray.split(",").map((item, index) => {
-                  return (
-                    <div key={index} className="lineModalP2PFinder" onClick={() => { setSelectedOption(index); switchModal() }}>
-                      <p>{item}</p>
-                    </div>
-                  );
-                })}
-            </div>
+          </ClickAwayListener>
+        </div>
+        <div className="lineP2PCreator">
+          <p className={props.theme === "light" ? "blackP" : "whiteP"}>With an odds of</p>
+
+          <input
+            className="css-input"
+            placeholder="Odds"
+            id="cote"
+            type="number"
+            min="1.01"
+            value={cote || ""}
+            onChange={(e) => setCote(e.target.value)}
+          ></input>
+
+        </div>
+        <div className="lineP2PCreator">
+
+          <div className='switchButtons'>
+            <button id="buttonRefreshP2PFinderButton" className={privacyBet === "Public" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { setPrivacyBet("Public") }}>Public</button>
+            <button id="buttonRefreshP2PFinderButton" className={privacyBet === "Friends only" ? "activeButtonSwitch" : "inactiveButtonSwitch"} onClick={(event) => { setPrivacyBet("Friends only") }}>Private</button>
           </div>
-        </ClickAwayListener>
-        <button id="publicSwitchButton" className="button" onClick={switchButton}>
-          {P2PBetCreatorSwitcher}
-        </button>
-
+          <Tooltip title="Set the privacy of the bet. If private, only the addresses authorized will be able to join the bet.">
+            <img className='helpImage' src={helpDark}></img>
+          </Tooltip>
+        </div>
         <input
+          placeholder="Addresses authorized"
           type="text"
           className={
-            P2PBetCreatorSwitcher === "Public" ? "hidden" : undefined
+            privacyBet === "Public" ? "hidden" : undefined
           }
           id="adressAuthorizedInput"
           value={authorized || ''}
@@ -122,6 +129,8 @@ function P2PBetCreator(props) {
         </button>
         <div id="errorCoteDiv"><p id="errorP" className={classTag}>{error}</p></div>
       </div>
+      <a className="needMoreHelpP" href="/docs">Need help with this ? Check this.</a>
+
     </div>
   );
 

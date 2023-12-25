@@ -12,7 +12,7 @@ function P2PBetOption(props) {
   return (
     <div id={props.status === 0 ? "p2p2Open" : "p2p2"} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
       <div id="p2p2Box1">
-        <p id="line1P2POption" className={props.theme === "light" ? "blackP" : "whiteP"}>P2P Bets {props.optionsArray === undefined ? null : props.args === undefined ? null : " against " + props.optionsArray.split(",")[props.args[0]['6']]}</p>
+        <p id="line1P2POption" className={props.theme === "light" ? "blackP" : "whiteP"}>Join a P2P bet {props.optionsArray === undefined ? null : props.args === undefined ? null : " against " + props.optionsArray.split(",")[props.args[0]['6']]}</p>
         {props.logged && props.status === 0 ? <div className="friendInviterTrigger">
           <button className="buttonInviter buttonInviterReverse" onClick={(e) => { setModalInviterOpened(true) }}>Invite a friend</button>
           {modalInviterOpened ? <FriendInviter address={props.address} socket={props.socket} typeBet="p2p" argsBet={{ betNumber: props.betNumber, title: props.optionsArray, p2pnumber: props.args }} friends={props.friends} modalCloser={closeModal} ></FriendInviter> : null}

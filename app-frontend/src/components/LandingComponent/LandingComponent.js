@@ -15,7 +15,7 @@ function LandingComponent(props) {
         <div className={props.theme === "light" ? "landingSquare1Light" : "landingSquare1Dark"} id="landingDivListBets">
           <div className='landingLinkTextBox'>
             <p className={props.theme === "light" ? "landingP blackP" : "landingP whiteP"}>Sport Bets</p>
-            <p className={props.theme === "light" ? "landingP2 blackP" : "landingP2 whiteP"}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue massa purus, quis efficitur ante euismod id. Suspendisse vestibulum velit a orci lobortis faucibus sit amet eu lectus.</p>
+            <p className={props.theme === "light" ? "landingP2 blackP" : "landingP2 whiteP"}>Come see how bigs odds are today, or craft your own destiny with P2P bets! Challenge your friends, prove your prowess, and reign supreme in every wager. The game is on, your victory awaits!.</p>
           </div>
 
           <img className='imagesLanding' src={crocodileRight}></img>
