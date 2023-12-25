@@ -23,7 +23,7 @@ function run() {
             }
             if (betsToClose.length > 0) {
                 console.log(betsToClose + " sent for closing on " + new Date().toLocaleDateString() + " at " + new Date().toLocaleTimeString());
-                closeBetsOnChain(betsToClose)
+                closeBetsOnChain(betsToClose,multiBetContract)
             }
             else {
                 console.log(`no bet to close on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} to ${new Date(new Date().getTime() + DELAY).toLocaleTimeString()} from ${date1} to ${date2}`)
@@ -41,7 +41,7 @@ function run() {
 }
 
 
-function closeBetsOnChain(betsToClose) {
+function closeBetsOnChain(betsToClose,multiBetContract) {
     multiBetContract.methods
         .closeBets(betsToClose)
         .send({ from: PUBLIC_KEY_CREATOR, gasPrice: GAS_PRICE })
