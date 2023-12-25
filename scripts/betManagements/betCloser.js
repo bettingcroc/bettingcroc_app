@@ -41,8 +41,8 @@ function run() {
 }
 
 
-function closeBetsOnChain(betsToClose,multiBetContract) {
-    multiBetContract.methods
+async function closeBetsOnChain(betsToClose,multiBetContract) {
+    await multiBetContract.methods
         .closeBets(betsToClose)
         .send({ from: PUBLIC_KEY_CREATOR, gasPrice: GAS_PRICE })
         .on('receipt', function (receipt) {

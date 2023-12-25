@@ -169,6 +169,7 @@ function getTodayMatches() {
 		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
 		match["type"] = get_Type(arrayIndex[i]["betNumber"]) === 'football' ? '⚽' : '🏀'
 		match["country"] = get_Country(arrayIndex[i]["betNumber"]) === "USA" ? "🇺🇸" : "🌍"
+		match["timestamp"] = get_Date(arrayIndex[i]["betNumber"])
 		matches.matches.push(match)
 	}
 	//console.log(matches)

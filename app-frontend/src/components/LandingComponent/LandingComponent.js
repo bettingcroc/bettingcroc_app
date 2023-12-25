@@ -27,7 +27,7 @@ function LandingComponent(props) {
 
           <div className='landingLinkTextBox'>
             <p className={props.theme === "light" ? "landingP blackP" : "landingP whiteP"} id='landingPBis'>DecentraBet</p>
-            <p className={props.theme === "light" ? "landingP2 blackP" : "landingP2 whiteP"} id='landingP2Bis'> Quisque aliquam velit id ipsum sollicitudin sagittis. Mauris tincidunt, mauris quis blandit mollis, mi mauris lacinia lectus, sit amet pretium massa mauris a dui. </p>
+            <p className={props.theme === "light" ? "landingP2 blackP" : "landingP2 whiteP"} id='landingP2Bis'>Come prove anything to anybody that you want. Check out for community events and more.</p>
           </div>
         </div>
       </Link>

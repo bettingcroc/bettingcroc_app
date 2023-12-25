@@ -82,7 +82,8 @@
 }
 
 .landingP {
-    font-size: 40px;
+    font-size: 50px;
+    font-weight: 700;
     max-width: 40vw;
     overflow: hidden;
 }
@@ -116,7 +117,9 @@
     gap: 30px;
 }
 
-.landingP2 {}
+.landingP2 {
+    font-family: Poppins;
+}
 
 #landingComponent {
     display: flex;

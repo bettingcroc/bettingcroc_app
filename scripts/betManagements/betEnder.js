@@ -36,7 +36,6 @@ function run() {
 
 
         async function endBetOnChain(betsToEnd, winnerBetsToEnd) {
-            console.log("trying to end bets on chain")
             await multiBetContract.methods
                 .endBets(betsToEnd, winnerBetsToEnd)
                 .send({ from: PUBLIC_KEY_ENDER, gasPrice: GAS_PRICE })
