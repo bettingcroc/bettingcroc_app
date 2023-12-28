@@ -102,6 +102,7 @@ function ViewADecentrabet(props) {
       </div>
 
 
+      <a className="needMoreHelpP" href="/docs">Need help with this ? Check this.</a>
 
     </div>
   );

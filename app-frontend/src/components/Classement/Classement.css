@@ -85,6 +85,47 @@ th {
     order: 0;
 }
 
+.classementDivConnect {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 23px 30px;
+    gap: 30px;
+    height: 220px;
+    width: 100%;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+}
+
+.classementDivConnectDark {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 23px 30px;
+    gap: 30px;
+    height: 220px;
+    align-items: center;
+    width: 100%;
+
+    background: #181818;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+}
+
+#rankingsConnectImage {
+    height: 100%;
+}
+
 #addressPlayerFinder {
     min-width: 400px;
     padding: 8px;
@@ -113,9 +154,10 @@ th {
 }
 
 @media screen and (max-width: 550px) {
-#searchAddressClassement{
-    padding:  12px 17px;
-}
+    #searchAddressClassement {
+        padding: 12px 17px;
+    }
+
     .classementDiv {
         padding: 15px;
     }

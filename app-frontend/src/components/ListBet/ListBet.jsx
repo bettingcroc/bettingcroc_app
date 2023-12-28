@@ -20,21 +20,35 @@ function ListBet(props) {
           setMatches(data.matches);
           let dates = []
           for (let m = 0; m < data.matches.length; m++) {
-            let arr = data.matches[m].date.split(' ')
+            const date = new Date(data.matches[m].timestamp * 1000);
+
+            const day = date.getDate();
+            const month = date.toLocaleString('en-GB', { month: 'long' });
+            const year = date.getFullYear();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds().toString().padStart(2, '0'); // Ensure double digits for seconds
+            const formattedDate = `${day} ${month} ${year} ${hours}:${minutes}:${seconds}`;
+            let arr = formattedDate.split(' ') //data.matches[m].date.split(' ')
             let d = arr[0] + " " + arr[1] + " " + arr[2]
+            d = d.split(',').join('');
             if (!dates.includes(d)) { dates.push(d) }
           }
           dates.sort((a, b) => {
             return new Date(a) - new Date(b);
           });
           setDates(dates);
-          let index = 0
+          //let index = 0
           let matchesSorted = []
           for (let d = 0; d < dates.length; d++) {
             matchesSorted.push([])
             for (let m in data.matches) {
-              let arr = data.matches[m].date.split(' ')
-              let dat = arr[0] + " " + arr[1] + " " + arr[2]
+              const date = new Date(data.matches[m].timestamp * 1000);
+
+              const day = date.getDate();
+              const month = date.toLocaleString('en-GB', { month: 'long' });
+              const year = date.getFullYear();
+              let dat = `${day} ${month} ${year}`
               if (dat === dates[d]) {
                 matchesSorted[d].push(data.matches[m])
               }
@@ -83,7 +97,7 @@ function ListBet(props) {
             <p id="dateListBet" className={props.theme === "light" ? "blackP" : "whiteP"}>{item}</p>
             {matchesSorted[index].map((item2, index2) =>
               <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
-                <p className="greyP">{convertToReadableTime(item2.date.split(' ')[3])}</p>
+                <p className="greyP">{convertToReadableTime(item2.timestamp)}</p>
                 <p className="emojiBetline">{item2.type} {item2.country}</p>
 
 
@@ -104,7 +118,7 @@ function decimalsConverter(numberToConvert) {
   return Math.pow(numberToConvert, 18)
 }
 
-function convertToReadableTime(time) {
-  const [hours, minutes, seconds] = time.split(':').map(num => num.padStart(2, '0'));
-  return `${hours}:${minutes}`;
+function convertToReadableTime(timestamp) {
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 }

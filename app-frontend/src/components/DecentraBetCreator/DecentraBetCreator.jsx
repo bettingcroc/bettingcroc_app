@@ -115,6 +115,7 @@ function DecentraBetCreator(props) {
           createDecentraBet(oracle, amountToBet, authorized, playersNumber, privateBet);
         }}>Create a DecentraBet</button>
       </div>
+      <a className="needMoreHelpP" href="/docs">Need help with this ? Check this.</a>
 
     </div >
   );

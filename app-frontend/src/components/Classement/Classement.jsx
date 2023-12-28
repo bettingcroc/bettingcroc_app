@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Classement.css"
 import { MY_SERVER } from "../../consts"
+import { homeImage, titleImage, accountImage, accountImageWhite } from "../../images"
 
 function Classement(props) {
   const [classement, setClassement] = useState()
@@ -95,7 +96,11 @@ function Classement(props) {
             </tr>}
           </tbody>
         </div>
-      </div> : <p className={props.theme === "light" ? "blackP" : "whiteP"}>Connect your wallet and login to start bet with your friends</p>}
+      </div> :
+      /*<div className={props.theme === "light" ? "classementDivConnect" : "classementDivConnectDark"}>
+        <p className={props.theme === "light" ? "blackP" : "whiteP"}>Connect your wallet and login to start bet with your friends</p>
+        <img id="rankingsConnectImage" src={homeImage}></img>
+            </div>*/null}
       <div className={props.theme === "light" ? "classementDiv" : "classementDivDark"}>
         <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>World Rankings</p>
         <p className={props.theme === "light" ? "blackP" : "lightGreyP"}> Look out for the best betters of the world </p>
@@ -130,7 +135,7 @@ function Classement(props) {
         </div>
       </div>
       <div className={props.theme === "light" ? "classementDiv" : "classementDivDark"}>
-      <p id="findAPlayerDiv" className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Find a player</p>
+        <p id="findAPlayerDiv" className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Find a player</p>
 
         <div id="line1FindAPlayer">
           <input placeholder="Type an address here" id="addressPlayerFinder" type="text" value={addressSearch} onChange={(e) => setAddressSearch(e.target.value)}></input>
