@@ -1,0 +1,28 @@
+#betterMobile {
+    display: none;
+}
+
+@media screen and (max-width: 1080px) {
+
+    #betterMobile {
+        display: unset;
+        position: sticky;
+        bottom: 70px;
+        width: 100%;
+        z-index: 120;
+    }
+
+    #overlayBetterMobile {
+        width: 100vw;
+        height: calc(100vh - 70px);
+        background-color: rgb(0, 0, 0, 0.6);
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 80;
+    }
+    #modalBetterMobile{
+        z-index: 90;
+        position: relative;
+    }
+}

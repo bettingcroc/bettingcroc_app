@@ -1,0 +1,9 @@
+app/node_modules
+node_modules
+/node_modules
+/scripts/db.sqlite
+/logs
+logs
+tests
+scripts/db.sqlite
+scripts/legacy

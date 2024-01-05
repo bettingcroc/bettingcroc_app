@@ -1,0 +1,229 @@
+#superMidRightBar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 375px);
+}
+
+
+#mobileBottomBar {
+    position: sticky;
+    height: 70px;
+    display: none;
+    width: 100%;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #424242;
+    bottom: 0px;
+    justify-content: space-between;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.bottomBarLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    color: #737791;
+    margin: 0;
+    height: 100%;
+    justify-content: space-around;
+}
+
+#linksMobileBottomBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: calc(100% - 56px);
+}
+
+#hamburgerImg {
+    height: 50px;
+    border: none;
+}
+
+#hamburger {
+    display: none;
+}
+
+#rightBar {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 70px);
+    z-index: 40;
+    width: 21.875%;
+    top: 70px;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+#rankingsLink {
+
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 140%;
+
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+#accountLink {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 140%;
+}
+
+#notificationsLink {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 140%;
+
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 3;
+    flex-grow: 0;
+}
+
+#mainVue {
+    min-height: calc(100vh - 70px);
+
+    width: 60.25%;
+    padding: 25px;
+}
+
+@media screen and (max-width: 1080px) {
+    .logoLinkMobileBottomBar {
+        height: 30px;
+    }
+
+    #hamburger {
+        display: block;
+        padding: 0;
+    }
+
+    #links {
+        display: none;
+    }
+
+    #bettingcroctitle {
+        display: none;
+    }
+
+    #switchThemeHome {
+        display: none;
+    }
+
+    #leftBar {
+        display: none;
+    }
+
+    #rightBar {
+        display: none;
+    }
+
+
+    #mobileBottomBar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        z-index: 150;
+
+    }
+
+    #mainVue {
+        min-height: calc(100vh - 140px);
+        width: 100%;
+    }
+
+    .menu {
+        width: 100vw;
+    }
+
+
+
+
+
+    #accountLink {
+        display: none;
+    }
+
+    .bottomBarLink {
+        align-items: center;
+        height: fit-content;
+    }
+
+    .linkMobileBottomBar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 25%;
+        align-items: center;
+    }
+
+
+}
+
+@media screen and (max-width: 550px) {
+    #bettingCrocTitle {
+        display: none;
+    }
+
+    #topBar {
+        padding: 10px;
+    }
+
+    #mainVue {
+        padding: 10px;
+    }
+
+    #listBetsLinkMobileBottomBar {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    #decentraBetLinkMobileBottomBar {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    #rankingsLinkMobileBottomBar {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    #notificationsLinkMobileBottomBar {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+}

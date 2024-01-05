@@ -1,0 +1,211 @@
+#p2pfinder {
+  /* Today Sales */
+  width: 100%;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 30px;
+  gap: 10px;
+
+
+  width: 100%;
+  border: 1px solid #F8F9FA;
+  box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+  border-radius: 20px;
+}
+
+.line1P2PFinder {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+}
+
+#inputAmountP2PFinder {
+  width: 60%;
+}
+
+#inputIdP2PFinder {
+  width: 60%;
+}
+
+#superinputLine1P2PFinder {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  order: 0;
+  height: 50px;
+}
+
+#inputLine1P2PFinder p {
+  margin: 0;
+}
+
+#inputLine1P2PFinder {
+  /* 4 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 24px;
+
+  width: 100%;
+  height: 50px;
+
+  /* Gris clair */
+  background: #F4F7F9;
+  border-radius: 10px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+#p2pFinderInput {
+  height: 50px;
+  width: 100%;
+  border-radius: 10px;
+  border: solid;
+  border-top-width: medium;
+  border-right-width: medium;
+  border-bottom-width: medium;
+  border-left-width: medium;
+  border-width: 0px;
+  background: #F4F7F9;
+  padding: 12px 20px;
+}
+
+#buttonRefreshP2PFinderButton {
+  height: 44px;
+  width: 160px;
+  border-radius: 8px;
+  border: none;
+
+}
+
+#inputLine2P2PFinder {
+  /* Frame 1000002783 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+
+  width: 100%;
+  height: 50px;
+  justify-content: space-between;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+#line2P2PFinder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+#titleP2pFinder {
+  /* Frame 1000002744 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 20px;
+
+  height: 32px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  margin-bottom: 20px;
+}
+
+.activeButtonSwitch {
+  background-color: #539B57;
+}
+
+#buttonSearchP2P {
+  /* Button get pro */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+
+  width: 100%;
+  height: 50px;
+
+  /* Vert */
+  background: #539B57;
+
+  border: none;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+}
+
+@media screen and (max-width: 800px) {
+  #p2pfinder {
+    padding: 15px 15px;
+    order: 1;
+  }
+
+  #inputLine1P2PFinder {
+    height: 30px;
+  }
+
+  #buttonRefreshP2PFinderButton {
+
+    height: 30px;
+  }
+
+  #superinputLine1P2PFinder {
+    height: 30px;
+  }
+
+  #p2pFinderInput {
+    height: 30px;
+  }
+
+  #inputLine2P2PFinder {
+    height: 30px;
+  }
+
+  #inputLine3P2PFinder {
+    height: 30px;
+  }
+
+  #buttonSearchP2P {
+    height: 40px;
+  }
+
+  #titleP2pFinder {
+
+    margin-bottom: 0px;
+  }
+}

@@ -1,0 +1,117 @@
+#bettingCrocTitle {
+    width: 169px;
+
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+#logo {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 17px;
+
+    height: 56px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.accountLogo {
+    width: 40px;
+    height: 40px;
+}
+
+.themeImages {
+    height: 15px;
+}
+
+#topRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 50px;
+    height: 70px;
+}
+
+
+
+#crocoImage {
+    height: 50px;
+
+}
+
+
+
+#topLeft {
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    height: 56px;
+    gap: calc(18vw - 235px);
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    z-index: 0;
+}
+
+#notificationBox {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+#notificationButton {
+    margin-top: 17.5px;
+    padding: 8px;
+    background-color: #539B57;
+    border: none;
+    color: white;
+    font-size: 16px;
+    width: fit-content;
+    border-radius: 8px;
+}
+
+
+#links {
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    height: 25px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    gap: 30px;
+}
+
+@media screen and (max-width: 1080px) {
+    #themeSwitcherTopBar {
+        display: none !important;
+    }
+
+    #topLeft {
+
+        width: unset;
+    }
+}

@@ -1,0 +1,21 @@
+#getGainsDiv {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+#getGainsButton {
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  border: none;
+  height: fit-content;
+}
+
+.goldButton {
+  background-color: #ffd700;
+}
+
+.greyButton {
+  background-color: #868686;
+}

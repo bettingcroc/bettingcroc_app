@@ -1,0 +1,38 @@
+#notificationsBox{
+    border: solid 1px grey;
+    padding: 24px;
+    width: 600px;
+    height: 500px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+}
+#notificationCenter{
+
+}
+.alignStart{
+    align-self: start;
+}
+.alignCenter{
+    align-self: center;
+}
+.notificationLine{
+    border-bottom: solid 1px #CDCDCD;
+    border-top: solid 1px #CDCDCD;
+
+    padding: 12px 12px;
+}
+
+.newNotificationLight{
+    background-color: #c3fbc6;
+} 
+.newNotificationDark{
+    background-color: #2b4f2d;
+} 
+@media screen and (max-width: 730px) {
+    #notificationBox {
+        display: none;
+    }
+}

@@ -1,0 +1,211 @@
+.landingSquare1Light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(90, 179, 98);
+    background: radial-gradient(circle, rgba(90, 179, 98, 1) 0%, rgba(105, 204, 114, 1) 39%, rgba(71, 218, 83, 1) 55%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+.landingSquare2Light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(195deg, rgba(255, 255, 255, 1) 0%, rgba(105, 204, 114, 1) 27%, rgba(40, 194, 54, 1) 49%, rgba(71, 218, 83, 1) 72%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+
+.landingSquare1Dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(19, 116, 18);
+    background: radial-gradient(circle, rgba(19, 116, 18, 1) 0%, rgba(38, 122, 45, 1) 28%, rgba(26, 153, 38, 1) 51%, rgba(28, 135, 37, 1) 76%, rgba(10, 10, 10, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+.landingSquare2Dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(195deg, rgba(0, 0, 0, 1) 0%, rgba(38, 122, 45, 1) 28%, rgba(41, 156, 52, 1) 51%, rgba(42, 105, 47, 1) 76%, rgba(10, 10, 10, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 60px;
+}
+
+
+.landingSquare3Light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(92, 255, 134);
+    background: radial-gradient(circle, rgba(92, 255, 134, 1) 0%, rgba(124, 224, 133, 1) 27%, rgba(95, 226, 107, 1) 49%, rgba(100, 227, 111, 1) 80%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 180px 0px 60px;
+}
+
+.landingSquare3Dark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    background: rgb(18, 101, 17);
+    background: radial-gradient(circle, rgba(18, 101, 17, 1) 0%, rgba(38, 122, 45, 1) 21%, rgba(25, 147, 37, 1) 44%, rgba(28, 135, 37, 1) 66%, rgba(10, 10, 10, 1) 100%);
+    border-radius: 18px;
+    padding: 0px 180px 0px 60px;
+}
+
+#landingLineDiv1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50%;
+}
+
+#landingLineDiv2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50%;
+
+}
+
+.landingP {
+    font-size: 50px;
+    font-weight: 700;
+    max-width: 40vw;
+    overflow: hidden;
+}
+
+.linkLanding {
+    height: calc(55vh - 145px);
+    border-radius: 18px;
+    transition: transform 0.25s;
+}
+
+.linkLanding2 {
+    height: calc(35vh - 145px);
+    border-radius: 18px;
+    transition: transform 0.25s;
+}
+
+.linkLanding:hover {
+    transform: scale(1.005);
+
+}
+
+.linkLanding2:hover {
+    transform: scale(1.005);
+
+}
+
+.landingLinkTextBox {
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.landingP2 {
+    font-family: Poppins;
+}
+
+#landingComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 25px;
+}
+
+#landingPBis{
+    text-align: end;
+}
+#landingP2Bis{
+    text-align: end;
+    padding-left: 20px;
+}
+.imagesLanding {
+    height: 80%;
+}
+
+@media screen and (max-width: 800px) {
+    .imagesLanding {
+        height: 60%;
+    }
+
+    .landingP {
+        font-size: 30px;
+    }
+    .landingP2{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #landingLineDiv1 {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #landingLineDiv2 {
+        flex-direction: column;
+        gap: 20px;
+
+    }
+
+    .landingP {
+        max-width: initial;
+    }
+
+    #landingComponent {
+        gap: 20px;
+
+    }
+
+    .linkLanding {
+        height: calc(25vh);
+    }
+
+    .landingSquare1Dark {
+
+        padding: 20px;
+    }
+
+    .landingSquare1Light {
+
+        padding: 20px;
+    }
+
+    .landingSquare2Dark {
+
+        padding: 20px;
+    }
+
+    .landingSquare3Dark {
+        padding: 20px;
+    }
+
+    .imagesLanding {
+        height: 60%;
+    }
+
+    .landingP2 {
+        font-size: 10px;
+    }
+
+    .landingP {
+        font-size: 20px;
+    }
+}

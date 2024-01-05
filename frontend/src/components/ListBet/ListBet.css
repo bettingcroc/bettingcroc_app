@@ -1,0 +1,325 @@
+#box1ListBets {
+    width: 100%;
+    height: 230px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    background-color: #539B57;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#box2ListBets {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 40px;
+
+    width: 100%;
+    justify-content: space-between;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    padding: 10px 20px;
+}
+
+#box3ListBets {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+    padding: 23px 30px;
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+}
+
+#boxDateBox3listBets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.topBetsBox {
+    width: calc(100% / 3 - 20px);
+    border-radius: 20px;
+    height: 100%;
+
+}
+
+.betLineListBets {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 50px;
+    padding: 24px 0px;
+    border-top: solid 1px grey;
+}
+
+.emojiBetline {}
+
+.betLineListBets:hover {
+    color: #737791 !important;
+}
+
+#nameBetListBetsP {
+    width: 50%;
+    font-weight: bold;
+}
+
+#nameBetTopBetsP {
+    font-weight: bold;
+
+}
+
+#topBetsBox1 {
+    /* Today Sales */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    isolation: isolate;
+
+    height: 100%;
+
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+#topBetsBox2 {
+    /* Today Sales */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    isolation: isolate;
+
+    height: 100%;
+
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+#topBetsBox3 {
+    /* Today Sales */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    isolation: isolate;
+
+    height: 100%;
+
+    box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.topBetsMiniBox1 {
+    /* Mask group */
+
+    width: 100%;
+    height: 80px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    z-index: 0;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+
+}
+
+.topBetsMiniBox2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    gap: 20px;
+    isolation: isolate;
+
+    width: 100%;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    z-index: 1;
+}
+
+.topBetsMiniMiniBox2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#titleImageListBets {
+    width: 80%;
+}
+
+#dateListBet {
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 6px;
+}
+
+@media screen and (max-width: 1080px) {
+    #nameBetListBetsP {
+
+        font-size: 14px;
+    }
+
+    #box1ListBets {
+        height: 80px;
+    }
+
+    #box2ListBets {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    #topBetsBox1 {
+        height: fit-content;
+        width: 100%;
+        padding: 20px;
+
+    }
+
+    #topBetsBox2 {
+        height: fit-content;
+        width: 100%;
+        padding: 20px;
+
+    }
+
+    #topBetsBox3 {
+        height: fit-content;
+        width: 100%;
+        padding: 20px;
+
+    }
+
+    .topBetsBox {
+        height: fit-content;
+        width: 100%;
+    }
+
+    .betLineListBets {
+        gap: 10px;
+        width: 100%;
+    }
+
+    .topBetsMiniBox1 {
+        height: fit-content;
+    }
+
+    .topBetsMiniBox2 {
+        height: fit-content;
+        padding: 0px;
+    }
+
+    #box3ListBets {
+        padding: 15px;
+    }
+}
+
+.fireDark {
+    border-radius: 20px;
+    width: 100%;
+    animation: burn 1.5s linear infinite alternate;
+    height: 100%;
+    transition: transform 0.25s;
+}
+
+.fireLight {
+    border-radius: 20px;
+    width: 100%;
+    animation: burnLight 1.5s linear infinite alternate;
+    height: 100%;
+    transition: transform 0.25s;
+}
+
+.fire:hover {
+    transform: scale(1.01);
+
+}
+
+@keyframes burn {
+    from {
+        box-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .4em #ffae34, .2em -.3em .3em #ec760c, -.2em -.4em .4em #cd4606, .1em -.5em .7em #973716, .1em -.7em .7em #451b0e;
+    }
+
+    45% {
+        box-shadow: .1em -.2em .5em #fefcc9, .15em 0 .4em #feec85, -.1em -.25em .5em #ffae34, .15em -.45em .5em #ec760c, -.1em -.5em .6em #cd4606, 0 -.8em .6em #973716, .2em -1em .8em #451b0e;
+    }
+
+    70% {
+        box-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .6em #ffae34, .2em -.3em .4em #ec760c, -.2em -.4em .7em #cd4606, .1em -.5em .7em #973716, .1em -.7em .9em #451b0e;
+    }
+
+    to {
+        box-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716, -.2em -1em .8em #451b0e;
+    }
+}
+
+@keyframes burnLight {
+    from {
+        box-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .4em #ffae34, .2em -.3em .3em #ec760c, -.2em -.4em .4em #cd4606, .1em -.5em .7em #973716;
+    }
+
+    45% {
+        box-shadow: .1em -.2em .5em #fefcc9, .15em 0 .4em #feec85, -.1em -.25em .5em #ffae34, .15em -.45em .5em #ec760c, -.1em -.5em .6em #cd4606, 0 -.8em .6em #973716;
+    }
+
+    70% {
+        box-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .6em #ffae34, .2em -.3em .4em #ec760c, -.2em -.4em .7em #cd4606, .1em -.5em .7em #973716;
+    }
+
+    to {
+        box-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716;
+    }
+}

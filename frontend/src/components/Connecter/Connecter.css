@@ -1,0 +1,166 @@
+.inactiveOverlay {
+  display: none;
+}
+
+.overlayActive {
+  display: unset;
+  height: 100vh;
+
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 85;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+}
+
+
+
+#line2Modal {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+#chooseYourProvider {
+  max-width: 70%;
+  text-align: center;
+  margin: 0;
+  font-size: 40px;
+}
+
+
+#connecterDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  top: 300%;
+  left: 50%;
+  transform: translate(-50%);
+  border: solid;
+  border-width: 3px;
+  border-color: white;
+  width: 664px;
+  height: 364px;
+  background-color: #539B57;
+  z-index: 90;
+  margin-left: -300px;
+  border-radius: 20px;
+  margin: 0;
+  padding: 32px;
+}
+
+#connecterDiv p {
+  color: white;
+}
+
+@media screen and (max-width: 1080px) {
+  #line1Modal {
+    margin-top: 40px
+  }
+
+  ;
+
+  .connectButton {
+    width: fit-content;
+  }
+
+  #connecterDiv {
+    width: 95%;
+    height: initial;
+    gap: 20px;
+    padding: 20px 0px;
+  }
+
+  #metamaskConnecterDiv {
+    display: none;
+  }
+
+  #chooseYourProvider {
+    max-width: 70%;
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
+  }
+}
+
+#closeConnecter {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+}
+
+#closeImage {
+  width: 25px;
+}
+
+.buttonTransparentModal {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 32px;
+  align-items: center;
+  gap: 6px;
+}
+
+
+.walletsImage {
+  height: 80px;
+}
+
+.buttonTransparentModal:hover {
+  background-color: rgb(255, 255, 255, 0.2);
+  border-radius: 20px;
+
+}
+
+.buttonTransparentModal p {
+  margin: 0;
+}
+
+#walletButton {
+  height: 40px;
+}
+
+
+#walletImage {
+  height: 100%;
+}
+
+#walletTopBarDiv {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: 46px;
+  margin-top: 13px;
+}
+
+#connecterConnected {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  height: 100%;
+}
+
+#connecterBigBox {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#walletUnderDiv {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  padding: 12px;
+  gap: 30px;
+}

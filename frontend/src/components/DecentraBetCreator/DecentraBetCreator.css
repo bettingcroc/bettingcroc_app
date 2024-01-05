@@ -1,0 +1,59 @@
+.decentraBetCreatorLine {
+    display: flex;
+    flex-direction: row;
+}
+
+.inactiveDecentraBetCreatorButton {
+    background-color: lightgray;
+    border: 2px solid lightgray;
+    padding: 12px;
+}
+
+.activeDecentraBetCreatorButton {
+    background-color: #539B57;
+    border: 2px solid lightgray;
+    padding: 12px;
+}
+
+#divDecentraBetPublic {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#line1DivDecentraBetPublic {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#publicButtonDecentraBetCreator {
+    border-radius: 10px 0px 0px 10px;
+}
+
+#privateButtonDecentraBetCreator {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.sectionDecentrabetCreator {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 40px;
+    border-bottom: solid 1px grey;
+    width: 100%;
+}
+
+#lastLineDecentraBet {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+
+}
+
+@media screen and (max-width: 550px) {
+
+    #lastLineDecentraBet {
+        gap: 20px;
+    }
+}
