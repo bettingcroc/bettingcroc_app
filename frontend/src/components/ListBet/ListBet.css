@@ -171,7 +171,16 @@
     display: flex;
 
 }
-
+.listBets {
+    padding: 25px;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
 .topBetsMiniBox2 {
     display: flex;
     flex-direction: column;

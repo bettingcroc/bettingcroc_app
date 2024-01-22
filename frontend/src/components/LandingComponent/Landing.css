@@ -81,6 +81,23 @@
 
 }
 
+#landingTitle1 {
+    font-size: 55px;
+    font-family: PoppinsBold;
+    font-weight: bold;
+    color: white;
+    line-height: 64px;
+    width: 60%;
+}
+
+#landingTitle2 {
+    font-size: 20px;
+    font-family: Poppins;
+    color: white;
+    line-height: 24px;
+    width: 60%;
+}
+
 .landingP {
     font-size: 50px;
     font-weight: 700;
@@ -88,27 +105,7 @@
     overflow: hidden;
 }
 
-.linkLanding {
-    height: calc(55vh - 145px);
-    border-radius: 18px;
-    transition: transform 0.25s;
-}
 
-.linkLanding2 {
-    height: calc(35vh - 145px);
-    border-radius: 18px;
-    transition: transform 0.25s;
-}
-
-.linkLanding:hover {
-    transform: scale(1.005);
-
-}
-
-.linkLanding2:hover {
-    transform: scale(1.005);
-
-}
 
 .landingLinkTextBox {
     max-width: 60%;
@@ -121,24 +118,55 @@
     font-family: Poppins;
 }
 
-#landingComponent {
+#landingComponentDark {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 100%;
     gap: 25px;
+    background-clip: border-box;
+    background-color: rgb(0, 0, 0, 0.6);
+    padding: 25px;
+    overflow-y: hidden;
+    align-items: center;
+    justify-content: space-around;
 }
 
-#landingPBis{
+#landingComponentLight {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 25px;
+    background-clip: border-box;
+    background-color: rgb(255, 255, 255, 0.6);
+    padding: 25px;
+    overflow-y: hidden;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#backgroundLanding {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: -1;
+    object-fit: cover;
+    height: 100%;
+}
+
+#landingPBis {
     text-align: end;
 }
-#landingP2Bis{
+
+#landingP2Bis {
     text-align: end;
     padding-left: 20px;
 }
+
 .imagesLanding {
     height: 80%;
 }
+
 
 @media screen and (max-width: 800px) {
     .imagesLanding {
@@ -148,7 +176,8 @@
     .landingP {
         font-size: 30px;
     }
-    .landingP2{
+
+    .landingP2 {
         font-size: 16px;
     }
 }
@@ -208,4 +237,56 @@
     .landingP {
         font-size: 20px;
     }
+}
+
+#landingTitlesDiv {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-self: flex-start;
+    gap: 50px;
+    padding-left: 40px;
+}
+
+.imgLinkLanding {
+    width: 120px;
+    height: 120px;
+}
+
+#linksLanding {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: fit-content;
+    background-color: rgb(52, 181, 58, 0.3);
+    border: solid 1px #34B53A;
+    border-radius: 10px;
+}
+
+.linkLanding {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    align-items: center;
+    gap: 12px;
+    width: 270px;
+}
+
+.linklandingP {
+    font-size: 20px;
+    font-family: PoppinsBold;
+    font-weight: bold;
+    color: white;
+}
+
+.linkLanding:hover {
+    background-color: rgb(52, 181, 58, 0.7);
+}
+
+#linkLanding1 {
+    border-radius: 10px 0px 0px 10px;
+}
+
+#linkLanding4 {
+    border-radius: 0px 10px 10px 0px;
 }

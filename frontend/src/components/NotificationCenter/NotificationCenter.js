@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import "./NotificationCenter.css"
 import { ClickAwayListener } from '@mui/base';
 import { MY_SERVER } from "../../consts"
+import { homeImage, titleImage, accountImage, accountImageWhite,notificationsLight } from "../../images"
+
 
 const NotificationCenter = (props) => {
   const [modalOpened, setModalOpened] = useState(false)
@@ -32,7 +34,7 @@ const NotificationCenter = (props) => {
 
   return (
     <div id='notificationBox'>
-      <button id='notificationButton' onClick={(e) => handleButtonNotif()}>Notifications ({props.unread})</button>
+      <button id='notificationButton' onClick={(e) => handleButtonNotif()}><img id='notificationsImg' src={notificationsLight}></img></button>
       <div className={modalOpened ? "alignStart" : "alignCenter"} id='notificationCenter'>
         {modalOpened ?
           <ClickAwayListener onClickAway={() => { setModalOpened(false) }} touchEvent={false}>

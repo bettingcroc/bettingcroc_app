@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { APP_NAME, APP_LOGO_URL, DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID, cssIdentifiers, chainId } from "../../consts"
 import { Link } from 'react-router-dom';
-import { homeImage, titleImage, accountImage, accountImageWhite } from "../../images"
+import { homeImage, titleImage, accountImage, accountImageWhite,notificationsLight } from "../../images"
 import Connecter from '../Connecter/Connecter';
 import "./TopBar.css"
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';

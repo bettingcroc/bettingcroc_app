@@ -71,7 +71,7 @@ function Connecter(props) {
         </div>
         :
         modalState === "closed" ?
-          <button className='generalsButton' onClick={openModal}><p className="buttonP">Connect Your Wallet</p></button> : <div>
+          <button className='generalsButton' onClick={openModal} id='connectYourWalletButton'><p className="buttonP" >Connect Your Wallet</p></button> : <div>
             <ClickAwayListener onClickAway={closeModal} touchEvent={false}>
 
               <div id="connecterDiv">

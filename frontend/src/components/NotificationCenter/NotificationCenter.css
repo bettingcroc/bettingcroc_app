@@ -31,6 +31,9 @@
 .newNotificationDark{
     background-color: #2b4f2d;
 } 
+#notificationsImg{
+    height: 30px;
+}
 @media screen and (max-width: 730px) {
     #notificationBox {
         display: none;

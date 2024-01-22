@@ -330,7 +330,7 @@ function setMyRequestsRead(address) {
 function getDecentrabet(betNumber){
 	let select = db.prepare(`select * from Decentrabets where betNumber='${betNumber}'`);
 	let result = select.all();
-	//console.log(result)
+	console.log(result)
 	if (result) return result;
 }
 

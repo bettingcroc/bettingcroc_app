@@ -1,3 +1,18 @@
+#superBetCompletDark {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+    background-color: #232323;
+}
+
+#superBetCompletLight {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+}
+
 .optionDiv {
     display: flex;
     flex-direction: column;

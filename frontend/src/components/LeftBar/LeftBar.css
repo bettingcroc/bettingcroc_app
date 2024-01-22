@@ -147,7 +147,7 @@
 }
 
 .twitter-timeline {
-  width: calc(18vw - 30px);
+  width: calc(21.875vw - 30px);
   max-height: calc(100vh - 190px);
   margin-top: 10px !important;
 }

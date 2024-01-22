@@ -19,7 +19,22 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+#leftBar {
 
+    position: sticky;
+    z-index: 50;
+    min-width: 18vw;
+    height: calc(100vh - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    top: 70px;
+    border-style: solid;
+    border-width: 1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
 .bottomBarLink {
     display: flex;
     flex-direction: column;
@@ -58,12 +73,14 @@
     justify-content: space-between;
     height: calc(100vh - 70px);
     z-index: 40;
-    width: 21.875%;
+    min-width: 21.875vw;
     top: 70px;
     border-left-style: solid;
     border-left-width: 1px;
     border-top-style: solid;
     border-top-width: 1px;
+    align-items: center;
+    overflow-y: scroll;
 }
 
 #rankingsLink {
@@ -109,8 +126,7 @@
 #mainVue {
     min-height: calc(100vh - 70px);
 
-    width: 60.25%;
-    padding: 25px;
+    width: 100%;
 }
 
 @media screen and (max-width: 1080px) {

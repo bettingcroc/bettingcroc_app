@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { crocodileRight, homeImage, tutorialsDark, tutorialsLight, rankingLandingDark, rankingLandingLight } from "../../images"
+import { crocodileRight, homeImage, tutorialsDark, tutorialsLight, rankingLandingDark, rankingLandingLight, landingBackground , sportsDark, decentraBetDark,rankingDark  } from "../../images"
 
 import "./Landing.css"
 
@@ -10,42 +10,33 @@ function LandingComponent(props) {
   }, [])
 
   return (
-    <div id="landingComponent">
-      <Link to="/basketball" className='linkLanding'>
-        <div className={props.theme === "light" ? "landingSquare1Light" : "landingSquare1Dark"} id="landingDivListBets">
-          <div className='landingLinkTextBox'>
-            <p className={props.theme === "light" ? "landingP blackP" : "landingP whiteP"}>Sport Bets</p>
-            <p className={props.theme === "light" ? "landingP2 blackP" : "landingP2 whiteP"}>Come see how bigs odds are today, or craft your own destiny with P2P bets! Challenge your friends, prove your prowess, and reign supreme in every wager. The game is on, your victory awaits!.</p>
-          </div>
-
-          <img className='imagesLanding' src={crocodileRight}></img>
-        </div>
-      </Link>
-      <Link to="/decentrabet" className='linkLanding'>
-        <div className={props.theme === "light" ? "landingSquare2Light" : "landingSquare2Dark"} id="landingDivDecentraBet">
-          <img className='imagesLanding' src={homeImage}></img>
-
-          <div className='landingLinkTextBox'>
-            <p className={props.theme === "light" ? "landingP blackP" : "landingP whiteP"} id='landingPBis'>DecentraBet</p>
-            <p className={props.theme === "light" ? "landingP2 blackP" : "landingP2 whiteP"} id='landingP2Bis'>Come prove anything to anybody that you want. Check out for community events and more.</p>
-          </div>
-        </div>
-      </Link>
-
-      <Link to="/rankings" className='linkLanding2'>
-        <div className={props.theme === "light" ? "landingSquare3Light" : "landingSquare3Dark"} id="landingDivRanking">
-          <p className={props.theme === "light" ? "landingP blackP" : "landingP whiteP"}>Rankings</p>
-          <img className='imagesLanding' src={props.theme === "light" ? rankingLandingLight : rankingLandingDark}></img>
-
-        </div>
-      </Link>
-      <Link to="/docs" className='linkLanding2'>
-        <div className={props.theme === "light" ? "landingSquare3Light" : "landingSquare3Dark"} id="landingDivDocs">
-          <p className={props.theme === "light" ? "landingP blackP" : "landingP whiteP"}>Docs and tutos</p>
-          <img className='imagesLanding' src={props.theme === "light" ? tutorialsLight : tutorialsDark}></img>
-
-        </div>
-      </Link>
+    <div id={props.theme === "light" ? "landingComponentLight" : "landingComponentDark"}>
+      <div id='landingTitlesDiv'>
+      <p id="landingTitle1">Make Every Bet Count: <span className='greenP'>BettingCroc's</span> Winning Edge in Your Hands!</p>
+      <p id="landingTitle2">At BettingCroc, we redefine the game, putting the winning edge firmly in
+        your hands. Make every bet count as you navigate an immersive world of
+        strategic plays and unparalleled excitement for unmatched victories.</p>
+      </div>
+      
+      <div id='linksLanding'>
+        <Link className='linkLanding' to="/basketball" id='linkLanding1'>
+          <img src={sportsDark} className='imgLinkLanding'></img>
+          <p className='linklandingP'>Sports Bets</p>
+        </Link>
+        <Link className='linkLanding' to="/decentrabet">
+          <img src={decentraBetDark} className='imgLinkLanding'></img>
+          <p className='linklandingP'>Decentrabet</p>
+        </Link>
+        <Link className='linkLanding' to="/rankings">
+          <img src={rankingLandingDark} className='imgLinkLanding'></img>
+          <p className='linklandingP'>Rankings</p>
+        </Link>
+        <Link className='linkLanding' to="/docs" id='linkLanding4'>
+          <img src={tutorialsDark} className='imgLinkLanding' ></img>
+          <p className='linklandingP'>Docs and tutos</p>
+        </Link>
+      </div>
+    <img id='backgroundLanding' src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/40558b102966177.5f42dd01c4f58.jpg"></img>
     </div>
   )
 }

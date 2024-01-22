@@ -94,7 +94,7 @@ const Bet = (props) => {
     setModalInviterOpened(false)
   }
   return (
-    <div id="superBetComplet">
+    <div id={props.theme === "light" ? "superBetCompletLight" : "superBetCompletDark"}>
       {status === 0 ? <Jauge address={props.address} balanceUSDT={props.balanceUSDT} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
       <div className={status === 0 ? "betCompletOpen" : "betComplet"}>
         <div id="underNameBet" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>

@@ -34,5 +34,5 @@ import rankingLandingLight from './assets/rankingLandingLight.png'
 import rankingLandingDark from './assets/rankingLandingDark.png'
 import helpDark from './assets/helpDark.png'
 import helpLight from './assets/helpLight.png'
-
-export { helpDark, helpLight, tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }
+import landingBackground from './assets/landingBackground.png'
+export {landingBackground, helpDark, helpLight, tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }

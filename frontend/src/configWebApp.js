@@ -1,7 +1,7 @@
 export const MULTIBET_ADDRESS = "0x17D31b07cAd51A170d35D3dc8a3b3fAC18d0e672";
 export const USDT_ADDRESS = "0x243F13935a8a855715c1e06d5dC6f0650354A1F5";
 export const MBT_ADDRESS = "0x8bC9B949D39d0136ea98CF3AF5d770391e76d999";
-export const DECENTRABET_ADDRESS = "0xd9d04FaeE2982F4072EC4Bc53D0C0212a73aAE61";
+export const DECENTRABET_ADDRESS = "0x8B07eeFbc756870DF2078CCc18e1E7946720497e";
 export const MULTIBET_ABI = [
   {
     "anonymous": false,
@@ -2378,6 +2378,25 @@ export const DECENTRABET_ABI = [
       }
     ],
     "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getMyDecentrabetsUser",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

@@ -15,7 +15,6 @@ function ViewADecentrabet(props) {
 
   function approveUSDT(amount) {
     amount = weiconvert(amount)
-    console.log(amount)
     props.usdtContract.methods
       .approve(DECENTRABET_ADDRESS, amount)
       .send({ from: props.address })
@@ -29,9 +28,7 @@ function ViewADecentrabet(props) {
       return
     }
     props.decentrabetContract.methods.getDecentraBetLastNumber().call().then(result => {
-      console.log(result)
-      console.log(idBetToView)
-      if (parseInt(idBetToView) > parseInt(result)) {
+      if (parseInt(idBetToView) >= parseInt(result)) {
         setAmountToBet(-1)
         return
       }
@@ -41,8 +38,16 @@ function ViewADecentrabet(props) {
             fetch(MY_SERVER + "/api/infoDecentrabet/" + idBetToView, { method: "GET", }).then((res) => {
               res.json().then(data => {
                 console.log(data[0])
-                setLink(data[0].link)
-                setDescription(data[0].description)
+                if (data[0] === undefined) {
+                  console.log("no decentrabets data in db")
+                  setLink("Missing in db")
+                  setDescription("Missing in db")
+                }
+                else {
+                  setLink(data[0].link)
+                  setDescription(data[0].description)
+                }
+
               }
               )
 
@@ -119,18 +124,21 @@ function ViewADecentrabet(props) {
           </div>
           <div className="lineviewADecentraBetColumn">
             <p className="whiteP">The oracle of this decentrabet is <span className="cyanP">{oracle}</span>.</p>
-            <p className="whiteP">If your are the oracle, you can set the winner enterring the address of the winner below.</p>
-            <input
-              id="addressWinnerDecentraBet"
-              type="text"
-              className="inputDecentraBet"
-              value={winnerToSet || ""}
-              onChange={(e) => {
-                setWinnerToSet(e.target.value);
-              }}
-              placeholder="winner"
-            ></input>
-            <button className="buttonViewDecentraBet" onClick={endBet}>endBet</button>
+            {oracle === props.address &&
+              <div className="lineviewADecentraBetColumn">
+                <p className="whiteP">You are the oracle, you can set the winner enterring the address of the winner below.</p>
+                <input
+                  id="addressWinnerDecentraBet"
+                  type="text"
+                  className="inputDecentraBet"
+                  value={winnerToSet || ""}
+                  onChange={(e) => {
+                    setWinnerToSet(e.target.value);
+                  }}
+                  placeholder="winner"
+                ></input>
+                <button className="buttonViewDecentraBet" onClick={endBet}>endBet</button>          </div>
+            }
           </div>
         </div>
       </div> : <div id="decentraBetViewer"><p className="whiteP">Decentrabet unavailable (oracle is zero address)</p></div> : <div id="decentraBetViewer"><p className="whiteP">Search for a decentraBet</p></div>}

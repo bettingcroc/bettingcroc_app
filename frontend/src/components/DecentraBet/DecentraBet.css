@@ -40,6 +40,14 @@
     justify-content: space-between;
 }
 
+.mainContentDecentraBet {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 25px;
+}
+
 .decentraBetDivDark {
     display: flex;
     flex-direction: column;
@@ -82,9 +90,11 @@
     .decentraBetDiv {
         width: 100%;
     }
+
     .decentraBetDivDark {
         width: 100%;
     }
+
     #decentraBetBigTitle {
         font-size: 55px;
     }

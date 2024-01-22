@@ -77,9 +77,9 @@
 }
 
 #notificationButton {
-    margin-top: 17.5px;
-    padding: 8px;
-    background-color: #539B57;
+    margin-top: 16px;
+    padding: 4px;
+    background-color: white;
     border: none;
     color: white;
     font-size: 16px;
@@ -103,6 +103,14 @@
     order: 1;
     flex-grow: 0;
     gap: 30px;
+}
+
+#themeSwitcherTopBar {
+    height: 38px;
+}
+
+.css-d9c359-MuiButtonBase-root-MuiToggleButton-root {
+    width: 40px;
 }
 
 @media screen and (max-width: 1080px) {

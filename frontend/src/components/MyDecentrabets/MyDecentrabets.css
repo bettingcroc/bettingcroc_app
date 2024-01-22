@@ -1,0 +1,11 @@
+.myDecentrabetLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#myDecentrabetsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

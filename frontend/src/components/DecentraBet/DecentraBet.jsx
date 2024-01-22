@@ -1,14 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import DecentraBetCreator from '../DecentraBetCreator/DecentraBetCreator';
 import ViewADecentrabet from '../ViewADecentrabet/ViewADecentrabet';
 import "./DecentraBet.css"
+import MyDecentrabets from '../MyDecentrabets/MyDecentrabets';
 
 
 function DecentraBet(props) {
+  const [myDecentrabets, setMyDecentrabets] = useState()
   useEffect(() => {
     props.vueSetter("decentraBet")
     props.mainVueSetter("decentraBet")
   }, [])
+  useEffect(() => {
+    if (props.decentrabetContract !== undefined && props.address !== undefined) {
+      props.decentrabetContract.methods.getMyDecentrabetsUser(props.address).call()
+        .then(result => {
+          let reversed = [].concat(result)
+          setMyDecentrabets(reversed.reverse())
+        })
+    }
+  }, [props.decentrabetContract, props.address])
 
   return (
     <div className="mainContentDecentraBet">
@@ -20,7 +31,7 @@ function DecentraBet(props) {
         <ViewADecentrabet decentrabetContract={props.decentrabetContract} usdtContract={props.usdtContract} address={props.address} theme={props.theme}></ViewADecentrabet>
         <DecentraBetCreator toast={props.toast} theme={props.theme} decentrabetContract={props.decentrabetContract} usdtContract={props.usdtContract} address={props.address}></DecentraBetCreator>
       </div>
-
+      {myDecentrabets!==undefined && myDecentrabets.length!==0 && <MyDecentrabets myDecentrabets={myDecentrabets}></MyDecentrabets>}
 
     </div>
   );
