@@ -1,12 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.cee2a2cf.css",
-    "main.js": "/static/js/main.18ab7a81.js",
+    "main.css": "/static/css/main.411998da.css",
+    "main.js": "/static/js/main.b47e23ed.js",
     "static/js/774.f19aae7e.chunk.js": "/static/js/774.f19aae7e.chunk.js",
     "static/js/459.ae6e45ae.chunk.js": "/static/js/459.ae6e45ae.chunk.js",
+    "static/media/landingBackground.png": "/static/media/landingBackground.9515ca5a5a12977d4b6f.png",
     "static/media/home.png": "/static/media/home.e0ec557fad1fbe917d9d.png",
     "static/media/Roboto-Regular.ttf": "/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
     "static/media/Poppins-Regular.ttf": "/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
+    "static/media/Poppins-Bold.ttf": "/static/media/Poppins-Bold.cdb29a5d7ccf57ff05a3.ttf",
     "static/media/crocodileRight.png": "/static/media/crocodileRight.d99a382fb3590e7b729c.png",
     "static/media/logged.png": "/static/media/logged.268623f80b7b4ba65967.png",
     "static/media/coinbase.png": "/static/media/coinbase.d690a1fe3c3e67478b4a.png",
@@ -17,28 +19,27 @@
     "static/media/tutorialsLight.png": "/static/media/tutorialsLight.c731c830b6c5ad3bc870.png",
     "static/media/cross.png": "/static/media/cross.87083adea0fe2effbdc2.png",
     "static/media/hamburgerWhite.png": "/static/media/hamburgerWhite.3ca0e9946324c7b9f578.png",
-    "static/media/sunYellow.png": "/static/media/sunYellow.27a5d8395620746ff965.png",
     "static/media/moon.png": "/static/media/moon.cfa37b178f3890f6d652.png",
     "static/media/helpLight.png": "/static/media/helpLight.a97e45146636971d8892.png",
-    "static/media/sun.png": "/static/media/sun.e084c7323a6f30ebee93.png",
-    "static/media/moonYellow.png": "/static/media/moonYellow.3bea3d398a25611d421b.png",
     "static/media/hamburger.png": "/static/media/hamburger.976b5194516ca86106ce.png",
+    "static/media/sportsWhite.png": "/static/media/sportsWhite.f54179006596a8b748c8.png",
     "static/media/sportsInactive.png": "/static/media/sportsInactive.daa6f7030d18098d66ec.png",
     "static/media/sportsLight.png": "/static/media/sportsLight.fa136dc96a923281c9e8.png",
     "static/media/sportsDark.png": "/static/media/sportsDark.287ed6f573c901d3c7dc.png",
     "static/media/walletconnect.png": "/static/media/walletconnect.9f823c8845fe5055a070.png",
     "static/media/close.png": "/static/media/close.76608c97ea3351d43407.png",
+    "static/media/decentraBetWhite.png": "/static/media/decentraBetWhite.57e9ce402fe297caab67.png",
     "static/media/decentraBetInactive.png": "/static/media/decentraBetInactive.8aa7343d700b461385cf.png",
     "static/media/decentraBetLight.png": "/static/media/decentraBetLight.f8c165054d19c966b8c0.png",
     "static/media/decentraBetDark.png": "/static/media/decentraBetDark.533dccdb5ef6fbd052ca.png",
     "index.html": "/index.html",
-    "main.cee2a2cf.css.map": "/static/css/main.cee2a2cf.css.map",
-    "main.18ab7a81.js.map": "/static/js/main.18ab7a81.js.map",
+    "main.411998da.css.map": "/static/css/main.411998da.css.map",
+    "main.b47e23ed.js.map": "/static/js/main.b47e23ed.js.map",
     "774.f19aae7e.chunk.js.map": "/static/js/774.f19aae7e.chunk.js.map",
     "459.ae6e45ae.chunk.js.map": "/static/js/459.ae6e45ae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cee2a2cf.css",
-    "static/js/main.18ab7a81.js"
+    "static/css/main.411998da.css",
+    "static/js/main.b47e23ed.js"
   ]
 }
