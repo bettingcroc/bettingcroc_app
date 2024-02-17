@@ -1,42 +1,43 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { crocodileRight, homeImage, tutorialsDark, tutorialsLight, rankingLandingDark, rankingLandingLight, landingBackground , sportsDark, decentraBetDark,rankingDark  } from "../../images"
+import { crocodileRight, homeImage, tutorialsDark, tutorialsLight, rankingLandingDark,decentraBetWhite, rankingLandingLight, landingBackground, sportsLight,sportsDark, sportsWhite, decentraBetDark, rankingDark } from "../../images"
 
 import "./Landing.css"
 
 function LandingComponent(props) {
   useEffect(() => {
+    props.vueSetter("landing")
     props.mainVueSetter("landing")
   }, [])
 
   return (
-    <div id={props.theme === "light" ? "landingComponentLight" : "landingComponentDark"}>
+    <div id={ "landingComponentDark"}>
       <div id='landingTitlesDiv'>
-      <p id="landingTitle1">Make Every Bet Count: <span className='greenP'>BettingCroc's</span> Winning Edge in Your Hands!</p>
-      <p id="landingTitle2">At BettingCroc, we redefine the game, putting the winning edge firmly in
-        your hands. Make every bet count as you navigate an immersive world of
-        strategic plays and unparalleled excitement for unmatched victories.</p>
+        <p id="landingTitle1" className={"whiteP"}>Make Every Bet Count: <span className='greenP'>BettingCroc's</span> Winning Edge in Your Hands!</p>
+        <p id="landingTitle2" className={"whiteP"}>At BettingCroc, we redefine the game, putting the winning edge firmly in
+          your hands. Make every bet count as you navigate an immersive world of
+          strategic plays and unparalleled excitement for unmatched victories.</p>
       </div>
-      
+
       <div id='linksLanding'>
         <Link className='linkLanding' to="/basketball" id='linkLanding1'>
-          <img src={sportsDark} className='imgLinkLanding'></img>
-          <p className='linklandingP'>Sports Bets</p>
+          <img src={sportsWhite} className='imgLinkLanding'></img>
+          <p className={'linklandingPDark'}>Sports Bets</p>
         </Link>
         <Link className='linkLanding' to="/decentrabet">
-          <img src={decentraBetDark} className='imgLinkLanding'></img>
-          <p className='linklandingP'>Decentrabet</p>
+          <img src={decentraBetWhite} className='imgLinkLanding'></img>
+          <p className={'linklandingPDark'}>Decentrabet</p>
         </Link>
         <Link className='linkLanding' to="/rankings">
           <img src={rankingLandingDark} className='imgLinkLanding'></img>
-          <p className='linklandingP'>Rankings</p>
+          <p className={ 'linklandingPDark'}>Rankings</p>
         </Link>
         <Link className='linkLanding' to="/docs" id='linkLanding4'>
           <img src={tutorialsDark} className='imgLinkLanding' ></img>
-          <p className='linklandingP'>Docs and tutos</p>
+          <p className={ 'linklandingPDark'}>Docs and tutos</p>
         </Link>
       </div>
-    <img id='backgroundLanding' src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/40558b102966177.5f42dd01c4f58.jpg"></img>
+      <img id='backgroundLanding' src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/40558b102966177.5f42dd01c4f58.jpg"></img>
     </div>
   )
 }

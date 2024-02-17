@@ -19,6 +19,7 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+
 #leftBar {
 
     position: sticky;
@@ -33,8 +34,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-  }
-  
+}
+
 .bottomBarLink {
     display: flex;
     flex-direction: column;
@@ -129,6 +130,26 @@
     width: 100%;
 }
 
+#underRightBar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#boxTwitter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#twitterLoadingBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0px;
+    gap: 6px;
+}
 @media screen and (max-width: 1080px) {
     .logoLinkMobileBottomBar {
         height: 30px;
@@ -211,7 +232,7 @@
     }
 
     #mainVue {
-        padding: 10px;
+        /*padding: 10px;*/
     }
 
     #listBetsLinkMobileBottomBar {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Outlet } from 'react-router-dom';
 import { hamburgerWhiteImage, hamburgerImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingLight, rankingDark, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsLight, notificationsDark, notificationsInactive } from "../../images"
@@ -12,8 +12,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import "./Base.css"
 import "react-toastify/dist/ReactToastify.css";
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Base = (props) => {
+    const [isTwitterLoading, setTwitterLoading] = useState(true);
     return (
         <div id={props.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
             <TopBar balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
@@ -24,46 +26,54 @@ const Base = (props) => {
                     <Outlet></Outlet>
                 </div>
                 <div id="rightBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-                    {props.mainVue === "landing" ?  <TwitterTimelineEmbed sourceType="timeline" screenName="NBA" theme={props.theme}/> :
-                    <div>{
-                        props.defaultAccount !== undefined ? <div id={props.mainVue === "bet" ? "topRightBar" : "topRightBarElse"}>
-                            {props.mainVue === "bet" ? <div id="underTopRightBar">
-                                <button onClick={props.goPanier} className="topRightButton" id="panierP"><div id={props.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
-                                <button onClick={props.goMyBets} className="topRightButton" id="myBetsP"><div id={props.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
-                                <button onClick={props.goMyP2PBets} className="topRightButton" id="myP2PBetsP"><div id={props.rightBar === "myP2PBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My P2P Bets</div></button>
+                    {props.mainVue === "landing" ?
+                        <div id='boxTwitter'>
+                            {isTwitterLoading &&
+                                <div id='twitterLoadingBox'>
+                                    <CircularProgress></CircularProgress>
+                                    <p className={props.theme === "light" ? "blackP" : "whiteP"}>Twitter feed is loading...</p>
+                                    </div>}
+                            <TwitterTimelineEmbed sourceType="timeline" screenName="NBA" theme={props.theme} onLoad={() => setTwitterLoading(false)} onError={() => setTwitterLoading(false)} />
+                        </div> :
+                        <div id="underRightBar">{
+                            props.defaultAccount !== undefined ? <div id={props.mainVue === "bet" ? "topRightBar" : "topRightBarElse"}>
+                                {props.mainVue === "bet" ? <div id="underTopRightBar">
+                                    <button onClick={props.goPanier} className="topRightButton" id="panierP"><div id={props.rightBar === "betMaker" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">Bet maker</div></button>
+                                    <button onClick={props.goMyBets} className="topRightButton" id="myBetsP"><div id={props.rightBar === "myBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My Bets</div></button>
+                                    <button onClick={props.goMyP2PBets} className="topRightButton" id="myP2PBetsP"><div id={props.rightBar === "myP2PBets" ? "activeRightBar" : "inactiveRightBar"} className="topRightDiv">My P2P Bets</div></button>
 
-                            </div> : <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Hi young Crocodile !</p>}
-                        </div> : null
+                                </div> : <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Hi young Crocodile !</p>}
+                            </div> : null
+                        }
+                            < div id="superMidRightBar">
+
+                                {props.mainVue === "bet" ?
+                                    props.rightBar === "betMaker" ?
+                                        props.typeBet === 0 ? null
+                                            : <BetMaker setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betArgs={props.betArgs} typeBet={props.typeBet}></BetMaker>
+                                        : props.rightBar === "myBets" ?
+                                            <MyBets setMyBets={props.setMyBets} myBets={props.myBets} betContract={props.betContract} address={props.defaultAccount}></MyBets>
+                                            : <MyP2PBets setMyBets={props.setMyP2PBets} myBets={props.myP2PBets} betContract={props.betContract} address={props.defaultAccount}></MyP2PBets>
+                                    : <GetGains address={props.defaultAccount} betContract={props.betContract}></GetGains>
+
+                                }
+                            </div>
+                            {props.mainVue === "bet" ? <BetterBottomRight address={props.defaultAccount} betArgs={props.betArgs} approve={props.approve} betFunction={props.betFunction}></BetterBottomRight> : null}</div>
+
                     }
-                    < div id="superMidRightBar">
 
-                {props.mainVue === "bet" ?
-                    props.rightBar === "betMaker" ?
-                        props.typeBet === 0 ? null
-                            : <BetMaker setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betArgs={props.betArgs} typeBet={props.typeBet}></BetMaker>
-                        : props.rightBar === "myBets" ?
-                            <MyBets setMyBets={props.setMyBets} myBets={props.myBets} betContract={props.betContract} address={props.defaultAccount}></MyBets>
-                            : <MyP2PBets setMyBets={props.setMyP2PBets} myBets={props.myP2PBets} betContract={props.betContract} address={props.defaultAccount}></MyP2PBets>
-                    : <GetGains address={props.defaultAccount} betContract={props.betContract}></GetGains>
 
-                }
-            </div>
-            {props.mainVue === "bet" ? <BetterBottomRight address={props.defaultAccount} betArgs={props.betArgs} approve={props.approve} betFunction={props.betFunction}></BetterBottomRight> : null}</div>
-                        
-         }
+                </div>
 
 
             </div>
-
-
-        </div>
             {
-        props.rightBar === "betMaker" ?
-        props.typeBet === 0 ?
-            null :
-            <BetterMobile address={props.defaultAccount} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betArgs={props.betArgs} typeBet={props.typeBet} approve={props.approve} betFunction={props.betFunction}></BetterMobile>
-        : null
-    }
+                props.rightBar === "betMaker" ?
+                    props.typeBet === 0 ?
+                        null :
+                        <BetterMobile address={props.defaultAccount} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betArgs={props.betArgs} typeBet={props.typeBet} approve={props.approve} betFunction={props.betFunction}></BetterMobile>
+                    : null
+            }
             <div id="mobileBottomBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
                 <div id='linksMobileBottomBar'>
                     <Link to="/basketball" className="linkMobileBottomBar">

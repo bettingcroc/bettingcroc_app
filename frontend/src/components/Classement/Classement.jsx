@@ -59,7 +59,7 @@ function Classement(props) {
   }
 
   return (
-    <div id="mainContentClassement">
+    <div id="mainContentClassement" className={props.theme === "light" ? "backgroundLight" : "backgroundDark"}>
       <div id="rankingsIntro" className={props.theme === "light" ? "classementDiv" : "classementDivDark"}>
         <p id="rankingsTitle" className={props.theme === "light" ? "blackP" : "whiteP"}>Rankings</p>
         <p id='introRankingsP' className={props.theme === "light" ? "blackP" : "lightGreyP"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra tellus libero, dapibus dapibus nibh mattis id. Cras eu lacinia mauris. In sed aliquet ante, ac rhoncus velit. Aliquam et elit turpis. Duis sit amet cursus justo, a condimentum justo. Integer neque ipsum, tristique sit amet odio nec, pulvinar accumsan elit. Cras tincidunt lobortis tortor, vel luctus felis porta et. Phasellus vel risus ac erat pretium dapibus. </p>

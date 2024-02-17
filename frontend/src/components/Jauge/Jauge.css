@@ -105,8 +105,11 @@
     border-radius: 20px;
 
 }
-
 #rangeInput {
+    accent-color: #539B57;
+}
+
+/*#rangeInput {
     width: 100%;
     -webkit-appearance: none;
     appearance: none;
@@ -139,7 +142,7 @@ input[type="range"]::-moz-range-thumb {
     height: 16px;
     background-color: #539B57;
     border: none;
-}
+}*/
 
 @media screen and (max-width: 550px) {
 

@@ -38,16 +38,22 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    max-width: calc(60.125vw - 50px);
 }
 
-.mainContentDecentraBet {
+#mainContentDecentraBet {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-bottom: 30px;
     padding: 25px;
 }
+.testDiv{
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 80px);
+    padding: 23px 30px;
 
+}
 .decentraBetDivDark {
     display: flex;
     flex-direction: column;
@@ -57,7 +63,7 @@
 
     width: calc(50% - 10px);
 
-    background: #181818;
+    background: #000000;
     box-shadow: 0px 4px 20px rgba(238, 238, 238, 0.501967);
     border-radius: 20px;
 
@@ -152,5 +158,7 @@
     #decentraBetInteracter {
         flex-direction: column;
         gap: 20px;
+        max-width: unset;
     }
 }
+/*{border: solid 1px red;}*/

@@ -25,8 +25,8 @@ const ThemeSwitcher = (props) => {
       aria-label="Platform"
       id={props.id}
     >
-      <ToggleButton value="light"><img className='themeImages' src={theme === "light" ? sunYellowImage : sunImage}></img></ToggleButton>
-      <ToggleButton value="dark"><img className='themeImages' src={theme === "dark" ? moonYellowImage : moonImage}></img></ToggleButton>
+      <ToggleButton value="light" className={props.theme === "light" ? "themeButtonLight" : "themeButtonDark"}><img className='themeImages' src={theme === "light" ? sunYellowImage : sunImage}></img></ToggleButton>
+      <ToggleButton value="dark" className={props.theme === "light" ? "themeButtonLight" : "themeButtonDark"}><img className='themeImages' src={theme === "dark" ? moonYellowImage : moonImage}></img></ToggleButton>
     </ToggleButtonGroup>
   );
 }

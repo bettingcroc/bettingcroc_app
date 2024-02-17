@@ -180,7 +180,7 @@
   }
 
   #buttonRefreshP2PFinderButton {
-
+    width: unset;
     height: 30px;
   }
 

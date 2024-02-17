@@ -11,6 +11,7 @@
   font-family: 'Poppins';
   src: local('MyFont'), url(./Poppins-Regular.ttf)
 }
+
 @font-face {
   font-family: 'PoppinsBold';
   src: local('MyFont'), url(./Poppins-Bold.ttf)
@@ -22,7 +23,7 @@
 }
 
 .blackP {
-  color: #05004E;
+  color: #000000 !important;
 }
 
 .lightGreyP {
@@ -31,7 +32,7 @@
 }
 
 .whiteP {
-  color: #ffffff;
+  color: #ffffff !important;
 
 }
 
@@ -41,11 +42,25 @@
 
 }
 
+.backgroundDark {
+  background-color: #232323;
+  min-height: calc(100vh - 70px);
+}
+
+.backgroundLight {
+  background-color: #f4f7f9;
+    min-height: calc(100vh - 70px);
+}
+
 body {}
 
 .whiteDiv {
   background: #FFFFFF;
   border-color: #F4F7F9;
+}
+
+.MuiCircularProgress-svg {
+  color: #539B57;
 }
 
 #bettingcroc {
@@ -327,10 +342,12 @@ input:focus {
   color: #539B57;
 
 }
-.greenP{
+
+.greenP {
   color: #539B57;
 
 }
+
 #panierP {
   /* Basket */
 
@@ -860,6 +877,7 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 #orP {
@@ -897,10 +915,7 @@ button {
   color: green;
 }
 
-#accountDisplay {
-  margin: 0;
-  height: fit-content;
-}
+
 
 #allowancesMain {
   display: flex;
@@ -921,14 +936,6 @@ button {
   font-size: 40px;
 }
 
-.mainContentAccount {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 50px;
-  margin-bottom: 30px;
-  padding: 25px;
-}
 
 
 
@@ -1343,6 +1350,6 @@ img {
 
 
 
-/* {
+/*{
   border: 1px red solid;
 }*/

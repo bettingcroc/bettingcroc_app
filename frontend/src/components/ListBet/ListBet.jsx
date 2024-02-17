@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { homeImage, titleImage, accountImage, accountImageWhite } from "../../images"
+import { homeImage, titleImage, accountImage, accountImageWhite, celticsJersey, lakersJersey } from "../../images"
 import "./ListBet.css"
 import { MY_SERVER } from "../../consts"
+import { CircularProgress } from "@mui/material";
 
 
 function ListBet(props) {
@@ -10,6 +11,7 @@ function ListBet(props) {
   const [topMatches, setTopMatches] = useState([])
   const [dates, setDates] = useState([])
   const [matchesSorted, setMatchesSorted] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     props.vueSetter("listBets")
@@ -61,52 +63,68 @@ function ListBet(props) {
     fetch(MY_SERVER + "/api/topbets", { method: "GET" }).then((res) => {
       res.json().then((data) => {
         setTopMatches(data.matches);
+        setIsLoading(false)
+
 
       });
     });
   }, []);
 
   return (
-    <div className="listBets">
+    <div id="listBets" className={props.theme === "light" ? "backgroundLight" : "backgroundDark"} >
       <div id="box1ListBets"><img src={titleImage} alt="titleImage" id="titleImageListBets"></img></div>
-      <div id="box2ListBets">
-        {topMatches.map((item, index) => {
-          if (item) {
-            return (
-              <div className={props.theme === "light" ? "fireLight" : "fireDark"} key={item.betNumber}>
-                <Link className="topBetsBox" to={"/bet?n=" + item.betNumber} >
-                  <div id={"topBetsBox" + (index + 1)} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-                    <div className="topBetsMiniBox1"><p className={props.theme === "light" ? "blackP" : "lightGreyP"}>{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT Locked 🔥</p></div>
-                    <div className="topBetsMiniBox2">
-                      <div className="topBetsMiniMiniBox1"><p>{item.type}</p></div>
-                      <div className="topBetsMiniMiniBox2">
-                        <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[0]}</p>
-                        <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[1]}</p>
+      {!isLoading ? <div id="underListBets">
+        <div id="box2ListBets">
+          {topMatches.map((item, index) => {
+            if (item) {
+              return (
+                <div className={props.theme === "light" ? "fireLight" : "fireDark"} key={item.betNumber}>
+                  <Link className="topBetsBox" to={"/bet?n=" + item.betNumber} >
+                    <div id={"topBetsBox" + (index + 1)} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+                      <div className="topBetsMiniBox1"><p className="gold">{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT LOCKED</p></div>
+                      <div className="topBetsMiniBox2">
+                        <div className="topBetsMiniMiniBox1"><p>{item.type}{item.country}</p></div>
+                        <div className="topBetsMiniMiniBox2">
+                          <div className="lineTopBetsMiniMiniBox2">
+                            <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[0]}</p>
+                            <img className="jerseyImg" src={lakersJersey}></img>
+
+                          </div>
+                          <div className="lineTopBetsMiniMiniBox2">
+                            <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[1]}</p>
+                            <img className="jerseyImg" src={celticsJersey}></img>
+
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
+                </div>
+              )
+            }
+          })}
+        </div>
+        {matchesSorted.length === 0 ? null : dates.map((item, index) => {
+          return (
+            <div key={item} id="box3ListBets" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+              <p id="dateListBet" className={props.theme === "light" ? "blackP" : "whiteP"}>{item}</p>
+              {matchesSorted[index].map((item2, index2) =>
+                <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
+                  <p className="greyP">{convertToReadableTime(item2.timestamp)}</p>
+
+                  <img className="jerseyImgList" src={lakersJersey}></img>
+                  <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
+                  <img className="jerseyImgList" src={celticsJersey}></img>
+
+                  <p className="emojiBetline">{item2.type} {item2.country}</p>
+
                 </Link>
-              </div>
-            )
-          }
-        })}
-      </div>
-      {matchesSorted.length === 0 ? null : dates.map((item, index) => {
-        return (
-          <div key={item} id="box3ListBets" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-            <p id="dateListBet" className={props.theme === "light" ? "blackP" : "whiteP"}>{item}</p>
-            {matchesSorted[index].map((item2, index2) =>
-              <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
-                <p className="greyP">{convertToReadableTime(item2.timestamp)}</p>
-                <p className="emojiBetline">{item2.type} {item2.country}</p>
-
-
-                <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
-              </Link>
-            )}
-          </div>)
+              )}
+            </div>)
+        }
+        )}</div>
+        : <CircularProgress id='loadingCircleBet'></CircularProgress>
       }
-      )}
     </div>
   );
 

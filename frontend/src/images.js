@@ -8,7 +8,7 @@ import accountImage from './assets/account.png'
 import hamburgerImage from './assets/hamburger.png'
 import hamburgerWhiteImage from "./assets/hamburgerWhite.png"
 import accountImageWhite from './assets/accountWhite.png'
-import sunImage from "./assets/sun.png"
+import sunImage from "./assets/sunDark.png"
 import moonImage from "./assets/moon.png"
 import sunYellowImage from "./assets/sunYellow.png"
 import moonYellowImage from "./assets/moonYellow.png"
@@ -35,4 +35,9 @@ import rankingLandingDark from './assets/rankingLandingDark.png'
 import helpDark from './assets/helpDark.png'
 import helpLight from './assets/helpLight.png'
 import landingBackground from './assets/landingBackground.png'
-export {landingBackground, helpDark, helpLight, tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }
+import lakersJersey from "./assets/jerseys/lakers.png"
+import celticsJersey from "./assets/jerseys/celtics.png"
+import sportsWhite from "./assets/sportsWhite.png"
+import decentraBetWhite from "./assets/decentraBetWhite.png"
+
+export { decentraBetWhite, sportsWhite, celticsJersey, lakersJersey, landingBackground, helpDark, helpLight, tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }

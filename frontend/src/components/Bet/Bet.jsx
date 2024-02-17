@@ -8,6 +8,8 @@ import Jauge from "../Jauge/Jauge";
 import FriendInviter from "../FriendInviter/FriendInviter";
 import "./Bet.css"
 import { MY_SERVER } from "../../consts"
+import CircularProgress from '@mui/material/CircularProgress';
+import { celticsJersey, lakersJersey } from "../../images"
 
 const Bet = (props) => {
   const [optionsArray, setOptionArray] = useState()
@@ -23,6 +25,8 @@ const Bet = (props) => {
   const [scoreHome, setScoreHome] = useState()
   const [scoreAway, setScoreAway] = useState()
   const [modalInviterOpened, setModalInviterOpened] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     props.mainVueSetter("bet")
   }, [])
@@ -44,6 +48,7 @@ const Bet = (props) => {
         for (let i = 0; i < sizeBet; i++) {
           moneyInPoolsLet.push(-1)
         }
+        setIsLoading(false)
         if (props.betContract !== undefined) {
 
           await new Promise(async next2 => {
@@ -93,78 +98,85 @@ const Bet = (props) => {
   function closeModalInviter() {
     setModalInviterOpened(false)
   }
-  return (
-    <div id={props.theme === "light" ? "superBetCompletLight" : "superBetCompletDark"}>
-      {status === 0 ? <Jauge address={props.address} balanceUSDT={props.balanceUSDT} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
-      <div className={status === 0 ? "betCompletOpen" : "betComplet"}>
-        <div id="underNameBet" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-          <div id="countryLeagueDate">
-            <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{country} / {league}</p>
-            <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{status === 0 ? timeConverterDate(date) : status === 2 ? null : "chrono"}</p>
-          </div>
-          <div id="optionsSchedule">
-            <div id={status === 2 && scoreHome > scoreAway ? "optionWinner" : "option1"} className="optionDiv">
-
-              <p id={status === 2 && scoreHome > scoreAway ? "optionPWinner" : "option1P"} className={props.theme === "light" ? "blackP" : "lightGreyP"}>{optionsArray === undefined ? null : optionsArray.split(",")[0]}</p>
-
+  return (<div>
+    {!isLoading ?
+      <div id={props.theme === "light" ? "superBetCompletLight" : "superBetCompletDark"}>
+        {status === 0 ?
+          <Jauge address={props.address} balanceUSDT={props.balanceUSDT} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
+        <div className={status === 0 ? "betCompletOpen" : "betComplet"}>
+          <div id="underNameBet" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+            <div id="countryLeagueDate">
+              <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{country} / {league}</p>
+              <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>{status === 0 ? timeConverterDate(date) : status === 2 ? null : "chrono"}</p>
             </div>
-            {status === 0 ?
-              <div id="schedule">
-                <p id="scheduleP" className="scheduleTitle"> {timeConverterSchedule(date)}</p>
-              </div> :
-              <div id="scoreDiv">
+            <div id="optionsSchedule">
+              <div id={status === 2 && scoreHome > scoreAway ? "optionWinner" : "option1"} className={props.theme === "light" ? "optionDivLight" : "optionDivDark"}>
+
+                <p id={status === 2 && scoreHome > scoreAway ? "optionPWinner" : "option1P"} className={props.theme === "light" ? "blackP" : "whiteP"}>{optionsArray === undefined ? null : optionsArray.split(",")[0]}</p>
+                <img className="jerseyImgList" src={celticsJersey}></img>
+
+              </div>
+              {status === 0 ?
                 <div id="schedule">
-                  <p id="scheduleP" className="scheduleTitle"> {scoreAway !== undefined ? scoreHome + " - " + scoreAway : null}</p>
-                </div>
+                  <p id="scheduleP" className="scheduleTitle"> {timeConverterSchedule(date)}</p>
+                </div> :
+                <div id="scoreDiv">
+                  <div id="schedule">
+                    <p id="scheduleP" className="scheduleTitle"> {scoreAway !== undefined ? scoreHome + " - " + scoreAway : null}</p>
+                  </div>
 
-              </div>}
-            <div id={status === 2 && scoreHome < scoreAway ? "optionWinner" : "option2"} className="optionDiv">
+                </div>}
+              <div id={status === 2 && scoreHome < scoreAway ? "optionWinner" : "option2"} className={props.theme === "light" ? "optionDivLight" : "optionDivDark"}>
+              <img className="jerseyImgList" src={lakersJersey}></img>
 
-              <p id={status === 2 && scoreHome < scoreAway ? "optionPWinner" : "option2P"} className={props.theme === "light" ? "blackP" : "lightGreyP"}>{optionsArray === undefined ? null : optionsArray.split(",")[optionsArray.split(",").length - 1]}</p>
+                <p id={status === 2 && scoreHome < scoreAway ? "optionPWinner" : "option2P"} className={props.theme === "light" ? "blackP" : "whiteP"}>{optionsArray === undefined ? null : optionsArray.split(",")[optionsArray.split(",").length - 1]}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div id="optionsPool" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-          <div id="gameResults">
-            <p className={props.theme === "light" ? "blackP" : "whiteP"} id="gameResultsP">Game Results</p>
-            {props.logged && status === 0 ? <div className="friendInviterTrigger">
-              <button className="buttonInviter" onClick={openModalInviter}>Invite a friend</button>
-              {modalInviterOpened ? <FriendInviter address={props.address} socket={props.socket} typeBet="general" friends={friends} modalCloser={closeModalInviter} argsBet={{ betNumber: searchParams.get("n"), title: optionsArray }}></FriendInviter> : null}
-            </div> : null}
+          <div id="optionsPool" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+            <div id="gameResults">
+              <p className={props.theme === "light" ? "blackP" : "whiteP"} id="gameResultsP">Game Results</p>
+              {props.logged && status === 0 ? <div className="friendInviterTrigger">
+                <button className="buttonInviter" onClick={openModalInviter}>Invite a friend</button>
+                {modalInviterOpened ? <FriendInviter address={props.address} socket={props.socket} typeBet="general" friends={friends} modalCloser={closeModalInviter} argsBet={{ betNumber: searchParams.get("n"), title: optionsArray }}></FriendInviter> : null}
+              </div> : null}
+            </div>
+            <div id="optionsBox">
+              {
+                optionsArray === undefined ?
+                  null :
+                  optionsArray.split(",").map((item, index) => {
+                    return <OptionPool key={item} team={item} status={status} moneyInOtherPools={moneyInPools === undefined ? null : moneyInPools} betNumber={searchParams.get("n")} optionNumber={index} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betName={optionsArray} theme={props.theme}></OptionPool>
+                  })}
+            </div>
+            <a className="needMoreHelpP" href="/docs">Need help with this ? Check this.</a>
+
           </div>
-          <div id="optionsBox">
+
+          <div id="p2p1" style={status !== 0 ? { marginBottom: "30px" } : null}>
+            <P2PFinder optionsArray={optionsArray} betContract={props.betContract} betNumber={searchParams.get("n")} setP2PdisplayArgs={setP2PdisplayArgs} theme={props.theme}></P2PFinder>
+
             {
-              optionsArray === undefined ?
-                null :
-                optionsArray.split(",").map((item, index) => {
-                  return <OptionPool key={item} team={item} status={status} moneyInOtherPools={moneyInPools === undefined ? null : moneyInPools} betNumber={searchParams.get("n")} optionNumber={index} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betName={optionsArray} theme={props.theme}></OptionPool>
-                })}
+              status === 0 ?
+                <P2PBetCreator status={status} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} mbtContract={props.mbtContract} optionsArray={optionsArray} betNumber={searchParams.get("n")} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme} ></P2PBetCreator>
+                :
+                <P2PBetOption status={status} logged={props.logged} socket={props.socket} friends={friends} args={p2pdisplayArgs} betNumber={searchParams.get("n")} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} optionsArray={optionsArray} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme}></P2PBetOption>
+            }
+
           </div>
-          <a className="needMoreHelpP" href="/docs">Need help with this ? Check this.</a>
-
-        </div>
-
-        <div id="p2p1" style={status !== 0 ? { marginBottom: "30px" } : null}>
-          <P2PFinder optionsArray={optionsArray} betContract={props.betContract} betNumber={searchParams.get("n")} setP2PdisplayArgs={setP2PdisplayArgs} theme={props.theme}></P2PFinder>
 
           {
             status === 0 ?
-              <P2PBetCreator status={status} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} mbtContract={props.mbtContract} optionsArray={optionsArray} betNumber={searchParams.get("n")} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme} ></P2PBetCreator>
-              :
               <P2PBetOption status={status} logged={props.logged} socket={props.socket} friends={friends} args={p2pdisplayArgs} betNumber={searchParams.get("n")} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} optionsArray={optionsArray} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme}></P2PBetOption>
+              :
+              null
           }
-
         </div>
 
-        {
-          status === 0 ?
-            <P2PBetOption status={status} logged={props.logged} socket={props.socket} friends={friends} args={p2pdisplayArgs} betNumber={searchParams.get("n")} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} optionsArray={optionsArray} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme}></P2PBetOption>
-            :
-            null
-        }
-      </div>
+      </div>:<div id={props.theme === "light" ? "superBetCompletLight" : "superBetCompletDark"}><CircularProgress id='loadingCircleBet'></CircularProgress></div>
+    }
+  </div>
 
-    </div>
   );
 }
 

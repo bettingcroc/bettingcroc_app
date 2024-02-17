@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { APP_NAME, APP_LOGO_URL, DEFAULT_ETH_JSONRPC_URL, DEFAULT_CHAIN_ID, cssIdentifiers, chainId } from "../../consts"
 import { Link } from 'react-router-dom';
-import { homeImage, titleImage, accountImage, accountImageWhite,notificationsLight } from "../../images"
+import { homeImage, titleImage, accountImage, accountImageWhite, notificationsLight } from "../../images"
 import Connecter from '../Connecter/Connecter';
 import "./TopBar.css"
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
@@ -69,8 +69,7 @@ function TopBar(props) {
         <button onClick={login_unsecure}>login_unsecure</button>*/}
       </div>
       <div id="topRight">
-        <NotificationCenter unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} theme={props.theme}></NotificationCenter>
-
+        {props.defaultAccount !== undefined && <NotificationCenter unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} theme={props.theme}></NotificationCenter>}
 
         <ThemeSwitcher theme={props.theme} switchTheme={props.switchTheme} id={"themeSwitcherTopBar"}></ThemeSwitcher>
         <Connecter balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} accountChangedHandler={props.accountChangedHandler} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></Connecter>

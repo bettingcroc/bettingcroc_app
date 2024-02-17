@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./NotificationCenter.css"
 import { ClickAwayListener } from '@mui/base';
 import { MY_SERVER } from "../../consts"
-import { homeImage, titleImage, accountImage, accountImageWhite,notificationsLight } from "../../images"
+import { homeImage, titleImage, accountImage, accountImageWhite,notificationsLight,notificationsDark } from "../../images"
 
 
 const NotificationCenter = (props) => {
@@ -34,7 +34,7 @@ const NotificationCenter = (props) => {
 
   return (
     <div id='notificationBox'>
-      <button id='notificationButton' onClick={(e) => handleButtonNotif()}><img id='notificationsImg' src={notificationsLight}></img></button>
+      <button id={props.theme === "light" ? "notificationButtonLight" : "notificationButtonDark"} onClick={(e) => handleButtonNotif()}><img id='notificationsImg' src={props.theme === "light" ? notificationsLight : notificationsDark}></img></button>
       <div className={modalOpened ? "alignStart" : "alignCenter"} id='notificationCenter'>
         {modalOpened ?
           <ClickAwayListener onClickAway={() => { setModalOpened(false) }} touchEvent={false}>

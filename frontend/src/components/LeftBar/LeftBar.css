@@ -54,19 +54,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 6px 12px;
+  padding: 10px 12px;
   gap: 12px;
 
   width: 90%;
 
-  /* Vert */
-  /*background: #539B57;*/
-
-  /* Shadow */
-  border-radius: 16px;
-  border: solid;
-  border-width: 1px;
-  border-color: #F4F7F9;
 
 }
 

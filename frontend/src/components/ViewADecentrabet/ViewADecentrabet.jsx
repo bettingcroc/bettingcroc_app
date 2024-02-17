@@ -84,8 +84,8 @@ function ViewADecentrabet(props) {
   }
 
   return (
-    <div className={props.theme === "light" ? "decentraBetDiv" : "decentraBetDivDark"}>
-      <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Find a Decentrabet</p>
+    <div className={props.theme === "light" ? "decentraBetDiv" : "decentraBetDivDark"
+}>      <p className={props.theme === "light" ? "headerTitle" : "headerTitleDark"}>Find a Decentrabet</p>
       <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>Search a decentraBet from its number</p>
 
       <div id="line1viewADecentraBet" className="lineviewADecentraBet">

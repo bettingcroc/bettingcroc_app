@@ -57,10 +57,10 @@ function Connecter(props) {
             </button>
             {walletModalState === "open" ?
               <ClickAwayListener onClickAway={closeWalletModal} touchEvent={false}>
-                <div id='walletUnderDiv'>
-                  <p id="accountDisplay" className={props.theme === "light" ? "blackP" : "lightGreyP"}>Connected as {props.defaultAccount.substring(0, 5) + "..." + props.defaultAccount.substring(39)}</p>
-                  <p>{props.balanceUSDT} USDT</p>
-                  <p>{props.balanceMBT} MBT</p>
+                <div  id={props.theme === "light" ? "walletUnderDivLight" : "walletUnderDivDark"}>
+                  <p id="accountDisplay" className={props.theme === "light" ? "blackP" : "whiteP"}>Connected as {props.defaultAccount.substring(0, 5) + "..." + props.defaultAccount.substring(39)}</p>
+                  <p className={props.theme === "light" ? "blackP" : "whiteP"}>{props.balanceUSDT} USDT</p>
+                  <p className={props.theme === "light" ? "blackP" : "whiteP"}>{props.balanceMBT} MBT</p>
 
                   <button className='generalsButton' onClick={props.disconnect}>
                     <p className="buttonP">Disconnect</p>
@@ -76,7 +76,7 @@ function Connecter(props) {
 
               <div id="connecterDiv">
 
-                <p id="chooseYourProvider">Choose your provider below to connect your wallet</p>
+                <p id="chooseYourProvider">Connect your wallet</p>
 
                 <div id="line2Modal">
 

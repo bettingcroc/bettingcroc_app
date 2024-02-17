@@ -29,6 +29,27 @@
     width: 100%;
 }
 
+.mainContentAccountLight {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 50px;
+    padding: 25px;
+    background-color: #f4f7f9;
+    min-height: calc(100vh - 70px);
+}
+
+.mainContentAccountDark {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 50px;
+    padding: 25px;
+    background-color: #232323;
+    min-height: calc(100vh - 70px);
+
+}
+
 .myBetsAccountDiv3 {
     display: flex;
     flex-direction: row;

@@ -96,7 +96,7 @@ const LeftBar = (props) => {
                 <p className={classP}>Community Event</p>
               </Link>
             </div>
-          </div> :
+          </div> : props.mainVue === "account" ? null:
            <TwitterTimelineEmbed
            sourceType="timeline"
            screenName="NBA"

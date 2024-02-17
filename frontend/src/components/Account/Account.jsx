@@ -186,7 +186,7 @@ function Account(props) {
     });
   }
   return (
-    <div className="mainContentAccount">
+    <div className={props.theme === "light" ? "mainContentAccountLight" : "mainContentAccountDark"}>
       <p className={props.theme === "light" ? "blackP" : "lightGreyP"} id="hiUser">
         Hi {loaded && dataPerso !== undefined ? dataPerso[0].pseudo : ""} !
       </p>
