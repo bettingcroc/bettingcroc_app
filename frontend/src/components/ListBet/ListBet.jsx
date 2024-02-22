@@ -61,12 +61,17 @@ function ListBet(props) {
         })
       })
     fetch(MY_SERVER + "/api/topbets", { method: "GET" }).then((res) => {
+      console.log(res)
       res.json().then((data) => {
+        console.log("data")
         setTopMatches(data.matches);
         setIsLoading(false)
 
 
-      });
+      })
+      .catch((e)=>{console.log(e)});
+      setIsLoading(false)
+
     });
   }, []);
 
