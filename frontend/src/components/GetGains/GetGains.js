@@ -12,7 +12,7 @@ function GetGains(props) {
     if (props.address !== undefined && props.betContract !== undefined) {
       try {
         props.betContract.methods.totalMoneyWonFromUser(props.address).call().then(result => {
-          //console.log(result)
+          console.log(result)
           setGainsFromGeneral(parseFloat(result) / decimalsConverter(10))
           props.betContract.methods.totalMoneyWonFromUserP2P(props.address).call().then(result2 => {
             setGainsFromP2P(parseFloat(result2) / decimalsConverter(10))

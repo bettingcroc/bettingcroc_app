@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.411998da.css",
-    "main.js": "/static/js/main.b47e23ed.js",
+    "main.css": "/static/css/main.0588fabf.css",
+    "main.js": "/static/js/main.0cf174c6.js",
     "static/js/774.f19aae7e.chunk.js": "/static/js/774.f19aae7e.chunk.js",
     "static/js/459.ae6e45ae.chunk.js": "/static/js/459.ae6e45ae.chunk.js",
     "static/media/landingBackground.png": "/static/media/landingBackground.9515ca5a5a12977d4b6f.png",
@@ -22,24 +22,38 @@
     "static/media/moon.png": "/static/media/moon.cfa37b178f3890f6d652.png",
     "static/media/helpLight.png": "/static/media/helpLight.a97e45146636971d8892.png",
     "static/media/hamburger.png": "/static/media/hamburger.976b5194516ca86106ce.png",
+    "static/media/cavaliers.png": "/static/media/cavaliers.7c120f57600125eec86d.png",
     "static/media/sportsWhite.png": "/static/media/sportsWhite.f54179006596a8b748c8.png",
+    "static/media/mavericks.png": "/static/media/mavericks.b2e957ea6ccb620d083b.png",
+    "static/media/magic.png": "/static/media/magic.0637cd129e6f725fc006.png",
+    "static/media/rockets.png": "/static/media/rockets.9bcedb87dc29b21bfdae.png",
+    "static/media/bulls.png": "/static/media/bulls.d4afedd0fc4dfa01092c.png",
     "static/media/sportsInactive.png": "/static/media/sportsInactive.daa6f7030d18098d66ec.png",
     "static/media/sportsLight.png": "/static/media/sportsLight.fa136dc96a923281c9e8.png",
     "static/media/sportsDark.png": "/static/media/sportsDark.287ed6f573c901d3c7dc.png",
+    "static/media/hawks.png": "/static/media/hawks.d7232292fbb2f9f2ab3c.png",
+    "static/media/suns.png": "/static/media/suns.c39140c04b61715d2621.png",
+    "static/media/warriors.png": "/static/media/warriors.2478d07d62c971e53613.png",
+    "static/media/jazz.png": "/static/media/jazz.a8dd6b7b19020a431971.png",
+    "static/media/heat.png": "/static/media/heat.3e3a78daf546476c9005.png",
+    "static/media/pelicans.png": "/static/media/pelicans.3ea867e99e5760347072.png",
+    "static/media/thunder.png": "/static/media/thunder.0eafff8d698eb83b0477.png",
     "static/media/walletconnect.png": "/static/media/walletconnect.9f823c8845fe5055a070.png",
+    "static/media/celtics.png": "/static/media/celtics.e1cfa580896c4f2458b3.png",
+    "static/media/bucks.png": "/static/media/bucks.4a67c7459085af663248.png",
     "static/media/close.png": "/static/media/close.76608c97ea3351d43407.png",
     "static/media/decentraBetWhite.png": "/static/media/decentraBetWhite.57e9ce402fe297caab67.png",
     "static/media/decentraBetInactive.png": "/static/media/decentraBetInactive.8aa7343d700b461385cf.png",
     "static/media/decentraBetLight.png": "/static/media/decentraBetLight.f8c165054d19c966b8c0.png",
     "static/media/decentraBetDark.png": "/static/media/decentraBetDark.533dccdb5ef6fbd052ca.png",
     "index.html": "/index.html",
-    "main.411998da.css.map": "/static/css/main.411998da.css.map",
-    "main.b47e23ed.js.map": "/static/js/main.b47e23ed.js.map",
+    "main.0588fabf.css.map": "/static/css/main.0588fabf.css.map",
+    "main.0cf174c6.js.map": "/static/js/main.0cf174c6.js.map",
     "774.f19aae7e.chunk.js.map": "/static/js/774.f19aae7e.chunk.js.map",
     "459.ae6e45ae.chunk.js.map": "/static/js/459.ae6e45ae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.411998da.css",
-    "static/js/main.b47e23ed.js"
+    "static/css/main.0588fabf.css",
+    "static/js/main.0cf174c6.js"
   ]
 }

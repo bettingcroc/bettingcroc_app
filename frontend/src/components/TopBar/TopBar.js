@@ -9,7 +9,7 @@ import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import { toast, ToastContainer } from 'react-toastify';
 import NotificationCenter from "../NotificationCenter/NotificationCenter";
 import { MY_SERVER } from "../../consts"
-
+import GetGains from '../GetGains/GetGains';
 function TopBar(props) {
 
 
@@ -69,6 +69,7 @@ function TopBar(props) {
         <button onClick={login_unsecure}>login_unsecure</button>*/}
       </div>
       <div id="topRight">
+      <GetGains address={props.defaultAccount} betContract={props.betContract}></GetGains>
         {props.defaultAccount !== undefined && <NotificationCenter unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} theme={props.theme}></NotificationCenter>}
 
         <ThemeSwitcher theme={props.theme} switchTheme={props.switchTheme} id={"themeSwitcherTopBar"}></ThemeSwitcher>

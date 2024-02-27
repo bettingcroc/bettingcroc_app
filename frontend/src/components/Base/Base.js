@@ -54,7 +54,7 @@ const Base = (props) => {
                                         : props.rightBar === "myBets" ?
                                             <MyBets setMyBets={props.setMyBets} myBets={props.myBets} betContract={props.betContract} address={props.defaultAccount}></MyBets>
                                             : <MyP2PBets setMyBets={props.setMyP2PBets} myBets={props.myP2PBets} betContract={props.betContract} address={props.defaultAccount}></MyP2PBets>
-                                    : <GetGains address={props.defaultAccount} betContract={props.betContract}></GetGains>
+                                    : null
 
                                 }
                             </div>

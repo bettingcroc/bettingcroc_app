@@ -4,7 +4,7 @@ import { homeImage, titleImage, accountImage, accountImageWhite, celticsJersey, 
 import "./ListBet.css"
 import { MY_SERVER } from "../../consts"
 import { CircularProgress } from "@mui/material";
-
+import teams from "../../teams.json"
 
 function ListBet(props) {
   const [matches, setMatches] = useState([])
@@ -92,13 +92,11 @@ function ListBet(props) {
                         <div className="topBetsMiniMiniBox2">
                           <div className="lineTopBetsMiniMiniBox2">
                             <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[0]}</p>
-                            <img className="jerseyImg" src={lakersJersey}></img>
-
+                            <img className="jerseyImg" src={require("../../assets/jerseys/"+teams["NBA"][item.name.split("-")[0].replaceAll(' ', '')])}></img>
                           </div>
                           <div className="lineTopBetsMiniMiniBox2">
                             <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[1]}</p>
-                            <img className="jerseyImg" src={celticsJersey}></img>
-
+                            <img className="jerseyImg" src={require("../../assets/jerseys/"+teams["NBA"][item.name.split("-")[1].replaceAll(' ', '')])}></img>
                           </div>
                         </div>
                       </div>
@@ -117,9 +115,9 @@ function ListBet(props) {
                 <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
                   <p className="greyP">{convertToReadableTime(item2.timestamp)}</p>
 
-                  <img className="jerseyImgList" src={lakersJersey}></img>
+                  <img className="jerseyImgList" src={require("../../assets/jerseys/"+teams["NBA"][item2.name.split("-")[0].replaceAll(' ', '')])}></img>
                   <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
-                  <img className="jerseyImgList" src={celticsJersey}></img>
+                  <img className="jerseyImgList" src={require("../../assets/jerseys/"+teams["NBA"][item2.name.split("-")[1].replaceAll(' ', '')])}></img>
 
                   <p className="emojiBetline">{item2.type} {item2.country}</p>
 
