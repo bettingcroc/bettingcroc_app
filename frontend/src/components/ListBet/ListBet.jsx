@@ -64,35 +64,13 @@ function ListBet(props) {
         setTopMatches(data.matches);
         setIsLoading(false)
       })
-      .catch((e)=>{console.log(e)});
+        .catch((e) => { console.log(e) });
       setIsLoading(false)
 
     });
-    
+
   }, []);
-useEffect(()=>{
-  if (isLoading) return
-  console.log(topMatches)
-  for(let m in topMatches){
-    let mm = topMatches[m]
-    console.log(mm.name)
-    console.log(teams["NBA"][mm.name.split("-")[0].replaceAll(' ', '')])
-    console.log(teams["NBA"][mm.name.split("-")[1].replaceAll(' ', '')])
 
-  }
-  for(let m in matchesSorted){
-    let mm = matchesSorted[m]
-    for( let set in mm){
-      let mmm = mm[set]
-      console.log(mmm)
-      console.log(mmm.name)
-      console.log(teams["NBA"][mmm.name.split("-")[0].replaceAll(' ', '')])
-      console.log(teams["NBA"][mmm.name.split("-")[1].replaceAll(' ', '')])
-    }
-
-
-  }
-},[isLoading])
   return (
     <div id="listBets" className={props.theme === "light" ? "backgroundLight" : "backgroundDark"} >
       <div id="box1ListBets"><img src={titleImage} alt="titleImage" id="titleImageListBets"></img></div>
@@ -110,11 +88,11 @@ useEffect(()=>{
                         <div className="topBetsMiniMiniBox2">
                           <div className="lineTopBetsMiniMiniBox2">
                             <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[0]}</p>
-                            <img className="jerseyImg" src={require("../../assets/jerseys/"+teams["NBA"][item.name.split("-")[0].replaceAll(' ', '')])}></img>
+                            <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[0].replaceAll(' ', '')])}></img>
                           </div>
                           <div className="lineTopBetsMiniMiniBox2">
                             <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[1]}</p>
-                            <img className="jerseyImg" src={require("../../assets/jerseys/"+teams["NBA"][item.name.split("-")[1].replaceAll(' ', '')])}></img>
+                            <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[1].replaceAll(' ', '')])}></img>
                           </div>
                         </div>
                       </div>
@@ -133,9 +111,9 @@ useEffect(()=>{
                 <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
                   <p className="greyP">{convertToReadableTime(item2.timestamp)}</p>
 
-                  <img className="jerseyImgList" src={require("../../assets/jerseys/"+teams["NBA"][item2.name.split("-")[0].replaceAll(' ', '')])}></img>
+                  <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[0].replaceAll(' ', '')])}></img>
                   <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
-                  <img className="jerseyImgList" src={require("../../assets/jerseys/"+teams["NBA"][item2.name.split("-")[1].replaceAll(' ', '')])}></img>
+                  <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[1].replaceAll(' ', '')])}></img>
 
                   <p className="emojiBetline">{item2.type} {item2.country}</p>
 
