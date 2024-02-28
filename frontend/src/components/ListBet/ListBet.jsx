@@ -40,7 +40,6 @@ function ListBet(props) {
             return new Date(a) - new Date(b);
           });
           setDates(dates);
-          //let index = 0
           let matchesSorted = []
           for (let d = 0; d < dates.length; d++) {
             matchesSorted.push([])
@@ -57,24 +56,43 @@ function ListBet(props) {
             }
           }
           setMatchesSorted(matchesSorted)
-          //console.log("matches then " + matches);
         })
       })
     fetch(MY_SERVER + "/api/topbets", { method: "GET" }).then((res) => {
       console.log(res)
       res.json().then((data) => {
-        console.log("data")
         setTopMatches(data.matches);
         setIsLoading(false)
-
-
       })
       .catch((e)=>{console.log(e)});
       setIsLoading(false)
 
     });
+    
   }, []);
+useEffect(()=>{
+  if (isLoading) return
+  console.log(topMatches)
+  for(let m in topMatches){
+    let mm = topMatches[m]
+    console.log(mm.name)
+    console.log(teams["NBA"][mm.name.split("-")[0].replaceAll(' ', '')])
+    console.log(teams["NBA"][mm.name.split("-")[1].replaceAll(' ', '')])
 
+  }
+  for(let m in matchesSorted){
+    let mm = matchesSorted[m]
+    for( let set in mm){
+      let mmm = mm[set]
+      console.log(mmm)
+      console.log(mmm.name)
+      console.log(teams["NBA"][mmm.name.split("-")[0].replaceAll(' ', '')])
+      console.log(teams["NBA"][mmm.name.split("-")[1].replaceAll(' ', '')])
+    }
+
+
+  }
+},[isLoading])
   return (
     <div id="listBets" className={props.theme === "light" ? "backgroundLight" : "backgroundDark"} >
       <div id="box1ListBets"><img src={titleImage} alt="titleImage" id="titleImageListBets"></img></div>
