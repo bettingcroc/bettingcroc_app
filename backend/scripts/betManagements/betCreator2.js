@@ -27,7 +27,7 @@ function run() {
 
         var tx = 0;
         var FirstDay = Math.round((new Date().getTime()) / 1000);
-        var dayIncrementer = 2;
+        var dayIncrementer = 3;
 
 
         function run() {
@@ -73,6 +73,7 @@ function run() {
                             [response.result[a].event_home_team, response.result[a].event_away_team, newBets[a], Date.parse(response.result[a].event_date + " " + response.result[a].event_time) / 1000,
                             response.result[a].country_name, response.result[a].event_key, response.result[a].league_name]
                         let nameBet = nameHome + "," + nameAway
+                        console.log(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI)
                         db.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
                         logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
                     }
