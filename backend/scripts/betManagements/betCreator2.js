@@ -27,7 +27,7 @@ function run() {
 
         var tx = 0;
         var FirstDay = Math.round((new Date().getTime()) / 1000);
-        var dayIncrementer = 3;
+        var dayIncrementer = 2;
 
 
         function run() {
@@ -127,7 +127,6 @@ function run() {
 
             console.log(namesBetToWriteOnChain)
             console.log(numberOfOptionsToWriteOnChain)
-            return
             if (namesBetToWriteOnChain.length > 0) {
                 await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, numberOfOptions, sport, date);
             }
