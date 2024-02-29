@@ -117,14 +117,12 @@ function run() {
                                     namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
                                     numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
                                 }
-                                console.log(namesBetToWriteOnChain)
-                                console.log(numberOfOptionsToWriteOnChain)
-                                /*if (namesBetToWriteOnChain.length > 0) {
+                                if (namesBetToWriteOnChain.length > 0) {
                                     await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, numberOfOptions, sport, date);
                                 }
                                 else {
                                     blue(`0 bets ${sport} to add`);
-                                }*/
+                                }
                             })
                     })
                 }
