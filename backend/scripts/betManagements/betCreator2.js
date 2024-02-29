@@ -6,13 +6,13 @@ import HDWalletProvider from '@truffle/hdwallet-provider'
 
 const betToCreates = [
     {
-        "sport": "basketball",
+        "name": "basketball",
         "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
         "numberOfOptions": 2,
         "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY2}`
     },
     {
-        "sport": "football",
+        "name": "football",
         "leagues": [{ "name": "Premier League", "id": "152", "country": "England" }],
         "numberOfOptions": 3,
         "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY2}`
@@ -27,7 +27,7 @@ function run() {
 
         var tx = 0;
         var FirstDay = Math.round((new Date().getTime()) / 1000);
-        var dayIncrementer = 3;
+        var dayIncrementer = 4;
 
 
         function run() {
@@ -119,7 +119,7 @@ function run() {
                                     numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
                                 }
                                 if (namesBetToWriteOnChain.length > 0) {
-                                    await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, sport.numberOfOptions, sport, date);
+                                    await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, sport.numberOfOptions, sport.name, date);
                                 }
                                 else {
                                     blue(`0 bets ${sport} to add`);
