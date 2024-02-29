@@ -118,7 +118,7 @@ function run() {
                                     numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
                                 }
                                 if (namesBetToWriteOnChain.length > 0) {
-                                    await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, numberOfOptions, sport, date);
+                                    await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, sport.numberOfOptions, sport, date);
                                 }
                                 else {
                                     blue(`0 bets ${sport} to add`);
