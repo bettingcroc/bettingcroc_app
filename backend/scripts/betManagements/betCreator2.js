@@ -94,21 +94,20 @@ function run() {
             let date = dateIterator(dayIncrementer);
             cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + date + " !!!!!!!!!!!!!!!!!!!!!!!!");
             setTimeout(betCreator, DELAY);
-            let namesBetToWriteOnChain = [];
-            let numberOfOptionsToWriteOnChain = [];
+
 
             for (let i = 0; i < betToCreates.length; i++) {
                 let sport = betToCreates[i];
                 for (let l = 0; l < sport.leagues.length; l++) {
                     let league = sport.leagues[l]
+                    let namesBetToWriteOnChain = [];
+                    let numberOfOptionsToWriteOnChain = [];
                     console.log(league.name)
-                    await new Promise(next => {
                         fetch(`${sport.urlAPI}&from=${date}&to=${date}&timezone=Africa/Abidjan&leagueId=${league.id}`, {
                             'method': 'GET',
                         }).then((res) => {
                             res.json().then(async (data) => {
                                 if (data.result === undefined) {
-                                    next()
                                     return
                                 }
                                 for (let u = 0; u < data.result.length; u++) {
@@ -118,21 +117,20 @@ function run() {
                                     namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
                                     numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
                                 }
-                                next()
+                                console.log(namesBetToWriteOnChain)
+                                console.log(numberOfOptionsToWriteOnChain)
+                                /*if (namesBetToWriteOnChain.length > 0) {
+                                    await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, numberOfOptions, sport, date);
+                                }
+                                else {
+                                    blue(`0 bets ${sport} to add`);
+                                }*/
                             })
-                        })
                     })
                 }
             }
 
-            console.log(namesBetToWriteOnChain)
-            console.log(numberOfOptionsToWriteOnChain)
-            if (namesBetToWriteOnChain.length > 0) {
-                await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, numberOfOptions, sport, date);
-            }
-            else {
-                blue(`0 bets ${sport} to add`);
-            }
+
         }
     }
     catch (e) {
