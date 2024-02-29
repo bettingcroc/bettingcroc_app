@@ -1,9 +1,24 @@
-import { GAS_PRICE, web3, NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
-import fs from 'fs';
+import { API_KEY2, GAS_PRICE, web3, NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
 import { cyan, logBetCreator, blue } from '../logger.js'
 import db from '../db.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
-const API_KEY2 = "2a751a70faa467e818a4b8e516cacc22fd9883089e32ad93596eadc79e462ffd"
+
+
+const betToCreates = [
+    {
+        "sport": "basketball",
+        "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
+        "numberOfOptions": 2,
+        "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY2}`
+    },
+    {
+        "sport": "football",
+        "leagues": [{ "name": "Premier League", "id": "152", "country": "England" }],
+        "numberOfOptions": 3,
+        "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY2}`
+
+    }
+]
 function run() {
     try {
         const DELAY = 86400000 // 30000 //
@@ -12,7 +27,7 @@ function run() {
 
         var tx = 0;
         var FirstDay = Math.round((new Date().getTime()) / 1000);
-        var dayIncrementer = 2;
+        var dayIncrementer = 3;
 
 
         function run() {
@@ -55,7 +70,7 @@ function run() {
                     });
                     for (let a = 0; a < numberOfBets; a++) {
                         let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] =
-                            [response.result[a].event_home_team, response.result[a].event_away_team, newBets[a], Date.parse(response.result[a].event_date + " " + response.result[a].event_time)/1000,
+                            [response.result[a].event_home_team, response.result[a].event_away_team, newBets[a], Date.parse(response.result[a].event_date + " " + response.result[a].event_time) / 1000,
                             response.result[a].country_name, response.result[a].event_key, response.result[a].league_name]
                         let nameBet = nameHome + "," + nameAway
                         db.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
@@ -76,36 +91,48 @@ function run() {
 
 
         async function betCreator() {
-            let leagues = ["NBA"]
-            let sports = ["basketball"]
             let date = dateIterator(dayIncrementer);
-            let numberOfOptions = 2;
             cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + date + " !!!!!!!!!!!!!!!!!!!!!!!!");
             setTimeout(betCreator, DELAY);
-            for (let i = 0; i < leagues.length; i++) {
-                let sport = sports[i];
-                let options = {
-                    'method': 'GET',
-                }
-                fetch(`https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY2}&from=${date}&to=${date}&timezone=Africa/Abidjan`, options).then((res) => {
-                    res.json().then(async (data) => {
-                        let namesBetToWriteOnChain = [];
-                        let numberOfOptionsToWriteOnChain = [];
-                        for (let u = 0; u < data.result.length; u++) {
-                            let idHome = data.result[u].home_team_key;
-                            let idAway = data.result[u].away_team_key;
-                            let timestamp = Date.parse(data.result[u].event_date + " " + data.result[u].event_time)/1000
-                            namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
-                            numberOfOptionsToWriteOnChain.push(numberOfOptions);
-                        }
-                        if (namesBetToWriteOnChain.length > 0) {
-                            await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, numberOfOptions, sport, date);
-                        }
-                        else {
-                            blue(`0 bets ${sport} to add`);
-                        }
+            let namesBetToWriteOnChain = [];
+            let numberOfOptionsToWriteOnChain = [];
+
+            for (let i = 0; i < betToCreates.length; i++) {
+                let sport = betToCreates[i];
+                for (let l = 0; l < sport.leagues.length; l++) {
+                    let league = sport.leagues[l]
+                    console.log(league.name)
+                    await new Promise(next => {
+                        fetch(`${sport.urlAPI}&from=${date}&to=${date}&timezone=Africa/Abidjan&leagueId=${league.id}`, {
+                            'method': 'GET',
+                        }).then((res) => {
+                            res.json().then(async (data) => {
+                                if (data.result === undefined) {
+                                    next()
+                                    return
+                                }
+                                for (let u = 0; u < data.result.length; u++) {
+                                    let idHome = data.result[u].home_team_key;
+                                    let idAway = data.result[u].away_team_key;
+                                    let timestamp = Date.parse(data.result[u].event_date + " " + data.result[u].event_time) / 1000
+                                    namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
+                                    numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
+                                }
+                                next()
+                            })
+                        })
                     })
-                })
+                }
+            }
+
+            console.log(namesBetToWriteOnChain)
+            console.log(numberOfOptionsToWriteOnChain)
+            return
+            if (namesBetToWriteOnChain.length > 0) {
+                await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, numberOfOptions, sport, date);
+            }
+            else {
+                blue(`0 bets ${sport} to add`);
             }
         }
     }
