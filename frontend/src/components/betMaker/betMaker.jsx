@@ -1,11 +1,11 @@
-import React from 'react';
+import React , {useEffect}from 'react';
 import PropTypes from 'prop-types';
 import cross from './cross.png'
 import "./betMaker.css"
 
 
 function BetMaker(props) {
-
+  useEffect(()=>{console.log(props.betArgs)},[props.betArgs])
   return (
     <div id="betMaker">
       <div id="line1">
@@ -15,7 +15,7 @@ function BetMaker(props) {
 
       </div>
       <div id="line3">
-        <p>{props.betArgs.betName.split(',')[0]} - {props.betArgs.betName.split(',')[props.betArgs.betName.split(',').length - 1]} </p>
+        <p>{props.betArgs.league === undefined ? props.betArgs.betName.split(',')[0]+ " - " +props.betArgs.betName.split(',')[props.betArgs.betName.split(',').length - 1]:props.betArgs.league} </p>
       </div>
       <div id="line2">
         <p>{props.typeBet === 1 || props.typeBet === 2 ? props.betArgs.optionName : props.typeBet === 3 ? "against " + props.betArgs.optionName : null}</p>

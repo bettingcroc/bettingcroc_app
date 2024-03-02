@@ -13,7 +13,19 @@ const betToCreates = [
     },
     {
         "name": "football",
-        "leagues": [{ "name": "Premier League", "id": "152", "country": "England" }],
+        "leagues": [
+            { "name": "Premier League", "id": "152", "country": "England" },
+            { "name": "UEFA Champions League", "id": "3", "country": "Europa" },
+            { "name": "La Liga", "id": "302", "country": "Spain" },
+            { "name": "Serie A", "id": "207", "country": "Italy" },
+            { "name": "Bundesliga", "id": "175", "country": "Germany" },
+            { "name": "Ligue 1", "id": "168", "country": "France" },
+            { "name": "UEFA Europa League", "id": "4", "country": "Europa" },
+            { "name": "UEFA Europa Conference League", "id": "683", "country": "Europa" },
+
+
+
+        ],
         "numberOfOptions": 3,
         "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY2}`
 
@@ -114,7 +126,7 @@ function run() {
                                 for (let u = 0; u < data.result.length; u++) {
                                     let idHome = data.result[u].home_team_key;
                                     let idAway = data.result[u].away_team_key;
-                                    let timestamp = Date.parse(data.result[u].event_date + " " + data.result[u].event_time) / 1000
+                                    let timestamp = Date.parse(`${data.result[u].event_date} ${data.result[u].event_time} UTC`) / 1000
                                     namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
                                     numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
                                 }

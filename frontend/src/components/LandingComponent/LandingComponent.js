@@ -20,7 +20,7 @@ function LandingComponent(props) {
       </div>
 
       <div id='linksLanding'>
-        <Link className='linkLanding' to="/basketball" id='linkLanding1'>
+        <Link className='linkLanding' to="/sportbets" id='linkLanding1'>
           <img src={sportsWhite} className='imgLinkLanding'></img>
           <p className={'linklandingPDark'}>Sports Bets</p>
         </Link>

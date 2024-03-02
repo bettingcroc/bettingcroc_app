@@ -76,7 +76,7 @@ const Base = (props) => {
             }
             <div id="mobileBottomBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
                 <div id='linksMobileBottomBar'>
-                    <Link to="/basketball" className="linkMobileBottomBar">
+                    <Link to="/sportbets" className="linkMobileBottomBar">
                         <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "listBets" ? props.theme === "light" ? sportsLight : sportsDark : sportsInactive}></img>
                         <p id="listBetsLinkMobileBottomBar" className={props.vueTopBar === "listBets" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Sport Bets</p>
                     </Link>

@@ -62,7 +62,8 @@ function OptionPool(props) {
       optionName: props.team,
       betName: props.betName,
       toWin: props.moneyInOtherPools === null ? null : (parseFloat(props.amountToBet) * (((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))) / parseFloat(props.amountToBet) + 1)).toFixed(2),
-      cote: props.moneyInOtherPools === null ? null : (((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))) / parseFloat(props.amountToBet) + 1).toFixed(2)
+      cote: props.moneyInOtherPools === null ? null : (((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))) / parseFloat(props.amountToBet) + 1).toFixed(2),
+      league: props.betLeague //!== undefined? props.betLeague:null
     });
   }
 

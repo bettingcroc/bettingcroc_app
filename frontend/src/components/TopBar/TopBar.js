@@ -60,7 +60,7 @@ function TopBar(props) {
 
         </Link>
         <div id="links">
-          <Link to="/basketball"><p id="listBetsTitle" className={props.vueTopBar === "listBets" ? props.theme === "light" ? "blackP" : "lightGreyP" : "titleInactive"}>Sport Bets</p></Link>
+          <Link to="/sportbets"><p id="listBetsTitle" className={props.vueTopBar === "listBets" ? props.theme === "light" ? "blackP" : "lightGreyP" : "titleInactive"}>Sport Bets</p></Link>
           <Link to="/decentrabet"><p id="decentraBetTitle" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
           <Link to="/rankings"><p id="rankingsLink" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p></Link>
           {props.defaultAccount !== undefined ? <Link to="/account" id="accountLink"><p id="accountLink" className={props.vueTopBar === "account" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Account</p></Link> : null}

@@ -13,28 +13,12 @@ socket.on('disconnect', () => console.log('server disconnected'))
 
 
 function get_betClosed() {
-	let select = db.prepare(`select betNumber from bets where status=1`).all();
+	let select = db.prepare(`select betNumber from bets where status=1 and idAPI != 0`).all();
 	let betsClosed = [];
 	for (let i = 0; i < select.length; i++) {
 		betsClosed.push(select[i]["betNumber"]);
 	}
 	if (select) return betsClosed;
-}
-
-
-function get_betClosed_byType(type) {
-	let select = db.prepare(`select betNumber from bets where status=1 and type='${type}'`);
-
-	let result = select.all();
-	if (result) return result;
-}
-
-
-function get_leagueClosed_byType(type) {
-	let select = db.prepare(`select distinct league from bets where status=1 and type='${type}'`);
-	let result = select.all();
-	if (result) return result;
-	return null;
 }
 
 
@@ -74,9 +58,7 @@ function cancelBet(betNumber) {
 }
 
 export default {
-	get_betClosed_byType: get_betClosed_byType,
 	get_betClosed: get_betClosed,
-	get_leagueClosed_byType: get_leagueClosed_byType,
 	get_idAPI: get_idAPI,
 	update_score: update_score, endBets: endBets,
 	cancelBet: cancelBet,

@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
 })
 
 
-var topBets = {};
+var topBets = { matches: [] };
 updateTopBets()
 function updateTopBets() {
   //console.log("updateTopBets")
@@ -295,12 +295,12 @@ app.get('/api/myfriends', (req, res) => {
 })
 
 app.get('/api/lastbets', (req, res) => {
-  console.log('GET /api/lastbets/')
-
-  res.send(apiServer.getTodayMatches())
+  console.log('GET /api/lastbets')
+  console.log(req.query.sport + " " + req.query.league)
+  res.send(apiServer.getTodayMatches(req.query.sport, req.query.league))
 })
 app.get('/api/topBets', async (req, res) => {
-  console.log('GET /api/topBets/')
+  console.log('GET /api/topBets')
 
   console.log(topBets)
   res.send(topBets)

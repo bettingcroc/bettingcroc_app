@@ -1,29 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom"; 
 import { homeImage, titleImage, accountImage, accountImageWhite, celticsJersey, lakersJersey } from "../../images"
 import "./ListBet.css"
 import { MY_SERVER } from "../../consts"
 import { CircularProgress } from "@mui/material";
 import teams from "../../teams.json"
-
+import { useSearchParams } from "react-router-dom";
+const emojis = {
+  "basketball":"🏀",
+  "football":"⚽",
+  "USA":"🇺🇸",
+  "England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  "Italy":'🇮🇹',
+  "eurocups":"🇪🇺",
+  "Spain":"🇪🇸"
+}
 function ListBet(props) {
   const [matches, setMatches] = useState([])
   const [topMatches, setTopMatches] = useState([])
   const [dates, setDates] = useState([])
   const [matchesSorted, setMatchesSorted] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     props.vueSetter("listBets")
     props.mainVueSetter("bet")
-    fetch(MY_SERVER + "/api/lastbets", { method: "GET" }).then(
+
+
+  }, []);
+  useEffect(() => {
+    let league = searchParams.get("league")
+    let sport = searchParams.get("sport")
+    console.log(league)
+    console.log(sport)
+    let url = "/api/lastbets"
+    if (league) {
+      url += `?league=${league}`
+    } else if (sport) {
+      url += `?sport=${sport}`
+
+    }
+    setIsLoading(true)
+    fetch(MY_SERVER + url, { method: "GET" }).then(
       (res) => {
         res.json().then((data) => {
           setMatches(data.matches);
           let dates = []
           for (let m = 0; m < data.matches.length; m++) {
             const date = new Date(data.matches[m].timestamp * 1000);
-
             const day = date.getDate();
             const month = date.toLocaleString('en-GB', { month: 'long' });
             const year = date.getFullYear();
@@ -45,7 +70,6 @@ function ListBet(props) {
             matchesSorted.push([])
             for (let m in data.matches) {
               const date = new Date(data.matches[m].timestamp * 1000);
-
               const day = date.getDate();
               const month = date.toLocaleString('en-GB', { month: 'long' });
               const year = date.getFullYear();
@@ -59,18 +83,16 @@ function ListBet(props) {
         })
       })
     fetch(MY_SERVER + "/api/topbets", { method: "GET" }).then((res) => {
-      console.log(res)
       res.json().then((data) => {
         setTopMatches(data.matches);
         setIsLoading(false)
       })
-        .catch((e) => { console.log(e) });
-      setIsLoading(false)
-
+        .catch((e) => {
+          console.log(e)
+          setIsLoading(false)
+        })
     });
-
-  }, []);
-
+  }, [searchParams])
   return (
     <div id="listBets" className={props.theme === "light" ? "backgroundLight" : "backgroundDark"} >
       <div id="box1ListBets"><img src={titleImage} alt="titleImage" id="titleImageListBets"></img></div>
@@ -84,15 +106,15 @@ function ListBet(props) {
                     <div id={"topBetsBox" + (index + 1)} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
                       <div className="topBetsMiniBox1"><p className="gold">{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT LOCKED</p></div>
                       <div className="topBetsMiniBox2">
-                        <div className="topBetsMiniMiniBox1"><p>{item.type}{item.country}</p></div>
+                        <div className="topBetsMiniMiniBox1"><p>{emojis[item.type]} {emojis[item.country]}</p></div>
                         <div className="topBetsMiniMiniBox2">
                           <div className="lineTopBetsMiniMiniBox2">
                             <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[0]}</p>
-                            <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[0].replaceAll(' ', '')])}></img>
+                            {item.league === "NBA" && <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[0].replaceAll(' ', '')])}></img>}
                           </div>
                           <div className="lineTopBetsMiniMiniBox2">
                             <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[1]}</p>
-                            <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[1].replaceAll(' ', '')])}></img>
+                            {item.league === "NBA" && <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[1].replaceAll(' ', '')])}></img>}
                           </div>
                         </div>
                       </div>
@@ -111,11 +133,11 @@ function ListBet(props) {
                 <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
                   <p className="greyP">{convertToReadableTime(item2.timestamp)}</p>
 
-                  <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[0].replaceAll(' ', '')])}></img>
+                  {item2.league === "NBA" && <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[0].replaceAll(' ', '')])}></img>}
                   <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
-                  <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[1].replaceAll(' ', '')])}></img>
+                  {item2.league === "NBA" && <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[1].replaceAll(' ', '')])}></img>}
 
-                  <p className="emojiBetline">{item2.type} {item2.country}</p>
+                  <p className="emojiBetline">{emojis[item2.type]} {emojis[item2.country]}</p>
 
                 </Link>
               )}

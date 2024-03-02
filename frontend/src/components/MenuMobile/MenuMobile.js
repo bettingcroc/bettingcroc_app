@@ -24,34 +24,34 @@ const MenuMobile = (props) => {
             </Link>}
             <ThemeSwitcher theme={props.theme} switchTheme={props.switchTheme}></ThemeSwitcher>
             <div id='linksMenuMobile'>
-                <Link className="optionsLeftBar" to="/football">
+                <Link className="optionsLeftBar" to="/sportbets?sport=football&league=ucl">
                     <img src={footballImage} alt="footballImage" className="logoImage"></img>
                     <p className={classP}>Champions League</p>
                 </Link>
-                <Link className="optionsLeftBar" to="/football">
+                <Link className="optionsLeftBar" to="/sportbets?sport=football&league=ligue1">
                     <img src={footballImage} alt="footballImage" className="logoImage"></img>
                     <p className={classP}>Ligue 1</p>
                 </Link>
-                <Link className="optionsLeftBar" to="/football">
+                <Link className="optionsLeftBar" to="/sportbets?sport=football&league=pl">
                     <img src={footballImage} alt="footballImage" className="logoImage"></img>
                     <p className={classP}>Premier League</p>
 
                 </Link>
-                <Link className="optionsLeftBar" to="/football">
+                <Link className="optionsLeftBar" to="/sportbets?sport=football&league=liga">
                     <img src={footballImage} alt="footballImage" className="logoImage"></img>
                     <p className={classP}>Liga</p>
                 </Link>
 
-                <Link className="optionsLeftBar" to="/football">
+                <Link className="optionsLeftBar" to="/sportbets?sport=football&league=bundesliga">
                     <img src={footballImage} alt="footballImage" className="logoImage"></img>
                     <p className={classP}>Bundesliga</p>
                 </Link>
 
-                <Link className="optionsLeftBar" to="/football">
+                <Link className="optionsLeftBar" to="/sportbets?sport=football&league=seriea">
                     <img src={footballImage} alt="footballImage" className="logoImage"></img>
                     <p className={classP}>Serie A</p>
                 </Link>
-                <Link className="optionsLeftBar" to="/basketball">
+                <Link className="optionsLeftBar" to="/sportbets?sport=basketball&league=nba">
                     <img src={basketBallImage} alt="basketBallImage" className="logoImage"></img>
                     <p className={classP}>NBA</p>
                 </Link>

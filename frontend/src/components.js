@@ -15,5 +15,5 @@ import BetterMobile from "./components/BetterMobile/BetterMobile";
 import BetterBottomRight from "./components/BetterBottomRight/BetterBottomRight";
 import Base from "./components/Base/Base"
 import NotificationsMobile from "./components/NotificationsMobile/NotificationsMobile"
-
-export { ListBet, Bet, Connecter, MyP2PBets, DecentraBet, Classement, MyBets, Account, BetMaker, ComingSoon, LandingComponent, USDTGetter, GetGains, BetterMobile, BetterBottomRight, Base, NotificationsMobile }
+import LeagueBet from "./components/LeagueBet/LeagueBet.js";
+export {LeagueBet, ListBet, Bet, Connecter, MyP2PBets, DecentraBet, Classement, MyBets, Account, BetMaker, ComingSoon, LandingComponent, USDTGetter, GetGains, BetterMobile, BetterBottomRight, Base, NotificationsMobile }

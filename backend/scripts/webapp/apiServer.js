@@ -6,8 +6,16 @@ import { __dirname } from '../config.js';
 
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
-const db = new Sqlite(__dirname+"/db.sqlite");
-
+const db = new Sqlite(__dirname + "/db.sqlite");
+const leaguesIds = {
+	"pl": "Premier League",
+	"nba": "NBA",
+	"seriea": "Serie A",
+	"bundesliga": "Bundesliga",
+	"liga": "La Liga",
+	"ligue1": "Ligue 1",
+	"ucl": "UEFA Champions League"
+}
 function randomString(length) {
 	let text = "";
 	let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -83,19 +91,9 @@ function get_Type(betNumber) {
 	return null;
 }
 
-/*function get_CLosestDates(date) {
-	let select = db.prepare(`select betNumber from bets where date>'${date}' limit 14`);
-	let result = select.all();
-	if (result) return result;
-	return null;
-}*/
 
-function get_CLosestDatesByType(date, type) {
-	let select = db.prepare(`select betNumber from bets where date>'${date}' and type='${type}' limit 14`);
-	let result = select.all();
-	if (result) return result;
-	return null;
-}
+
+
 
 function get_Country(betNumber) {
 	let select = db.prepare(`SELECT country FROM Bets WHERE betNumber = '${betNumber}'`);
@@ -142,7 +140,20 @@ function get_idAPI(betNumber) {
 	return null;
 }
 function get_CLosestDates(date) {
-	let select = db.prepare(`select betNumber from bets where date>'${date}' order by date asc limit 14`);
+	let select = db.prepare(`select betNumber from bets where date>'${date}' and idAPI != 0 order by date asc limit 30`);
+	let result = select.all();
+	if (result) return result;
+	return null;
+}
+function get_CLosestDatesBySport(date, sport) {
+	let select = db.prepare(`select betNumber from bets where date>'${date}' and idAPI != 0 and type='${sport}' limit 30`);
+	let result = select.all();
+	if (result) return result;
+	return null;
+}
+function get_CLosestDatesByLeague(date, league) {
+	league = leaguesIds[league]
+	let select = db.prepare(`select betNumber from bets where date>'${date}' and idAPI != 0 and league LIKE '%${league}%' limit 30`);
 	let result = select.all();
 	if (result) return result;
 	return null;
@@ -153,26 +164,34 @@ function get10MaxScore() {
 	//console.log(result)
 	if (result) return result;
 }
-function getTodayMatches() {
+function getTodayMatches(sport, league) {
+	let arrayIndex
 	let timeNow = new Date().getTime() - 10800;
 	timeNow = new Date(timeNow);
-	//console.log(timeNow)
-	let arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
-	//arrayIndex.push({ betNumber: 15 })
-	//console.log(arrayIndex)
+	if (league) {
+		arrayIndex = get_CLosestDatesByLeague(Math.floor(timeNow.getTime() / 1000), league);
+	}
+	else if (sport) {
+		arrayIndex = get_CLosestDatesBySport(Math.floor(timeNow.getTime() / 1000), sport);
+
+	} else {
+		arrayIndex = get_CLosestDates(Math.floor(timeNow.getTime() / 1000));
+	}
+
 	let matches = { matches: [] }
 	let opt = arrayIndex.length;
 	for (let i = 0; i < opt; i++) {
-		let match = {}
-		match["betNumber"] = arrayIndex[i]["betNumber"]
-		match["name"] = get_Name(arrayIndex[i]["betNumber"])
-		match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
-		match["type"] = get_Type(arrayIndex[i]["betNumber"]) === 'football' ? '⚽' : '🏀'
-		match["country"] = get_Country(arrayIndex[i]["betNumber"]) === "USA" ? "🇺🇸" : "🌍"
-		match["timestamp"] = get_Date(arrayIndex[i]["betNumber"])
+		let match = {
+			"betNumber": arrayIndex[i]["betNumber"],
+			"name": get_Name(arrayIndex[i]["betNumber"]),
+			"date": timeConverter(get_Date(arrayIndex[i]["betNumber"])),
+			"type": get_Type(arrayIndex[i]["betNumber"]),
+			"country": get_Country(arrayIndex[i]["betNumber"]),
+			"timestamp": get_Date(arrayIndex[i]["betNumber"]),
+			"league": get_League(arrayIndex[i]["betNumber"])
+		}
 		matches.matches.push(match)
 	}
-	//console.log(matches)
 	return (matches)
 }
 async function getTopBets() {
@@ -186,11 +205,14 @@ async function getTopBets() {
 	let opt = arrayIndex.length;
 	try {
 		for (let i = 0; i < opt; i++) {
-			let match = {}
-			match["betNumber"] = arrayIndex[i]["betNumber"]
-			match["name"] = get_Name(arrayIndex[i]["betNumber"])
-			match["date"] = timeConverter(get_Date(arrayIndex[i]["betNumber"]))
-			match["type"] = get_Type(arrayIndex[i]["betNumber"]) === 'football' ? '⚽' : '🏀'
+			let match = {
+				"betNumber": arrayIndex[i]["betNumber"],
+				"name": get_Name(arrayIndex[i]["betNumber"]),
+				"date": timeConverter(get_Date(arrayIndex[i]["betNumber"])),
+				"type": get_Type(arrayIndex[i]["betNumber"]),
+				"league": get_League(arrayIndex[i]["betNumber"]),
+				"country": get_Country(arrayIndex[i]["betNumber"]),
+			}
 			await multiBetContract.methods.getTotalMoneyBet(arrayIndex[i]["betNumber"]).call()
 				.then(function (result) {
 					//console.log(i)
@@ -327,7 +349,7 @@ function setMyRequestsRead(address) {
 	update.run()
 }
 
-function getDecentrabet(betNumber){
+function getDecentrabet(betNumber) {
 	let select = db.prepare(`select * from Decentrabets where betNumber='${betNumber}'`);
 	let result = select.all();
 	console.log(result)
@@ -348,5 +370,5 @@ export default {
 	newNonce: newNonce,
 	getMyRequestsUnread: getMyRequestsUnread,
 	setMyRequestsRead: setMyRequestsRead,
-	getDecentrabet:getDecentrabet
+	getDecentrabet: getDecentrabet
 }

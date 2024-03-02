@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import "./App.css";
 import "./index.css";
-import { ListBet, Bet, DecentraBet, Classement, Account, ComingSoon, LandingComponent, USDTGetter, Base, NotificationsMobile } from "./components"
+import { ListBet, Bet, DecentraBet, Classement, Account, ComingSoon, LandingComponent, USDTGetter, Base, NotificationsMobile,LeagueBet } from "./components"
 import { DECENTRABET_ABI, DECENTRABET_ADDRESS, MBT_ABI, MBT_ADDRESS, MULTIBET_ABI, MULTIBET_ADDRESS, USDT_ABI, USDT_ADDRESS } from "./configWebApp";
 import { EthereumProvider } from '@walletconnect/ethereum-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
@@ -805,14 +805,12 @@ function App() {
 
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Base balanceUSDT={balanceUSDT} balanceMBT={balanceMBT} accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged} unread={unread} setUnread={setUnread} notifications={notifications} setAllNotifsRead={setAllNotifsRead}></Base>}
-                >
+                <Route path="/" element={<Base balanceUSDT={balanceUSDT} balanceMBT={balanceMBT} accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged} unread={unread} setUnread={setUnread} notifications={notifications} setAllNotifsRead={setAllNotifsRead}></Base>}>
                     <Route path="/" element={<LandingComponent mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></LandingComponent>} />
-                    <Route path="/basketball" element={<ListBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></ListBet>} />
-                    <Route path="/football" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
-                    <Route path="/tennis" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
-                    <Route path="/finance" element={<ComingSoon mainVueSetter={updateMainVue}></ComingSoon>} />
+                    <Route path="/sportbets" element={<ListBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></ListBet>} />
                     <Route path="/bet" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdtContract={USDTContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDT={balanceUSDT} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />
+                    <Route path="/leaguebet" element={<LeagueBet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdtContract={USDTContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDT={balanceUSDT} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></LeagueBet>} />
+
                     <Route path="/decentrabet" element={<DecentraBet toast={toast} mainVueSetter={updateMainVue} vueSetter={setVueTopBar} decentrabetContract={decentrabetContract} usdtContract={USDTContract} address={defaultAccount} theme={theme}></DecentraBet>} />
                     <Route path="/rankings" element={<Classement mainVueSetter={updateMainVue} vueSetter={setVueTopBar} address={defaultAccount} theme={theme} logged={logged}></Classement>}></Route>
                     <Route path="/account" element={defaultAccount !== undefined ? <Account vueSetter={setVueTopBar} closeMenuMobile={updateMainVue} myP2PBets={myP2PBets} myBets={myBets} betContract={multiBetContract} mainVueSetter={updateMainVue} requestUpdater={requestUpdater} friendsUpdater={friendsUpdater} socket={socket} setLogged={setLogged} web3={web3} address={defaultAccount} logged={logged} theme={theme} switchTheme={switchTheme} ></Account> : null}></Route>
