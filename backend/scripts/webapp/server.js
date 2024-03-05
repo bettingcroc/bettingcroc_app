@@ -7,6 +7,7 @@ import session from 'express-session'
 import { Server } from 'socket.io';
 import http from "http"
 import { __dirname } from '../config.js'
+import fs from 'fs';
 
 const app = express()
 const port = process.env.PORT || 4000;
@@ -16,6 +17,7 @@ const io = new Server(server, {
     origin: ["http://localhost:3000", "https://testnet.bettingcroc.com"]
   }
 }) //in case server and client run on different urls
+const leaguebets = JSON.parse(fs.readFileSync(__dirname + '/webapp/leaguebets.json'));
 
 
 io.on("connection", (socket) => {
@@ -298,6 +300,11 @@ app.get('/api/lastbets', (req, res) => {
   console.log('GET /api/lastbets')
   console.log(req.query.sport + " " + req.query.league)
   res.send(apiServer.getTodayMatches(req.query.sport, req.query.league))
+})
+app.get('/api/leaguebet', (req, res) => {
+  console.log('GET /api/leaguebet')
+  console.log(req.query.league)
+  res.json(leaguebets[req.query.league])
 })
 app.get('/api/topBets', async (req, res) => {
   console.log('GET /api/topBets')

@@ -15,7 +15,7 @@ function BetMaker(props) {
 
       </div>
       <div id="line3">
-        <p>{props.betArgs.league === undefined ? props.betArgs.betName.split(',')[0]+ " - " +props.betArgs.betName.split(',')[props.betArgs.betName.split(',').length - 1]:props.betArgs.league} </p>
+        <p>{props.betArgs.league === undefined ? props.betArgs.betName.split(',')[0]+ " - " +props.betArgs.betName.split(',')[props.betArgs.betName.split(',').length - 1]:props.betArgs.league + " winner"} </p>
       </div>
       <div id="line2">
         <p>{props.typeBet === 1 || props.typeBet === 2 ? props.betArgs.optionName : props.typeBet === 3 ? "against " + props.betArgs.optionName : null}</p>

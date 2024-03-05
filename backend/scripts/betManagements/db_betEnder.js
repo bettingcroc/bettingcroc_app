@@ -57,10 +57,16 @@ function cancelBet(betNumber) {
 	update.run()
 }
 
+function get_Type(betNumber) {
+	let select = db.prepare(`SELECT type FROM Bets WHERE betNumber = '${betNumber}'`);
+	let result = select.get();
+	if (result) return result.type;
+	return null;
+}
 export default {
 	get_betClosed: get_betClosed,
 	get_idAPI: get_idAPI,
 	update_score: update_score, endBets: endBets,
 	cancelBet: cancelBet,
-
+	get_Type: get_Type
 }

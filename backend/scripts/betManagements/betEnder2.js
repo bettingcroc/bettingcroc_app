@@ -1,4 +1,4 @@
-import { GAS_PRICE, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODES_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL } from "../config.js"
+import { GAS_PRICE, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODES_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL, betClosedABI } from "../config.js"
 import db_betEnder from './db_betEnder.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
 import { logBetEnder } from "../logger.js";
@@ -23,7 +23,7 @@ function run() {
                     .then((winnerArray) => {
                         if (winnerArray[0].length > 0) {
                             console.log(`${winnerArray[0]} sent for ending on with ${winnerArray[1]} on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`);
-                            endBetOnChain(winnerArray[0], winnerArray[1]);
+                            //endBetOnChain(winnerArray[0], winnerArray[1]);
                         }
                         else {
                             logBetEnder(`${new Date().toLocaleDateString()} ${new Date(new Date().getTime() - 60000).toLocaleTimeString()} to ${new Date().toLocaleTimeString()} : no bet to End`)
@@ -50,7 +50,7 @@ function run() {
                     if (error.error.code === -32000) {
                         let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
                         web3.setProvider(newProvider)
-                        console.log("after error, provider is set to "+web3.currentProvider.engine._providers[3].rpcUrl)
+                        console.log("after error, provider is set to " + web3.currentProvider.engine._providers[3].rpcUrl)
                     }
                 })
         }
@@ -62,15 +62,20 @@ function run() {
             await new Promise(async next => {
                 for (let i = 0; i < betsClosed.length; i++) {
                     let betNumber = betsClosed[i]
+                    let type = db_betEnder.get_Type(betNumber)
                     let options = {
                         'method': 'GET'
                     }
-                    let res = await fetch(`https://apiv2.allsportsapi.com/basketball/?met=Livescore&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`, options)
+                    let res = await fetch(`https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`, options)
                     let data = await res.json()
+                    if (data.result === undefined) {
+                        res = await fetch(`https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`, options)
+                        data = await res.json()
+                    }
                     let matchStatus = data.result[0].event_status
                     let scoreHome = data.result[0].event_final_result.split('-')[0].replace(' ', '')
-                    let scoreAway = data.result[1].event_final_result.split('-')[0].replace(' ', '')
-                    if (matchStatus === "Finished" || matchStatus === "AOT") {
+                    let scoreAway = data.result[0].event_final_result.split('-')[1].replace(' ', '')
+                    if (matchStatus === "Finished" || matchStatus === "After Over Time") {
                         db_betEnder.update_score(betNumber, scoreHome, scoreAway)
                         if (scoreHome > scoreAway) {
                             winnerBetsToEnd.push(0);
@@ -81,11 +86,11 @@ function run() {
                         betsToEnd.push(betNumber);
                     }
                     else if (
-                        matchStatus === "POST" || matchStatus === "CANC" || matchStatus === "SUSP" || matchStatus === "AWD" || matchStatus === "ABD"
+                        matchStatus === "Abandoned" || matchStatus === "Cancelled" || matchStatus === "Postponed" 
                     ) {
                         db_betEnder.cancelBet(betNumber)
                     }
-                    else if (matchStatus !== "NS") {
+                    else {
                         db_betEnder.update_score(betNumber, scoreHome, scoreAway)
                     }
                 }

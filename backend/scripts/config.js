@@ -17,7 +17,7 @@ const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET, 
 const web3 = new Web3(provider);
 console.log("setting node to " + web3.currentProvider.engine._providers[3].rpcUrl)
 const GAS_PRICE = web3.utils.toWei('10', 'gwei') //await web3.eth.getGasPrice()
-console.log("setting gasPrice to " + GAS_PRICE)
+//console.log("setting gasPrice to " + GAS_PRICE)
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
