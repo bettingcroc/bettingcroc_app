@@ -23,7 +23,7 @@ function run() {
                     .then((winnerArray) => {
                         if (winnerArray[0].length > 0) {
                             console.log(`${winnerArray[0]} sent for ending on with ${winnerArray[1]} on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`);
-                            //endBetOnChain(winnerArray[0], winnerArray[1]);
+                            endBetOnChain(winnerArray[0], winnerArray[1]);
                         }
                         else {
                             logBetEnder(`${new Date().toLocaleDateString()} ${new Date(new Date().getTime() - 60000).toLocaleTimeString()} to ${new Date().toLocaleTimeString()} : no bet to End`)
