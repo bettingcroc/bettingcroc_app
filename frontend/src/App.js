@@ -343,7 +343,6 @@ function App() {
         setMyP2PBets([])
     }
     function allowancesSetter() {
-        console.log("trying allowance setter")
         try {
             USDTContract.methods.allowance(defaultAccount, MULTIBET_ADDRESS).call().then((result) => {
                 setUsdtAllowed(parseFloat(result) / decimalsConverter(10)); //console.log("usdt allowed " + result) 
@@ -445,11 +444,14 @@ function App() {
                 }).then(
                     (res) => {
                         res.json().then(async (data) => {
-                            //console.log(data)
+                            data = data.reverse()
+                            setMyBets(JSON.parse(JSON.stringify(data)))
                             for (let b in data) {
                                 let bet = data[b]
                                 if (bet.status === 0 || bet.status === 1) {
                                     bet = Object.assign(bet, { betState: "🕗" })
+                                    setMyBets(JSON.parse(JSON.stringify(data)))
+
                                 }
                                 else if (bet.status === 2) {
                                     try {
@@ -458,6 +460,8 @@ function App() {
                                                 //console.log("call3")
                                                 if (res1 === true) {
                                                     bet = Object.assign(bet, { betState: "W" })
+                                                    setMyBets(JSON.parse(JSON.stringify(data)))
+
                                                 }
                                                 else {
                                                     try {
@@ -472,6 +476,8 @@ function App() {
                                                                 else {
                                                                     bet = Object.assign(bet, { betState: "L" })
                                                                 }
+                                                                setMyBets(JSON.parse(JSON.stringify(data)))
+
                                                             })
                                                     }
                                                     catch (error) { //console.log(error); 
@@ -488,6 +494,8 @@ function App() {
                                 }
                                 else {
                                     bet = Object.assign(bet, { betState: "✖️" })
+                                    setMyBets(JSON.parse(JSON.stringify(data)))
+
                                 }
                                 await multiBetContract.methods.getBetOptions(bet.id).call().then(async options => {
                                     let mises = []
@@ -507,6 +515,8 @@ function App() {
                                         }
                                     }
                                     bet = Object.assign(bet, { mise: mises })
+                                    setMyBets(JSON.parse(JSON.stringify(data)))
+
                                 }
                                 );
                                 //console.log(bet)
@@ -544,6 +554,8 @@ function App() {
                 }).then(
                     (res) => {
                         res.json().then(async (data) => {
+                            data = data.reverse()
+                            setMyP2PBets(JSON.parse(JSON.stringify(data)))
                             result = result.filter((element, index) => {
                                 return result.indexOf(element) === index;
                             });
@@ -598,6 +610,7 @@ function App() {
                                                     disconnectedFunction = true; return
                                                 }
                                             }
+                                            setMyP2PBets(JSON.parse(JSON.stringify(data)))
                                             next()
                                         })
                                     }
@@ -650,6 +663,7 @@ function App() {
                                             return
                                         }
                                     }
+                                    setMyP2PBets(JSON.parse(JSON.stringify(data)))
                                     data[n] = Object.assign(data[n], { mise: mises })
                                     //console.log(data[n])
                                 }
@@ -672,6 +686,7 @@ function App() {
     }
     function approveUSDT(amount) {
         let approveToast = toast.loading("Approving USDT...", { closeButton: true })
+        console.log(MULTIBET_ADDRESS, amount, defaultAccount)
         USDTContract.methods
             .approve(MULTIBET_ADDRESS, amount)
             .send({ from: defaultAccount })

@@ -12,7 +12,7 @@ const LeftBar = (props) => {
   })
   return (
     <div id="leftBar" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-      {props.mainVue === "bet" || props.mainVue === "rankings" ?
+      {props.mainVue === "bet" || props.mainVue === "rankings" || props.mainVue === "account" ?
         <div id="under2leftBar">
           <div id="categories">
             <p id="titleLeftBar" className={props.theme === "light" ? "blackP" : "lightGreyP"}>Popular</p>

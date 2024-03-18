@@ -9,6 +9,7 @@ function GetGains(props) {
   const [won, setWon] = useState(0)
 
   useEffect(() => {
+    console.log(props.address, props.betContract)
     if (props.address !== undefined && props.betContract !== undefined) {
       try {
         props.betContract.methods.totalMoneyWonFromUser(props.address).call().then(result => {
@@ -33,7 +34,7 @@ function GetGains(props) {
   }, [props.address, props.betContract])
 
   function getGains() {
-    //console.log(gainsFromGeneral+" "+gainsFromP2P)
+    console.log(gainsFromGeneral+" "+gainsFromP2P)
     if (gainsFromGeneral > 0 && gainsFromP2P > 0) {
       props.betContract.methods.claimTotalMoney().send({ from: props.address })
         .once('receipt', (receipt) => {
@@ -60,7 +61,7 @@ function GetGains(props) {
   }
   return (
     <div id="getGainsDiv">
-      {props.address === undefined ? null : <button onClick={getGains} id="getGainsButton" className={won ? "goldButton" : "greyButton"}><p>{won ? "Get " + gains + " USDT !" : "Waiting for some money"}</p></button>}
+      {props.address === undefined || !won ? null : <button onClick={getGains} id="getGainsButton" className={won ? "goldButton" : "greyButton"}><p>{won ? "Get " + gains + " USDT !" : "Waiting for some money"}</p></button>}
     </div>
   );
 

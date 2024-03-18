@@ -34,7 +34,7 @@ import rankingLandingLight from './assets/rankingLandingLight.png'
 import rankingLandingDark from './assets/rankingLandingDark.png'
 import helpDark from './assets/helpDark.png'
 import helpLight from './assets/helpLight.png'
-import landingBackground from './assets/landingBackground.png'
+import landingBackground from './assets/landingBackground.jpg'
 import lakersJersey from "./assets/jerseys/lakers.png"
 import celticsJersey from "./assets/jerseys/celtics.png"
 import sportsWhite from "./assets/sportsWhite.png"

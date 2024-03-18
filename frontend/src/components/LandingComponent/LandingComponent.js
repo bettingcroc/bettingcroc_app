@@ -37,7 +37,7 @@ function LandingComponent(props) {
           <p className={ 'linklandingPDark'}>Docs and tutos</p>
         </Link>
       </div>
-      <img id='backgroundLanding' src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/40558b102966177.5f42dd01c4f58.jpg"></img>
+      <img id='backgroundLanding' src={landingBackground}></img>
     </div>
   )
 }

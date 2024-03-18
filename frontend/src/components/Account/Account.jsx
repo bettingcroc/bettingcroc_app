@@ -6,6 +6,7 @@ import MyRequests from "../MyRequests/MyRequests";
 import MyBets from "../MyBets/MyBets";
 import "./Account.css"
 import { MY_SERVER } from "../../consts"
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 function Account(props) {
@@ -19,7 +20,7 @@ function Account(props) {
   const [messageAddFriend, setMessageAddFriend] = useState()
   const [cssmessageAddFriend, setCssMessageAddFriend] = useState()
   const [betsType, setBetsType] = useState("default")
-  const [betsToDisplay, setBetsToDisplay] = useState([])
+  const [betsToDisplay, setBetsToDisplay] = useState()
   useEffect(() => {
     props.mainVueSetter("account")
     props.vueSetter("account")
@@ -187,7 +188,7 @@ function Account(props) {
   }
   return (
     <div className={props.theme === "light" ? "mainContentAccountLight" : "mainContentAccountDark"}>
-      <p className={props.theme === "light" ? "blackP" : "lightGreyP"} id="hiUser">
+      <p className={props.theme === "light" ? "blackP" : "whiteP"} id="hiUser">
         Hi {loaded && dataPerso !== undefined ? dataPerso[0].pseudo : ""} !
       </p>
       <div id="myBetsAccountDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
@@ -196,7 +197,7 @@ function Account(props) {
           <button onClick={(e) => { setBetsType("p2p"); setBetsToDisplay(props.myP2PBets); }} className="accountButton"><p className={props.theme === "light" ? "blackP" : "lightGreyP"} id={betsType === "p2p" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My P2P Bets</p></button>
         </div>
         <div id="superMyBetsAccountDiv2">
-          {betsToDisplay.map(function (item, index) {
+          {betsToDisplay===undefined?<CircularProgress></CircularProgress> :betsToDisplay.map(function (item, index) {
             if (item.optionsArray === null) {
               console.log("ERROR DB => missing bet")
               return null
@@ -207,9 +208,11 @@ function Account(props) {
                   <div className={props.theme === "light" ? "myBetsAccountDiv3" : " myBetsAccountDiv3 myBetsAccountDiv3Dark"}>
                     <p className={props.theme === "light" ? "titleBetAccount blackP" : " titleBetAccount whiteP"}>{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
                     <p className={props.theme === "light" ? "dateBetAccount blackP" : " dateBetAccount whiteP"}>{timeConverterDate(item.date)}</p>
-                    {<div className="divMisesAccount">{item.mise.map((mise, index) => { if (mise != 0) { return <p key={index} className={props.theme === "light" ? "miseBetAccount blackP" : " miseBetAccount whiteP"}>{parseFloat(mise) / decimalsConverter(10) + " USDT on " + item.optionsArray.split(",")[index]}</p> } else return null })}
+                    {<div className="divMisesAccount">
+                      {item.mise && item.mise.map((mise, index) => { if (mise != 0) { return <p key={index} className={props.theme === "light" ? "miseBetAccount blackP" : " miseBetAccount whiteP"}>{parseFloat(mise) / decimalsConverter(10) + " USDT on " + item.optionsArray.split(",")[index]}</p> } else return null }
+                      )}
                     </div>}
-                    <p className="stateBetAccount">{item.betState}</p>
+                    <p className={props.theme === "light" ? "blackP" : "whiteP"}>{item.betState}</p>
                   </div>
                 </Link>
               </div>
@@ -218,10 +221,13 @@ function Account(props) {
         </div>
 
       </div>
-      <div id="galleryDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+      {/*<div id="galleryDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"} >Gallery</p>
 
-      </div>
+        </div>*/}
+      {!props.logged && <div id="needToLoginAccountDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}><Authentification web3={props.web3} address={props.address} setLogged={props.setLogged} logged={props.logged}></Authentification> <p className={props.theme === "light" ? "blackP" : "whiteP"}>now to get access to full features of Bettingcroc.</p></div>}
+
+
       {props.logged ? <div id="friendsDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"} >Friends</p>
         <div id="friendAdder">
@@ -232,11 +238,11 @@ function Account(props) {
         <p id={cssmessageAddFriend}>{messageAddFriend}</p>
         <MyFriends theme={props.theme} updateFriends={updateFriends} myFriends={friends} address={props.address} logged={props.logged} setFriendsList={setFriends}></MyFriends>
       </div> : null}
-      {props.logged ? <div id="requestSuperDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+      {/*props.logged ? <div id="requestSuperDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
 
         <MyRequests theme={props.theme} socket={props.socket} updateRequests={updateRequests} requests={requests} updateFriends={updateFriends} address={props.address} logged={props.logged}></MyRequests>
-      </div> : null}
+      </div> : null*/}
       {props.logged ?
         <div id="settingsAccount" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
           <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>

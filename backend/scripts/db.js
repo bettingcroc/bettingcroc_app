@@ -13,7 +13,7 @@ db.prepare('CREATE TABLE IF NOT EXISTS Decentrabets (betNumber INTEGER PRIMARY K
 
 
 function add_bet(betNumber, option, list, date, type, country, league, idAPI) {
-	if (!betNumber || !option || !list || !date || !type || !country || !league || !idAPI) { console.log(!betNumber, " ", !option, " ", !list, " ", !date, " ", !type, " ", !country, " ", !league, " ", idAPI, "error params"); return -1; }
+	if (!betNumber || !option || !list || !date || !type || !country || !league ) { console.log(!betNumber, " ", !option, " ", !list, " ", !date, " ", !type, " ", !country, " ", !league, " ", idAPI, "error params"); return -1; }
 	try {
 		let insert = db.prepare(`INSERT INTO Bets (betNumber,options,optionsArray,date,status,type,country,league,idAPI,scoreHome,scoreAway) VALUES (?,?,?,?,?,?,?,?,?,?,?)`);
 		let result = insert.run(betNumber, option, list, date, 0, type, country, league, idAPI, null, null);

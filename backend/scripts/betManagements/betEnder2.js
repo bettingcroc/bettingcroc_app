@@ -73,8 +73,8 @@ function run() {
                         data = await res.json()
                     }
                     let matchStatus = data.result[0].event_status
-                    let scoreHome = data.result[0].event_final_result.split('-')[0].replace(' ', '')
-                    let scoreAway = data.result[0].event_final_result.split('-')[1].replace(' ', '')
+                    let scoreHome = data.result[0].event_ft_result.split('-')[0].replace(' ', '')
+                    let scoreAway = data.result[0].event_ft_result.split('-')[1].replace(' ', '')
                     if (matchStatus === "Finished" || matchStatus === "After Over Time") {
                         db_betEnder.update_score(betNumber, scoreHome, scoreAway)
                         if (scoreHome > scoreAway) {

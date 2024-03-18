@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import loggedImage from "../Authentification/logged.png"
 import { MY_SERVER } from "../../consts"
+import "./Authentification.css"
+
 
 function Authentification(props) {
   useEffect(() => { testLogin() }, [])
@@ -10,8 +12,10 @@ function Authentification(props) {
     let nonce = ""
     if (address !== "") {
       let url = MY_SERVER + "/api/nonce/" + address;
-      let options = { method: "GET" ,
-      credentials: 'include'};
+      let options = {
+        method: "GET",
+        credentials: 'include'
+      };
       await new Promise(next => {
         fetch(url, options).then((res) => {
           res.json().then((data) => {
@@ -97,7 +101,7 @@ function Authentification(props) {
   return (
     <div>
       {!props.logged ?
-        <button className='generalsButton' onClick={login}>
+        <button id="loginButton" className='generalsButton' onClick={login}>
           <p className="buttonP">Login</p>
         </button> :
         <img src={loggedImage} alt="loggedImage" id="loggedImage"></img>}

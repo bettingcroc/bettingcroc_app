@@ -124,6 +124,9 @@
 
 #walletButton {
   height: 40px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 0px 10px;
 }
 
 
@@ -138,13 +141,13 @@
   align-items: flex-end;
   gap: 10px;
   max-width: 46px;
-  margin-top: 13px;
+  margin-top: 15px;
 }
 
 #connecterConnected {
   display: flex;
   flex-direction: row;
-  gap: 50px;
+  gap: 70px;
   align-items: center;
   height: 100%;
 }

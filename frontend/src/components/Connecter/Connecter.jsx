@@ -53,11 +53,11 @@ function Connecter(props) {
           <Authentification web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>
           <div id='walletTopBarDiv'>
             <button className='accountButton' id='walletButton' onClick={switchWalletModal}>
-              <img src={props.theme === "light" ? walletLight : walletDark} id='walletImage'></img>
+              <p className={props.theme === "light" ? "blackP" : "whiteP"}>{props.defaultAccount.substring(0, 5) + "..." + props.defaultAccount.substring(39)}</p>
             </button>
             {walletModalState === "open" ?
               <ClickAwayListener onClickAway={closeWalletModal} touchEvent={false}>
-                <div  id={props.theme === "light" ? "walletUnderDivLight" : "walletUnderDivDark"}>
+                <div id={props.theme === "light" ? "walletUnderDivLight" : "walletUnderDivDark"}>
                   <p id="accountDisplay" className={props.theme === "light" ? "blackP" : "whiteP"}>Connected as {props.defaultAccount.substring(0, 5) + "..." + props.defaultAccount.substring(39)}</p>
                   <p className={props.theme === "light" ? "blackP" : "whiteP"}>{props.balanceUSDT} USDT</p>
                   <p className={props.theme === "light" ? "blackP" : "whiteP"}>{props.balanceMBT} MBT</p>

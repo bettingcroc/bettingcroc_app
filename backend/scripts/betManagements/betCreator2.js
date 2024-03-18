@@ -65,7 +65,6 @@ function run() {
 
 
         async function betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type, date) {
-            //try {
             console.log(`trying to write ${numberOfBets} bets`)
             console.log(listNames, listOptions, numberOfBets)
             await multiBetContract.methods
@@ -84,7 +83,7 @@ function run() {
                         let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] =
                             [response.result[a].event_home_team, response.result[a].event_away_team, newBets[a], Date.parse(response.result[a].event_date + " " + response.result[a].event_time) / 1000,
                             response.result[a].country_name, response.result[a].event_key, response.result[a].league_name]
-                        let nameBet = nameHome + "," + nameAway
+                        let nameBet = type==="football"? nameHome + ",Draw," + nameAway :nameHome + "," + nameAway
                         console.log(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI)
                         db.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
                         logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
