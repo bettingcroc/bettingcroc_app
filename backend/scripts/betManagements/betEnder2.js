@@ -66,12 +66,15 @@ function run() {
                     let options = {
                         'method': 'GET'
                     }
-                    let res = await fetch(`https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`, options)
+                    let url = `https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`
+                    let res = await fetch(url, options)
                     let data = await res.json()
                     if (data.result === undefined) {
-                        res = await fetch(`https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`, options)
+                        url = `https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`
+                        res = await fetch(url, options)
                         data = await res.json()
                     }
+                    console.log(url)
                     let matchStatus = data.result[0].event_status
                     let scoreHome = data.result[0].event_ft_result.split('-')[0].replace(' ', '')
                     let scoreAway = data.result[0].event_ft_result.split('-')[1].replace(' ', '')
