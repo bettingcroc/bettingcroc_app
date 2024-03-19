@@ -74,10 +74,11 @@ function run() {
                         res = await fetch(url, options)
                         data = await res.json()
                     }
-                    console.log(url)
+                    //console.log(url)
                     let matchStatus = data.result[0].event_status
-                    let scoreHome = data.result[0].event_ft_result.split('-')[0].replace(' ', '')
-                    let scoreAway = data.result[0].event_ft_result.split('-')[1].replace(' ', '')
+                    let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_ft_result
+                    let scoreHome = score.split('-')[0].replace(' ', '')
+                    let scoreAway = score.split('-')[1].replace(' ', '')
                     if (matchStatus === "Finished" || matchStatus === "After Over Time") {
                         db_betEnder.update_score(betNumber, scoreHome, scoreAway)
                         if (scoreHome > scoreAway) {
