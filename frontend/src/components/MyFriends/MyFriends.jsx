@@ -21,6 +21,7 @@ function MyFriends(props) {
       console.log("done " + res.status);
       if (res.status === 200) {
         props.updateFriends()
+        props.updateNotificationsFromServer()
       }
     });
   }

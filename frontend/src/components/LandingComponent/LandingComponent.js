@@ -24,10 +24,10 @@ function LandingComponent(props) {
           <img src={sportsWhite} className='imgLinkLanding'></img>
           <p className={'linklandingPDark'}>Sports Bets</p>
         </Link>
-        <Link className='linkLanding' to="/decentrabet">
+        {/*<Link className='linkLanding' to="/decentrabet">
           <img src={decentraBetWhite} className='imgLinkLanding'></img>
           <p className={'linklandingPDark'}>Decentrabet</p>
-        </Link>
+        </Link>*/}
         <Link className='linkLanding' to="/rankings">
           <img src={rankingLandingDark} className='imgLinkLanding'></img>
           <p className={ 'linklandingPDark'}>Rankings</p>

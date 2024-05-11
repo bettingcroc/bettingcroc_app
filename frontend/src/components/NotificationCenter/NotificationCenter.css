@@ -1,4 +1,4 @@
-#notificationsBox{
+#notificationsBox {
     border: solid 1px grey;
     padding: 24px;
     width: 600px;
@@ -6,34 +6,75 @@
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 6px;
     overflow-y: scroll;
+    position: relative;
+    right: 560px;
+    border-radius: 10px;
 }
-#notificationCenter{
+.betInvitationNotif{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.betInvitationNotifLines{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.chevronImg{
+    height: 20px;
+}
+#notificationCenter {}
 
-}
-.alignStart{
+.alignStart {
     align-self: start;
 }
-.alignCenter{
+
+.alignCenter {
     align-self: center;
 }
-.notificationLine{
+
+.notificationLine {
     border-bottom: solid 1px #CDCDCD;
     border-top: solid 1px #CDCDCD;
 
     padding: 12px 12px;
 }
-
-.newNotificationLight{
+.buttonsAnswerRequest{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+.newNotificationLight {
     background-color: #c3fbc6;
-} 
-.newNotificationDark{
+}
+
+.newNotificationDark {
     background-color: #2b4f2d;
-} 
-#notificationsImg{
+}
+.notifButton{
+    font-family: 'Poppins';
+    color: white;
+    font-size:14px;
+    background: #539B57;
+    border-radius: 8px;
+    border: none;
+    padding: 6px;
+    width: 70px;
+
+}
+
+.newFriendRequestDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+#notificationsImg {
     height: 30px;
 }
+
 @media screen and (max-width: 730px) {
     #notificationBox {
         display: none;

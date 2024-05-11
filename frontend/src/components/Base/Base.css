@@ -87,7 +87,7 @@
 #rankingsLink {
 
 
-    font-family: 'Roboto';
+    font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -102,7 +102,7 @@
 }
 
 #accountLink {
-    font-family: 'Roboto';
+    font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -110,7 +110,7 @@
 }
 
 #notificationsLink {
-    font-family: 'Roboto';
+    font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -236,28 +236,28 @@
     }
 
     #listBetsLinkMobileBottomBar {
-        font-family: 'Roboto';
+        font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
         font-size: 12px;
     }
 
     #decentraBetLinkMobileBottomBar {
-        font-family: 'Roboto';
+        font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
         font-size: 12px;
     }
 
     #rankingsLinkMobileBottomBar {
-        font-family: 'Roboto';
+        font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
         font-size: 12px;
     }
 
     #notificationsLinkMobileBottomBar {
-        font-family: 'Roboto';
+        font-family: 'Poppins';
         font-style: normal;
         font-weight: 700;
         font-size: 12px;

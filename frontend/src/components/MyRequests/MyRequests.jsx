@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { MY_SERVER } from "../../consts"
 
-var __mounted;
 
 function MyRequests(props) {
 

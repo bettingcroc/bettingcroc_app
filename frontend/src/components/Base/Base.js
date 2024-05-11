@@ -18,7 +18,7 @@ const Base = (props) => {
     const [isTwitterLoading, setTwitterLoading] = useState(true);
     return (
         <div id={props.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
-            <TopBar betContract={props.betContract} balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
+            <TopBar setFriendsUpdater={props.setFriendsUpdater} updateNotificationsFromServer={props.updateNotificationsFromServer} socket={props.socket} betContract={props.betContract} balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
             <div id="secondBox">
                 {props.mainVue !== "landing" && <LeftBar mainVue={props.mainVue} theme={props.theme}></LeftBar>}
                 <div id="mainVue">
@@ -80,9 +80,9 @@ const Base = (props) => {
                         <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "listBets" ? props.theme === "light" ? sportsLight : sportsDark : sportsInactive}></img>
                         <p id="listBetsLinkMobileBottomBar" className={props.vueTopBar === "listBets" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Sport Bets</p>
                     </Link>
-                    <Link to="/decentrabet" className="linkMobileBottomBar">
+                    {/*<Link to="/decentrabet" className="linkMobileBottomBar">
                         <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "decentraBet" ? props.theme === "light" ? decentraBetLight : decentraBetDark : decentraBetInactive}></img>
-                        <p id="decentraBetLinkMobileBottomBar" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>
+                        <p id="decentraBetLinkMobileBottomBar" className={props.vueTopBar === "decentraBet" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Decentrabet</p></Link>*/}
                     <Link to="/rankings" className="linkMobileBottomBar">
                         <img className='logoLinkMobileBottomBar' src={props.vueTopBar === "rankings" ? props.theme === "light" ? rankingLight : rankingDark : rankingInactive}></img>
                         <p id="rankingsLinkMobileBottomBar" className={props.vueTopBar === "rankings" ? cssIdentifiers[props.theme]["titleActive"] : "titleInactive"}>Rankings</p>

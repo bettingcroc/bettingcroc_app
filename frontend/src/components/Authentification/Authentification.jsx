@@ -52,6 +52,7 @@ function Authentification(props) {
   }
 
   async function signNonce(nonce, web3, address) {
+    console.log(nonce, web3, address)
     var hex = ''
     for (var i = 0; i < nonce.length; i++) {
       hex += '' + nonce.charCodeAt(i).toString(16)

@@ -3,8 +3,14 @@ import { cyan, logBetCreator, blue } from '../logger.js'
 import db from '../db.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
 
-
 const betToCreates = [
+    {
+        "name": "basketball",
+        "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
+        "numberOfOptions": 2,
+        "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY2}`
+    }]
+/*const betToCreates = [
     {
         "name": "basketball",
         "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
@@ -30,7 +36,7 @@ const betToCreates = [
         "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY2}`
 
     }
-]
+]*/
 function run() {
     try {
         const DELAY = 86400000 // 30000 //
@@ -83,7 +89,7 @@ function run() {
                         let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] =
                             [response.result[a].event_home_team, response.result[a].event_away_team, newBets[a], Date.parse(response.result[a].event_date + " " + response.result[a].event_time) / 1000,
                             response.result[a].country_name, response.result[a].event_key, response.result[a].league_name]
-                        let nameBet = type==="football"? nameHome + ",Draw," + nameAway :nameHome + "," + nameAway
+                        let nameBet = type === "football" ? nameHome + ",Draw," + nameAway : nameHome + "," + nameAway
                         console.log(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI)
                         db.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
                         logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
@@ -115,27 +121,27 @@ function run() {
                     let namesBetToWriteOnChain = [];
                     let numberOfOptionsToWriteOnChain = [];
                     console.log(league.name)
-                        fetch(`${sport.urlAPI}&from=${date}&to=${date}&timezone=Africa/Abidjan&leagueId=${league.id}`, {
-                            'method': 'GET',
-                        }).then((res) => {
-                            res.json().then(async (data) => {
-                                if (data.result === undefined) {
-                                    return
-                                }
-                                for (let u = 0; u < data.result.length; u++) {
-                                    let idHome = data.result[u].home_team_key;
-                                    let idAway = data.result[u].away_team_key;
-                                    let timestamp = Date.parse(`${data.result[u].event_date} ${data.result[u].event_time} UTC`) / 1000
-                                    namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
-                                    numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
-                                }
-                                if (namesBetToWriteOnChain.length > 0) {
-                                    await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, sport.numberOfOptions, sport.name, date);
-                                }
-                                else {
-                                    blue(`0 bets ${sport} to add`);
-                                }
-                            })
+                    fetch(`${sport.urlAPI}&from=${date}&to=${date}&timezone=Africa/Abidjan&leagueId=${league.id}`, {
+                        'method': 'GET',
+                    }).then((res) => {
+                        res.json().then(async (data) => {
+                            if (data.result === undefined) {
+                                return
+                            }
+                            for (let u = 0; u < data.result.length; u++) {
+                                let idHome = data.result[u].home_team_key;
+                                let idAway = data.result[u].away_team_key;
+                                let timestamp = Date.parse(`${data.result[u].event_date} ${data.result[u].event_time} UTC`) / 1000
+                                namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
+                                numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
+                            }
+                            if (namesBetToWriteOnChain.length > 0) {
+                                await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, sport.numberOfOptions, sport.name, date);
+                            }
+                            else {
+                                blue(`0 bets ${sport} to add`);
+                            }
+                        })
                     })
                 }
             }

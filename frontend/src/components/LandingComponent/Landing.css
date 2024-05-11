@@ -83,7 +83,7 @@
 
 #landingTitle1 {
     font-size: 55px;
-    font-family: PoppinsBold;
+    font-family: UnboundedBold;
     font-weight: bold;
     color: white;
     line-height: 64px;
@@ -219,14 +219,14 @@
 
 .linklandingPDark {
     font-size: 20px;
-    font-family: PoppinsBold;
+    font-family: Poppins;
     font-weight: bold;
     color: white;
 }
 
 .linklandingPLight {
     font-size: 20px;
-    font-family: PoppinsBold;
+    font-family: Poppins;
     font-weight: bold;
     color: black;
 }

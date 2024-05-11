@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams,useNavigate } from "react-router-dom";
 import OptionPool from "../OptionPool/OptionPool";
 import P2PBetOption from "../P2PBetOption/P2PBetOption";
 import P2PBetCreator from "../P2PBetCreator/P2PBetCreator";
@@ -26,13 +26,17 @@ const Bet = (props) => {
   const [scoreAway, setScoreAway] = useState()
   const [modalInviterOpened, setModalInviterOpened] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-
+  const navigate = useNavigate();
   useEffect(() => {
     props.mainVueSetter("bet")
   }, [])
   useEffect(() => {
     fetch(MY_SERVER + "/api/infoMatch/" + searchParams.get("n"), { method: "GET" }).then((res) => {
       res.json().then(async (data) => {
+        if(data.optionsArray===null){
+          console.log("redirecting")
+          navigate('/sportbets')
+        }
         setOptionArray(data.optionsArray)
         setDate(data.date)
         setType(data.type)

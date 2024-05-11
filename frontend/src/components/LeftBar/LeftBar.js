@@ -58,10 +58,10 @@ const LeftBar = (props) => {
               <img src={footballImage} alt="footballImage" className="logoImage"></img>
               <p className={classP}>Football</p>
             </Link>
-            <Link className="optionsLeftBar" to="/decentrabet">
+            {/*<Link className="optionsLeftBar" to="/decentrabet">
               <img src={financeImage} alt="financeImage" className="logoImage"></img>
               <p className={classP}>DecentraBet</p>
-            </Link>
+            </Link>*/}
             <Link className="optionsLeftBar" to="/sportbets?sport=tennis">
               <img src={tennisImage} alt="tennisImage" className="logoImage"></img>
               <p className={classP}>Tennis</p>

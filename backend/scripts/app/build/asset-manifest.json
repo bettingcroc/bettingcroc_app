@@ -1,19 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.4bb767a3.css",
-    "main.js": "/static/js/main.fcef3d8b.js",
+    "main.css": "/static/css/main.164dfe3c.css",
+    "main.js": "/static/js/main.df011dcb.js",
     "static/js/774.f19aae7e.chunk.js": "/static/js/774.f19aae7e.chunk.js",
     "static/js/459.ae6e45ae.chunk.js": "/static/js/459.ae6e45ae.chunk.js",
     "static/media/landingBackground.jpg": "/static/media/landingBackground.864a74c1047ac7921bad.jpg",
-    "static/media/home.png": "/static/media/home.e0ec557fad1fbe917d9d.png",
-    "static/media/Roboto-Regular.ttf": "/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/Unbounded-Bold.ttf": "/static/media/Unbounded-Bold.0c54d6e100bb5ec11f3a.ttf",
+    "static/media/Unbounded-Regular.ttf": "/static/media/Unbounded-Regular.29479ac97777a463b92f.ttf",
+    "static/media/home.png": "/static/media/home.0b1b365162534d377c3c.png",
+    "static/media/bettingCrocTitle.png": "/static/media/bettingCrocTitle.7139a7b0fe2e9c8f0cf3.png",
     "static/media/Poppins-Regular.ttf": "/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
-    "static/media/Poppins-Bold.ttf": "/static/media/Poppins-Bold.cdb29a5d7ccf57ff05a3.ttf",
     "static/media/crocodileRight.png": "/static/media/crocodileRight.d99a382fb3590e7b729c.png",
     "static/media/logged.png": "/static/media/logged.268623f80b7b4ba65967.png",
     "static/media/coinbase.png": "/static/media/coinbase.d690a1fe3c3e67478b4a.png",
-    "static/media/bettingCrocTitle.png": "/static/media/bettingCrocTitle.2e4a7090d1c1c852bdf1.png",
-    "static/media/cc-ultimatum-regular.otf": "/static/media/cc-ultimatum-regular.c6b625c6800878835a47.otf",
     "static/media/account.png": "/static/media/account.557587208eb9e232f2ca.png",
     "static/media/metamask.png": "/static/media/metamask.00007b1ce1b5ce688d25.png",
     "static/media/tutorialsLight.png": "/static/media/tutorialsLight.c731c830b6c5ad3bc870.png",
@@ -47,13 +46,13 @@
     "static/media/decentraBetLight.png": "/static/media/decentraBetLight.f8c165054d19c966b8c0.png",
     "static/media/decentraBetDark.png": "/static/media/decentraBetDark.533dccdb5ef6fbd052ca.png",
     "index.html": "/index.html",
-    "main.4bb767a3.css.map": "/static/css/main.4bb767a3.css.map",
-    "main.fcef3d8b.js.map": "/static/js/main.fcef3d8b.js.map",
+    "main.164dfe3c.css.map": "/static/css/main.164dfe3c.css.map",
+    "main.df011dcb.js.map": "/static/js/main.df011dcb.js.map",
     "774.f19aae7e.chunk.js.map": "/static/js/774.f19aae7e.chunk.js.map",
     "459.ae6e45ae.chunk.js.map": "/static/js/459.ae6e45ae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4bb767a3.css",
-    "static/js/main.fcef3d8b.js"
+    "static/css/main.164dfe3c.css",
+    "static/js/main.df011dcb.js"
   ]
 }

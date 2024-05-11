@@ -74,6 +74,7 @@
     align-self: flex-start;
     align-items: flex-end;
     gap: 10px;
+    max-width: 40px;
 }
 
 #notificationButtonLight {

@@ -6,6 +6,7 @@ import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import Authentification from "../Authentification/Authentification";
 import "./Connecter.css"
 import { closeImage, walletDark, walletLight } from "../../images"
+import { MY_SERVER } from "../../consts"
 
 function Connecter(props) {
   const [connected, setConnected] = useState(props.defaultAccount !== undefined ? true : false)
@@ -15,26 +16,58 @@ function Connecter(props) {
   useEffect(() => {
     if (props.defaultAccount === undefined) {
       setConnected(false)
-
     }
+    console.log(props.defaultAccount)
     if (props.defaultAccount !== undefined && props.defaultAccount !== "") {
       setConnected(true)
-      closeModal()
+      testLogin()
+      if (!props.logged && modalState === "open") {
+        setModalState("login")
+      } else {
+        setModalState("closed")
+      }
     }
     return () => {
       document.body.style.overflow = '';
     }
   }, [props.defaultAccount])
+  useEffect(() => {
+    console.log(props.logged)
+    if (props.logged) {
+      closeModal()
+    }
+  }, [props.logged])
+  async function testLogin() {
+    let url = MY_SERVER + "/api/testlogin";
+    let options = {
+      method: "GET",
+      credentials: 'include'
+    };
+    fetch(url, options).then((res) => {
+      res.json().then((data) => {
+        if (data.isLogged === true) { props.setLogged(true) }
+        else { props.setLogged(false) }
+      })
+    });
+  }
+
+  useEffect(() => {
+    console.log(modalState)
+  }, [modalState])
   function openModal() {
     setModalState("open")
     props.switchOverlayMode()
     document.body.style.overflow = 'hidden';
   }
   function closeModal() {
+    if (modalState === "login" && !props.logged) {
+      props.disconnect()
+    }
     closeWalletModal()
     setModalState("closed")
     props.closeOverlay()
     document.body.style.overflow = '';
+
   }
   function switchWalletModal() {
     if (walletModalState === 'closed') {
@@ -48,7 +81,7 @@ function Connecter(props) {
   }
   return (
     <div id='connecterBigBox'>
-      {connected === true && props.defaultAccount !== undefined ?
+      {connected === true && props.defaultAccount !== undefined && props.logged ?
         <div id="connecterConnected">
           <Authentification web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>
           <div id='walletTopBarDiv'>
@@ -76,14 +109,14 @@ function Connecter(props) {
 
               <div id="connecterDiv">
 
-                <p id="chooseYourProvider">Connect your wallet</p>
+                <p id="chooseYourProvider">{modalState === "login" ? "Sign a message to login" : "Connect your wallet"}</p>
 
-                <div id="line2Modal">
+                {modalState === "open" ? <div id="line2Modal">
 
                   <ConnectWc web3={props.web3} accountChangedHandler={props.accountChangedHandler}></ConnectWc>
                   <ConnectMetamask web3={props.web3} accountChangedHandler={props.accountChangedHandler} ></ConnectMetamask>
                   <ConnectCb connectWalletHandler={props.connectCoinBaseHandler}></ConnectCb>
-                </div>
+                </div> : <Authentification web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>}
                 <button id="closeConnecter" onClick={closeModal}><img id='closeImage' src={closeImage}></img></button>
 
               </div>

@@ -1,8 +1,8 @@
 import Sqlite from 'better-sqlite3'
 import { Web3 } from 'web3';
-import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI,__dirname } from "./config.js"
+import { multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, __dirname } from "./config.js"
 
-const db = new Sqlite(__dirname+'/db.sqlite');
+const db = new Sqlite(__dirname + '/db.sqlite');
 const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET)); // new web3 object
 const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
 
@@ -83,11 +83,24 @@ function answerRequest(args, address) {
 			del.run()
 			del = db.prepare(`DELETE FROM friendsRequests where address1='${address.toLowerCase()}' and address2='${args.newFriend.toLowerCase()}'`)
 			del.run()
+			let timeNow = new Date().toLocaleTimeString();
+			let dateNow = new Date().toLocaleDateString();
+			let insert2 = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest,read) VALUES (?,?,?,?,?,?)`);
+			insert2.run(address, args.newFriend.toLowerCase(), "newFriendAccepted", JSON.stringify({}), dateNow + " " + timeNow, "0");
+			let insert3 = db.prepare(`INSERT INTO friendsRequests (address1,address2,header,body,dateRequest,read) VALUES (?,?,?,?,?,?)`);
+			insert3.run(args.newFriend.toLowerCase(), address, "newFriendAccepted", JSON.stringify({}), dateNow + " " + timeNow, "1");
 			return true
 		}
 		else {
 			return false
 		}
+	}
+	else if (args.head === "newFriendDenied") {
+		let del = db.prepare('DELETE FROM friendsRequests WHERE id=' + args.id)
+		del.run()
+		del = db.prepare(`DELETE FROM friendsRequests where address1='${address.toLowerCase()}' and address2='${args.newFriend.toLowerCase()}'`)
+		del.run()
+		return true
 	}
 }
 function removeFriend(args, address) {
@@ -95,6 +108,10 @@ function removeFriend(args, address) {
 	del.run();
 	let del2 = db.prepare(`DELETE from friendsLinks where address1='` + args.oldFriend.toLowerCase() + `' and address2='` + address.toLowerCase() + `'`);
 	del2.run();
+	let del3 = db.prepare(`DELETE FROM friendsRequests where address1='${address.toLowerCase()}' and address2='${args.oldFriend.toLowerCase()}'`);
+	del3.run();
+	let del4 = db.prepare(`DELETE FROM friendsRequests where address1='${args.oldFriend.toLowerCase()}' and address2='${address.toLowerCase()}'`);
+	del4.run();
 }
 
 

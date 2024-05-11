@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Authentification from "../Authentification/Authentification";
-import { Link, Outlet } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MyFriends from "../MyFriends/MyFriends";
 import MyRequests from "../MyRequests/MyRequests";
 import MyBets from "../MyBets/MyBets";
@@ -21,9 +21,13 @@ function Account(props) {
   const [cssmessageAddFriend, setCssMessageAddFriend] = useState()
   const [betsType, setBetsType] = useState("default")
   const [betsToDisplay, setBetsToDisplay] = useState()
+  const navigate = useNavigate();
+  console.log("account")
+
   useEffect(() => {
     props.mainVueSetter("account")
     props.vueSetter("account")
+    console.log("account")
   }, [])
   useEffect(() => {
     testLogin().then((res) => {
@@ -47,7 +51,8 @@ function Account(props) {
           });
         }
       }
-      else { setLogged(false); props.setLogged(false) }
+      else { setLogged(false); props.setLogged(false);          navigate('/')
+    }
     })
   }, [])
   useEffect(() => {
@@ -236,13 +241,13 @@ function Account(props) {
         </div>
 
         <p id={cssmessageAddFriend}>{messageAddFriend}</p>
-        <MyFriends theme={props.theme} updateFriends={updateFriends} myFriends={friends} address={props.address} logged={props.logged} setFriendsList={setFriends}></MyFriends>
+        <MyFriends updateNotificationsFromServer={props.updateNotificationsFromServer} theme={props.theme} updateFriends={updateFriends} myFriends={friends} address={props.address} logged={props.logged} setFriendsList={setFriends}></MyFriends>
       </div> : null}
-      {/*props.logged ? <div id="requestSuperDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+      {props.logged ? <div id="requestSuperDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Notifications</p>
 
         <MyRequests theme={props.theme} socket={props.socket} updateRequests={updateRequests} requests={requests} updateFriends={updateFriends} address={props.address} logged={props.logged}></MyRequests>
-      </div> : null*/}
+      </div> : null}
       {props.logged ?
         <div id="settingsAccount" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
           <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"}>Settings</p>

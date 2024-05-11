@@ -39,5 +39,9 @@ import lakersJersey from "./assets/jerseys/lakers.png"
 import celticsJersey from "./assets/jerseys/celtics.png"
 import sportsWhite from "./assets/sportsWhite.png"
 import decentraBetWhite from "./assets/decentraBetWhite.png"
+import notificationsLightPop from "./assets/notificationsLightPop.png"
+import notificationsDarkPop from "./assets/notificationsDarkPop.png"
+import chevronDroitDark from "./assets/chevronDroitDark.png"
+import chevronDroitLight from "./assets/chevronDroitLight.png"
 
-export { decentraBetWhite, sportsWhite, celticsJersey, lakersJersey, landingBackground, helpDark, helpLight, tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }
+export { chevronDroitDark,chevronDroitLight,notificationsDarkPop, notificationsLightPop, decentraBetWhite, sportsWhite, celticsJersey, lakersJersey, landingBackground, helpDark, helpLight, tutorialsDark, tutorialsLight, rankingLandingLight, rankingLandingDark, walletDark, crocodileRight, walletLight, closeImage, homeImage, titleImage, basketBallImage, footballImage, financeImage, tennisImage, accountImage, hamburgerImage, hamburgerWhiteImage, accountImageWhite, sunImage, moonImage, sunYellowImage, moonYellowImage, sportsInactive, sportsLight, sportsDark, rankingInactive, rankingDark, rankingLight, decentraBetDark, decentraBetInactive, decentraBetLight, notificationsDark, notificationsInactive, notificationsLight }

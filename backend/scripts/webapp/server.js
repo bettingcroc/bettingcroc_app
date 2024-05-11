@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("newFriendAccepted", (args) => {
-    //console.log("newFriendAccepted : " + args.toAddress + " from " + args.fromAddress)
+    console.log("newFriendAccepted : " + args.toAddress + " from " + args.fromAddress)
     io.to(args.toAddress.toLowerCase()).emit("newFriendAcceptedToSender", args.fromAddress)
   })
 

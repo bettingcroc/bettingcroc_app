@@ -12,7 +12,7 @@ const PRIVATE_KEY_ENDER = '8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2
 const PUBLIC_KEY_ENDER = "0x1deecf77dD59A35c9f68cf507d79DDbd8524fa65"
 const multiBetAddress = "0xd8E0DD18e1741971b685355A6510349A5A56c7f2"
 const NODES_URL_BSCTESTNET = ["https://bsc-testnet.blockpi.network/v1/rpc/public", "https://bsc-testnet.publicnode.com", "https://data-seed-prebsc-2-s1.bnbchain.org:8545", "https://bsc-testnet.public.blastapi.io", "https://bsc-testnet.blockpi.network/v1/rpc/public", "https://data-seed-prebsc-1-s1.bnbchain.org:8545"]
-const NODE_URL_BSCTESTNET = NODES_URL_BSCTESTNET[5]; //url of bsc testnet node
+const NODE_URL_BSCTESTNET = NODES_URL_BSCTESTNET[2]; //url of bsc testnet node
 const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET, 0, 10000);
 const web3 = new Web3(provider);
 console.log("setting node to " + web3.currentProvider.engine._providers[3].rpcUrl)
