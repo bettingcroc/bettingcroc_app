@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
 
-const API_KEY2 = "2a751a70faa467e818a4b8e516cacc22fd9883089e32ad93596eadc79e462ffd"
+const API_KEY2 = "1fde84a793ca4aa19212a5cde02ca5c73eec37be7bf98a6c668c19fd0f83c877"
 
 const PRIVATE_KEY_CREATOR = 'd20947a33bb7e2b8a17b3a29c59f4bcb86131ede571fbf150aa0884e5fa48fa9'
 const PUBLIC_KEY_CREATOR = "0x6d3DCcF2C028766D26a5382Fce9d898e75E6D629"
