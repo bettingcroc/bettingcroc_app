@@ -122,6 +122,7 @@ function run() {
                     let numberOfOptionsToWriteOnChain = [];
                     console.log(league.name)
                     let url = `${sport.urlAPI}&from=${date}&to=${date}&timezone=Africa/Abidjan&leagueId=${league.id}`
+                    console.log(url)
                     fetch(url, {
                         'method': 'GET',
                     }).then((res) => {
