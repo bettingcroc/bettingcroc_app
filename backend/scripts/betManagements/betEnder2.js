@@ -74,7 +74,7 @@ function run() {
                         res = await fetch(url, options)
                         data = await res.json()
                     }
-                    //console.log(url)
+                    console.log(url)
                     let matchStatus = data.result[0].event_status
                     let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_ft_result
                     let scoreHome = score.split('-')[0].replace(' ', '')
