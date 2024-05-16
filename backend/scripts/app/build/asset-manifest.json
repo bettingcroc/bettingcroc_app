@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.164dfe3c.css",
-    "main.js": "/static/js/main.df011dcb.js",
+    "main.css": "/static/css/main.48cb7d01.css",
+    "main.js": "/static/js/main.7201aeb9.js",
     "static/js/774.f19aae7e.chunk.js": "/static/js/774.f19aae7e.chunk.js",
     "static/js/459.ae6e45ae.chunk.js": "/static/js/459.ae6e45ae.chunk.js",
-    "static/media/landingBackground.jpg": "/static/media/landingBackground.864a74c1047ac7921bad.jpg",
+    "static/media/landingBackground.jpg": "/static/media/landingBackground.fb44a48435302738e543.jpg",
     "static/media/Unbounded-Bold.ttf": "/static/media/Unbounded-Bold.0c54d6e100bb5ec11f3a.ttf",
     "static/media/Unbounded-Regular.ttf": "/static/media/Unbounded-Regular.29479ac97777a463b92f.ttf",
     "static/media/home.png": "/static/media/home.0b1b365162534d377c3c.png",
@@ -46,13 +46,13 @@
     "static/media/decentraBetLight.png": "/static/media/decentraBetLight.f8c165054d19c966b8c0.png",
     "static/media/decentraBetDark.png": "/static/media/decentraBetDark.533dccdb5ef6fbd052ca.png",
     "index.html": "/index.html",
-    "main.164dfe3c.css.map": "/static/css/main.164dfe3c.css.map",
-    "main.df011dcb.js.map": "/static/js/main.df011dcb.js.map",
+    "main.48cb7d01.css.map": "/static/css/main.48cb7d01.css.map",
+    "main.7201aeb9.js.map": "/static/js/main.7201aeb9.js.map",
     "774.f19aae7e.chunk.js.map": "/static/js/774.f19aae7e.chunk.js.map",
     "459.ae6e45ae.chunk.js.map": "/static/js/459.ae6e45ae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.164dfe3c.css",
-    "static/js/main.df011dcb.js"
+    "static/css/main.48cb7d01.css",
+    "static/js/main.7201aeb9.js"
   ]
 }

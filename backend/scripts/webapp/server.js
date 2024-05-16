@@ -381,27 +381,7 @@ app.get('/static/:dir/:file', (req, res) => {
   res.sendFile(__dirname + "/app/build/static/" + req.params.dir + "/" + req.params.file)
 })
 
-/* FOR DEV */
-app.get('/swagger/static/:dir/:file', (req, res) => {
-  res.sendFile(__dirname + "/swagger/build/static/" + req.params.dir + "/" + req.params.file)
-})
 
-app.get('/swagger', (req, res) => {
-  console.log('GET /SWAGGER')
-  res.sendFile(__dirname + "/swagger/build/index.html");
-});
-
-
-app.get('/db/:table', (req, res) => {
-  let table = db.getTable(req.params.table)
-  console.log('GET /db/' + req.params.table)
-  res.send(table);
-});
-app.get('/db', (req, res) => {
-  console.log('GET /db')
-  res.sendFile(__dirname + "/dbDisplayer/index.html");
-});
-/* FOR DEV */
 
 app.get('/*', (req, res) => {
   console.log('GET /')
