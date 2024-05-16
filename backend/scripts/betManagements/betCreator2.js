@@ -121,7 +121,8 @@ function run() {
                     let namesBetToWriteOnChain = [];
                     let numberOfOptionsToWriteOnChain = [];
                     console.log(league.name)
-                    fetch(`${sport.urlAPI}&from=${date}&to=${date}&timezone=Africa/Abidjan&leagueId=${league.id}`, {
+                    let url = `${sport.urlAPI}&from=${date}&to=${date}&timezone=Africa/Abidjan&leagueId=${league.id}`
+                    fetch(url, {
                         'method': 'GET',
                     }).then((res) => {
                         res.json().then(async (data) => {
