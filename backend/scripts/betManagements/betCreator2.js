@@ -1,4 +1,4 @@
-import { API_KEY2, GAS_PRICE, web3, NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
+import { API_KEY, GAS_PRICE, web3, NODES_URL_BSCTESTNET, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs } from "../config.js"
 import { cyan, logBetCreator, blue } from '../logger.js'
 import db from '../db.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
@@ -8,14 +8,14 @@ const betToCreates = [
         "name": "basketball",
         "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
         "numberOfOptions": 2,
-        "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY2}`
+        "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY}`
     }]
 /*const betToCreates = [
     {
         "name": "basketball",
         "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
         "numberOfOptions": 2,
-        "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY2}`
+        "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY}`
     },
     {
         "name": "football",
@@ -33,7 +33,7 @@ const betToCreates = [
 
         ],
         "numberOfOptions": 3,
-        "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY2}`
+        "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY}`
 
     }
 ]*/

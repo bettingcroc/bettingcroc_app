@@ -3,7 +3,6 @@ import db_betEnder from './db_betEnder.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
 import { logBetEnder } from "../logger.js";
 import { Web3 } from 'web3';
-const API_KEY2 = "2a751a70faa467e818a4b8e516cacc22fd9883089e32ad93596eadc79e462ffd"
 
 function run() {
     try {
@@ -66,11 +65,11 @@ function run() {
                     let options = {
                         'method': 'GET'
                     }
-                    let url = `https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`
+                    let url = `https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
                     let res = await fetch(url, options)
                     let data = await res.json()
                     if (data.result === undefined) {
-                        url = `https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY2}&matchId=${db_betEnder.get_idAPI(betNumber)}`
+                        url = `https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
                         res = await fetch(url, options)
                         data = await res.json()
                     }
