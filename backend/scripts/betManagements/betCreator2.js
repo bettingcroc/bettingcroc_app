@@ -9,7 +9,8 @@ const betToCreates = [
         "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
         "numberOfOptions": 2,
         "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY}`
-    }]
+    }
+]
 /*const betToCreates = [
     {
         "name": "basketball",
@@ -44,13 +45,14 @@ function run() {
         multiBetContract.setConfig({ contractDataInputFill: "both" })
 
         var tx = 0;
-        var FirstDay = Math.round((new Date().getTime()) / 1000);
-        var dayIncrementer = 4;
 
 
         function run() {
             try {
-                betCreator();
+                betCreator(1);
+                betCreator(2);
+                betCreator(3);
+                betCreator(4);
             }
             catch (e) {
                 console.log(e)
@@ -61,8 +63,7 @@ function run() {
 
 
         function dateIterator(days) {
-            dayIncrementer++;
-            let timestamp = FirstDay + (days * 86400); // jour de départ iteration dates
+            let timestamp = Math.round((new Date().getTime()) / 1000) + (days * 86400); // jour de départ iteration dates
             let now = new Date(timestamp * 1000)
             let month = (now.getMonth() + 1) < 10 ? `0${now.getMonth() + 1}` : now.getMonth() + 1
             let day = now.getDate() < 10 ? `0${now.getDate()}` : now.getDate()
@@ -108,7 +109,7 @@ function run() {
         }
 
 
-        async function betCreator() {
+        async function betCreator(dayIncrementer) {
             let date = dateIterator(dayIncrementer);
             cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + date + " !!!!!!!!!!!!!!!!!!!!!!!!");
             setTimeout(betCreator, DELAY);
