@@ -135,6 +135,7 @@ function get_idAPI(betNumber) {
 
 
 function getFromIDAPI(idAPI){
+	console.log("checking "+idAPI)
 	let select = db.prepare(`SELECT betNumber FROM Bets WHERE idAPI = '${idAPI}'`);
 	let result = select.get();
 	if (result) return result.betNumber;

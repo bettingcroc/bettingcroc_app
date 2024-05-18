@@ -86,7 +86,7 @@ function run() {
                         let res = web3.eth.abi.decodeLog(newBetCreatedABI, log.data, log.topics);
                         newBets.push(parseInt(res.betNumber))
                     });
-                    for (let a = 0; a < numberOfBets; a++) {
+                    for (let a = 0; a < listNames.length; a++) {
                         let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] =
                             [response.result[a].event_home_team, response.result[a].event_away_team, newBets[a], Date.parse(response.result[a].event_date + " " + response.result[a].event_time) / 1000,
                             response.result[a].country_name, response.result[a].event_key, response.result[a].league_name]
@@ -129,7 +129,7 @@ function run() {
                     }).then((res) => {
                         res.json().then(async (data) => {
                             if (data.result === undefined) {
-                                blue(`0 bets ${sport} to add because no data`);
+                                blue(`${date} : 0 bets ${sport} to add because no data`);
                                 return
                             }
                             for (let u = 0; u < data.result.length; u++) {
@@ -145,7 +145,7 @@ function run() {
                                 await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data, sport.numberOfOptions, sport.name, date);
                             }
                             else {
-                                blue(`0 bets ${sport} to add`);
+                                blue(`${date} : 0 bets ${sport} to add`);
                             }
                         })
                     })
