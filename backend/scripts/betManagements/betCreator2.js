@@ -71,11 +71,11 @@ function run() {
         }
 
 
-        async function betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type, date) {
-            console.log(`trying to write ${numberOfBets} bets`)
-            console.log(listNames, listOptions, numberOfBets)
+        async function betWriter(listNames, listOptions, response, numberOfOptions, type, date) {
+            console.log(`trying to write ${listNames.length} bets`)
+            console.log(listNames, listOptions, listNames.length)
             await multiBetContract.methods
-                .createNewBets(listNames, listOptions, numberOfBets)
+                .createNewBets(listNames, listOptions, listNames.length)
                 .send({ from: PUBLIC_KEY_CREATOR, gasPrice: GAS_PRICE })
                 .on('receipt', function (receipt) {
                     console.log("writing on chain succeed")
@@ -102,7 +102,7 @@ function run() {
                     if (error.error.code === -32000) {
                         let newProvider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODES_URL_BSCTESTNET[Math.floor(Math.random() * NODES_URL_BSCTESTNET.length)], 0, 10000);
                         web3.setProvider(newProvider)
-                        setTimeout(async function () { await betWriter(listNames, listOptions, numberOfBets, response, numberOfOptions, type) }, 60000)
+                        setTimeout(async function () { await betWriter(listNames, listOptions, response, numberOfOptions, type) }, 60000)
                     }
                     console.log(`error tx ${type} ${error.error.code} : ${error.error.message}`)
                 })
@@ -136,11 +136,13 @@ function run() {
                                 let idHome = data.result[u].home_team_key;
                                 let idAway = data.result[u].away_team_key;
                                 let timestamp = Date.parse(`${data.result[u].event_date} ${data.result[u].event_time} UTC`) / 1000
-                                namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp);
-                                numberOfOptionsToWriteOnChain.push(sport.numberOfOptions);
+                                if (db.getFromIDAPI(data.result[u].event_key) === undefined) {
+                                    namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp)
+                                    numberOfOptionsToWriteOnChain.push(sport.numberOfOptions)
+                                }
                             }
                             if (namesBetToWriteOnChain.length > 0) {
-                                await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data.result.length, data, sport.numberOfOptions, sport.name, date);
+                                await betWriter(namesBetToWriteOnChain, numberOfOptionsToWriteOnChain, data, sport.numberOfOptions, sport.name, date);
                             }
                             else {
                                 blue(`0 bets ${sport} to add`);

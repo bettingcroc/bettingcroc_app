@@ -134,6 +134,13 @@ function get_idAPI(betNumber) {
 }
 
 
+function getFromIDAPI(idAPI){
+	let select = db.prepare(`SELECT betNumber FROM Bets WHERE idAPI = '${idAPI}'`);
+	let result = select.get();
+	if (result) return result.betNumber;
+}
+
+
 function get_CLosestDatesByTypeAndCountry(date, type, country) {
 	//console.log(date,type,country);
 	var param;
@@ -241,5 +248,6 @@ export default {
 	getTable: getTable,
 	get_UnderDate: get_UnderDate,
 	add_decentraBet: add_decentraBet,
-	deleteBet:deleteBet
+	deleteBet:deleteBet,
+	getFromIDAPI:getFromIDAPI
 }

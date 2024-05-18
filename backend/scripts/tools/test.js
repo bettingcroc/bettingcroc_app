@@ -1,2 +1,2 @@
-import apiServer from "../webapp/apiServer.js";
-apiServer.getTopBets().then(console.log)
+import db from "../db.js";
+console.log(db.getFromIDAPI("105760")!== undefined)
