@@ -40,7 +40,7 @@ const betToCreates = [
 ]*/
 function run() {
     try {
-        const DELAY = 86400000 // 30000 //
+        const DELAY = 21600000 // 30000 //
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
         multiBetContract.setConfig({ contractDataInputFill: "both" })
 
@@ -49,6 +49,7 @@ function run() {
 
         function run() {
             try {
+                betCreator(0);
                 betCreator(1);
                 betCreator(2);
                 betCreator(3);
@@ -72,7 +73,7 @@ function run() {
 
 
         async function betWriter(listNames, listOptions, response, numberOfOptions, type, date) {
-            console.log(`trying to write ${listNames.length} bets`)
+            console.log(`${date} : trying to write ${listNames.length} bets`)
             console.log(listNames, listOptions, listNames.length)
             await multiBetContract.methods
                 .createNewBets(listNames, listOptions, listNames.length)
