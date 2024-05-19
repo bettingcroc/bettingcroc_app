@@ -88,13 +88,16 @@ function run() {
                         newBets.push(parseInt(res.betNumber))
                     });
                     for (let a = 0; a < listNames.length; a++) {
-                        let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] =
-                            [response.result[a].event_home_team, response.result[a].event_away_team, newBets[a], Date.parse(response.result[a].event_date + " " + response.result[a].event_time) / 1000,
-                            response.result[a].country_name, response.result[a].event_key, response.result[a].league_name]
-                        let nameBet = type === "football" ? nameHome + ",Draw," + nameAway : nameHome + "," + nameAway
-                        console.log(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI)
-                        db.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
-                        logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
+                        for (let r in response.result) {
+                            if (response.result[r].event_key.toString() === listNames[a].toString()) {
+                                let [nameHome, nameAway, betNumber, timestamp, country, idAPI, league] =
+                                    [response.result[r].event_home_team, response.result[r].event_away_team, newBets[a], Date.parse(response.result[r].event_date + " " + response.result[r].event_time) / 1000,
+                                    response.result[r].country_name, response.result[r].event_key, response.result[r].league_name]
+                                let nameBet = type === "football" ? nameHome + ",Draw," + nameAway : nameHome + "," + nameAway
+                                db.add_bet(betNumber, numberOfOptions, nameBet, timestamp, type, country, league, idAPI);
+                                logBetCreator(`${new Date().toLocaleDateString()}  ${new Date().toLocaleTimeString()} : Bet created n ${betNumber} ${timestamp} ${type} ${country} ${league} ${nameBet}`)
+                            }
+                        }
                     }
                     console.log(`${date} bets succesfully added`);
                 })
@@ -134,11 +137,8 @@ function run() {
                                 return
                             }
                             for (let u = 0; u < data.result.length; u++) {
-                                let idHome = data.result[u].home_team_key;
-                                let idAway = data.result[u].away_team_key;
-                                let timestamp = Date.parse(`${data.result[u].event_date} ${data.result[u].event_time} UTC`) / 1000
                                 if (db.getFromIDAPI(data.result[u].event_key) === undefined) {
-                                    namesBetToWriteOnChain.push(idHome + " " + idAway + " " + timestamp)
+                                    namesBetToWriteOnChain.push(data.result[u].event_key.toString())
                                     numberOfOptionsToWriteOnChain.push(sport.numberOfOptions)
                                 }
                             }
