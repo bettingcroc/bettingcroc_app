@@ -40,7 +40,7 @@ const betToCreates = [
 ]*/
 function run() {
     try {
-        const DELAY = 60000 // 21600000 // 
+        const DELAY = 21600000 //  60000 // 
         const multiBetContract = new web3.eth.Contract(multiBetABI, multiBetAddress);
         multiBetContract.setConfig({ contractDataInputFill: "both" })
 
