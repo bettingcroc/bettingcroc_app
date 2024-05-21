@@ -49,11 +49,7 @@ function run() {
 
         function run() {
             try {
-                betCreator(0);
-                betCreator(1);
-                betCreator(2);
-                betCreator(3);
-                betCreator(4);
+                launchBetCreators()
             }
             catch (e) {
                 console.log(e)
@@ -64,15 +60,10 @@ function run() {
 
 
         function dateIterator(days) {
-            console.log("days "+days)
             let timestamp = Math.round((new Date().getTime()) / 1000) + (days * 86400); // jour de départ iteration dates
             let now = new Date(timestamp * 1000)
             let month = (now.getMonth() + 1) < 10 ? `0${now.getMonth() + 1}` : now.getMonth() + 1
             let day = now.getDate() < 10 ? `0${now.getDate()}` : now.getDate()
-            console.log("timestamp "+timestamp)
-            console.log("now "+now)
-            console.log("month "+month)
-            console.log("day "+day)
             return `${now.getFullYear()}-${month}-${day}`;
         }
 
@@ -117,11 +108,17 @@ function run() {
                 })
         }
 
-
+        function launchBetCreators(){
+            betCreator(0);
+            betCreator(1);
+            betCreator(2);
+            betCreator(3);
+            betCreator(4);
+        }
         async function betCreator(dayIncrementer) {
             let date = dateIterator(dayIncrementer);
             cyan("!!!!!!!!!!!!!!!!!!!!!!!! début requetes " + date + " !!!!!!!!!!!!!!!!!!!!!!!!");
-            setTimeout(betCreator, DELAY);
+            setTimeout(launchBetCreators, DELAY);
 
 
             for (let i = 0; i < betToCreates.length; i++) {
