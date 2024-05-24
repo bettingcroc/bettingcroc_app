@@ -33,7 +33,7 @@ function UsdtGetter(props) {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}>
       <p style={{ fontSize: "20px" }}>Get 5000 USDT here</p>
-      <button style={{ backgroundColor: "#539B57", borderRadius: "10px", padding: "15px", border: "none", color: "white" }} onClick={get5000USDT}>GET 5000 USDT</button>
+      <button style={{ backgroundColor: "#089334", borderRadius: "10px", padding: "15px", border: "none", color: "white" }} onClick={get5000USDT}>GET 5000 USDT</button>
     </div>
   );
 

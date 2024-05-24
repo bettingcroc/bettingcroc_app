@@ -1,12 +1,13 @@
 #bettingCrocTitle {
-    width: 169px;
-
-
-
+    height: 100%;
     /* Inside auto layout */
     flex: none;
     order: 1;
     flex-grow: 0;
+}
+
+#bettingCrocLogo {
+    display: none;
 }
 
 #logo {
@@ -60,7 +61,7 @@
     align-items: center;
     padding: 0px;
     height: 56px;
-    gap: calc(18vw - 235px);
+    gap: 90px;
     /* Inside auto layout */
     flex: none;
     order: 0;

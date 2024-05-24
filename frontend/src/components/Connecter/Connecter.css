@@ -12,6 +12,7 @@
   position: fixed;
   left: 0px;
   top: 0px;
+  backdrop-filter: blur(8px);
 }
 
 
@@ -44,7 +45,7 @@
   border-color: white;
   width: 664px;
   height: 300px;
-  background-color: #539B57;
+  background-color: #089334;
   z-index: 90;
   margin-left: -300px;
   border-radius: 10px;

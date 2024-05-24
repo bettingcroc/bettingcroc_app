@@ -56,7 +56,7 @@ body {}
 }
 
 .MuiCircularProgress-svg {
-  color: #539B57;
+  color: #089334;
 }
 
 #bettingcroc {
@@ -233,7 +233,7 @@ input:focus {
   height: 40px;
 
   /* Vert */
-  background: #539B57;
+  background: #089334;
   border-radius: 8px;
 
   /* Inside auto layout */
@@ -334,12 +334,12 @@ input:focus {
 }
 
 #activeRightBar {
-  color: #539B57;
+  color: #089334;
 
 }
 
 .greenP {
-  color: #539B57;
+  color: #089334;
 
 }
 
@@ -402,7 +402,7 @@ input:focus {
   height: 40px;
 
   /* Vert */
-  background: #539B57;
+  background: #089334;
   border-radius: 8px;
 
   /* Inside auto layout */
@@ -431,7 +431,7 @@ input:focus {
   height: 40px;
 
   /* Vert */
-  background: #539B57;
+  background: #089334;
   border-radius: 8px;
 
   /* Inside auto layout */
@@ -516,7 +516,7 @@ input:focus {
   height: 50px;
 
   /* Vert */
-  background: #539B57;
+  background: #089334;
   border-radius: 8px;
 
   /* Inside auto layout */
@@ -765,14 +765,14 @@ button {
   width: 100px;
   border-radius: 5px;
   border: none;
-  background-color: #ECE572;
+  background-color: #E1E954;
 }
 
 #buttonDiveCoteP2P {
   height: 32px;
   width: 100px;
   border-radius: 5px;
-  background-color: #ECE572;
+  background-color: #E1E954;
 
 }
 
@@ -951,7 +951,7 @@ button {
 }
 
 .generalsButton {
-  background: #539B57;
+  background: #089334;
   border-radius: 8px;
   padding: 8px;
   border: none;
@@ -1027,7 +1027,7 @@ button {
 
 .buttonInviter {
   width: 120px;
-  background-color: #539B57;
+  background-color: #089334;
   border: none;
   border-radius: 10px;
   color: white;
@@ -1159,7 +1159,7 @@ button {
 
 .sendInvitation {
   height: 35px;
-  background-color: #539B57;
+  background-color: #089334;
   border: none;
   border-radius: 8px;
   color: white;

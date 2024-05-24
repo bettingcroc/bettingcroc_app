@@ -186,7 +186,7 @@
     height: 50px;
     border-radius: 10px;
     /* Vert */
-    background: #ECE572;
+    background: #E1E954;
 
 
     /* Inside auto layout */
@@ -206,14 +206,14 @@
     width: 100px;
     height: 50px;
     border-radius: 10px;
-    background-color: #539B57;
+    background-color: #089334;
     border: none;
     color: white;
 }
 
 #buttonCreateP2Pbutton {
     order: 4;
-    background: #ECE572;
+    background: #E1E954;
     border: none;
     width: 100%;
     height: 50px;

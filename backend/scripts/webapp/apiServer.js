@@ -24,9 +24,9 @@ function randomString(length) {
 	}
 	return text;
 }
-function newNonce() {
-	let nonce = "Login to Bettingcroc : " + randomString(6)
-	return nonce
+function newNonce(address) {
+	let message = `Welcome to BettingCroc ! Click to sign in and accept the BettingCroc Terms of Service (https://bettingcroc.com/tos) and Privacy Policy (https://bettingcroc.com/privacy). This request will not trigger a blockchain transaction or cost any gas fees. Wallet address : ${address} Nonce : ${randomString(10)}`
+	return message
 }
 
 function timeConverter(UNIX_timestamp) {

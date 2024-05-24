@@ -112,7 +112,7 @@ app.get('/api/position/:address', (req, res) => {
 app.get('/api/nonce/:address', async (req, res) => {
   console.log('GET /api/nonce/' + req.params.address)
 
-  req.session.nonce = apiServer.newNonce()
+  req.session.nonce = apiServer.newNonce(req.params.address)
   res.send({ 'nonce': req.session.nonce })
 })
 

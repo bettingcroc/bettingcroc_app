@@ -6,7 +6,8 @@
     flex: none;
     order: 0;
     flex-grow: 0;
-    background-color: #539B57;
+    background: rgb(8, 147, 52);
+    background: linear-gradient(90deg, rgba(8, 147, 52, 1) 0%, rgba(80, 189, 19, 1) 100%);
     border-radius: 20px;
     display: flex;
     flex-direction: row;
@@ -287,7 +288,7 @@
     }
 
     #box1ListBets {
-        height: 80px;
+        padding: 10px 0px;
     }
 
     #box2ListBets {

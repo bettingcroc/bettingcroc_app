@@ -193,9 +193,10 @@ function Account(props) {
   }
   return (
     <div className={props.theme === "light" ? "mainContentAccountLight" : "mainContentAccountDark"}>
-      <p className={props.theme === "light" ? "blackP" : "whiteP"} id="hiUser">
-        Hi {loaded && dataPerso !== undefined ? dataPerso[0].pseudo : ""} !
-      </p>
+      <div id="myBetsAccountDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
+              <p id="rankingsTitle" className={props.theme === "light" ? "blackP" : "whiteP"}>Account</p>
+              </div>
+
       <div id="myBetsAccountDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
         <div id="divMyBetsAccountButtons">
           <button onClick={(e) => { setBetsType("default"); setBetsToDisplay(props.myBets); }} className="accountButton"><p className={props.theme === "light" ? "blackP" : "lightGreyP"} id={betsType === "default" ? "accountBetsTypeActive" : "accountBetsTypeInactive"}>My Bets</p></button>

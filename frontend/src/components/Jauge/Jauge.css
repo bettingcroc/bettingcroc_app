@@ -106,7 +106,7 @@
 
 }
 #rangeInput {
-    accent-color: #539B57;
+    accent-color: #089334;
 }
 
 /*#rangeInput {
@@ -119,12 +119,12 @@
 
 input[type="range"]::-webkit-slider-runnable-track {
     height: 6px;
-    background-color: #539B57;
+    background-color: #089334;
 }
 
 input[type="range"]::-moz-range-track {
     height: 6px;
-    background-color: #539B57;
+    background-color: #089334;
 
 }
 
@@ -133,14 +133,14 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 16px;
     height: 16px;
-    background-color: #539B57;
+    background-color: #089334;
 }
 
 input[type="range"]::-moz-range-thumb {
     appearance: none;
     width: 16px;
     height: 16px;
-    background-color: #539B57;
+    background-color: #089334;
     border: none;
 }*/
 

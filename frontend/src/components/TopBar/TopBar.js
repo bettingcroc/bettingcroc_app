@@ -55,6 +55,7 @@ function TopBar(props) {
       <div id="topLeft">
         <Link to="/" id="logo">
           <img id="bettingCrocTitle" src={titleImage} alt="titleImage"></img>
+          <img id="bettingCrocLogo" src={homeImage} alt="homeImage"></img>
 
         </Link>
         <div id="links">

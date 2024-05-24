@@ -163,10 +163,7 @@
     #links {
         display: none;
     }
-
-    #bettingcroctitle {
-        display: none;
-    }
+   
 
     #switchThemeHome {
         display: none;
@@ -226,7 +223,15 @@
     #bettingCrocTitle {
         display: none;
     }
+    #bettingCrocLogo {
+        height: 100%;
+        /* Inside auto layout */
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        display: unset;
 
+    }
     #topBar {
         padding: 10px;
     }
