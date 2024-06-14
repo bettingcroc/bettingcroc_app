@@ -75,7 +75,7 @@ function run() {
                     }
                     console.log(url)
                     let matchStatus = data.result[0].event_status
-                    let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_ft_result
+                    let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_final_result
                     let scoreHome = score.split('-')[0].replace(' ', '')
                     let scoreAway = score.split('-')[1].replace(' ', '')
                     if (matchStatus === "Finished" || matchStatus === "After Over Time") {
