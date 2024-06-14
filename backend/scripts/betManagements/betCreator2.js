@@ -7,7 +7,7 @@ const betToCreates = [
     {
         "name": "football",
         "leagues": [
-            { "name": "Euro 2024", "id": "588", "country": "Europa" },
+            { "name": "Euro 2024", "id": "1", "country": "Europa" },
         ],
         "numberOfOptions": 3,
         "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY}`

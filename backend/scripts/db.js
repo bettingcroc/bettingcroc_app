@@ -197,7 +197,7 @@ function deleteBet(betNumber) {
 
 
 function sqlToInject() {
-	let command = 'update bets set date=1703355500 where date<1703355500'
+	let command = 'delete from bets where betNumber in (13,14)'
 	db.prepare(command).run()
 	console.log("runned " + command)
 }
