@@ -72,7 +72,7 @@ function TopBar(props) {
         {props.defaultAccount !== undefined && <NotificationCenter setFriendsUpdater={props.setFriendsUpdater} address={props.defaultAccount} updateNotificationsFromServer={props.updateNotificationsFromServer} socket={props.socket} unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} theme={props.theme}></NotificationCenter>}
 
         <ThemeSwitcher theme={props.theme} switchTheme={props.switchTheme} id={"themeSwitcherTopBar"}></ThemeSwitcher>
-        <Connecter balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} accountChangedHandler={props.accountChangedHandler} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></Connecter>
+        <Connecter testLogin={props.testLogin} balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} accountChangedHandler={props.accountChangedHandler} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></Connecter>
       </div>
 
 

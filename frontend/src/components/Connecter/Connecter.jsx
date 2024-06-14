@@ -20,8 +20,10 @@ function Connecter(props) {
     console.log(props.defaultAccount)
     if (props.defaultAccount !== undefined && props.defaultAccount !== "") {
       setConnected(true)
-      testLogin()
+      props.testLogin()
+      console.log(props.logged + " " + modalState)
       if (!props.logged && modalState === "open") {
+        console.log("modal to login")
         setModalState("login")
       } else {
         setModalState("closed")
@@ -37,19 +39,7 @@ function Connecter(props) {
       closeModal()
     }
   }, [props.logged])
-  async function testLogin() {
-    let url = MY_SERVER + "/api/testlogin";
-    let options = {
-      method: "GET",
-      credentials: 'include'
-    };
-    fetch(url, options).then((res) => {
-      res.json().then((data) => {
-        if (data.isLogged === true) { props.setLogged(true) }
-        else { props.setLogged(false) }
-      })
-    });
-  }
+
 
   useEffect(() => {
     console.log(modalState)
@@ -83,7 +73,7 @@ function Connecter(props) {
     <div id='connecterBigBox'>
       {connected === true && props.defaultAccount !== undefined && props.logged ?
         <div id="connecterConnected">
-          <Authentification web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>
+          <Authentification testLogin={props.testLogin} web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>
           <div id='walletTopBarDiv'>
             <button className='accountButton' id='walletButton' onClick={switchWalletModal}>
               <p className={props.theme === "light" ? "blackP" : "whiteP"}>{props.defaultAccount.substring(0, 5) + "..." + props.defaultAccount.substring(39)}</p>
@@ -116,7 +106,7 @@ function Connecter(props) {
                   <ConnectWc web3={props.web3} accountChangedHandler={props.accountChangedHandler}></ConnectWc>
                   <ConnectMetamask web3={props.web3} accountChangedHandler={props.accountChangedHandler} ></ConnectMetamask>
                   <ConnectCb connectWalletHandler={props.connectCoinBaseHandler}></ConnectCb>
-                </div> : <Authentification web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>}
+                </div> : <Authentification testLogin={props.testLogin} web3={props.web3} address={props.defaultAccount} setLogged={props.setLogged} logged={props.logged}></Authentification>}
                 <button id="closeConnecter" onClick={closeModal}><img id='closeImage' src={closeImage}></img></button>
 
               </div>

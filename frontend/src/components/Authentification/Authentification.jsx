@@ -5,7 +5,7 @@ import "./Authentification.css"
 
 
 function Authentification(props) {
-  useEffect(() => { testLogin() }, [])
+  useEffect(() => {console.log("testLogin"); props.testLogin() }, [])
 
   async function getNonce(address) {
     console.log("trying request nonce");
@@ -28,25 +28,13 @@ function Authentification(props) {
     return nonce
   }
 
-  async function testLogin() {
-    let url = MY_SERVER + "/api/testlogin";
-    let options = {
-      method: "GET",
-      credentials: 'include'
-    };
-    fetch(url, options).then((res) => {
-      res.json().then((data) => {
-        if (data.isLogged === true) { props.setLogged(true) }
-        else { props.setLogged(false) }
-      })
-    });
-  }
+
 
   async function login() {
     await getNonce(props.address)
       .then(async (nonce) => {
         await requestLogin(nonce.nonce, props.web3, props.address)
-          .then((res) => { console.log(res); testLogin() })
+          .then((res) => { console.log(res); props.testLogin() })
       })
 
   }

@@ -18,7 +18,7 @@ const Base = (props) => {
     const [isTwitterLoading, setTwitterLoading] = useState(true);
     return (
         <div id={props.theme === "light" ? "bettingcroc" : "bettingcrocDark"}>
-            <TopBar setFriendsUpdater={props.setFriendsUpdater} updateNotificationsFromServer={props.updateNotificationsFromServer} socket={props.socket} betContract={props.betContract} balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
+            <TopBar testLogin={props.testLogin} setFriendsUpdater={props.setFriendsUpdater} updateNotificationsFromServer={props.updateNotificationsFromServer} socket={props.socket} betContract={props.betContract} balanceUSDT={props.balanceUSDT} balanceMBT={props.balanceMBT} unread={props.unread} setUnread={props.setUnread} notifications={props.notifications} setAllNotifsRead={props.setAllNotifsRead} vueTopBar={props.vueTopBar} accountChangedHandler={props.accountChangedHandler} switchTheme={props.switchTheme} theme={props.theme} overlayClass={props.overlayClass} closeOverlay={props.closeOverlay} switchOverlayMode={props.switchOverlayMode} disconnect={props.disconnect} connectWalletHandler={props.connectWalletHandler} defaultAccount={props.defaultAccount} errorMessage={props.errorMessage} connButtonText={props.connButtonText} connectCoinBaseHandler={props.connectCoinBase} web3={props.web3} logged={props.logged} setLogged={props.setLogged}></TopBar>
             <div id="secondBox">
                 {props.mainVue !== "landing" && <LeftBar mainVue={props.mainVue} theme={props.theme}></LeftBar>}
                 <div id="mainVue">
@@ -33,7 +33,7 @@ const Base = (props) => {
                                     <CircularProgress></CircularProgress>
                                     <p className={props.theme === "light" ? "blackP" : "whiteP"}>Twitter feed is loading...</p>
                                     </div>}
-                            <TwitterTimelineEmbed sourceType="timeline" screenName="NBA" theme={props.theme} onLoad={() => setTwitterLoading(false)} onError={() => setTwitterLoading(false)} />
+                            <TwitterTimelineEmbed sourceType="timeline" screenName="BettingCroc" theme={props.theme} onLoad={() => setTwitterLoading(false)} onError={() => setTwitterLoading(false)} />
                         </div> :
                         <div id="underRightBar">{
                             props.defaultAccount !== undefined ? <div id={props.mainVue === "bet" ? "topRightBar" : "topRightBarElse"}>

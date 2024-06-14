@@ -99,7 +99,7 @@ const LeftBar = (props) => {
           </div> : props.mainVue === "account" ? null:
            <TwitterTimelineEmbed
            sourceType="timeline"
-           screenName="NBA"
+           screenName="BettingCroc"
            theme={props.theme}
          />
       }

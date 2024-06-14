@@ -5,10 +5,12 @@ import HDWalletProvider from '@truffle/hdwallet-provider'
 
 const betToCreates = [
     {
-        "name": "basketball",
-        "leagues": [{ "name": "NBA", "id": "766", "country": "USA" }],
-        "numberOfOptions": 2,
-        "urlAPI": `https://apiv2.allsportsapi.com/basketball/?met=Fixtures&APIkey=${API_KEY}`
+        "name": "football",
+        "leagues": [
+            { "name": "Euro 2024", "id": "588", "country": "Europa" },
+        ],
+        "numberOfOptions": 3,
+        "urlAPI": `https://apiv2.allsportsapi.com/football/?met=Fixtures&APIkey=${API_KEY}`
     }
 ]
 /*const betToCreates = [
@@ -29,6 +31,7 @@ const betToCreates = [
             { "name": "Ligue 1", "id": "168", "country": "France" },
             { "name": "UEFA Europa League", "id": "4", "country": "Europa" },
             { "name": "UEFA Europa Conference League", "id": "683", "country": "Europa" },
+            { "name": "Euro 2024", "id": "588", "country": "Europa" },
 
 
 
@@ -108,7 +111,7 @@ function run() {
                 })
         }
 
-        function launchBetCreators(){
+        function launchBetCreators() {
             betCreator(0);
             betCreator(1);
             betCreator(2);

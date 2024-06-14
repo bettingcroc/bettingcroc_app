@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import "./App.css";
 import "./index.css";
-import { ListBet, Bet, DecentraBet, Classement, Account, ComingSoon, LandingComponent, USDTGetter, Base, NotificationsMobile,LeagueBet } from "./components"
+import { ListBet, Bet, DecentraBet, Classement, Account, ComingSoon, LandingComponent, USDTGetter, Base, NotificationsMobile, LeagueBet } from "./components"
 import { DECENTRABET_ABI, DECENTRABET_ADDRESS, MBT_ABI, MBT_ADDRESS, MULTIBET_ABI, MULTIBET_ADDRESS, USDT_ABI, USDT_ADDRESS } from "./configWebApp";
 import { EthereumProvider } from '@walletconnect/ethereum-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
@@ -97,7 +97,24 @@ function App() {
     }, [logged])
 
 
-
+    async function testLogin() {
+        let url = MY_SERVER + "/api/testlogin";
+        let options = {
+            method: "GET",
+            credentials: 'include'
+        };
+        return new Promise((resolve)=>{
+            fetch(url, options).then((res) => {
+                res.json().then((data) => {
+                    console.log(data)
+                    if (data.isLogged === true) { setLogged(true) }
+                    else { setLogged(false) }
+                    resolve(data.isLogged)
+                })
+            });
+        })
+        
+    }
     function setAllNotifsRead() {
         setTimeout(() => {
             for (let n = 0; n < notifications.length; n++) {
@@ -119,7 +136,7 @@ function App() {
                         let notif = data[n]
                         console.log(notif)
                         let body = JSON.parse(notif.body)
-                        let content = notif.header === "newFriend" ? notif.address1 + " wants to be your friend" : notif.pseudo !== undefined && notif.header === "betInvitation" ? notif.pseudo  : null
+                        let content = notif.header === "newFriend" ? notif.address1 + " wants to be your friend" : notif.pseudo !== undefined && notif.header === "betInvitation" ? notif.pseudo : null
                         notificationsUpadted.push(notif)
                         //add({ "id": notif.id, "content": content, "data": { "inCenter": true, "body": body, "read": notif.read } })
                     }
@@ -174,85 +191,8 @@ function App() {
             socket.emit('joinRoom', defaultAccount.toLowerCase())
         }
         socket.on('disconnect', () => console.log('server disconnected'))
-        let walletType = localStorage.getItem("walletType")
-        if (walletType === "Metamask") {
-            if (web3.givenProvider) {
-                web3.setProvider(Web3.givenProvider)
-            }
-        }
-        else if (walletType === "WC") {
-            if (localStorage.getItem("WCM_VERSION") !== null) {
-                //  Create WalletConnect Provider
-                let initWC = async () => {
-                    let provider = await EthereumProvider.init({
-                        projectId: "ad6d1b7dc7e99024e7432f55a7c68f0c",
-                        infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
-                        chains: [97],
-                        rpcMap: {
-                            97: "https://rpc.ankr.com/bsc_testnet_chapel"
-                            // ...
-                        },
-                        showQrModal: true
-                    });
-                    await provider.enable();
-                    web3.setProvider(provider)
-                    web3.eth.getAccounts().then((res) => { accountChangedHandler(res[0]) })
-                }
-                initWC()
+        initConnection()
 
-            }
-        }/*
-    else if (walletType === "Coinbase") {
-      try {
-        ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
-          web3.setProvider(Web3.givenProvider)
-          this.accountChangedHandler(result[0]);
-          console.log(result[0])
-          //this.setState({ connButtonText: "Wallet Connected" });
-          //getAccountBalance(result[0]);
-        })
-          .catch((error) => {
-            //this.setState({ errorMessage: error.message });
-          });
-        // Initialize a Web3 object
-        //console.log(web3)
-        web3.setProvider(ethereum)
-      }
-      catch (e) {
-      }
-    }*/
-        else {
-            web3.setProvider(DEFAULT_ETH_JSONRPC_URL)
-        }
-        let getAccounts = async () => {
-            const accounts = await web3.eth.getAccounts();
-            if (accounts[0] !== undefined) {
-                setDefaultAccount(accounts[0]);
-            }
-        }
-        getAccounts()
-        setMultiBetContract(new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS));
-        setUSDTContract(new web3.eth.Contract(USDT_ABI, USDT_ADDRESS));
-        setMBTContract(new web3.eth.Contract(MBT_ABI, MBT_ADDRESS));
-        setDecentrabetContract(new web3.eth.Contract(DECENTRABET_ABI, DECENTRABET_ADDRESS));
-        //this.accountChangedHandler(accounts[0])
-        setLoading(false);
-        if (defaultAccount !== undefined) {
-            updateMyBets()
-            updateMyP2PBets()
-        }
-        if (window.ethereum) {
-            if (window.ethereum.networkVersion != 97) {
-            }
-        }
-        if (window.ethereum) {
-            window.ethereum.on('chainChanged', () => {
-                window.location.reload();
-            })
-            window.ethereum.on('accountsChanged', () => {
-                logout()
-            })
-        }
         return () => {
             // cleaning up the listeners here
         }
@@ -270,7 +210,96 @@ function App() {
             socket.emit('joinRoom', defaultAccount.toLowerCase())
         }
     }, [defaultAccount])
+    async function initConnection() {
+        let walletType = localStorage.getItem("walletType")
+        console.log(walletType !== undefined ? "wallet stored is " + walletType : "no wallet stored")
+        testLogin().then((logged)=>{
+            if(!logged){
+                disconnect()
+            }
+            else{
+                if (walletType === "Metamask") {
+                    if (web3.givenProvider) {
+                        web3.setProvider(Web3.givenProvider)
+                    }
+                }
+                else if (walletType === "WC") {
+                    if (localStorage.getItem("WCM_VERSION") !== null) {
+                        //  Create WalletConnect Provider
+                        let initWC = async () => {
+                            let provider = await EthereumProvider.init({
+                                projectId: "ad6d1b7dc7e99024e7432f55a7c68f0c",
+                                infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
+                                chains: [97],
+                                rpcMap: {
+                                    97: "https://rpc.ankr.com/bsc_testnet_chapel"
+                                    // ...
+                                },
+                                showQrModal: true
+                            });
+                            await provider.enable();
+                            web3.setProvider(provider)
+                            web3.eth.getAccounts().then((res) => { accountChangedHandler(res[0]) })
+                        }
+                        initWC()
+        
+                    }
+                }/*
+            else if (walletType === "Coinbase") {
+              try {
+                ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
+                  web3.setProvider(Web3.givenProvider)
+                  this.accountChangedHandler(result[0]);
+                  console.log(result[0])
+                  //this.setState({ connButtonText: "Wallet Connected" });
+                  //getAccountBalance(result[0]);
+                })
+                  .catch((error) => {
+                    //this.setState({ errorMessage: error.message });
+                  });
+                // Initialize a Web3 object
+                //console.log(web3)
+                web3.setProvider(ethereum)
+              }
+              catch (e) {
+              }
+            }*/
+                else {
+                    web3.setProvider(DEFAULT_ETH_JSONRPC_URL)
+                }
+                let getAccounts = async () => {
+                    const accounts = await web3.eth.getAccounts();
+                    if (accounts[0] !== undefined) {
+                        setDefaultAccount(accounts[0]);
+                    }
+                }
+                getAccounts()
+                setMultiBetContract(new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS));
+                setUSDTContract(new web3.eth.Contract(USDT_ABI, USDT_ADDRESS));
+                setMBTContract(new web3.eth.Contract(MBT_ABI, MBT_ADDRESS));
+                setDecentrabetContract(new web3.eth.Contract(DECENTRABET_ABI, DECENTRABET_ADDRESS));
+                //this.accountChangedHandler(accounts[0])
+                setLoading(false);
+                if (defaultAccount !== undefined) {
+                    updateMyBets()
+                    updateMyP2PBets()
+                }
+                if (window.ethereum) {
+                    if (window.ethereum.networkVersion != 97) {
+                    }
+                }
+                if (window.ethereum) {
+                    window.ethereum.on('chainChanged', () => {
+                        window.location.reload();
+                    })
+                    window.ethereum.on('accountsChanged', () => {
+                        logout()
+                    })
+                }
+            }
+        })
 
+    }
     async function chainChanger() {
         try {
             await window.ethereum.request({
@@ -302,6 +331,7 @@ function App() {
 
 
     function accountChangedHandler(newAccount) {
+        console.log("logging " + newAccount)
         setDefaultAccount(newAccount);
         allowancesSetter()
         if (defaultAccount !== undefined) { socket.emit('joinRoom', defaultAccount.toLowerCase()) }
@@ -749,6 +779,7 @@ function App() {
             .send({ from: defaultAccount })
             .once('receipt', (receipt) => {
                 console.log("bet success")
+                setTypeBet(0)
                 toast.update(betToast, { render: "betOnThisOption success", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
             })
             .once('error', (error) => {
@@ -768,6 +799,7 @@ function App() {
                 .send({ from: defaultAccount })
                 .once('receipt', (receipt) => {
                     console.log("bet success")
+                    setTypeBet(0)
                     toast.update(betToast, { render: "betOnThisOptionP2P success", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
                 })
                 .once('error', (error) => {
@@ -832,7 +864,7 @@ function App() {
 
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Base setFriendsUpdater={setFriendsUpdater} updateNotificationsFromServer={updateNotificationsFromServer} socket={socket} balanceUSDT={balanceUSDT} balanceMBT={balanceMBT} accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged} unread={unread} setUnread={setUnread} notifications={notificationsServer} setAllNotifsRead={setAllNotifsRead}></Base>}>
+                <Route path="/" element={<Base testLogin={testLogin} setFriendsUpdater={setFriendsUpdater} updateNotificationsFromServer={updateNotificationsFromServer} socket={socket} balanceUSDT={balanceUSDT} balanceMBT={balanceMBT} accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged} unread={unread} setUnread={setUnread} notifications={notificationsServer} setAllNotifsRead={setAllNotifsRead}></Base>}>
                     <Route path="/" element={<LandingComponent mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></LandingComponent>} />
                     <Route path="/sportbets" element={<ListBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></ListBet>} />
                     <Route path="/bet" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdtContract={USDTContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDT={balanceUSDT} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />

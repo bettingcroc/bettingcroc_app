@@ -157,7 +157,7 @@ app.post('/logout', (req, res) => {
   res.send("ok")
 })
 app.get('/api/testLogin', (req, res) => {
-  console.log('GET /testLogin')
+  console.log('GET /api/testLogin')
   res.send({ isLogged: req.session.logged, address: req.session.address })
 })
 app.post('/api/setUpPseudo/', (req, res) => {
