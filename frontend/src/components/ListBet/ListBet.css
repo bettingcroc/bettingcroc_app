@@ -93,7 +93,10 @@
     margin-left: auto;
     margin-right: 30px;
 }
-
+.scheduleBetLine{
+    color: #808080;
+    width: 50px;
+}
 .betLineListBets:hover {
     color: #737791 !important;
 }

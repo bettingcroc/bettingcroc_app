@@ -193,11 +193,16 @@ function deleteBet(betNumber) {
 }
 
 
-
+function updateBetLabel(betNumbers,label) {
+	console.log(typeof label)
+	console.log("update bets set label1='"+label+"' where betNumber in (" + betNumbers+")")
+	let update = db.prepare("update bets set label1='"+label+"' where betNumber in (" + betNumbers+")")
+	update.run()
+}
 
 
 function sqlToInject() {
-	let command = 'delete from bets where betNumber in (13,14)'
+	let command = 'ALTER TABLE bets ADD COLUMN label1 TEXT;'
 	db.prepare(command).run()
 	console.log("runned " + command)
 }
@@ -249,5 +254,6 @@ export default {
 	get_UnderDate: get_UnderDate,
 	add_decentraBet: add_decentraBet,
 	deleteBet:deleteBet,
-	getFromIDAPI:getFromIDAPI
+	getFromIDAPI:getFromIDAPI,
+	updateBetLabel:updateBetLabel
 }

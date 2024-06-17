@@ -54,7 +54,7 @@ const Bet = (props) => {
         }
         setIsLoading(false)
         if (props.betContract !== undefined) {
-
+          console.log("betCOntract init")
           await new Promise(async next2 => {
             for (let i = 0; i < sizeBet; i++) {
               try {

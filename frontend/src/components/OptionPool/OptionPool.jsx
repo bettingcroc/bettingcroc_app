@@ -9,34 +9,37 @@ function OptionPool(props) {
 
   useEffect(() => {
     try {
-      if (props.status !== 2) {
-        props.betContract.methods
-          .getAmountInPool(props.betNumber, props.optionNumber)
-          .call()
-          .then((result) => {
-            try {
-              setMoneyInPool(result)
+      if (props.betContract !== undefined) {
+        if (props.status !== 2) {
+          props.betContract.methods
+            .getAmountInPool(props.betNumber, props.optionNumber)
+            .call()
+            .then((result) => {
+              try {
+                console.log(result)
+                setMoneyInPool(result)
 
-            } catch (error) { }
-          });
+              } catch (error) { }
+            });
+        }
+        else {
+          props.betContract.methods
+            .getAmountInPoolEnd(props.betNumber, props.optionNumber)
+            .call()
+            .then((result) => {
+              try {
+                setMoneyInPool(result)
+
+              } catch (error) { }
+            })
+            .catch((e) => { console.log(e) })
+        }
       }
-      else {
-        props.betContract.methods
-          .getAmountInPoolEnd(props.betNumber, props.optionNumber)
-          .call()
-          .then((result) => {
-            try {
-              setMoneyInPool(result)
-
-            } catch (error) { }
-          })
-          .catch((e) => { console.log(e) })
-      }
 
 
-    } catch (error) { }
+    } catch (error) { console.log(error) }
 
-  }, [props.moneyInOtherPools])
+  }, [props.moneyInOtherPools, props.betContract])
 
   useEffect(() => {
     try {

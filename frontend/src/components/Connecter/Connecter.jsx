@@ -17,13 +17,10 @@ function Connecter(props) {
     if (props.defaultAccount === undefined) {
       setConnected(false)
     }
-    console.log(props.defaultAccount)
     if (props.defaultAccount !== undefined && props.defaultAccount !== "") {
       setConnected(true)
       props.testLogin()
-      console.log(props.logged + " " + modalState)
       if (!props.logged && modalState === "open") {
-        console.log("modal to login")
         setModalState("login")
       } else {
         setModalState("closed")
@@ -34,7 +31,6 @@ function Connecter(props) {
     }
   }, [props.defaultAccount])
   useEffect(() => {
-    console.log(props.logged)
     if (props.logged) {
       closeModal()
     }
@@ -42,7 +38,6 @@ function Connecter(props) {
 
 
   useEffect(() => {
-    console.log(modalState)
   }, [modalState])
   function openModal() {
     setModalState("open")

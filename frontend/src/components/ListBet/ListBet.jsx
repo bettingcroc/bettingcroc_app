@@ -6,6 +6,7 @@ import { MY_SERVER } from "../../consts"
 import { CircularProgress } from "@mui/material";
 import teams from "../../teams.json"
 import { useSearchParams } from "react-router-dom";
+import flags from '../../assets/emojis.json';
 const emojis = {
   "basketball": "🏀",
   "football": "⚽",
@@ -33,13 +34,11 @@ function ListBet(props) {
   useEffect(() => {
     props.vueSetter("listBets")
     props.mainVueSetter("bet")
-    console.log("render")
+    console.log(flags["Hungary"])
   }, []);
   useEffect(() => {
     let league = searchParams.get("league")
     let sport = searchParams.get("sport")
-    console.log(league)
-    console.log(sport)
     let url = "/api/lastbets"
     if (league) {
       url += `?league=${league}`
@@ -119,7 +118,7 @@ function ListBet(props) {
         })
     });
   }, [searchParams])
-  function updateTimer(){}
+  function updateTimer() { }
 
   return (
     <div id="listBets" className={props.theme === "light" ? "backgroundLight" : "backgroundDark"} >
@@ -138,11 +137,19 @@ function ListBet(props) {
                           <div className="topBetsMiniMiniBox1"><p>{emojis[item.type]} {emojis[item.country]}</p></div>
                           <div className="topBetsMiniMiniBox2">
                             <div className="lineTopBetsMiniMiniBox2">
-                              <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[0]}</p>
+                              <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>
+                                {item.league === "UEFA European Championship - Group Stage" ? flags[item.name.split('-')[0].replace(" ", "")] : null}
+                                {" "}
+                                {item.name.split('-')[0]}
+                              </p>
                               {item.league === "NBA" && <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[0].replaceAll(' ', '')])}></img>}
                             </div>
                             <div className="lineTopBetsMiniMiniBox2">
-                              <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item.name.split('-')[1]}</p>
+                              <p id="nameBetTopBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>
+                                {item.league === "UEFA European Championship - Group Stage" ? flags[item.name.split('-')[1].replace(" ", "")] : null}
+                                {" "}
+                                {item.name.split('-')[1]}
+                              </p>
                               {item.league === "NBA" && <img className="jerseyImg" src={require("../../assets/jerseys/" + teams["NBA"][item.name.split("-")[1].replaceAll(' ', '')])}></img>}
                             </div>
                           </div>
@@ -162,10 +169,14 @@ function ListBet(props) {
                 <p id="dateListBet" className={props.theme === "light" ? "blackP" : "whiteP"}>{item}</p>
                 {matchesSorted[index].map((item2, index2) =>
                   <Link to={"/bet?n=" + item2.betNumber} key={item2.betNumber} className={props.theme === "light" ? "betLineListBets" : "betLineListBets"} >
-                    <p className="greyP">{convertToReadableTime(item2.timestamp)}</p>
+                    <p className="scheduleBetLine">{convertToReadableTime(item2.timestamp)}</p>
 
                     {item2.league === "NBA" && <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[0].replaceAll(' ', '')])}></img>}
-                    <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>{item2.name}</p>
+                    <p id="nameBetListBetsP" className={props.theme === "light" ? "blackP" : "whiteP"}>
+                    {item2.league === "UEFA European Championship - Group Stage" ? flags[item2.name.split('-')[0].replace(" ", "")]+" " : null}
+                      {item2.name}
+                      {item2.league === "UEFA European Championship - Group Stage" ? " "+flags[item2.name.split('-')[1].replace(" ", "")] : null}
+                      </p>
                     {item2.league === "NBA" && <img className="jerseyImgList" src={require("../../assets/jerseys/" + teams["NBA"][item2.name.split("-")[1].replaceAll(' ', '')])}></img>}
 
                     <p className="emojiBetline">{emojis[item2.type]} {emojis[item2.country]}</p>

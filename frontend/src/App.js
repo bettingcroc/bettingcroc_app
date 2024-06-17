@@ -103,17 +103,16 @@ function App() {
             method: "GET",
             credentials: 'include'
         };
-        return new Promise((resolve)=>{
+        return new Promise((resolve) => {
             fetch(url, options).then((res) => {
                 res.json().then((data) => {
-                    console.log(data)
                     if (data.isLogged === true) { setLogged(true) }
                     else { setLogged(false) }
                     resolve(data.isLogged)
                 })
             });
         })
-        
+
     }
     function setAllNotifsRead() {
         setTimeout(() => {
@@ -212,61 +211,38 @@ function App() {
     }, [defaultAccount])
     async function initConnection() {
         let walletType = localStorage.getItem("walletType")
-        console.log(walletType !== undefined ? "wallet stored is " + walletType : "no wallet stored")
-        testLogin().then((logged)=>{
-            if(!logged){
+        testLogin().then((logged) => {
+            if (walletType === "Metamask") {
+                if (web3.givenProvider) {
+                    web3.setProvider(Web3.givenProvider)
+                }
+            }
+            else if (walletType === "WC") {
+                if (localStorage.getItem("WCM_VERSION") !== null) {
+                    //  Create WalletConnect Provider
+                    let initWC = async () => {
+                        let provider = await EthereumProvider.init({
+                            projectId: "ad6d1b7dc7e99024e7432f55a7c68f0c",
+                            infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
+                            chains: [97],
+                            rpcMap: {
+                                97: "https://rpc.ankr.com/bsc_testnet_chapel"
+                                // ...
+                            },
+                            showQrModal: true
+                        });
+                        await provider.enable();
+                        web3.setProvider(provider)
+                        web3.eth.getAccounts().then((res) => { accountChangedHandler(res[0]) })
+                    }
+                    initWC()
+
+                }
+            }
+            if (!logged) {
                 disconnect()
             }
             else{
-                if (walletType === "Metamask") {
-                    if (web3.givenProvider) {
-                        web3.setProvider(Web3.givenProvider)
-                    }
-                }
-                else if (walletType === "WC") {
-                    if (localStorage.getItem("WCM_VERSION") !== null) {
-                        //  Create WalletConnect Provider
-                        let initWC = async () => {
-                            let provider = await EthereumProvider.init({
-                                projectId: "ad6d1b7dc7e99024e7432f55a7c68f0c",
-                                infuraId: "f5ba98b6c0c040d69338b06f9b270b3b",
-                                chains: [97],
-                                rpcMap: {
-                                    97: "https://rpc.ankr.com/bsc_testnet_chapel"
-                                    // ...
-                                },
-                                showQrModal: true
-                            });
-                            await provider.enable();
-                            web3.setProvider(provider)
-                            web3.eth.getAccounts().then((res) => { accountChangedHandler(res[0]) })
-                        }
-                        initWC()
-        
-                    }
-                }/*
-            else if (walletType === "Coinbase") {
-              try {
-                ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
-                  web3.setProvider(Web3.givenProvider)
-                  this.accountChangedHandler(result[0]);
-                  console.log(result[0])
-                  //this.setState({ connButtonText: "Wallet Connected" });
-                  //getAccountBalance(result[0]);
-                })
-                  .catch((error) => {
-                    //this.setState({ errorMessage: error.message });
-                  });
-                // Initialize a Web3 object
-                //console.log(web3)
-                web3.setProvider(ethereum)
-              }
-              catch (e) {
-              }
-            }*/
-                else {
-                    web3.setProvider(DEFAULT_ETH_JSONRPC_URL)
-                }
                 let getAccounts = async () => {
                     const accounts = await web3.eth.getAccounts();
                     if (accounts[0] !== undefined) {
@@ -274,29 +250,52 @@ function App() {
                     }
                 }
                 getAccounts()
-                setMultiBetContract(new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS));
-                setUSDTContract(new web3.eth.Contract(USDT_ABI, USDT_ADDRESS));
-                setMBTContract(new web3.eth.Contract(MBT_ABI, MBT_ADDRESS));
-                setDecentrabetContract(new web3.eth.Contract(DECENTRABET_ABI, DECENTRABET_ADDRESS));
-                //this.accountChangedHandler(accounts[0])
-                setLoading(false);
-                if (defaultAccount !== undefined) {
-                    updateMyBets()
-                    updateMyP2PBets()
-                }
-                if (window.ethereum) {
-                    if (window.ethereum.networkVersion != 97) {
-                    }
-                }
-                if (window.ethereum) {
-                    window.ethereum.on('chainChanged', () => {
-                        window.location.reload();
-                    })
-                    window.ethereum.on('accountsChanged', () => {
-                        logout()
-                    })
+            }
+            /*
+        else if (walletType === "Coinbase") {
+          try {
+            ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
+              web3.setProvider(Web3.givenProvider)
+              this.accountChangedHandler(result[0]);
+              console.log(result[0])
+              //this.setState({ connButtonText: "Wallet Connected" });
+              //getAccountBalance(result[0]);
+            })
+              .catch((error) => {
+                //this.setState({ errorMessage: error.message });
+              });
+            // Initialize a Web3 object
+            //console.log(web3)
+            web3.setProvider(ethereum)
+          }
+          catch (e) {
+          }
+        }*/
+
+            
+            setMultiBetContract(new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS));
+            setUSDTContract(new web3.eth.Contract(USDT_ABI, USDT_ADDRESS));
+            setMBTContract(new web3.eth.Contract(MBT_ABI, MBT_ADDRESS));
+            setDecentrabetContract(new web3.eth.Contract(DECENTRABET_ABI, DECENTRABET_ADDRESS));
+            //this.accountChangedHandler(accounts[0])
+            setLoading(false);
+            if (defaultAccount !== undefined) {
+                updateMyBets()
+                updateMyP2PBets()
+            }
+            if (window.ethereum) {
+                if (window.ethereum.networkVersion != 97) {
                 }
             }
+            if (window.ethereum) {
+                window.ethereum.on('chainChanged', () => {
+                    window.location.reload();
+                })
+                window.ethereum.on('accountsChanged', () => {
+                    logout()
+                })
+            }
+
         })
 
     }
@@ -340,19 +339,19 @@ function App() {
 
     function connectCoinBase() { }
     /*
+     
+    connectCoinBase = async () => {
     
-  connectCoinBase = async () => {
-
-
-
+    
+    
     ethereum.request({ method: 'eth_requestAccounts' }).then((result) => {
       web3.setProvider(Web3.givenProvider)
       console.log(result[0])
-
+    
       this.accountChangedHandler(result[0]);
       this.setState({ connButtonText: "Wallet Connected" });
       localStorage.setItem("walletType", "Coinbase")
-
+    
       //getAccountBalance(result[0]);
     })
       .catch((error) => {
@@ -361,12 +360,11 @@ function App() {
     // Initialize a Web3 object
     console.log(web3)
     web3.setProvider(ethereum)
-  }*/
+    }*/
     async function logout() {
         let url = MY_SERVER + "/logout";
         let options = { method: "POST", credentials: 'include' };
         fetch(url, options).then((res) => {
-            console.log("logged out");
             if (res.status === 200) {
                 setLogged(false)
             }
@@ -374,7 +372,6 @@ function App() {
     }
     function disconnect() {
         logout()
-        console.log("disconnecting wallet")
         setDefaultAccount(undefined)
         web3.setProvider(DEFAULT_ETH_JSONRPC_URL)
         let theme = localStorage.getItem("theme")
