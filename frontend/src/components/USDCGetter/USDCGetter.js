@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-const USDTGetterABI = [
+const USDCGetterABI = [
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -7,40 +7,40 @@ const USDTGetterABI = [
   },
   {
     "inputs": [],
-    "name": "getUsdt",
+    "name": "getUsdc",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
-const USDTGetterAddress = "0x1A40a120E6cE31f26F8E9aBCB175b19DE68B3093"
+const USDCGetterAddress = "0x1A40a120E6cE31f26F8E9aBCB175b19DE68B3093"
 
-function UsdtGetter(props) {
+function UsdcGetter(props) {
   const [contract, setContract] = useState()
   useEffect(() => {
     if (props.web3 !== undefined) {
-      setContract(new props.web3.eth.Contract(USDTGetterABI, USDTGetterAddress))
+      setContract(new props.web3.eth.Contract(USDCGetterABI, USDCGetterAddress))
       console.log("contract init")
     }
   }, [props.web3])
 
-  function get5000USDT() {
-    contract.methods.getUsdt().send({ from: props.address })
+  function get5000USDC() {
+    contract.methods.getUsdc().send({ from: props.address })
       .once('receipt', (receipt) => {
         console.log("approve success")
       })
   }
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}>
-      <p style={{ fontSize: "20px" }}>Get 5000 USDT here</p>
-      <button style={{ backgroundColor: "#089334", borderRadius: "10px", padding: "15px", border: "none", color: "white" }} onClick={get5000USDT}>GET 5000 USDT</button>
+      <p style={{ fontSize: "20px" }}>Get 5000 USDC here</p>
+      <button style={{ backgroundColor: "#089334", borderRadius: "10px", padding: "15px", border: "none", color: "white" }} onClick={get5000USDC}>GET 5000 USDC</button>
     </div>
   );
 
 }
 
-UsdtGetter.propTypes = {};
+UsdcGetter.propTypes = {};
 
-UsdtGetter.defaultProps = {};
+UsdcGetter.defaultProps = {};
 
-export default UsdtGetter;
+export default UsdcGetter;

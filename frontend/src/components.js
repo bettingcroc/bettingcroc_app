@@ -9,11 +9,11 @@ import Account from "./components/Account/Account";
 import BetMaker from "./components/betMaker/betMaker";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
 import LandingComponent from "./components/LandingComponent/LandingComponent"
-import USDTGetter from "./components/USDTGetter/USDTGetter"
+import USDCGetter from "./components/USDCGetter/USDCGetter"
 import GetGains from "./components/GetGains/GetGains";
 import BetterMobile from "./components/BetterMobile/BetterMobile";
 import BetterBottomRight from "./components/BetterBottomRight/BetterBottomRight";
 import Base from "./components/Base/Base"
 import NotificationsMobile from "./components/NotificationsMobile/NotificationsMobile"
 import LeagueBet from "./components/LeagueBet/LeagueBet.js";
-export {LeagueBet, ListBet, Bet, Connecter, MyP2PBets, DecentraBet, Classement, MyBets, Account, BetMaker, ComingSoon, LandingComponent, USDTGetter, GetGains, BetterMobile, BetterBottomRight, Base, NotificationsMobile }
+export {LeagueBet, ListBet, Bet, Connecter, MyP2PBets, DecentraBet, Classement, MyBets, Account, BetMaker, ComingSoon, LandingComponent, USDCGetter, GetGains, BetterMobile, BetterBottomRight, Base, NotificationsMobile }

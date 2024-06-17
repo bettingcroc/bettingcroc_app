@@ -7,7 +7,10 @@
   font-family: 'Poppins';
   src: local('MyFont'), url(./Poppins-Regular.ttf)
 }
-
+@font-face {
+  font-family: 'PoppinsBold';
+  src: local('MyFont'), url(./Poppins-Bold.ttf)
+}
 @font-face {
   font-family: 'UnboundedBold';
   src: local('MyFont'), url(./Unbounded-Bold.ttf)

@@ -15,14 +15,14 @@ function DecentraBetCreator(props) {
   const [description, setDescription] = useState("")
   const [link, setLink] = useState("")
 
-  function approveUSDT(amount) {
-    let approveToast = props.toast.loading("Approving USDT...", { closeButton: true })
-    props.usdtContract.methods
+  function approveUSDC(amount) {
+    let approveToast = props.toast.loading("Approving USDC...", { closeButton: true })
+    props.usdcContract.methods
       .approve(DECENTRABET_ADDRESS, weiconvert(amount))
       .send({ from: props.address })
       .once("receipt", (receipt) => {
         console.log("approve success");
-        props.toast.update(approveToast, { render: "USDT approved", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
+        props.toast.update(approveToast, { render: "USDC approved", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
       });
   }
   function createDecentraBet(oracle, amount, authorized, playersNumber, privateBet, description, link) {
@@ -155,10 +155,10 @@ function DecentraBetCreator(props) {
         <div id="lastLineDecentraBet">
           <button className="buttonViewDecentraBet"
             onClick={(event) => {
-              approveUSDT(amountToBet);
+              approveUSDC(amountToBet);
             }}
           >
-            Approve USDT
+            Approve USDC
           </button>
           <button className="buttonViewDecentraBet" onClick={(event) => {
             createDecentraBet(oracle, amountToBet, authorized, playersNumber, privateBet, description, link);

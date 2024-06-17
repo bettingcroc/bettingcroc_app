@@ -75,7 +75,7 @@ contract Proxiable {
     }
 }
 
-abstract contract IUSDT {
+abstract contract IUSDC {
     function approve(
         address _spender,
         uint _value
@@ -111,12 +111,12 @@ abstract contract IMBT {
     ) external virtual returns (bool);
 }
 
-contract MultiBetUSDTMultiOptions is Pures, AccessControl {
+contract MultiBetUSDCMultiOptions is Pures, AccessControl {
     uint256 lastBetNumber;
     mapping(uint256 => string) betNumberToBetName;
     mapping(string => uint256) betNameToBetNumber;
     mapping(uint256 => uint256) betOptions;
-    IUSDT TetherContract;
+    IUSDC TetherContract;
     IMBT MBTokenContract;
     mapping(uint256 => bool) closed;
     mapping(uint256 => bool) dead;
@@ -134,7 +134,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
     mapping(uint256 => uint256) amountPoolWinner;
     mapping(uint256 => uint256) amountPoolLoser;
 
-    address USDTaddress;
+    address USDCaddress;
     address MBTaddress;
     mapping(address => uint256) score;
 
@@ -267,8 +267,8 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
         }
     }
 
-    /*function getUSDTaddress()public view returns(address){
-        return USDTaddress;
+    /*function getUSDCaddress()public view returns(address){
+        return USDCaddress;
     }
     function getMBTaddress()public view returns(address){
         return MBTaddress;
@@ -612,13 +612,13 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
     /////////////////////////////////// PURES//////////////////////////////////////////////////////////////
 
     function constructor1() public {
-        TetherContract = IUSDT(
+        TetherContract = IUSDC(
             address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5)
         );
         MBTokenContract = IMBT(
             address(0x8bC9B949D39d0136ea98CF3AF5d770391e76d999)
         );
-        USDTaddress = address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5);
+        USDCaddress = address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5);
         MBTaddress = address(0x8bC9B949D39d0136ea98CF3AF5d770391e76d999);
         feesRate = 6;
         lastBetNumber = 0;
@@ -1075,7 +1075,7 @@ contract MultiBetUSDTMultiOptions is Pures, AccessControl {
     }
 }
 
-contract MyFinalContract is MultiBetUSDTMultiOptions, Proxiable {
+contract MyFinalContract is MultiBetUSDCMultiOptions, Proxiable {
     function updateCode(address newCode) public onlyRole(DEFAULT_ADMIN_ROLE) {
         updateCodeAddress(newCode);
     }

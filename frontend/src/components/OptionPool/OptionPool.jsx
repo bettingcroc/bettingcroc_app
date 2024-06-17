@@ -16,7 +16,6 @@ function OptionPool(props) {
             .call()
             .then((result) => {
               try {
-                console.log(result)
                 setMoneyInPool(result)
 
               } catch (error) { }
@@ -32,12 +31,12 @@ function OptionPool(props) {
 
               } catch (error) { }
             })
-            .catch((e) => { console.log(e) })
+            .catch((e) => { })
         }
       }
 
 
-    } catch (error) { console.log(error) }
+    } catch (error) { }
 
   }, [props.moneyInOtherPools, props.betContract])
 
@@ -47,7 +46,6 @@ function OptionPool(props) {
         .getAmountInPoolFromUserEnd(props.betNumber, props.optionNumber, props.address)
         .call()
         .then((result) => {
-          console.log(result)
           try {
             setMoneyIgot(result)
 
@@ -82,16 +80,16 @@ function OptionPool(props) {
       <div className='tableOptionPool'>
         {props.status === 0 ?
 
-          <p className={props.theme === "light" ? "blackP cellOptionPool1" : "lightGreyP cellOptionPool1"}>To win : {props.moneyInOtherPools === null ? null : ((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))).toFixed(2)} USDT</p>
+          <p className={props.theme === "light" ? "blackP cellOptionPool1" : "lightGreyP cellOptionPool1"}>To win : {props.moneyInOtherPools === null ? null : ((parseFloat(props.amountToBet) * props.moneyInOtherPools[props.optionNumber]) / ((parseFloat(moneyInPool) / decimalsConverter(10)) + parseFloat(props.amountToBet))).toFixed(2)} USDC</p>
           : null}
 
 
         <p className={props.theme === "light" ? "blackP cellOptionPool2" : "lightGreyP cellOptionPool2"}>
-          Money in the pool : {parseFloat(moneyInPool) / decimalsConverter(10)} USDT
+          Money in the pool : {parseFloat(moneyInPool) / decimalsConverter(10)} USDC
         </p>
 
 
-        {props.moneyInOtherPools === null ? null : props.address !== undefined && moneyIgot > 0 ? <p className={props.theme === "light" ? "blackP cellOptionPool2" : "lightGreyP cellOptionPool2"}>I betted  {parseFloat(moneyIgot) / decimalsConverter(10)}  USDT and can win {(parseFloat(moneyIgot / moneyInPool * props.moneyInOtherPools[props.optionNumber]) + parseFloat(moneyIgot) / decimalsConverter(10)).toFixed(2)} USDT</p>
+        {props.moneyInOtherPools === null ? null : props.address !== undefined && moneyIgot > 0 ? <p className={props.theme === "light" ? "blackP cellOptionPool2" : "lightGreyP cellOptionPool2"}>I betted  {parseFloat(moneyIgot) / decimalsConverter(10)}  USDC and can win {(parseFloat(moneyIgot / moneyInPool * props.moneyInOtherPools[props.optionNumber]) + parseFloat(moneyIgot) / decimalsConverter(10)).toFixed(2)} USDC</p>
           : null}
 
       </div>

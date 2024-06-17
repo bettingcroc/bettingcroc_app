@@ -7,6 +7,8 @@ import { CircularProgress } from "@mui/material";
 import teams from "../../teams.json"
 import { useSearchParams } from "react-router-dom";
 import flags from '../../assets/emojis.json';
+
+
 const emojis = {
   "basketball": "🏀",
   "football": "⚽",
@@ -19,6 +21,8 @@ const emojis = {
 const leaguesNames = {
   "nba": "NBA"
 }
+
+
 function ListBet(props) {
   const [leaguebetNumber, setLeaguebetNumber] = useState()
   const [leaguebetTimestamp, setLeaguebetTimestamp] = useState()
@@ -132,7 +136,7 @@ function ListBet(props) {
                   <div className={props.theme === "light" ? "fireLight" : "fireDark"} key={item.betNumber}>
                     <Link className="topBetsBox" to={"/bet?n=" + item.betNumber} >
                       <div id={"topBetsBox" + (index + 1)} className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
-                        <div className="topBetsMiniBox1"><p className="gold">{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDT LOCKED</p></div>
+                        <div className="topBetsMiniBox1"><p className="gold">{parseFloat(item.moneyBetted) / decimalsConverter(10)} USDC LOCKED</p></div>
                         <div className="topBetsMiniBox2">
                           <div className="topBetsMiniMiniBox1"><p>{emojis[item.type]} {emojis[item.country]}</p></div>
                           <div className="topBetsMiniMiniBox2">

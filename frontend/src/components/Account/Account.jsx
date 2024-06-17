@@ -22,8 +22,6 @@ function Account(props) {
   const [betsType, setBetsType] = useState("default")
   const [betsToDisplay, setBetsToDisplay] = useState()
   const navigate = useNavigate();
-  console.log("account")
-
   useEffect(() => {
     props.mainVueSetter("account")
     props.vueSetter("account")
@@ -51,7 +49,7 @@ function Account(props) {
           });
         }
       }
-      else { setLogged(false); props.setLogged(false);          navigate('/')
+      else { setLogged(false); props.setLogged(false);navigate('/')
     }
     })
   }, [])
@@ -215,7 +213,7 @@ function Account(props) {
                     <p className={props.theme === "light" ? "titleBetAccount blackP" : " titleBetAccount whiteP"}>{item.optionsArray.split(",")[0] + " - " + item.optionsArray.split(",")[item.optionsArray.split(",").length - 1]}</p>
                     <p className={props.theme === "light" ? "dateBetAccount blackP" : " dateBetAccount whiteP"}>{timeConverterDate(item.date)}</p>
                     {<div className="divMisesAccount">
-                      {item.mise && item.mise.map((mise, index) => { if (mise != 0) { return <p key={index} className={props.theme === "light" ? "miseBetAccount blackP" : " miseBetAccount whiteP"}>{parseFloat(mise) / decimalsConverter(10) + " USDT on " + item.optionsArray.split(",")[index]}</p> } else return null }
+                      {item.mise && item.mise.map((mise, index) => { if (mise != 0) { return <p key={index} className={props.theme === "light" ? "miseBetAccount blackP" : " miseBetAccount whiteP"}>{parseFloat(mise) / decimalsConverter(10) + " USDC on " + item.optionsArray.split(",")[index]}</p> } else return null }
                       )}
                     </div>}
                     <p className={props.theme === "light" ? "blackP" : "whiteP"}>{item.betState}</p>
@@ -231,7 +229,7 @@ function Account(props) {
         <p className={props.theme === "light" ? "headerTitle accountP" : "headerTitleDark accountP"} >Gallery</p>
 
         </div>*/}
-      {!props.logged && <div id="needToLoginAccountDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}><Authentification web3={props.web3} address={props.address} setLogged={props.setLogged} logged={props.logged}></Authentification> <p className={props.theme === "light" ? "blackP" : "whiteP"}>now to get access to full features of Bettingcroc.</p></div>}
+      {/*!props.logged && <div id="needToLoginAccountDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}><Authentification web3={props.web3} address={props.address} setLogged={props.setLogged} logged={props.logged}></Authentification> <p className={props.theme === "light" ? "blackP" : "whiteP"}>now to get access to full features of Bettingcroc.</p></div>*/}
 
 
       {props.logged ? <div id="friendsDiv" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>

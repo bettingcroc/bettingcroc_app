@@ -49,7 +49,7 @@ function P2PBetOption(props) {
         </div>
         <div id="line3P2POption">
           <p className={props.theme === "light" ? "blackP" : "whiteP"}>Amount bettable : </p>
-          <p className={props.theme === "light" ? "blackP" : "whiteP"} id="amountBettableP">{props.args !== undefined ? props.args[2] === "indispo" ? "Nothing :/" : props.args[2] + " USDT" : null} </p>
+          <p className={props.theme === "light" ? "blackP" : "whiteP"} id="amountBettableP">{props.args !== undefined ? props.args[2] === "indispo" ? "Nothing :/" : props.args[2] + " USDC" : null} </p>
         </div>
 
       </div>

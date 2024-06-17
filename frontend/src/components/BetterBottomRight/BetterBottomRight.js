@@ -11,11 +11,11 @@ function BetterBottomRight(props) {
       <div id="underBottomRightBar">
         <div id="inputLine">
           <p id="inputP">Input</p>
-          <p id="inputP2">{props.betArgs === null ? null : parseFloat(props.betArgs.amountToBet) / decimalsConverter(10) + " USDT"}</p>
+          <p id="inputP2">{props.betArgs === null ? null : parseFloat(props.betArgs.amountToBet) / decimalsConverter(10) + " USDC"}</p>
         </div>
         <div id="gainsLine">
           <p id="gainsP">Gains</p>
-          <p id="gainsP2">{props.betArgs === null ? null : props.betArgs === null ? null : props.betArgs.toWin + " USDT"} </p>
+          <p id="gainsP2">{props.betArgs === null ? null : props.betArgs === null ? null : props.betArgs.toWin + " USDC"} </p>
         </div>
       </div>
       {props.address === undefined ? <p id="noAdressPBottomRight">Connect your wallet to start betting !</p> : <div id='buttonsBottomRightBar'>

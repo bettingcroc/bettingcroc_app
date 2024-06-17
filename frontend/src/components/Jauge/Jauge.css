@@ -88,11 +88,15 @@
 }
 
 #inputStake {
-    width: 146px;
+    width: 100px;
+    text-align: center;
     border-radius: 5px;
     border: solid;
     border-width: 1px;
     border-color: #c0c4c7;
+    font-family: PoppinsBold;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #jauge {

@@ -4,7 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "./2_Owner.sol";
 
-abstract contract IUSDT{
+abstract contract IUSDC{
     function approve(address _spender, uint _value) virtual external returns (bool);
     function transferFrom(address _from, address _to, uint _value) virtual public;
     function transfer(address recipient, uint256 amount) virtual external returns (bool);
@@ -12,7 +12,7 @@ abstract contract IUSDT{
 
 
 contract Bet is Owner{
-    IUSDT TetherContract;
+    IUSDC TetherContract;
     bool closed;
     bool dead;
     uint256 argentTotalLakers;
@@ -28,7 +28,7 @@ contract Bet is Owner{
     
     
     constructor(address _tetherAddress){
-        TetherContract=IUSDT(_tetherAddress);
+        TetherContract=IUSDC(_tetherAddress);
         argentTotalLakers=0;
         argentTotalClippers=0;
     }

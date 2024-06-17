@@ -99,7 +99,7 @@ const LeagueBet = (props) => {
       {!isLoading ?
         <div id={props.theme === "light" ? "superBetCompletLight" : "superBetCompletDark"}>
           {status === 0 ?
-            <Jauge address={props.address} balanceUSDT={props.balanceUSDT} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
+            <Jauge address={props.address} balanceUSDC={props.balanceUSDC} amountToBet={props.amountToBet} setAmountBet={props.setAmountBet} theme={props.theme}></Jauge> : null}
           <div className={status === 0 ? "betCompletOpen" : "betComplet"}>
             <div id="underNameBet" className={props.theme === "light" ? "whiteDiv" : "blackDiv"}>
               <div id="countryLeagueDate">
@@ -123,7 +123,7 @@ const LeagueBet = (props) => {
                     optionsArray.map((item, index) => {
                       return <div className='optionLineLeague' key={index}>
                         {item.map((item2, index2) => {
-                          return <OptionPool key={item2} team={item2} status={status} moneyInOtherPools={moneyInPools === undefined ? null : moneyInPools} betNumber={searchParams.get("n")} optionNumber={index2} betContract={props.betContract} usdtContract={props.usdtContract} address={props.address} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betName={optionsArray} theme={props.theme} betLeague={league}></OptionPool>
+                          return <OptionPool key={item2} team={item2} status={status} moneyInOtherPools={moneyInPools === undefined ? null : moneyInPools} betNumber={searchParams.get("n")} optionNumber={index2} betContract={props.betContract} usdcContract={props.usdcContract} address={props.address} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} betName={optionsArray} theme={props.theme} betLeague={league}></OptionPool>
 
                         })}
                       </div>

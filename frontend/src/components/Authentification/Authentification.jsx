@@ -5,7 +5,7 @@ import "./Authentification.css"
 
 
 function Authentification(props) {
-  useEffect(() => {console.log("testLogin"); props.testLogin() }, [])
+  useEffect(() => { props.testLogin() }, [])
 
   async function getNonce(address) {
     console.log("trying request nonce");
@@ -34,7 +34,7 @@ function Authentification(props) {
     await getNonce(props.address)
       .then(async (nonce) => {
         await requestLogin(nonce.nonce, props.web3, props.address)
-          .then((res) => { console.log(res); props.testLogin() })
+          .then((res) => { props.testLogin() })
       })
 
   }

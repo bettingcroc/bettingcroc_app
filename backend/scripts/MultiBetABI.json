@@ -1114,7 +1114,7 @@
             "type": "address[]"
           }
         ],
-        "internalType": "struct MultiBetUSDTMultiOptions.p2pBet[]",
+        "internalType": "struct MultiBetUSDCMultiOptions.p2pBet[]",
         "name": "",
         "type": "tuple[]"
       }

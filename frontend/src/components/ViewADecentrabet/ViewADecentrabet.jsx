@@ -13,9 +13,9 @@ function ViewADecentrabet(props) {
   const [description, setDescription] = useState()
   const [link, setLink] = useState()
 
-  function approveUSDT(amount) {
+  function approveUSDC(amount) {
     amount = weiconvert(amount)
-    props.usdtContract.methods
+    props.usdcContract.methods
       .approve(DECENTRABET_ADDRESS, amount)
       .send({ from: props.address })
       .once("receipt", (receipt) => {
@@ -110,9 +110,9 @@ function ViewADecentrabet(props) {
         </div>
         <div className="lineviewADecentraBetColumnBig">
           <div id="line3viewADecentraBet" className="lineviewADecentraBetColumn">
-            <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>Amount to Bet : <span className="cyanP">{amountToBet} USDT</span> </p>
+            <p className={props.theme === "light" ? "blackP" : "lightGreyP"}>Amount to Bet : <span className="cyanP">{amountToBet} USDC</span> </p>
             <div id="line3viewADecentraBet2">
-              <button className="buttonViewDecentraBet" onClick={(event) => { approveUSDT(amountToBet) }}>Approve USDT</button>
+              <button className="buttonViewDecentraBet" onClick={(event) => { approveUSDC(amountToBet) }}>Approve USDC</button>
 
               <button className="buttonViewDecentraBet" onClick={joinBet}>Join Bet</button>
             </div>

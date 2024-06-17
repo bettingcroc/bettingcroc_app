@@ -28,8 +28,8 @@ function DecentraBet(props) {
         <p id='introDecentraBetP' className={props.theme === "light" ? "blackP" : "lightGreyP"}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra tellus libero, dapibus dapibus nibh mattis id. Cras eu lacinia mauris. In sed aliquet ante, ac rhoncus velit. Aliquam et elit turpis. Duis sit amet cursus justo, a condimentum justo. Integer neque ipsum, tristique sit amet odio nec, pulvinar accumsan elit. Cras tincidunt lobortis tortor, vel luctus felis porta et. Phasellus vel risus ac erat pretium dapibus. </p>
       </div>
       <div id='decentraBetInteracter'>
-        <ViewADecentrabet decentrabetContract={props.decentrabetContract} usdtContract={props.usdtContract} address={props.address} theme={props.theme}></ViewADecentrabet>
-        <DecentraBetCreator toast={props.toast} theme={props.theme} decentrabetContract={props.decentrabetContract} usdtContract={props.usdtContract} address={props.address}></DecentraBetCreator>
+        <ViewADecentrabet decentrabetContract={props.decentrabetContract} usdcContract={props.usdcContract} address={props.address} theme={props.theme}></ViewADecentrabet>
+        <DecentraBetCreator toast={props.toast} theme={props.theme} decentrabetContract={props.decentrabetContract} usdcContract={props.usdcContract} address={props.address}></DecentraBetCreator>
       </div>
       {myDecentrabets!==undefined && myDecentrabets.length!==0 && <MyDecentrabets myDecentrabets={myDecentrabets}></MyDecentrabets>}
 

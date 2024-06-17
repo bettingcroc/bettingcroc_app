@@ -3,7 +3,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 import "./contracts/pures.sol";
 
-abstract contract IUSDT {
+abstract contract IUSDC {
     function approve(
         address _spender,
         uint _value
@@ -22,10 +22,10 @@ abstract contract IUSDT {
 }
 
 contract decentraBet is Pures {
-    IUSDT TetherContract;
+    IUSDC TetherContract;
 
     constructor() {
-        TetherContract = IUSDT(
+        TetherContract = IUSDC(
             address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5)
         );
     }
