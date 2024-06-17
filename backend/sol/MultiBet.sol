@@ -93,7 +93,7 @@ abstract contract IUSDC {
     ) external virtual returns (bool);
 }
 
-abstract contract IMBT {
+abstract contract IBCROC {
     function approve(
         address _spender,
         uint _value
@@ -117,7 +117,7 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
     mapping(string => uint256) betNameToBetNumber;
     mapping(uint256 => uint256) betOptions;
     IUSDC TetherContract;
-    IMBT MBTokenContract;
+    IBCROC BCROCokenContract;
     mapping(uint256 => bool) closed;
     mapping(uint256 => bool) dead;
     mapping(uint256 => bool) canceled;
@@ -135,7 +135,7 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
     mapping(uint256 => uint256) amountPoolLoser;
 
     address USDCaddress;
-    address MBTaddress;
+    address BCROCaddress;
     mapping(address => uint256) score;
 
     bytes32 public constant CREATOR_ROLE = keccak256("CREATOR_ROLE");
@@ -270,12 +270,12 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
     /*function getUSDCaddress()public view returns(address){
         return USDCaddress;
     }
-    function getMBTaddress()public view returns(address){
-        return MBTaddress;
+    function getBCROCaddress()public view returns(address){
+        return BCROCaddress;
     }*/
     ///////////////////////////////////////// BET ON //////////////////////////////////////////
-    function payMBToken(address winnerAddress, uint256 amount) internal {
-        MBTokenContract.transfer(winnerAddress, amount);
+    function payBCROCoken(address winnerAddress, uint256 amount) internal {
+        BCROCokenContract.transfer(winnerAddress, amount);
         emit payment(winnerAddress, amount);
     }
 
@@ -304,7 +304,7 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
             myBetsUser[msg.sender].push(betNumber);
         }
 
-        uint256 earnedMBT = amountInPool[betNumber][option];
+        uint256 earnedBCROC = amountInPool[betNumber][option];
         uint256 divisor = 0;
         uint earnedFinal = 0;
         for (uint i = 0; i < betOptions[betNumber]; i++) {
@@ -314,12 +314,12 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
         }
         if (divisor === 0) {
             earnedFinal = amount * 20;
-        } else if (divisor / earnedMBT > 100) {
+        } else if (divisor / earnedBCROC > 100) {
             earnedFinal = amount * 100;
         } else {
-            earnedFinal = (amount * divisor) / earnedMBT;
+            earnedFinal = (amount * divisor) / earnedBCROC;
         }
-        payMBToken(msg.sender, earnedFinal);
+        payBCROCoken(msg.sender, earnedFinal);
         emit betting(msg.sender, betNumber, option, amount);
     }
 
@@ -615,11 +615,11 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
         TetherContract = IUSDC(
             address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5)
         );
-        MBTokenContract = IMBT(
+        BCROCokenContract = IBCROC(
             address(0x8bC9B949D39d0136ea98CF3AF5d770391e76d999)
         );
         USDCaddress = address(0x243F13935a8a855715c1e06d5dC6f0650354A1F5);
-        MBTaddress = address(0x8bC9B949D39d0136ea98CF3AF5d770391e76d999);
+        BCROCaddress = address(0x8bC9B949D39d0136ea98CF3AF5d770391e76d999);
         feesRate = 6;
         lastBetNumber = 0;
         amountToClaimForOwner = 0;
@@ -882,7 +882,7 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
         require(betNumber < getLastBetNumber() + 1, "bet doesn't exist");
         require(!getClosed(betNumber), "bet expired");
         TetherContract.transferFrom(msg.sender, address(this), amountToBet);
-        MBTokenContract.transferFrom(msg.sender, address(this), amountToBet);
+        BCROCokenContract.transferFrom(msg.sender, address(this), amountToBet);
         bool friends = false;
         if (authorized.length > 0) {
             friends = true;
@@ -936,7 +936,7 @@ contract MultiBetUSDCMultiOptions is Pures, AccessControl {
         ] += amountToBet;
         myP2PbetsUser[msg.sender].push(betNumber);
         myP2PbetsUserDetails[msg.sender][betNumber].push(p2pNumber);
-        payMBToken(msg.sender, amountToBet);
+        payBCROCoken(msg.sender, amountToBet);
     }
 
     function getMaxCoteP2PBet(

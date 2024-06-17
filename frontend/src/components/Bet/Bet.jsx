@@ -163,7 +163,7 @@ const Bet = (props) => {
 
             {
               status === 0 ?
-                <P2PBetCreator status={status} betContract={props.betContract} usdcContract={props.usdcContract} address={props.address} mbtContract={props.mbtContract} optionsArray={optionsArray} betNumber={searchParams.get("n")} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme} ></P2PBetCreator>
+                <P2PBetCreator status={status} betContract={props.betContract} usdcContract={props.usdcContract} address={props.address} bcrocContract={props.bcrocContract} optionsArray={optionsArray} betNumber={searchParams.get("n")} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme} ></P2PBetCreator>
                 :
                 <P2PBetOption status={status} logged={props.logged} socket={props.socket} friends={friends} args={p2pdisplayArgs} betNumber={searchParams.get("n")} betContract={props.betContract} usdcContract={props.usdcContract} address={props.address} optionsArray={optionsArray} amountToBet={props.amountToBet} setTypeBet={props.setTypeBet} setBetArgs={props.setBetArgs} theme={props.theme}></P2PBetOption>
             }

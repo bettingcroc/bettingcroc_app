@@ -168,6 +168,8 @@
   padding: 20px;
   gap: 30px;
   border-radius: 10px;
+  border: 1px solid black;
+
 }
 
 #walletUnderDivDark {
@@ -178,6 +180,7 @@
   padding: 20px;
   gap: 30px;
   border-radius: 10px;
+  border: 1px solid white;
 }
 
 #accountDisplay {

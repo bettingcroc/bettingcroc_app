@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4c412292.css",
-    "main.js": "/static/js/main.e3a6a58a.js",
+    "main.css": "/static/css/main.b2782506.css",
+    "main.js": "/static/js/main.cbf70ed8.js",
     "static/js/774.f19aae7e.chunk.js": "/static/js/774.f19aae7e.chunk.js",
     "static/js/459.ae6e45ae.chunk.js": "/static/js/459.ae6e45ae.chunk.js",
     "static/media/landingBackground.jpg": "/static/media/landingBackground.fb44a48435302738e543.jpg",
@@ -10,6 +10,7 @@
     "static/media/home.png": "/static/media/home.0b1b365162534d377c3c.png",
     "static/media/bettingCrocTitle.png": "/static/media/bettingCrocTitle.7139a7b0fe2e9c8f0cf3.png",
     "static/media/Poppins-Regular.ttf": "/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
+    "static/media/Poppins-Bold.ttf": "/static/media/Poppins-Bold.cdb29a5d7ccf57ff05a3.ttf",
     "static/media/crocodileRight.png": "/static/media/crocodileRight.d99a382fb3590e7b729c.png",
     "static/media/logged.png": "/static/media/logged.268623f80b7b4ba65967.png",
     "static/media/coinbase.png": "/static/media/coinbase.d690a1fe3c3e67478b4a.png",
@@ -46,13 +47,13 @@
     "static/media/decentraBetLight.png": "/static/media/decentraBetLight.f8c165054d19c966b8c0.png",
     "static/media/decentraBetDark.png": "/static/media/decentraBetDark.533dccdb5ef6fbd052ca.png",
     "index.html": "/index.html",
-    "main.4c412292.css.map": "/static/css/main.4c412292.css.map",
-    "main.e3a6a58a.js.map": "/static/js/main.e3a6a58a.js.map",
+    "main.b2782506.css.map": "/static/css/main.b2782506.css.map",
+    "main.cbf70ed8.js.map": "/static/js/main.cbf70ed8.js.map",
     "774.f19aae7e.chunk.js.map": "/static/js/774.f19aae7e.chunk.js.map",
     "459.ae6e45ae.chunk.js.map": "/static/js/459.ae6e45ae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4c412292.css",
-    "static/js/main.e3a6a58a.js"
+    "static/css/main.b2782506.css",
+    "static/js/main.cbf70ed8.js"
   ]
 }

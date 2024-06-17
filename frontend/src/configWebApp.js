@@ -1,6 +1,6 @@
 export const MULTIBET_ADDRESS = "0xbAa6D18637A92410F30A3A784f129659BafB9a40";
 export const USDC_ADDRESS = "0x243F13935a8a855715c1e06d5dC6f0650354A1F5";
-export const MBT_ADDRESS = "0x8bC9B949D39d0136ea98CF3AF5d770391e76d999";
+export const BCROC_ADDRESS = "0x8bC9B949D39d0136ea98CF3AF5d770391e76d999";
 export const DECENTRABET_ADDRESS = "0x8B07eeFbc756870DF2078CCc18e1E7946720497e";
 export const MULTIBET_ABI = [
   {
@@ -1877,7 +1877,7 @@ export const USDC_ABI = [
     type: "function",
   },
 ];
-export const MBT_ABI = [
+export const BCROC_ABI = [
   {
     inputs: [
       {

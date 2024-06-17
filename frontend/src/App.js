@@ -6,7 +6,7 @@ import Web3 from "web3";
 import "./App.css";
 import "./index.css";
 import { ListBet, Bet, DecentraBet, Classement, Account, ComingSoon, LandingComponent, USDCGetter, Base, NotificationsMobile, LeagueBet } from "./components"
-import { DECENTRABET_ABI, DECENTRABET_ADDRESS, MBT_ABI, MBT_ADDRESS, MULTIBET_ABI, MULTIBET_ADDRESS, USDC_ABI, USDC_ADDRESS } from "./configWebApp";
+import { DECENTRABET_ABI, DECENTRABET_ADDRESS, BCROC_ABI, BCROC_ADDRESS, MULTIBET_ABI, MULTIBET_ADDRESS, USDC_ABI, USDC_ADDRESS } from "./configWebApp";
 import { EthereumProvider } from '@walletconnect/ethereum-provider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import { APP_NAME, APP_LOGO_URL, DEFAULT_ETH_JSONRPC_URL, chainId, MY_SERVER } from "./consts"
@@ -28,7 +28,7 @@ function App() {
     const [defaultAccount, setDefaultAccount] = useState()
     const [connButtonText, setConnButtonText] = useState("Connect Wallet")
     const [usdcAllowed, setUsdcAllowed] = useState()
-    const [mbtAllowed, setMbtAllowed] = useState()
+    const [bcrocAllowed, setBcrocAllowed] = useState()
     const [amountToBet, setAmountToBet] = useState(1)
     const [rightBar, setRightBar] = useState("betMaker")
     const [typeBet, setTypeBet] = useState(0)
@@ -47,10 +47,10 @@ function App() {
     const [web3, setWeb3] = useState(new Web3(DEFAULT_ETH_JSONRPC_URL))
     const [multiBetContract, setMultiBetContract] = useState()
     const [USDCContract, setUSDCContract] = useState()
-    const [MBTContract, setMBTContract] = useState()
+    const [BCROCContract, setBCROCContract] = useState()
     const [decentrabetContract, setDecentrabetContract] = useState()
     const [balanceUSDC, setBalanceUSDC] = useState()
-    const [balanceMBT, setBalanceMBT] = useState()
+    const [balanceBCROC, setBalanceBCROC] = useState()
     const [notificationsServer, setNotificationsServer] = useState([])
     //notificationCenter
     const [unread, setUnread] = useState(0)
@@ -197,10 +197,10 @@ function App() {
         }
     }, []);
     useEffect(() => {
-        if (defaultAccount !== undefined && MBTContract !== undefined && USDCContract !== undefined) {
+        if (defaultAccount !== undefined && BCROCContract !== undefined && USDCContract !== undefined) {
             allowancesSetter()
         }
-    }, [defaultAccount, MBTContract, USDCContract])
+    }, [defaultAccount, BCROCContract, USDCContract])
     useEffect(() => {
         updateMyBets()
         updateMyP2PBets()
@@ -275,7 +275,7 @@ function App() {
             
             setMultiBetContract(new web3.eth.Contract(MULTIBET_ABI, MULTIBET_ADDRESS));
             setUSDCContract(new web3.eth.Contract(USDC_ABI, USDC_ADDRESS));
-            setMBTContract(new web3.eth.Contract(MBT_ABI, MBT_ADDRESS));
+            setBCROCContract(new web3.eth.Contract(BCROC_ABI, BCROC_ADDRESS));
             setDecentrabetContract(new web3.eth.Contract(DECENTRABET_ABI, DECENTRABET_ADDRESS));
             //this.accountChangedHandler(accounts[0])
             setLoading(false);
@@ -391,8 +391,8 @@ function App() {
             //console.log(error)
         }
         try {
-            MBTContract.methods.allowance(defaultAccount, MULTIBET_ADDRESS).call().then((result) => {
-                setMbtAllowed(parseFloat(result) / decimalsConverter(10));// console.log("mbt allowed " + result)
+            BCROCContract.methods.allowance(defaultAccount, MULTIBET_ADDRESS).call().then((result) => {
+                setBcrocAllowed(parseFloat(result) / decimalsConverter(10));// console.log("bcroc allowed " + result)
             })
         }
         catch (error) {
@@ -407,8 +407,8 @@ function App() {
             //console.log(error)
         }
         try {
-            MBTContract.methods.balanceOf(defaultAccount).call().then((result) => {
-                setBalanceMBT(parseFloat(result) / decimalsConverter(10)); //console.log("mbt balance " + result)
+            BCROCContract.methods.balanceOf(defaultAccount).call().then((result) => {
+                setBalanceBCROC(parseFloat(result) / decimalsConverter(10)); //console.log("bcroc balance " + result)
             })
         }
         catch (error) {
@@ -453,7 +453,7 @@ function App() {
         }
         if (typeBet === 2) {
             approveUSDC(betArgs.amountToBet)
-            approveMBT(betArgs.amountToBet)
+            approveBCROC(betArgs.amountToBet)
         }
     }
     const switchTheme = () => {
@@ -738,14 +738,14 @@ function App() {
                 toast.update(approveToast, { render: "Error " + error.code, type: "error", isLoading: false, closeButton: true, autoClose: 7000 });
             })
     }
-    function approveMBT(amount) {
-        let approveToast = toast.loading("Approving MBT...")
-        MBTContract.methods
+    function approveBCROC(amount) {
+        let approveToast = toast.loading("Approving BCROC...")
+        BCROCContract.methods
             .approve(MULTIBET_ADDRESS, amount)
             .send({ from: defaultAccount })
             .once('receipt', (receipt) => {
                 console.log("approve success")
-                toast.update(approveToast, { render: "MBT approved", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
+                toast.update(approveToast, { render: "BCROC approved", type: "success", isLoading: false, closeButton: true, autoClose: 7000 });
             })
             .once('error', (error) => {
                 console.log(error)
@@ -861,11 +861,11 @@ function App() {
 
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Base testLogin={testLogin} setFriendsUpdater={setFriendsUpdater} updateNotificationsFromServer={updateNotificationsFromServer} socket={socket} balanceUSDC={balanceUSDC} balanceMBT={balanceMBT} accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged} unread={unread} setUnread={setUnread} notifications={notificationsServer} setAllNotifsRead={setAllNotifsRead}></Base>}>
+                <Route path="/" element={<Base testLogin={testLogin} setFriendsUpdater={setFriendsUpdater} updateNotificationsFromServer={updateNotificationsFromServer} socket={socket} balanceUSDC={balanceUSDC} balanceBCROC={balanceBCROC} accountChangedHandler={accountChangedHandler} theme={theme} goPanier={goPanier} goMyBets={goMyBets} goMyP2PBets={goMyP2PBets} setMyP2PBets={setMyP2PBets} setMyBets={setMyBets} setTypeBet={updateTypeBet} approve={approve} betContract={multiBetContract} mainVue={mainVue} myP2PBets={myP2PBets} myBets={myBets} setBetArgs={setBetArgs} betFunction={betFunction} vueTopBar={vueTopBar} overlayClass={overlayClass} defaultAccount={defaultAccount} rightBar={rightBar} errorMessage={errorMessage} switchTheme={switchTheme} closeOverlay={closeOverlay} switchOverlayMode={switchOverlayMode} disconnect={disconnect} connButtonText={connButtonText} connectCoinBaseHandler={connectCoinBase} web3={web3} setLogged={setLogged} typeBet={typeBet} betArgs={betArgs} menuMobile={menuMobile} closeMenuMobile={closeMenuMobile} switchMenuMobile={switchMenuMobile} logged={logged} unread={unread} setUnread={setUnread} notifications={notificationsServer} setAllNotifsRead={setAllNotifsRead}></Base>}>
                     <Route path="/" element={<LandingComponent mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></LandingComponent>} />
                     <Route path="/sportbets" element={<ListBet mainVueSetter={updateMainVue} vueSetter={setVueTopBar} theme={theme}></ListBet>} />
-                    <Route path="/bet" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdcContract={USDCContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDC={balanceUSDC} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />
-                    <Route path="/leaguebet" element={<LeagueBet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdcContract={USDCContract} address={defaultAccount} MBTContract={MBTContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDC={balanceUSDC} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></LeagueBet>} />
+                    <Route path="/bet" element={<Bet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdcContract={USDCContract} address={defaultAccount} BCROCContract={BCROCContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDC={balanceUSDC} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></Bet>} />
+                    <Route path="/leaguebet" element={<LeagueBet mainVueSetter={updateMainVue} socket={socket} logged={logged} betContract={multiBetContract} usdcContract={USDCContract} address={defaultAccount} BCROCContract={BCROCContract} amountToBet={amountToBet} setTypeBet={updateTypeBet} setBetArgs={setBetArgs} balanceUSDC={balanceUSDC} setAmountBet={setAmountToBet} joinBetRoom={joinBetRoom} leaveBetRoom={leaveBetRoom} theme={theme}></LeagueBet>} />
                     {/*<Route path="/decentrabet" element={<DecentraBet toast={toast} mainVueSetter={updateMainVue} vueSetter={setVueTopBar} decentrabetContract={decentrabetContract} usdcContract={USDCContract} address={defaultAccount} theme={theme}></DecentraBet>} />*/}
                     <Route path="/rankings" element={<Classement mainVueSetter={updateMainVue} vueSetter={setVueTopBar} address={defaultAccount} theme={theme} logged={logged}></Classement>}></Route>
                     <Route path="/account" element={<Account updateNotificationsFromServer={updateNotificationsFromServer} vueSetter={setVueTopBar} closeMenuMobile={updateMainVue} myP2PBets={myP2PBets} myBets={myBets} betContract={multiBetContract} mainVueSetter={updateMainVue} requestUpdater={requestUpdater} friendsUpdater={friendsUpdater} socket={socket} setLogged={setLogged} web3={web3} address={defaultAccount} logged={logged} theme={theme} switchTheme={switchTheme} ></Account>}></Route>
