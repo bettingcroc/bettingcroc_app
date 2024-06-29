@@ -381,6 +381,10 @@ app.get('/static/:dir/:file', (req, res) => {
   res.sendFile(__dirname + "/app/build/static/" + req.params.dir + "/" + req.params.file)
 })
 
+app.get('/favicon.ico', (req, res) => {
+  console.log('GET /favicon.ico')
+  res.sendFile(__dirname + "/app/build/favicon.ico");
+});
 
 
 app.get('/*', (req, res) => {
