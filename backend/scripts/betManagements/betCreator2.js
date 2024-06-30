@@ -116,10 +116,18 @@ function run() {
 
         function launchBetCreators() {
             betCreator(0);
-            betCreator(1);
-            betCreator(2);
-            betCreator(3);
-            betCreator(4);
+            setTimeout(()=>{
+                betCreator(1);
+            }, 2000);
+            setTimeout(()=>{
+                betCreator(2);
+            }, 4000);
+            setTimeout(()=>{
+                betCreator(3);
+            }, 6000);
+            setTimeout(()=>{
+                betCreator(4);
+            }, 8000);
         }
         async function betCreator(dayIncrementer) {
             let date = dateIterator(dayIncrementer);
