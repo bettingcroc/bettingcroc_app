@@ -16,7 +16,9 @@ const emojis = {
   "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
   "Italy": '🇮🇹',
   "eurocups": "🇪🇺",
-  "Spain": "🇪🇸"
+  "Spain": "🇪🇸",
+  "Brazil": "🇧🇷",
+  "intl" : "🌎"
 }
 const leaguesNames = {
   "nba": "NBA"
