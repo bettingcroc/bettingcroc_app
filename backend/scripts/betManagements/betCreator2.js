@@ -58,7 +58,7 @@ function run() {
                 launchBetCreators()
             }
             catch (e) {
-                console.log(e)
+                console.log("error "+e)
                 run()
             }
         }
@@ -165,6 +165,10 @@ function run() {
                                 blue(`${date} : 0 bets ${sport} to add`);
                             }
                         })
+                    })
+                    .catch(error => {
+                        console.log("error json")
+                        console.log(error)
                     })
                 }
             }
