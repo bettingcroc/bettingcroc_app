@@ -89,10 +89,10 @@ function run() {
                         }
                     }
                     let matchStatus = data.result[0].event_status
-                    let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_final_result
+                    let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_ft_result
                     let scoreHome = score.split('-')[0].replace(' ', '')
                     let scoreAway = score.split('-')[1].replace(' ', '')
-                    if (matchStatus === "Finished" || matchStatus === "After Over Time") {
+                    if (matchStatus === "Finished" || matchStatus === "After Over Time" || matchStatus === "After Pen.") {
                         db_betEnder.update_score(betNumber, scoreHome, scoreAway)
                         if (scoreHome > scoreAway) {
                             winnerBetsToEnd.push(0);
