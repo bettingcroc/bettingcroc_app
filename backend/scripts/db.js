@@ -208,8 +208,13 @@ function sqlToInject() {
 }
 
 
-function getTable(table) {
-	let select = db.prepare(`select * from ` + table);
+function getTable(table,args) {
+	console.log(args)
+	let options=""
+	if (args.status !==null){
+		options = " where status = "+args.status
+	}
+	let select = db.prepare(`select * from ` + table+options);
 	let result = select.all();
 	if (result) return result;
 	return result;
