@@ -65,8 +65,9 @@ function run() {
                     let options = {
                         'method': 'GET'
                     }
-                    console.log(url)
                     let url = `https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
+                    console.log(url)
+
                     let res = await fetch(url, options)
                     let data;
                     try {
@@ -77,6 +78,8 @@ function run() {
                     }
                     if (data.result === undefined) {
                         url = `https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
+                        console.log(url)
+
                         res = await fetch(url, options)
                         try {
                             data = await res.json()
