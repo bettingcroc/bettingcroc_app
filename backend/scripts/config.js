@@ -15,7 +15,7 @@ const NODES_URL_BSCTESTNET = ["https://bsc-testnet.blockpi.network/v1/rpc/public
 const NODE_URL_BSCTESTNET = NODES_URL_BSCTESTNET[2]; //url of bsc testnet node
 const provider = new HDWalletProvider(PRIVATE_KEY_CREATOR, NODE_URL_BSCTESTNET, 0, 10000);
 const web3 = new Web3(provider);
-console.log("setting node to " + web3.currentProvider.engine._providers[3].rpcUrl)
+//console.log("setting node to " + web3.currentProvider.engine._providers[3].rpcUrl)
 const GAS_PRICE = web3.utils.toWei('10', 'gwei') //await web3.eth.getGasPrice()
 //console.log("setting gasPrice to " + GAS_PRICE)
 const NODE_URL_POLYGON = "https://speedy-nodes-nyc.moralis.io/d7cfb9005cec8b6a40236ec8/polygon/mainnet"; // url of polygon mainnet node

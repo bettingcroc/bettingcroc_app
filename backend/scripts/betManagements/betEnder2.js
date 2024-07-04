@@ -65,15 +65,26 @@ function run() {
                     let options = {
                         'method': 'GET'
                     }
+                    console.log(url)
                     let url = `https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
                     let res = await fetch(url, options)
-                    let data = await res.json()
+                    let data;
+                    try {
+                        data = await res.json()
+                    } catch (error) {
+                        console.error('Error parsing response:', error);
+                        // Handle the error appropriately
+                    }
                     if (data.result === undefined) {
                         url = `https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
                         res = await fetch(url, options)
-                        data = await res.json()
+                        try {
+                            data = await res.json()
+                        } catch (error) {
+                            console.error('Error parsing response:', error);
+                            // Handle the error appropriately
+                        }
                     }
-                    console.log(url)
                     let matchStatus = data.result[0].event_status
                     let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_final_result
                     let scoreHome = score.split('-')[0].replace(' ', '')
@@ -89,7 +100,7 @@ function run() {
                         betsToEnd.push(betNumber);
                     }
                     else if (
-                        matchStatus === "Abandoned" || matchStatus === "Cancelled" || matchStatus === "Postponed" 
+                        matchStatus === "Abandoned" || matchStatus === "Cancelled" || matchStatus === "Postponed"
                     ) {
                         db_betEnder.cancelBet(betNumber)
                     }

@@ -5,7 +5,8 @@ const db = new Sqlite(__dirname + '/db.sqlite');
 const socket = io('https://testnet.bettingcroc.com')
 
 
-socket.on('connect', () => console.log("connected to server with " + socket.id))
+socket.on('connect', () => {})//console.log("connected to server with " + socket.id)
+
 socket.on('connect_error', () => {
 	setTimeout(() => socket.connect(), 5000)
 })
