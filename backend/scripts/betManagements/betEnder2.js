@@ -92,7 +92,7 @@ function run() {
                     let score = type === "basketball" ? data.result[0].event_final_result : data.result[0].event_ft_result
                     let scoreHome = score.split('-')[0].replace(' ', '')
                     let scoreAway = score.split('-')[1].replace(' ', '')
-                    if (matchStatus === "Finished" || matchStatus === "After Over Time" || matchStatus === "After Pen.") {
+                    if (matchStatus === "Finished" || matchStatus === "After ET" || matchStatus === "After Pen.") {
                         db_betEnder.update_score(betNumber, scoreHome, scoreAway)
                         if (scoreHome > scoreAway) {
                             winnerBetsToEnd.push(0);
