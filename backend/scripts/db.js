@@ -209,9 +209,9 @@ function sqlToInject() {
 
 
 function getTable(table,args) {
-	console.log(args)
+	console.log(args.status)
 	let options=""
-	if (args.status !==null){
+	if (args.status !==null && args.status !==undefined){
 		options = " where status = "+args.status
 	}
 	let select = db.prepare(`select * from ` + table+options);
