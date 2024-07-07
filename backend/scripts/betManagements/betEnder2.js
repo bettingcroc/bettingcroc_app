@@ -93,6 +93,9 @@ function run() {
                     let matchStatus = data.result[0].event_status
                     let score = type === "basketball" ? data.result[0].event_final_result : isDataFromLiveAPI ? data.result[0].event_final_result : data.result[0].event_ft_result
                     console.log("score : " + score)
+                    if(score === ""){
+                        score = "0-0"
+                    }
                     let scoreHome = score.split('-')[0].replace(' ', '')
                     let scoreAway = score.split('-')[1].replace(' ', '')
                     if (matchStatus === "Finished" || matchStatus === "After ET" || matchStatus === "After Pen.") {
