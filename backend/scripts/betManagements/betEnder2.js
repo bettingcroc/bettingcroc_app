@@ -91,17 +91,19 @@ function run() {
                         }
                     }
                     let matchStatus = data.result[0].event_status
-                    let score = type === "basketball" ? data.result[0].event_final_result : isDataFromLiveAPI ? data.result[0].event_final_result :data.result[0].event_ft_result
-                    console.log("score : "+score)
+                    let score = type === "basketball" ? data.result[0].event_final_result : isDataFromLiveAPI ? data.result[0].event_final_result : data.result[0].event_ft_result
+                    console.log("score : " + score)
                     let scoreHome = score.split('-')[0].replace(' ', '')
                     let scoreAway = score.split('-')[1].replace(' ', '')
                     if (matchStatus === "Finished" || matchStatus === "After ET" || matchStatus === "After Pen.") {
                         db_betEnder.update_score(betNumber, scoreHome, scoreAway)
                         if (scoreHome > scoreAway) {
                             winnerBetsToEnd.push(0);
+                        } else if (scoreHome === scoreAway) {
+                            winnerBetsToEnd.push(1);
                         }
                         else {
-                            winnerBetsToEnd.push(1);
+                            winnerBetsToEnd.push(2);
                         }
                         betsToEnd.push(betNumber);
                     }
