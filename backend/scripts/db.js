@@ -193,10 +193,9 @@ function deleteBet(betNumber) {
 }
 
 
-function updateBetLabel(betNumbers,label) {
-	console.log(typeof label)
-	console.log("update bets set label1='"+label+"' where betNumber in (" + betNumbers+")")
-	let update = db.prepare("update bets set label1='"+label+"' where betNumber in (" + betNumbers+")")
+function updateBetLabel(betNumbers,column,value) {
+	//console.log(`update bets set ${column}='${value}' where betNumber in (${betNumbers})`)
+	let update = db.prepare(`update bets set ${column}='${value}' where betNumber in (${betNumbers})`)
 	update.run()
 }
 
@@ -209,7 +208,7 @@ function sqlToInject() {
 
 
 function getTable(table,args) {
-	console.log(args.status)
+	//console.log(args.status)
 	let options=""
 	if (args.status !==null && args.status !==undefined){
 		options = " where status = "+args.status

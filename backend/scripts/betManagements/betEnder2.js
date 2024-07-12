@@ -62,11 +62,11 @@ function run() {
                 for (let i = 0; i < betsClosed.length; i++) {
                     let betNumber = betsClosed[i]
                     let type = db_betEnder.get_Type(betNumber)
+                    let idApi = db_betEnder.get_idAPI(betNumber)
                     let options = {
                         'method': 'GET'
                     }
-                    let url = `https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
-                    console.log(url)
+                    let url = `https://apiv2.allsportsapi.com/${type}/?met=Livescore&APIkey=${API_KEY}&matchId=${idApi}`
                     let res = await fetch(url, options)
                     let data;
                     try {
@@ -77,10 +77,8 @@ function run() {
                     }
                     let isDataFromLiveAPI = true
                     if (data.result === undefined) {
-                        console.log("dataNoLive")
                         isDataFromLiveAPI = false
                         url = `https://apiv2.allsportsapi.com/${type}/?met=Fixtures&APIkey=${API_KEY}&matchId=${db_betEnder.get_idAPI(betNumber)}`
-                        console.log(url)
 
                         res = await fetch(url, options)
                         try {
@@ -90,33 +88,33 @@ function run() {
                             // Handle the error appropriately
                         }
                     }
+                    console.log(url)
                     let matchStatus = data.result[0].event_status
                     let score = type === "basketball" ? data.result[0].event_final_result : isDataFromLiveAPI ? data.result[0].event_final_result : data.result[0].event_ft_result
-                    console.log("score : " + score)
-                    if(score === ""){
-                        score = "0-0"
-                    }
-                    let scoreHome = score.split('-')[0].replace(' ', '')
-                    let scoreAway = score.split('-')[1].replace(' ', '')
-                    if (matchStatus === "Finished" || matchStatus === "After ET" || matchStatus === "After Pen.") {
-                        db_betEnder.update_score(betNumber, scoreHome, scoreAway)
-                        if (scoreHome > scoreAway) {
-                            winnerBetsToEnd.push(0);
-                        } else if (scoreHome === scoreAway) {
-                            winnerBetsToEnd.push(1);
-                        }
-                        else {
-                            winnerBetsToEnd.push(2);
-                        }
-                        betsToEnd.push(betNumber);
-                    }
-                    else if (
+                    console.log(`bet ${betNumber} apiNumber ${idApi} : matchStatus ${matchStatus} score ${score}`)
+                    if (
                         matchStatus === "Abandoned" || matchStatus === "Cancelled" || matchStatus === "Postponed"
                     ) {
                         db_betEnder.cancelBet(betNumber)
                     }
-                    else {
-                        db_betEnder.update_score(betNumber, scoreHome, scoreAway)
+                    if (score !== "") {
+                        let scoreHome = score.split('-')[0].replace(' ', '')
+                        let scoreAway = score.split('-')[1].replace(' ', '')
+                        if (matchStatus === "Finished" || matchStatus === "After ET" || matchStatus === "After Pen.") {
+                            db_betEnder.update_score(betNumber, scoreHome, scoreAway)
+                            if (scoreHome > scoreAway) {
+                                winnerBetsToEnd.push(0);
+                            } else if (scoreHome === scoreAway) {
+                                winnerBetsToEnd.push(1);
+                            }
+                            else {
+                                winnerBetsToEnd.push(2);
+                            }
+                            betsToEnd.push(betNumber);
+                        }
+                        else {
+                            db_betEnder.update_score(betNumber, scoreHome, scoreAway)
+                        }
                     }
                 }
                 next()
