@@ -91,7 +91,7 @@ function run() {
                     console.log(url)
                     let matchStatus = data.result[0].event_status
                     let score = type === "basketball" ? data.result[0].event_final_result : isDataFromLiveAPI ? data.result[0].event_final_result : data.result[0].event_ft_result
-                    console.log(`bet ${betNumber} apiNumber ${idApi} : matchStatus ${matchStatus} score ${score}`)
+                    console.log(`bet ${betNumber} apiNumber ${idApi} : matchStatus ${matchStatus === "" ? "null" : matchStatus} score ${score=== "" ? "null" : score}`)
                     if (
                         matchStatus === "Abandoned" || matchStatus === "Cancelled" || matchStatus === "Postponed"
                     ) {
