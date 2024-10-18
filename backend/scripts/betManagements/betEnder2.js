@@ -1,4 +1,4 @@
-import { GAS_PRICE, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODES_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, URL_API_BASKETBALL, betClosedABI } from "../config.js"
+import { GAS_PRICE, API_KEY, PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, multiBetAddress, NODE_URL_BSCTESTNET, NODES_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI,  betClosedABI } from "../config.js"
 import db_betEnder from './db_betEnder.js'
 import HDWalletProvider from '@truffle/hdwallet-provider'
 import { logBetEnder } from "../logger.js";

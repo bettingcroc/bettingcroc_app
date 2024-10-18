@@ -47,8 +47,6 @@ const betClosedABI = [
         "type": "uint256"
     }
 ]
-const URL_API_BASKETBALL = 'https://v1.basketball.api-sports.io/games'
-const URL_API_FOOTBALL = 'https://v3.football.api-sports.io/fixtures'
 const leagueFootIDs = {
     "PremierLeague": 39,
     "LaLiga": 140,
@@ -61,4 +59,4 @@ const leagueBasketIDs = {
     "NBASL": 17,
     "WNBA": 13
 }
-export { API_KEY,decentraBetABI, decentraBetAddress, GAS_PRICE, web3, NODES_URL_BSCTESTNET,  PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, betClosedABI, URL_API_BASKETBALL, URL_API_FOOTBALL, leagueFootIDs, leagueBasketIDs, __dirname }
+export { API_KEY,decentraBetABI, decentraBetAddress, GAS_PRICE, web3, NODES_URL_BSCTESTNET,  PRIVATE_KEY_ENDER, PUBLIC_KEY_ENDER, PRIVATE_KEY_CREATOR, PUBLIC_KEY_CREATOR, multiBetAddress, NODE_URL_BSCTESTNET, NODE_URL_POLYGON, multiBetABI, newBetCreatedABI, betClosedABI, leagueFootIDs, leagueBasketIDs, __dirname }
