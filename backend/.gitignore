@@ -7,3 +7,5 @@ logs
 tests
 scripts/db.sqlite
 scripts/legacy
+sol/archives
+scripts/dblegacy.sqlite

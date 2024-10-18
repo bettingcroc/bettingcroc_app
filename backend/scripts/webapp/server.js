@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://testnet.bettingcroc.com"]
+    origin: ["http://localhost:3001", "https://testnet.bettingcroc.com"]
   }
 }) //in case server and client run on different urls
 const leaguebets = JSON.parse(fs.readFileSync(__dirname + '/webapp/leaguebets.json'));
@@ -81,7 +81,7 @@ app.use(session({
 }))
 
 app.use(cors({
-  origin: 'http://localhost:3000', // replace with your frontend URL
+  origin: 'http://localhost:3001', // replace with your frontend URL
   credentials: true
 }));
 

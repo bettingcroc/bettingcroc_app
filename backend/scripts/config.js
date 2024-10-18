@@ -4,11 +4,12 @@ import { fileURLToPath } from 'url';
 import { Web3 } from 'web3';
 import HDWalletProvider from '@truffle/hdwallet-provider'
 
-const API_KEY = "1fde84a793ca4aa19212a5cde02ca5c73eec37be7bf98a6c668c19fd0f83c877"
 
-const PRIVATE_KEY_CREATOR = 'd20947a33bb7e2b8a17b3a29c59f4bcb86131ede571fbf150aa0884e5fa48fa9'
+const keys = JSON.parse(fs.readFileSync('keys.json', 'utf8'));
+const API_KEY = keys["API_KEY"]
+const PRIVATE_KEY_CREATOR = keys["PRIVATE_KEY_CREATOR"]
+const PRIVATE_KEY_ENDER = keys["PRIVATE_KEY_ENDER"]
 const PUBLIC_KEY_CREATOR = "0x6d3DCcF2C028766D26a5382Fce9d898e75E6D629"
-const PRIVATE_KEY_ENDER = '8b2e6d2f97bc806b85d17ecd3eae0a8dd24b4d40c96fb6ebebaf2835ce6714fb'
 const PUBLIC_KEY_ENDER = "0x1deecf77dD59A35c9f68cf507d79DDbd8524fa65"
 const multiBetAddress = "0xbAa6D18637A92410F30A3A784f129659BafB9a40"
 const NODES_URL_BSCTESTNET = ["https://bsc-testnet.blockpi.network/v1/rpc/public", "https://bsc-testnet.publicnode.com", "https://data-seed-prebsc-2-s1.bnbchain.org:8545", "https://bsc-testnet.public.blastapi.io", "https://bsc-testnet.blockpi.network/v1/rpc/public", "https://data-seed-prebsc-1-s1.bnbchain.org:8545"]

@@ -7,8 +7,9 @@ const web3 = new Web3(new Web3.providers.HttpProvider(NODE_URL_BSCTESTNET))
 const decentraBetContract = new web3.eth.Contract(decentraBetABI, decentraBetAddress);
 const db = new Sqlite(__dirname + '/db.sqlite');
 
-
 db.prepare('CREATE TABLE IF NOT EXISTS Bets (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, status INTEGER, type TEXT, country TEXT, league TEXT, idAPI INTEGER, scoreHome INTEGER, scoreAway INTEGER)').run();
+
+db.prepare('CREATE TABLE IF NOT EXISTS Fixtures (betNumber INTEGER PRIMARY KEY, options INTEGER, optionsArray TEXT, date INTEGER, status INTEGER, type TEXT, country TEXT, league TEXT, idAPI INTEGER, scoreHome INTEGER, scoreAway INTEGER)').run();
 db.prepare('CREATE TABLE IF NOT EXISTS Decentrabets (betNumber INTEGER PRIMARY KEY, description TEXT, link TEXT)').run();
 
 

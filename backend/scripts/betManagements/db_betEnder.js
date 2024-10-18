@@ -2,7 +2,7 @@ import { io } from "socket.io-client"; import Sqlite from 'better-sqlite3'
 import { __dirname } from "../config.js";
 
 const db = new Sqlite(__dirname + '/db.sqlite');
-const socket = io('https://testnet.bettingcroc.com')
+const socket = io('http://localhost:4000')
 
 
 socket.on('connect', () => {})//console.log("connected to server with " + socket.id)
