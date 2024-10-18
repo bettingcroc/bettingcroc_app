@@ -176,3 +176,4 @@ Project Link: [https://github.com/bettingcroc/bettingcroc_app](https://github.co
 [Node.js-url]: https://nodejs.org
 [Solidity]: https://img.shields.io/badge/Solidity-e6e6e6?style=for-the-badge&logo=solidity&logoColor=black
 [Solidity-url]: https://soliditylang.org/
+[product-screenshot]: https://achilledorier.com/static/media/bettingcroc2.abbdc0b164ebaa6c868b.png
