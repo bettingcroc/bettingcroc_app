@@ -172,7 +172,7 @@ Project Link: [https://github.com/bettingcroc/bettingcroc_app](https://github.co
 [license-url]: https://github.com/achille1017/bettingcroc_app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/achille-dorier
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: https://achilledorier.com/static/media/bettingcroc2.abbdc0b164ebaa6c868b.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
