@@ -35,6 +35,8 @@
   <p align="center">
     BettingCroc is my biggest personal project until now. It is a web3 dapp allowing users to bet on sport events with an unique system called Pools Payout Mechanism (PPM) to ensure funding and distribution of winnings. The platform also allows players to create their own bets among friends or open to the public, known as peer-to-peer (P2P) bets. Project launch failed but it was a great way to learn about web3, project management and more.
     <br />
+    <br />
+    <br />
     <a href="/whitepaper.pdf"><strong>Explore the whitepaper »</strong></a>
     <br />
     <br />
@@ -145,9 +147,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@achilledev](https://twitter.com/achilledev) - achille.dorier@protonmail.com
+Achille Dorier - [@achilledev](https://twitter.com/achilledev) - achille.dorier@protonmail.com
 
-Project Link: [https://github.com/achille1017/bettingcroc_app](https://github.com/achille1017/bettingcroc_app)
+Project Link: [https://github.com/bettingcroc/bettingcroc_app](https://github.com/bettingcroc/bettingcroc_app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
