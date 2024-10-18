@@ -82,12 +82,8 @@
 ### Built With
 
 * [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Node.js][Node.js]][Node.js-url]
+* [![Solidity][Solidity]][Solidity-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -189,7 +185,10 @@ Project Link: [https://github.com/bettingcroc/bettingcroc_app](https://github.co
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
-
+[Node.js]: https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white
+[Node.js-url]: https://nodejs.org
+[Solidity]: https://img.shields.io/badge/Solidity-e6e6e6?style=for-the-badge&logo=solidity&logoColor=black
+[Solidity-url]: https://soliditylang.org/
 
 0 = open
 1 = closed
