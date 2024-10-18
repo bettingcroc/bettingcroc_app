@@ -27,7 +27,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/bettingcroc/bettingcroc_app">
-    <img src="frontend/src/assets/home.png" alt="Logo" width="80" height="80">
+    <img src="frontend/src/home.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">BettingCroc Application</h3>
